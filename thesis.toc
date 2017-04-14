@@ -1,0 +1,22 @@
+\select@language {polish}
+\contentsline {paragraph}{}{1}{section*.1}
+\select@language {english}
+\contentsline {paragraph}{}{1}{section*.2}
+\contentsline {paragraph}{}{1}{section*.3}
+\select@language {polish}
+\contentsline {chapter}{\numberline {1}Wst\k ep}{5}{chapter.1}
+\contentsline {paragraph}{}{5}{section*.5}
+\contentsline {chapter}{\numberline {2}Eksperymenty i testy }{6}{chapter.2}
+\contentsline {chapter}{\numberline {3}Przegl\k ad znanych metod}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Modu\IeC {\l } administratora}{7}{section.3.1}
+\contentsline {paragraph}{}{7}{section*.6}
+\contentsline {subsection}{\numberline {3.1.1}Edycja menu nawigacyjnego}{8}{subsection.3.1.1}
+\contentsline {chapter}{\numberline {4}Architektura systemu}{10}{chapter.4}
+\contentsline {paragraph}{}{10}{section*.7}
+\contentsline {section}{\numberline {4.1}Projekt podstron}{12}{section.4.1}
+\contentsline {chapter}{\numberline {5}S\IeC {\l }ownik poj\k e\'c}{13}{chapter.5}
+\contentsline {paragraph}{}{13}{section*.8}
+\contentsline {chapter}{\numberline {A}Instrukcja u\.zytkownika}{15}{appendix.A}
+\contentsline {paragraph}{}{15}{section*.10}
+\contentsline {chapter}{\numberline {B}Testy systemu}{17}{appendix.B}
+\contentsline {paragraph}{}{17}{section*.11}
