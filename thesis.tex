@@ -105,15 +105,8 @@ podpis promotora & \hspace*{100pt} & podpis autora
 
 \begin{abstract}
 \paragraph{}
-OPISAÆ ALLEGRO
+W niniejszej pracy zajmujê siê dokonujê metod wyszukiwania podobnych dokumentów nale¿¹cych do zadanego zbioru artyku³ów. Problem zaczerpniêty jest z serwisu aukcyjnego Allegro, który posiada dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. Dzia³ ten posiada system rekomendacji dopasowuj¹cy do danego artyku³u listê artyku³ów, które s¹ do niego najbardziej podobne. W swojej pracy staram siê przeanalizowaæ i zaaplikowaæ znane metody wyszukiwania podobnych dokumentów tekstowych. Skupiam siê szczególnie na metodach opartych o semantyczn¹ analizê tekstu.
 
-Tematem mojej pracy magisterskiej jest stworzenie mechanizmu dopasowuj¹cego podobne do danego artyku³y tekstowe. Problem zaczerpniêtty jest z serwisu Allegro, gdzie istnieje dzia³ artyku³ów opisuj¹cych zagadnienia zwi¹zane z tym serwisem. W celu zachêcenia u¿ytkownika do dalszej lektury artyku³ów stosuje siê mechanizm rekomendacji podobnych artyku³ów. Celem niniejszej pracy jest zbadanie i udoskonalenie obecnego w serwisie mechanizmu generowania rekomendacji. 
-
-Przy wykonywaniu operacji na tekœcie korzysta³em g³ównie z silnika wyszukiwania Elasticsearch oraz w³asnorêcznie pisanych skryptów w jêzyku Python wykorzystuj¹cych liczne specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
-
-
-
-W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji jest, aby u¿ytkownik odwiedza³ kolejne podstrony serwisu, co wprost zwiêksza szansê na dokonanie przez niego transakcji.
 \end{abstract}
 
 \begin{otherlanguage}{english}
@@ -128,15 +121,91 @@ W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji 
 %-----------Pocz¹tek czêœci zasadniczej-----------
 
 \chapter{Wstêp}
+
+
+
+Allegro jest najwiêksz¹ dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu. Allegro pobiera prowizjê za dokonanie sprzeda¿y za swoim poœrednictwem.
+
+Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia³ zajmuj¹cy siê publikacj¹ artyku³ów opisuj¹cych produkty wystawiane za poœrednictwem serwisu. Ma to na celu pomoc u¿ytkownikom przy wyborze interesuj¹cego ich produktu.
+
+W celu zachêcenia u¿ytkownika do zapoznania siê z treœci¹ kolejnych artyku³ów zastosowany zosta³ tu system rekomendacji przyporz¹dkowuj¹cy danemu artyku³owi listê powi¹zanych artyku³ów. Kryterium mówi¹cym, czy artyku³y s¹ powi¹zane jest tutaj jedynie treœæ artyku³ów a nie wczeœciejsze zachowanie u¿ytkownika.
+
+
+Tematem mojej pracy magisterskiej jest stworzenie mechanizmu dopasowuj¹cego podobne do danego artyku³y tekstowe. Problem zaczerpniêtty jest z serwisu Allegro, gdzie istnieje dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W celu zachêcenia u¿ytkownika do dalszej lektury artyku³ów stosuje siê mechanizm rekomendacji podobnych artyku³ów. Celem niniejszej pracy jest zbadanie i udoskonalenie obecnego w serwisie mechanizmu generowania rekomendacji. 
+
+Przy wykonywaniu operacji na tekœcie korzysta³em g³ównie z silnika wyszukiwania Elasticsearch oraz w³asnorêcznie pisanych skryptów w jêzyku Python wykorzystuj¹cych liczne specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
+
+
+
+W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji jest, aby u¿ytkownik odwiedza³ kolejne podstrony serwisu, co wprost zwiêksza szansê na dokonanie przez niego transakcji.
 \paragraph{}gtdfsgsdfgsdfg
 \chapter{Eksperymenty i testy }
 \chapter{Przegl¹d znanych metod}
 
-\section{Systemy rekomendacji}
-\subsection{Filtrowanie kolaboratywne}
-\subsection{Rekomendacje oparte na treœci}
+W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i technik. Nale¿¹ one do takich obszarów, jak: systemu rekomendacji, przetwarzanie jêzyka naturalnego, 
 
-\
+\section{Systemy rekomendacji}
+
+Systemy rekomendacji to narzêdzia i techniki maj¹ce na celu zasugerowaæ u¿ytkownikowi przedmioty. Sugestie te odnosz¹ siê do ró¿nych procesów podejmowania decyzji takich jak np. które artyku³y kupiæ, jakiej muzyki s³uchaæ czy te¿ które wiadomoœci czytaæ. ,,Przedmiot'' jest tutaj ogólnym pojêciem oznaczaj¹cym coœ, co system poleca u¿ytkownikowi. \cite{handbook} 
+
+Przy wci¹¿ wzrastaj¹cej iloœci danych u¿ytkownicy serwisów internetowych czêsto nie s¹ w stanie dotrzeæ do informacji, która ich interesuje. Jest to pole do rozwoju zautomatyzowanych systemów rekomendacyjnych polecaj¹cych u¿ytkownikom treœci, które mog¹ ich zainterezowaæ. Dzia³alnoœæ tekiego systemu daj zysk zarówn u¿ytkownikowi, pozwalaj¹c mu dotrzeæ do informacji, której móg³by samodzielnie nie odszukaæ, albo wrêcz nie wiedzieæ, i¿ taka informacja istnieje, jak i dla w³aœcicieli serwisów internetowych, którym zale¿y, by przyci¹gn¹æ do siebie u¿ytkowników, aby ci w jak najwiêkszym stopniu korzystali z ich us³ug.
+
+Sposoby dzia³ania systemów rekomendacji mo¿na podzieliæ na ró¿ne sposoby, spoœród których wyodrêbniæ mo¿na dwa najszerzej u¿ywane. S¹ to: filtrowanie kolaboratywne (collaborative filtering) i filtrowanie oparte na treœci (content-based filtering).
+
+\subsection{Filtrowanie kolaboratywne (collaborative filtering)}
+Technika ta opiera siê na spostrze¿eniu, i¿ u¿ytkownicy o podobnych preferencjach zachowuj¹ siê podobnie. St¹d je¿eli u¿ytkownik zachowuje siê podobnie do zaobserwowanej wczeœniej grupy u¿ytkowników, mo¿na przewidzieæ jego przeferencje. Istotn¹ zalet¹ tej metody jest fakt, i¿ nie zale¿y ona od dziedziny, w której ulokowany jest system rekomendacji (w przeciwieñstwie do rekomendacji opartych na treœci), a jedynie od zachowañ u¿ytkowników.
+\subsection{Filtrowanie oparte na treœci (content-based filtering)}
+W technice tej przedmioty polecane u¿ytkownikowi zale¿¹ od innych przedmiotów, na temat których stwierdzono, ¿e u¿ytkownik siê nimi interesuje. Mog¹ siê one opieraæ np. na podobieñstwie przedmiotów: je¿eli u¿ytkownik ,,lubi'' przedmiot A, który jest podobny do przedmiotu ,,B'' to mo¿na spodziewaæ siê, ¿e równie¿ przedmiot B zainteresuje u¿ytkownika. Technika ta jest mocno zale¿na od dziedziny rekomendowanych przedmiotów, gdy¿ wymaga wprowadzenia pewnej miary podobieñstwa miêdzy nimi. St¹d jest trudniejsza do zastosowania, ale daje te¿ mo¿liwoœci nieosi¹galne dla filtrowania kolaboratywnego.
+
+Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y podobne do aktualnie odwiedzanego, co wprost wi¹¿e siê z metodami u¿ywanymi w technice filtrowania opartego na treœci.
+
+\section{Information retrieval}
+\section{Techniki przetwarzania jêzyka naturalnego}
+
+Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami - dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym - zrozumia³ym dla cz³owieka - który mówi¹c potocznie niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary).
+
+W poni¿szych paragrafach opisujê techniki przetwarzania jêzyka naturalnego u¿yte przeze mnie wprost lub 
+
+W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce
+
+
+
+Korpus $C$: zbiór dokumentów $d$,\\
+Dokument $d$: skoñczony ci¹g zdañ $s$,\\
+Zdanie $s$: skoñczony ci¹g s³ów $w$,\\
+S³owo $w$: skoñczony ci¹g znaków $c$,\\
+W celu uproszczenia zapisu: $w \in d \equiv \exists_{s \in d}\ w \in s$,\\
+S³ownik zbudowany na korpusie $C$: $V = {w\ |\ \exists_{d \in C}\ w \in d}$.\\
+
+
+\subsection{Bag-of-words}\\
+\\
+Bag-of-words (worek s³ów) jest metod¹ reprezentacji tekstu jako zbioru zawartych w nim s³ów niezachowuj¹cego kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Jako korpus bêdê nazywaæ zbiór przetwarzanych dokumentów, natomiast jako s³ownik zbiór s³ów 
+
+
+
+Bag-of-words mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
+$C$: korpus\\
+$m = |C|$: liczba dokumentów w korpusie $C$\\
+$V$: s³ownik zbudowany na $C$\\
+$n = |V|$: liczba s³ów w $V$\\
+$v_i \in \mathbb{R}^n$, gdzie $i \in 1, 2, ..., n$ wektor reprezentuj¹cy dokument $d_i \in C$\\
+$v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
+
+Ka¿dy dokument reprezentowany jest przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TFIDF informuje o czêstoœci wyst¹pienia termów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego termu i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
+
+
+ W celu sprowadzenia korpusu do reprezentacji bag-of-words 
+
+
+Technika ta jest stosunkowo prosta jest jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu.
+\subsection{Term frequency - inverted document frequency}
+TF-IDF(wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Formalny opis metody jest podobny jak w przypadku BOW, z t¹ ró¿nic¹, ¿e
+$v_{ij} = tfidf_{ij} = $, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
+\subsection{Latent semantic indexing}
+\subsection{Latent Dirichlet allocation}
+\subsection{Word2vec}
+\subsection{Word mover's distance}
 
 \section{Modu³ administratora}
 \paragraph{}Zawiera zestaw funkcjonalnoœci zwi¹zanych z zarz¹dzaniem systemem oraz elementami, które pozostaj¹ widoczne na wszystkich podstronach. 
@@ -155,8 +224,13 @@ G³ówny scenariusz:
 \item Administrator wybiera spoœród listy stron te, do których odnoœniki maj¹ znajdowaæ siê w g³ównym menu.
 \item System zapisuje zmiany.
 \end{enumerate}
-\chapter{Architektura systemu}
-\paragraph{}Po przeanalizowaniu problemu zajêliœmy siê projektowaniem systemu. Bazuj¹c na posiadanej wiedzy zdecydowaliœmy wykonaæ wielowarstwow¹ aplikacjê internetow¹ opart¹ na technologii .NET \cite{dotnet}. Wybór technologii by³ zdeterminowany jej dobr¹ przez nas znajomoœci¹, co pozwoli³o nam zaoszczêdziæ czas na naukê.
+\chapter{Dane}
+\paragraph{}
+Dane, na których testowane by³y opisywane w niniejszej pracy metody otzryma³em dziêki ¿yczliwoœci serwisu e-commerce Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
+
+\paragraph{}
+Otrzymane przeze mnie dane to nieco ponad 20000 dokumentów zapisanych w formacie JSON zawieraj¹cych g³ówn¹ zawartoœæ artyku³u oraz metadane, m.in: id, s³owa kluczowe, kategoria, id autora, tytu³, nag³ówek.
+
 \begin{enumerate}
 \item Warstwa dostêpu do danych (Data Access Layer, DAL)
 \item Warstwa logiki biznesowej (Business Logic Layer, BLL)
@@ -192,7 +266,10 @@ G³ówny scenariusz:
 \end{itemize}
 \begin{thebibliography}{11}
 %\url{}
-\bibitem[1]{dotnet}.NET \url{https://www.microsoft.com/net} (12.01.2016)
+\bibitem[1]{handbook}Francesco Ricci, Lior Rokach, Bracha Shapira,
+\emph{Introduction to Recommender Systems Handbook},
+Springer,
+2011
 \bibitem[2]{aspnet}ASP.NET \url{http://www.asp.net} (12.01.2016)
 \bibitem[3]{aspnetmvc}ASP.NET MVC \url{http://www.asp.net/mvc} (12.01.2016)
 \bibitem[4]{iis}IIS \url{https://www.iis.net/} (12.01.2016)
