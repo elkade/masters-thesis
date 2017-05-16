@@ -122,24 +122,54 @@ W niniejszej pracy zajmujê siê dokonujê metod wyszukiwania podobnych dokumentów 
 
 \chapter{Wstêp}
 
+\section{}
 
 
-Allegro jest najwiêksz¹ dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu. Allegro pobiera prowizjê za dokonanie sprzeda¿y za swoim poœrednictwem.
-
-Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia³ zajmuj¹cy siê publikacj¹ artyku³ów opisuj¹cych produkty wystawiane za poœrednictwem serwisu. Ma to na celu pomoc u¿ytkownikom przy wyborze interesuj¹cego ich produktu.
-
-W celu zachêcenia u¿ytkownika do zapoznania siê z treœci¹ kolejnych artyku³ów zastosowany zosta³ tu system rekomendacji przyporz¹dkowuj¹cy danemu artyku³owi listê powi¹zanych artyku³ów. Kryterium mówi¹cym, czy artyku³y s¹ powi¹zane jest tutaj jedynie treœæ artyku³ów a nie wczeœciejsze zachowanie u¿ytkownika.
+Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê w takich polach jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Pozwalaj¹ one u¿ytkownikowi  Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron to konkretnego u¿ytkownika.Mo¿e to prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Daj¹ obopuln¹ korzyœæ u¿ytkownikowi oraz w³aœcicielowi serwisu internetowego.
 
 
-Tematem mojej pracy magisterskiej jest stworzenie mechanizmu dopasowuj¹cego podobne do danego artyku³y tekstowe. Problem zaczerpniêtty jest z serwisu Allegro, gdzie istnieje dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W celu zachêcenia u¿ytkownika do dalszej lektury artyku³ów stosuje siê mechanizm rekomendacji podobnych artyku³ów. Celem niniejszej pracy jest zbadanie i udoskonalenie obecnego w serwisie mechanizmu generowania rekomendacji. 
+
+
+Tematem mojej pracy magisterskiej jest stworzenie mechanizmu dopasowuj¹cego podobne do danego artyku³y tekstowe. Problem zaczerpniêty jest z serwisu Allegro, gdzie istnieje dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W celu zachêcenia u¿ytkownika do dalszej lektury artyku³ów stosuje siê mechanizm rekomendacji podobnych artyku³ów. Celem niniejszej pracy jest zbadanie i udoskonalenie obecnego w serwisie mechanizmu generowania rekomendacji. 
 
 Przy wykonywaniu operacji na tekœcie korzysta³em g³ównie z silnika wyszukiwania Elasticsearch oraz w³asnorêcznie pisanych skryptów w jêzyku Python wykorzystuj¹cych liczne specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
 
+W swojej pracy korzystam zarówno z metod wyszukiwania w teœcie 
 
+
+
+\section{Rekomendacje artyku³ów tekstowych w Allegro}
+
+Allegro jest najwiêksz¹ dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Posiada ponad 20 mln zarejestrowanych klientów. Ka¿dego dnia na Allegro sprzedaje siê ponad 870 tysiêcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu. Allegro pobiera prowizjê za dokonanie sprzeda¿y za swoim poœrednictwem.
+
+Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia³ zajmuj¹cy siê publikacj¹ artyku³ów opisuj¹cych produkty wystawiane za poœrednictwem serwisu. Ma to na celu pomoc u¿ytkownikom przy wyborze interesuj¹cego ich produktu.
+
+Po to, aby zachêciæ u¿ytkowników do zapoznania siê z treœci¹ kolejnych artyku³ów, zastosowany zosta³ tu system rekomendacji przyporz¹dkowuj¹cy danemu artyku³owi listê powi¹zanych artyku³ów. Kryterium mówi¹cym, czy artyku³y s¹ powi¹zane jest tutaj jedynie treœæ artyku³ów a nie wczeœciejsze zachowanie u¿ytkownika.
+
+W celu unikniêcia nieporozumieñ pragnê tutaj zaznaczyæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
+
+Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz pewnych metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczwg³óy i nieodbiegaj¹ od informacji publicznie dostêpnych przez stronê allegro.pl.
+
+W niniejszej pracy wykonujê eksperymenty wykorzystuj¹c znane metody okreœlania podobieñstw pomiêdzy dokumentami, które adaptujê do zbioru dokumentów, które otrzyma³em od serwisu Allegro.
 
 W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji jest, aby u¿ytkownik odwiedza³ kolejne podstrony serwisu, co wprost zwiêksza szansê na dokonanie przez niego transakcji.
-\paragraph{}gtdfsgsdfgsdfg
-\chapter{Eksperymenty i testy }
+
+Obecnie wykorzystywana metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON.
+
+Metoda ta ogranicza siê jednak jedynie do wyszukiwania tekstowego pomijaj¹c zagadnienia semantyczne. Znaczy to, ¿e je¿eli dwa teksty opisuj¹ ten sam temat, ale u¿ywaj¹ to tego ró¿nych s³ów, np. synonimów, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siê stwierdziæ podobieñstwa miêdzy tymi tekstami, mimo, i¿ takowe istnieje.
+
+St¹d w mojej pracy postanowi³em wykonaæ eksperymenty z metodami u¿ywaj¹cymi semantycznej analizy tekstu, aby oceniæ, czy daj¹ one lepsze rezultaty od obecnie stosowanej metody.
+
+W niniejszej pracy skupiam si g³ównie na podejœciu word2vec z racji tego, i¿ powsta³ niedawno.
+
+
+Dochodzenie nowych rekomendacji - nie jest tematem pracy
+-------------------
+
+
+
+\section{Struktura pracy}
+Rozdzia³ 2 opisuje znane metody zaadaptowane przez mnie w eksperymentach. 
 \chapter{Przegl¹d znanych metod}
 
 W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i technik. Nale¿¹ one do takich obszarów, jak: systemu rekomendacji, przetwarzanie jêzyka naturalnego, 
@@ -178,8 +208,7 @@ W celu uproszczenia zapisu: $w \in d \equiv \exists_{s \in d}\ w \in s$,\\
 S³ownik zbudowany na korpusie $C$: $V = {w\ |\ \exists_{d \in C}\ w \in d}$.\\
 
 
-\subsection{Bag-of-words}\\
-\\
+\subsection{Bag-of-words}
 Bag-of-words (worek s³ów) jest metod¹ reprezentacji tekstu jako zbioru zawartych w nim s³ów niezachowuj¹cego kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Jako korpus bêdê nazywaæ zbiór przetwarzanych dokumentów, natomiast jako s³ownik zbiór s³ów 
 
 
@@ -200,15 +229,21 @@ Ka¿dy dokument reprezentowany jest przez wektor, sk³adaj¹cy siê z wag s³ów wystê
 
 Technika ta jest stosunkowo prosta jest jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu.
 \subsection{Term frequency - inverted document frequency}
-TF-IDF(wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Formalny opis metody jest podobny jak w przypadku BOW, z t¹ ró¿nic¹, ¿e
-$v_{ij} = tfidf_{ij} = $, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
+TF-IDF(wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
+$v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
+$tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
+$idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$
+W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 \subsection{Latent semantic indexing}
-\subsection{Latent Dirichlet allocation}
-\subsection{Word2vec}
-\subsection{Word mover's distance}
 
-\section{Modu³ administratora}
-\paragraph{}Zawiera zestaw funkcjonalnoœci zwi¹zanych z zarz¹dzaniem systemem oraz elementami, które pozostaj¹ widoczne na wszystkich podstronach. 
+\subsection{Latent Dirichlet allocation}
+
+
+
+\subsection{Word2vec}
+
+\subsection{Word mover's distance}
+\paragraph{} 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.9\textwidth]{img/useCaseAdmin.png}
@@ -216,43 +251,79 @@ $v_{ij} = tfidf_{ij} = $, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumen
   %\label{fig:warstwy}
 \end{figure}
 \subsection{Edycja menu nawigacyjnego}
-Inicjator: administrator\\
-Cel: umo¿liwienie szybkiego dostêpu do najwa¿niejszych elementów systemu\\
-G³ówny scenariusz: 
 \begin{enumerate}
 \item Administrator zg³asza chêæ edycji menu nawigacyjnego.
-\item Administrator wybiera spoœród listy stron te, do których odnoœniki maj¹ znajdowaæ siê w g³ównym menu.
-\item System zapisuje zmiany.
 \end{enumerate}
 \chapter{Dane}
-\paragraph{}
 Dane, na których testowane by³y opisywane w niniejszej pracy metody otzryma³em dziêki ¿yczliwoœci serwisu e-commerce Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
+
+NApisaæ, ¿e w korpusie znajduje siê wiele specyficznych s³ów bran¿owych
+
+
+
+Opisaæ dok³adnie pola jsona
+Napisaæ o koniecznoœci oczyszczenia tekstu z [werew]
+
+W sk³ad faktycznej treœci artyku³u wchodz¹ trzy pola odpowiadaj¹ce za: zawartoœæ, tytu³ i nag³ówek. Pozosta³e pola wykorzystywane przez mnie pola to: s³owa kluczowe i lista kategorii.
+
+Trudnoœci wynikaj¹ce z przetwarzania jêzyka polskiego
+
+Liczba s³ów w korpusie
+S³owa rzadkie itp
+Rzeczy, które pomijam mo¿na zaznaczyæ, ¿e s¹ tematem osobnych badañ
+
+Ewaluacja rankingów jest zadaniem trudniejszym od oceny np. klasyfikatora.
+
+Jaka by³aby sytuacja idealna - w której ocena nie by³aby problemem
+
+Wspomnieæ, ze kategorie s¹ drzewiaste
+
+Ka¿demu artyku³owi przypisana jest lista kategorii (zawieraj¹cych siê w sobie pod k¹tem szczegó³owoœci) klasyfikuj¹cych artyku³ pod k¹tem poruszanej tematyki. Wszystkie kategorie tworz¹ strukturê drzewiast¹. Jest to wa¿ny element danych poniewa¿ pozwala w póŸniejszym etapie na dokonanie ewaluacji rozwi¹zania.
+
+Jakoœæ danych: czy nie maluk
+Jakoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu jest zawsze wype³nione - brak jest wartoœci NULL.
+
 
 \paragraph{}
 Otrzymane przeze mnie dane to nieco ponad 20000 dokumentów zapisanych w formacie JSON zawieraj¹cych g³ówn¹ zawartoœæ artyku³u oraz metadane, m.in: id, s³owa kluczowe, kategoria, id autora, tytu³, nag³ówek.
 
-\begin{enumerate}
-\item Warstwa dostêpu do danych (Data Access Layer, DAL)
-\item Warstwa logiki biznesowej (Business Logic Layer, BLL)
-\item Warstwa interfejsu u¿ytkownika (User Interface, UI)
-\begin{enumerate}
-	\item Czêœæ serwerowa
-	\item Czêœæ kliencka
-\end{enumerate}
-\end{enumerate}
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=0.9\textwidth]{img/warstwy.png}
-  \caption{Diagram przedstawiaj¹cy zarys architektury systemu}
-  %\label{fig:warstwy}
-\end{figure}
-\section{Projekt podstron}
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=0.9\textwidth]{img/drzewo.png}
-  \caption{Diagram przedstawiaj¹cy drzewo stron systemowych.}
-  %\label{fig:drzewo}
-\end{figure}
+
+\section{Metody ewaluacji}
+
+Ewaluacja
+
+W celu porównania stosowanych metod wyznaczania podobieñstwa miêdzy artyku³ami konieczna jest formalizacja pewnej miary tego podobieñstwa.
+
+Ewaluacja rankingu, którym niew¹dfgdg .. jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowalibyœmy obiektywn¹ miar¹ podobieñstwa pomiêdzy N artyku³ami (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to N artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza mo¿liwoœciami autora.
+
+Praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych systemach s¹ tzw. testy A/B polegaj¹ce na podziale u¿ytkowników na grupy i zaaplikowaniu ka¿dej grupie innego rozwi¹zania. Nastêpnie mierzone s¹ pewne wskaŸniki wœród ka¿dej grupy (w naszym przypadku np. liczba klikniêæ w artyku³y rekomendowane) i spoœród zgromadzonych wyników wybierane jest rozwi¹zanie najlepsze.
+
+Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych.
+
+Miara 1: jak daleko pod wzglêdem kategorii jesteœmy
+
+Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych artyku³ów jest ich odleg³oœæ ww wczeœniej wspomnianym drzewie kategorii: im mniejszy dystans pomiêdzy liœæmi drzewa, tym wiêksze podobieñstwo pomiêdzy artyku³ami. Zalet¹ miary jest fakt, i¿ przypisanie artyku³u do kategorii zosta³o wykonane przez autora, którego mo¿na okreœliæ ekspertem w danej dziedzinie, st¹d przynale¿noœæ artyku³u do danej kategorii jest obiektywnie uzasadniona. Kolejn¹ zalet¹ tej miary (w odró¿nieniu od nastêpnej) jest fakt, i¿ mo¿na j¹ zastosowaæ automatycznie - wiedza ekspercka jest ju¿ zapisana w danych artyku³ów. Nale¿y zaznaczyæ tu jednak, ¿e miara nie jest idealna - ka¿dy artyku³ nale¿y do tylko jednego liœcia drzewa kategorii. St¹d artyku³ poruszaj¹cy zagadnienia z ró¿nych obszarów, który mo¿na by przypisaæ dwóm stosunkowo odleg³ym kategoriom A i B, zostanie przypisany tylko do jednej kategorii, np. A. Miara poka¿e wtedy du¿¹ odleg³oœæ od artyku³ów z kategorii B, co nie jest prawd¹.
+
+Miara 2: subiektywna - trzeba wymyœliæ jak¹œ punktacjê
+
+Kolejn¹ wprowadzon¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny ewaluacja powinna byæ dokonana przez wiêcej ni¿ jedn¹ osobê. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które poddane zostan¹ ocenie.
+
+Miara 3: kliki
+
+\section{Wyniki badañ}
+\section{Dalsze badania}
+Dalsze badania.
+
+Niniejsza praca nie wyczerpuje sposobów wyboru artyku³ów podobnych. 
+
+Nie wszystkie pola zawarte w strukturze zosta³y wykorzystane: autor
+
+Przed astosowaniem metod wyznaczania podobieñstwa wykona³em przetwarzanie wstêpne dokumentów, które mo¿na przeprowadziæ równie¿ na inne sposoby. Jest to temat osobnych badañ.
+
+Zdajê sobie sprawê z niedoskona³oœci zastosowanych miar...
+
+Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardziej podobnych. Warto tutaj zaznaczyæ ró¿nicê pomiêdzy tematyk¹ pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artyku³y, które mo¿na uznaæ za dobre rekomandacje, tj. takie, które przynosz¹ przedsiêbiorstwu najwiêkszy zysk, wcale nie mus¿ byæ podobne do danego. Powszechnym zjawiskiem jest wzbogacanie rekomandacji o przedmioty niepodobne do danego, a pozwalaj¹ce u¿ytkownikowi na poznanie osobnej kategorii przedmiotów, która mo¿e go zainteresowaæ a tym samym przyci¹gn¹æ do serwisu.
+
 
 %-----------Koniec czêœci zasadniczej-----------
 \chapter{S³ownik pojêæ}
@@ -270,8 +341,8 @@ Otrzymane przeze mnie dane to nieco ponad 20000 dokumentów zapisanych w formacie
 \emph{Introduction to Recommender Systems Handbook},
 Springer,
 2011
-\bibitem[2]{aspnet}ASP.NET \url{http://www.asp.net} (12.01.2016)
-\bibitem[3]{aspnetmvc}ASP.NET MVC \url{http://www.asp.net/mvc} (12.01.2016)
+\bibitem[2]{slownik}S³ownik Jêzyka Polskiego PWN \url{http://sjp.pwn.pl/sjp/artykul;2441396.html} (07.05.2017)
+\bibitem[3]{allegro}Allegro \url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet} (07.05.2017)
 \bibitem[4]{iis}IIS \url{https://www.iis.net/} (12.01.2016)
 \bibitem[5]{sqlserver}SQL Server \url{https://www.microsoft.com/en/server-cloud/products/sql-server/default.aspx} (12.01.2016)
 %\bibitem[101]{B} Stanis³aw Bia³as, \emph{Macierze. Wybrane problemy}, AGH Uczelniane Wydawnictwa Naukowo-Dydaktyczne, Kraków, 2006.
@@ -282,18 +353,7 @@ Springer,
 
 \appendix
 \chapter{Instrukcja u¿ytkownika}
-\paragraph{}Zalogowany nauczyciel ma mo¿liwoœæ zarz¹dzania swoimi przedmiotami tzn. przedmiotami do których jest przypisany jako nauczyciel. Przejœcie do zarz¹dzania przedmiotami nastêpuje po wciœniêciu w menu g³ównym przycisku z loginem a nastêpnie wybraniu ,,Moje przedmioty''. Po przekierowaniu istnieje mo¿liwoœæ dowolnej modyfikacji wyœwietlanych treœci a tak¿e akceptowania wniosków studentów o rejestracjê a tak¿e podejrzenia listy studentów zapisanych na przedmiot. 
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=0.9\textwidth]{img/subject.png}
-  \caption{Ekran przyk³adowego przedmiotu}
-  %\label{fig:dydaktyka}
-\end{figure}
-
-\chapter{Testy systemu}
-\paragraph{}Oprócz testów jednostkowych do³¹czonych do kodu Ÿród³owego aplikacji zosta³y przeprowadzone równie¿ testy funkcjonalne w œrodowisku produkcyjnym. Zakoñczy³y siê one sukcesem i udowodni³y tym samym, i¿ system spe³nia wymagania, które zosta³y postawione przed rozpoczêciem prac. W tym rozdziale za pomoc¹ list kroków opisujemy przebieg kolejnych przypadków testowych.
-
-
+\paragraph{}
 \clearpage
 \pagestyle{empty}
 \noindent Warszawa, dnia ...............
