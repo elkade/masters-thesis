@@ -166,7 +166,7 @@ W niniejszej pracy skupiam si g³ównie na podejœciu word2vec z racji tego, i¿ pow
 Dochodzenie nowych rekomendacji - nie jest tematem pracy
 -------------------
 
-
+S³owa, które zostaj¹ po tokenizacji to np literówki
 
 \section{Struktura pracy}
 Rozdzia³ 2 opisuje znane metody zaadaptowane przez mnie w eksperymentach. 
@@ -246,7 +246,7 @@ W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 \paragraph{} 
 \begin{figure}[H]
   \centering
-    \includegraphics[width=0.9\textwidth]{img/useCaseAdmin.png}
+    \includegraphics[width=1\textwidth]{img/words_hist_log.png}
   \caption{Diagram przypadków u¿ycia dotycz¹cych zarz¹dzania jêzykami i menu}
   %\label{fig:warstwy}
 \end{figure}
@@ -259,6 +259,27 @@ Dane, na których testowane by³y opisywane w niniejszej pracy metody otzryma³em d
 
 NApisaæ, ¿e w korpusie znajduje siê wiele specyficznych s³ów bran¿owych
 
+\section{Wstêpne przetwarzanie danych}
+A celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych.
+Jego techniki nie wchodz¹ w sk³¹d ¿adnego standardu. Wykonujê pewne techniki, opisane ni¿ej, zgodnie z intuicj¹.
+
+Surowe artyku³y odtrymane od Allegro posiadaj¹ w swej treœci wiele znaczników interpretowanych przez system, na podstawie których wzbogacana jest warstwa wizualna strony internetowej zawiraj¹cej artyku³. Np. obrazki czy ³¹cza do ofert zwi¹zanych z tematem artyku³u. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne (ich postaæ jest szczegó³em nieistotnym z punktu widzenia tematyki niniejszej pracy).
+
+Kolejnym elemantem wstêpnego pzetwarzania tekstu jest usuniêcie tzw. s³ów stopu (ang. stopwords) - na ogó³ krótkich s³ów nie wnosz¹cych nic do znaczenia ca³oœci artyku³u. S¹ to np. ,,w'', ,,z'', ,,poniewa¿''. Ich usuniêcie zmniejsza liczbê s³ów dokumentu skracaj¹c tym samym czas jego przetwarzania. Jako ¿e s³owa te wystêpuj¹ czêsto, usuniêcie ich daje mo¿liwoœæ uwypuklenia znaczenia innych s³ów maj¹cych wp³yw na rzeczywiste znaczenie ca³ego artyku³u.
+
+Nastêpnie sprowadzam wszystkie s³owa dokumentu do ma³ych liter, ¿eby ujednoliciæ postaæ czêœci s³ów o tym samym znaczeniu, wœród których jedno wystêpuje na pocz¹tku zdania a inne w œrodku.
+
+Kolejnym, najistotniejszym etapem wstêpnego przetwarzania danych jest tzw. tokenizacja, czyli sprowadzanie s³ów o tym samym znaczeniu, a ró¿nej formie gramatycznej do tej samej postaci. Sporym utrudnieniem jest tutaj stopieñ skomplikowania jêzyka polskiego oraz liczba wyj¹tków, jak¹ ten jêzyk posiada. Za przyk³ad mo¿e pos³u¿yæ s³owo ,,mieæ'', którego jedna z form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie ka¿dego z tych wyrazów do formy podstawowej ,,mieæ''. Do przeprowadzenia tej operacji stosujê narzêdzie Morfologik\cite{morfologik}.
+
+U¿ycie wymienionych technik nie jest jedynym standardem a wynikiem analizy przetwarzanych danych i techniki te zosta³y dobrane dla konkretnego przypadku
+
+rozbijanie s³ów po³¹czonych myœlnikiem
+
+Po powy¿szych etepach s³ownik zbudowan na korpusie zawiera 98174 s³ów.
+
+filtracja ekstremalnych s³ów
+
+\section{Opis danych po wstêpnym przetwarzaniu}
 
 
 Opisaæ dok³adnie pola jsona
@@ -343,7 +364,7 @@ Springer,
 2011
 \bibitem[2]{slownik}S³ownik Jêzyka Polskiego PWN \url{http://sjp.pwn.pl/sjp/artykul;2441396.html} (07.05.2017)
 \bibitem[3]{allegro}Allegro \url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet} (07.05.2017)
-\bibitem[4]{iis}IIS \url{https://www.iis.net/} (12.01.2016)
+\bibitem[4]{morfologik}IIS \url{http://morfologik.blogspot.com/} (07.05.2017)
 \bibitem[5]{sqlserver}SQL Server \url{https://www.microsoft.com/en/server-cloud/products/sql-server/default.aspx} (12.01.2016)
 %\bibitem[101]{B} Stanis³aw Bia³as, \emph{Macierze. Wybrane problemy}, AGH Uczelniane Wydawnictwa Naukowo-Dydaktyczne, Kraków, 2006.
 %\bibitem[102]{H} Nicholas J. Higham, \emph{Accuracy and stability of numerical algorithms}, SIAM, Philadelphia 1996.
