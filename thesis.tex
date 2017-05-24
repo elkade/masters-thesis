@@ -234,15 +234,17 @@ $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
 $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$
 W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
-\subsection{Latent semantic indexing}
-
 \subsection{Latent Dirichlet allocation}
 
 
 
 \subsection{Word2vec}
 
-\subsection{Word mover's distance}
+U¿ycie metody Word2vec pozwala oceniæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów. Jest to metoda osadzania (embedding) s³ów w pewnej przestrzeni wektorowej.
+
+\subsection{Word Mover's Distance}
+
+
 \paragraph{} 
 \begin{figure}[H]
   \centering
@@ -358,18 +360,40 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 \end{itemize}
 \begin{thebibliography}{11}
 %\url{}
-\bibitem[1]{handbook}Francesco Ricci, Lior Rokach, Bracha Shapira,
-\emph{Introduction to Recommender Systems Handbook},
-Springer,
-2011
-\bibitem[2]{slownik}S³ownik Jêzyka Polskiego PWN \url{http://sjp.pwn.pl/sjp/artykul;2441396.html} (07.05.2017)
-\bibitem[3]{allegro}Allegro \url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet} (07.05.2017)
-\bibitem[4]{morfologik}IIS \url{http://morfologik.blogspot.com/} (07.05.2017)
-\bibitem[5]{sqlserver}SQL Server \url{https://www.microsoft.com/en/server-cloud/products/sql-server/default.aspx} (12.01.2016)
-%\bibitem[101]{B} Stanis³aw Bia³as, \emph{Macierze. Wybrane problemy}, AGH Uczelniane Wydawnictwa Naukowo-Dydaktyczne, Kraków, 2006.
-%\bibitem[102]{H} Nicholas J. Higham, \emph{Accuracy and stability of numerical algorithms}, SIAM, Philadelphia 1996.
-%\bibitem[103]{H2} Nicholas J. Higham, \emph{Functions of Matrices. Theory and Computation}, SIAM, Philadelphia 2008.
-%\bibitem[104]{DJ} Maksymilian Dryja, Janina i Micha³ Jankowscy, \emph{Przegl¹d metod i algorytmów numerycznych, czêœæ 2}, Wydawnictwa Naukowo-Techiczne, Warszawa 1982.
+\bibitem[1]{handbook}
+	Francesco Ricci, Lior Rokach, Bracha Shapira,
+	\emph{Introduction to Recommender Systems Handbook},
+	Springer,
+	2011
+\bibitem[2]{slownik}
+	S³ownik Jêzyka Polskiego PWN
+	\url{http://sjp.pwn.pl/sjp/artykul;2441396.html}
+	(07.05.2017)
+\bibitem[3]{allegro}
+	Allegro
+	\url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz
+	-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet}
+	(07.05.2017)
+\bibitem[4]{morfologik}
+	Morfologik
+	\url{http://morfologik.blogspot.com/}
+	(07.05.2017)
+\bibitem[5]{word2vec}
+	Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean,
+	Efficient Estimation of Word Representations in Vector Space,
+	International Conference on Machine Learning (ICML),
+	2013
+\bibitem[6]{emd}
+	Ofir Pele, Michael Werman,
+	\emph{Fast and robust earth mover's distances},
+	ICCV,
+	2009
+\bibitem[7]{wmd}
+	Matt J. Kusner, Yu Sun, Nicholas I. Kolkin, Kilian Q. Weinberger,
+	\emph{From Word Embeddings To Document Distances},
+	International Conference on Machine Learning (ICML),
+	2015
+
 \end{thebibliography}
 
 \appendix
