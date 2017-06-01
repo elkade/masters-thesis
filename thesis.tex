@@ -136,6 +136,7 @@ Przy wykonywaniu operacji na tekœcie korzysta³em g³ównie z silnika wyszukiwania 
 
 W swojej pracy korzystam zarówno z metod wyszukiwania w teœcie 
 
+wypisaæ póŸniej u¿yte biblioteki
 
 
 \section{Rekomendacje artyku³ów tekstowych w Allegro}
@@ -189,7 +190,6 @@ W technice tej przedmioty polecane u¿ytkownikowi zale¿¹ od innych przedmiotów, n
 
 Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y podobne do aktualnie odwiedzanego, co wprost wi¹¿e siê z metodami u¿ywanymi w technice filtrowania opartego na treœci.
 
-\section{Information retrieval}
 \section{Techniki przetwarzania jêzyka naturalnego}
 
 Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami - dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym - zrozumia³ym dla cz³owieka - który mówi¹c potocznie niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary).
@@ -234,7 +234,7 @@ $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
 $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$
 W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
-\subsection{Latent Dirichlet allocation}
+\subsection{Latent Dirichlet Allocation}
 
 
 
@@ -265,16 +265,29 @@ Funkcja softmax ma tutaj za zadanie sprowadziæ wyjœciowe wartoœci warstwy ukryte
 
 U¿ycie metody Word2vec pozwala oceniæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów. Jest to metoda osadzania (embedding) s³ów w pewnej przestrzeni wektorowej.
 
-\subsection{Word Mover's Distance}
+\subsection{Odleg³oœæ miêdzy dokumentami}
+W celu wykorzystania omówionej metody Word2vec w obszarze tematyki pracy nale¿y wybraæ metodê obliczania odleg³oœci miêdzy dokumentami. Zak³adamy, ¿e je¿eli dystans pomiêdzy dokumentami jest ma³y, to ich tematyka jest podobna.
+\subsubsection{Centroid}
+Najprostsz¹ i najbardziej intuicyjn¹ metod¹ obliczenia odleg³oœci pomiêdzy wektorow¹ reprezentacj¹ dokumentów jest wykonanie dwóch prostych kroków:
+\begin{enumerate}
+\item Uœrednienie wektorów wchodz¹cych w sk³ad ka¿dego z dokumentów. Powsta³y w ten sposób wektor jest centroidem reprezentuj¹cym dokument w przestrzeni wektorowej.
+\item Obliczenie dystansu miêdzy wektorami. Powszechnie przyjêt¹ praktyk¹ jest stosowanie tzw. odleg³oœci kosinusowej - znormalizowanego iloczynu skalarnego wektorów $A$ i $B$. Jest to kosinus k¹ta pomiêdzy dwoma wektorami reprezentuj¹cymi dokumenty. Zalet¹ tej metody jest natychmiastowa normalizacja wyniku do zakresu $(0, 1)$.  $sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}}$,
+ gdzie $A_i$ i $B_i$ s¹ sk³adowymi wektorów odpowiednio $A$ i $B$
+\end{enumerate}
+Wad¹ opisanej powy¿ej metody jest utrata potencjalnie u¿ytecznych zale¿noœci wektorami wchodz¹cymi w sk³ad dokumentu.
+
+W kontrze to tego prezentujemy metodê liczenia szukanego dystansu uwzglêdniaj¹c¹ rozk³ad wektorów wewn¹tz dokumentu.
+
+\subsubsection{Word Mover's Distance}
+Word Mover's Distance\cite{wmd} to stosunkowo nowe rozwi¹zanie (2013) zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumantu.
+
+EMD jest metryk¹ pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
+$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przo odpowiednich ogramiczeniach\cite{emd_limit}.
+EMD jest to dobrze zbadanym problem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
 
 
-\paragraph{} 
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=1\textwidth]{img/words_hist_log.png}
-  \caption{Diagram przypadków u¿ycia dotycz¹cych zarz¹dzania jêzykami i menu}
-  %\label{fig:warstwy}
-\end{figure}
+
+
 \subsection{Edycja menu nawigacyjnego}
 \begin{enumerate}
 \item Administrator zg³asza chêæ edycji menu nawigacyjnego.
@@ -283,6 +296,22 @@ U¿ycie metody Word2vec pozwala oceniæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami n
 Dane, na których testowane by³y opisywane w niniejszej pracy metody otzryma³em dziêki ¿yczliwoœci serwisu e-commerce Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
 
 NApisaæ, ¿e w korpusie znajduje siê wiele specyficznych s³ów bran¿owych
+
+Jako, ¿e artyku³y ze zbioru dotycz¹ produktów sprzedawanych za poœrednictwem serwisu Allegro, w sk³ad s³ownika wchodzi wiele s³ów specyficznych dla danej bran¿y. S¹ to m.in. nazwy modeli aparatów: !!!!!!!!!!!!!, samochodów: !!!!!!!!!!!!!, gier komputerowych: !!!!!!!!!!!!!, a tak¿e nazwy techniczne: sprê¿arka, !!!!!!!!!!!!!!!!!!!!. W zwi¹zku z tym zachodzi podejrzenie, ¿e zastosowanie metod wykorzystuj¹cych model nauczony na ogólnym zbiorze tekstu mo¿e nie dawaæ satysfakcjonuj¹cych rezultatów.
+
+\paragraph{} 
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1\textwidth]{img/words_hist_log.png}
+  \caption{Histogram wyst¹pieñ s³ów w korpusie}
+  %\label{fig:warstwy}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1\textwidth]{img/articles_length_hist.png}
+  \caption{Histogram d³ugoœci artyku³ów.}
+  %\label{fig:warstwy}
+\end{figure}
 
 \section{Wstêpne przetwarzanie danych}
 A celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych.
@@ -326,7 +355,7 @@ Wspomnieæ, ze kategorie s¹ drzewiaste
 
 Ka¿demu artyku³owi przypisana jest lista kategorii (zawieraj¹cych siê w sobie pod k¹tem szczegó³owoœci) klasyfikuj¹cych artyku³ pod k¹tem poruszanej tematyki. Wszystkie kategorie tworz¹ strukturê drzewiast¹. Jest to wa¿ny element danych poniewa¿ pozwala w póŸniejszym etapie na dokonanie ewaluacji rozwi¹zania.
 
-Jakoœæ danych: czy nie maluk
+Jakoœæ danych: czy nie ma luk
 Jakoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu jest zawsze wype³nione - brak jest wartoœci NULL.
 
 
@@ -357,6 +386,11 @@ Kolejn¹ wprowadzon¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacj
 Miara 3: kliki
 
 \section{Wyniki badañ}
+\subsection{}
+model piaseckiego
+ile unikalnych s³ów on nie zawiera
+ile wyst¹pieñ s³ów nie zawiera - wykresy
+
 \section{Dalsze badania}
 Dalsze badania.
 
@@ -401,7 +435,7 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 	(07.05.2017)
 \bibitem[5]{word2vec}
 	Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean,
-	Efficient Estimation of Word Representations in Vector Space,
+	\emph{Efficient Estimation of Word Representations in Vector Space},
 	International Conference on Machine Learning (ICML),
 	2013
 \bibitem[6]{google_word2vec}
@@ -410,12 +444,24 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 \bibitem[7]{word2vec_tutorial}
 	\url{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}
 	26.05.2017)
-\bibitem[10]{emd}
+\bibitem[9]{emd_method}
 	Ofir Pele, Michael Werman,
 	\emph{Fast and robust earth mover's distances},
 	ICCV,
 	2009
-\bibitem[11]{wmd}
+\bibitem[10]{emd}
+	Yossi Rubner, Carlo Tomasi, and Leonidas J. Guibas,
+	\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
+	str. 1,
+	Computer Science Department, Stanford University,
+	2000
+\bibitem[11]{emd_limit}
+	Yossi Rubner, Carlo Tomasi, and Leonidas J. Guibas,
+	\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
+	str. 8,
+	Computer Science Department, Stanford University,
+	2000
+\bibitem[12]{wmd}
 	Matt J. Kusner, Yu Sun, Nicholas I. Kolkin, Kilian Q. Weinberger,
 	\emph{From Word Embeddings To Document Distances},
 	International Conference on Machine Learning (ICML),
@@ -424,8 +470,8 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 \end{thebibliography}
 
 \appendix
-\chapter{Instrukcja u¿ytkownika}
-\paragraph{}
+%\chapter{Instrukcja u¿ytkownika}
+%\paragraph{}
 \clearpage
 \pagestyle{empty}
 \noindent Warszawa, dnia ...............

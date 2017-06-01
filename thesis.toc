@@ -12,23 +12,24 @@
 \contentsline {section}{\numberline {2.1}Systemy rekomendacji}{7}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Filtrowanie kolaboratywne (collaborative filtering)}{8}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Filtrowanie oparte na tre\'sci (content-based filtering)}{8}{subsection.2.1.2}
-\contentsline {section}{\numberline {2.2}Information retrieval}{9}{section.2.2}
-\contentsline {section}{\numberline {2.3}Techniki przetwarzania j\k ezyka naturalnego}{9}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Bag-of-words}{9}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Term frequency - inverted document frequency}{10}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Latent Dirichlet allocation}{11}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Word2vec}{11}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Word Mover's Distance}{13}{subsection.2.3.5}
-\contentsline {paragraph}{}{13}{figure.2.1}
-\contentsline {subsection}{\numberline {2.3.6}Edycja menu nawigacyjnego}{13}{subsection.2.3.6}
-\contentsline {chapter}{\numberline {3}Dane}{14}{chapter.3}
-\contentsline {section}{\numberline {3.1}Wst\k epne przetwarzanie danych}{14}{section.3.1}
-\contentsline {section}{\numberline {3.2}Opis danych po wst\k epnym przetwarzaniu}{15}{section.3.2}
-\contentsline {paragraph}{}{16}{section*.6}
-\contentsline {section}{\numberline {3.3}Metody ewaluacji}{16}{section.3.3}
-\contentsline {section}{\numberline {3.4}Wyniki bada\'n}{18}{section.3.4}
-\contentsline {section}{\numberline {3.5}Dalsze badania}{18}{section.3.5}
-\contentsline {chapter}{\numberline {4}S\IeC {\l }ownik poj\k e\'c}{19}{chapter.4}
-\contentsline {paragraph}{}{19}{section*.7}
-\contentsline {chapter}{\numberline {A}Instrukcja u\.zytkownika}{21}{appendix.A}
-\contentsline {paragraph}{}{21}{section*.9}
+\contentsline {section}{\numberline {2.2}Techniki przetwarzania j\k ezyka naturalnego}{8}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Bag-of-words}{9}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Term frequency - inverted document frequency}{10}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}odleg\IeC {\l }o\'s\'c cosinusowa}{10}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Latent Dirichlet allocation}{10}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Word2vec}{10}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Odleg\IeC {\l }o\'s\'c mi\k edzy dokumentami}{12}{subsection.2.2.6}
+\contentsline {subsubsection}{Centroid}{12}{section*.5}
+\contentsline {subsubsection}{Word Mover's Distance}{13}{section*.6}
+\contentsline {subsection}{\numberline {2.2.7}Edycja menu nawigacyjnego}{14}{subsection.2.2.7}
+\contentsline {chapter}{\numberline {3}Dane}{15}{chapter.3}
+\contentsline {paragraph}{}{17}{figure.3.2}
+\contentsline {section}{\numberline {3.1}Wst\k epne przetwarzanie danych}{17}{section.3.1}
+\contentsline {section}{\numberline {3.2}Opis danych po wst\k epnym przetwarzaniu}{18}{section.3.2}
+\contentsline {paragraph}{}{19}{section*.8}
+\contentsline {section}{\numberline {3.3}Metody ewaluacji}{19}{section.3.3}
+\contentsline {section}{\numberline {3.4}Wyniki bada\'n}{21}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}}{21}{subsection.3.4.1}
+\contentsline {section}{\numberline {3.5}Dalsze badania}{21}{section.3.5}
+\contentsline {chapter}{\numberline {4}S\IeC {\l }ownik poj\k e\'c}{22}{chapter.4}
+\contentsline {paragraph}{}{22}{section*.9}
