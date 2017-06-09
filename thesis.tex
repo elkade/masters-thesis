@@ -105,7 +105,7 @@ podpis promotora & \hspace*{100pt} & podpis autora
 
 \begin{abstract}
 \paragraph{}
-W niniejszej pracy zajmujê siê dokonujê metod wyszukiwania podobnych dokumentów nale¿¹cych do zadanego zbioru artyku³ów. Problem zaczerpniêty jest z serwisu aukcyjnego Allegro, który posiada dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. Dzia³ ten posiada system rekomendacji dopasowuj¹cy do danego artyku³u listê artyku³ów, które s¹ do niego najbardziej podobne. W swojej pracy staram siê przeanalizowaæ i zaaplikowaæ znane metody wyszukiwania podobnych dokumentów tekstowych. Skupiam siê szczególnie na metodach opartych o semantyczn¹ analizê tekstu.
+W niniejszej pracy zajmujê siê porównaniem metod wyszukiwania podobnych do siebie artyku³ów tekstowych. Celem jest znalezienie w oparciu o treœæ danego artyku³u podobnych artyku³ów, które mo¿naby zarekomendowaæ u¿ytkownikowi przegl¹daj¹cemu dany artyku³. Problem zaczerpniêty jest z serwisu aukcyjnego Allegro, który posiada dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. Dzia³ ten posiada system rekomendacji dopasowuj¹cy do danego artyku³u listê artyku³ów, które s¹ do niego najbardziej podobne i mog¹ zainteresowaæ u¿ytkownika. W swojej pracy staram siê przeanalizowaæ i zaaplikowaæ znane metody wyszukiwania podobnych dokumentów tekstowych oraz porównaæ rezultaty. Skupiam siê szczególnie na metodach opartych o semantyczn¹ analizê tekstu.
 
 \end{abstract}
 
@@ -125,19 +125,15 @@ W niniejszej pracy zajmujê siê dokonujê metod wyszukiwania podobnych dokumentów 
 \section{}
 
 
-Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê w takich polach jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Pozwalaj¹ one u¿ytkownikowi  Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron to konkretnego u¿ytkownika.Mo¿e to prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Daj¹ obopuln¹ korzyœæ u¿ytkownikowi oraz w³aœcicielowi serwisu internetowego.
+Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê w takich polach jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron to konkretnego u¿ytkownika. Pozwalato u¿ytkownikowi na bardziej efektywne korzystanie z serwisu. Mo¿e to prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
+
+Tematem mojej pracy magisterskiej jest stworzenie mechanizmu dopasowuj¹cego podobne do danego artyku³y tekstowe w oparciu o ich treœæ. Szczegó³owy problem poruszany w pracy pochodzi z serwisu Allegro posiadaj¹cego dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W celu zachêcenia u¿ytkownika do dalszej lektury artyku³ów stosuje siê mechanizm rekomendacji podobnych artyku³ów. Celem niniejszej pracy jest zbadanie i udoskonalenie obecnego w serwisie mechanizmu generowania rekomendacji. 
 
 
+W swojej pracy korzystam z metod przetwarzania jêzyka naturalnego a w tym z metod semantycznej analizy tekstu.
 
 
-Tematem mojej pracy magisterskiej jest stworzenie mechanizmu dopasowuj¹cego podobne do danego artyku³y tekstowe. Problem zaczerpniêty jest z serwisu Allegro, gdzie istnieje dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W celu zachêcenia u¿ytkownika do dalszej lektury artyku³ów stosuje siê mechanizm rekomendacji podobnych artyku³ów. Celem niniejszej pracy jest zbadanie i udoskonalenie obecnego w serwisie mechanizmu generowania rekomendacji. 
-
-Przy wykonywaniu operacji na tekœcie korzysta³em g³ównie z silnika wyszukiwania Elasticsearch oraz w³asnorêcznie pisanych skryptów w jêzyku Python wykorzystuj¹cych liczne specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
-
-W swojej pracy korzystam zarówno z metod wyszukiwania w teœcie 
-
-wypisaæ póŸniej u¿yte biblioteki
-
+Podczas prowadzenia badañ stworzy³em szereg skryptów przetwarzaj¹cych dane i wykorzystuj¹cych implementacje opisywanych poni¿ej metod. Opis u¿ytych narzêdzi programistycznych i bibliotek zawar³em w dodatku A do niniejszej pracy.
 
 \section{Rekomendacje artyku³ów tekstowych w Allegro}
 
@@ -161,7 +157,7 @@ Metoda ta ogranicza siê jednak jedynie do wyszukiwania tekstowego pomijaj¹c zaga
 
 St¹d w mojej pracy postanowi³em wykonaæ eksperymenty z metodami u¿ywaj¹cymi semantycznej analizy tekstu, aby oceniæ, czy daj¹ one lepsze rezultaty od obecnie stosowanej metody.
 
-W niniejszej pracy skupiam si g³ównie na podejœciu word2vec z racji tego, i¿ powsta³ niedawno.
+W niniejszej pracy skupiam siê g³ównie na podejœciu word2vec z racji tego, i¿ powsta³ niedawno.
 
 
 Dochodzenie nowych rekomendacji - nie jest tematem pracy
@@ -170,10 +166,16 @@ Dochodzenie nowych rekomendacji - nie jest tematem pracy
 S³owa, które zostaj¹ po tokenizacji to np literówki
 
 \section{Struktura pracy}
-Rozdzia³ 2 opisuje znane metody zaadaptowane przez mnie w eksperymentach. 
-\chapter{Przegl¹d znanych metod}
+Rozdzia³ 2 wprowadza do zagadnienia rekomendacji i opisuje wybrane metody przetwarzania jêzyka naturalnego s³u¿¹ce do wyszukiwania podobieñstw miêdzy dokumentami tekstowymi.
 
-W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i technik. Nale¿¹ one do takich obszarów, jak: systemu rekomendacji, przetwarzanie jêzyka naturalnego, 
+Nastêpnie w rozdziale 3 dokonujê opisu konkretnego problemu, jakim jest generacja rekomendacji artyku³ów tekstowych w serwisie Allegro. Opisujê dane otrzymane z serwisu oraz kolejne wstêpnego etapy przetwarzania ich, aby nadawa³y siê do zaaplikowania do nich wybranych metod.
+
+Dalej, w rozdziale 4 opisujê proces zastosowania wybranych metod oraz porównanie efektów ich dzia³ania. Opisujê równie¿ u¿yte metody ewaluacji wyników.
+
+Ostatecznie dokonujê podsumowania przeprowadzonych badañ i rozwa¿am kierunki dalszych prac w tej dziedzinie.
+\chapter{Przegl¹d wybranych metod}
+
+W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i narzêdzi umo¿liwiaj¹cych przetwarzanie jêzyka naturalnego, semantyczn¹ analizê tekstu i wykrywanie podobieñstwa pomiêdzy tekstami. Czêœæ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystaj¹ce z semantycznej analizy tekstu - nie tak popularne z powodu swojej nowoœci, b¹dŸ trudnoœci w zaaplikowaniu. Daje to pole do badañ i ewentualnych usprawnieñ istniej¹cych systemów opieraj¹cych siê o klasyczne metody. Wybrane metody stosujê, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, st¹d przegl¹d metod zaczynam w³aœnie od wprowadzenia do tego zagadnienia.
 
 \section{Systemy rekomendacji}
 
@@ -243,7 +245,7 @@ Word2vec jest stosunkowo now¹ (2013) metod¹ osadzania s³ów w przestrzeni wektoro
 
 Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieci neuronowej, która ma za zadanie odtworzyæ kontekst danego s³owa. Jako wejœcie metoda otrzymuje s³owa z korpusu. Wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom   sk³adaj¹cej siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa siec przewiduje N s¹siednich s³ów lub CBOW: na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}
 
-Softmax: metoda ...
+Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$\cite{softmax}. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
 
 U¿ywaj¹c tej stosunkowo prostej architektury mo¿na wykonaæ proces nauki u¿ywaj¹c milionów s³ów, których powi¹zania miêdzy sob¹ zostan¹ zachowane w systemie wag sieci neuronowej.
 
@@ -281,17 +283,13 @@ W kontrze to tego prezentujemy metodê liczenia szukanego dystansu uwzglêdniaj¹c¹
 \subsubsection{Word Mover's Distance}
 Word Mover's Distance\cite{wmd} to stosunkowo nowe rozwi¹zanie (2013) zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumantu.
 
-EMD jest metryk¹ pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
+EMD jest metod¹ mierzenia odleg³oœci pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
 $P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przo odpowiednich ogramiczeniach\cite{emd_limit}.
 EMD jest to dobrze zbadanym problem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
 
+Przypuœæmy, ¿e dziêki metodzie word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
 
 
-
-\subsection{Edycja menu nawigacyjnego}
-\begin{enumerate}
-\item Administrator zg³asza chêæ edycji menu nawigacyjnego.
-\end{enumerate}
 \chapter{Dane}
 Dane, na których testowane by³y opisywane w niniejszej pracy metody otzryma³em dziêki ¿yczliwoœci serwisu e-commerce Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
 
@@ -406,15 +404,11 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 
 
 %-----------Koniec czêœci zasadniczej-----------
-\chapter{S³ownik pojêæ}
-\paragraph{}W celu unikniêcia niejednoznacznoœci stosowanej w pracy terminologii definiujemy nastêpuj¹cy s³ownik wykorzystywanych pojêæ.
-\begin{itemize}
-%\item System – przedmiot, który powsta³ w wyniku implementacji opisanych niniejszym dokumentem funkcjonalnoœci
-\item Wymagania systemowe – zbiór wymagañ jakie musi spe³niaæ system operacyjny aby mo¿liwa by³a poprawna praca systemu.
-\item Autoryzacja - kontrola dostêpu, która potwierdza, czy dany u¿ytkownik jest uprawniony do korzystania z ¿¹danego zasobu.
-\item Konto – element systemu odpowiedzialny za przechowywanie podstawowych danych u¿ytkownika systemu, jego uprawnieñ oraz roli pe³nionej w systemie.
- 
-\end{itemize}
+\appendix
+\chapter{Technologie i narzêdzie}
+\paragraph{}Przy wykonywaniu operacji na tekœcie korzysta³em g³ównie z silnika wyszukiwania Elasticsearch oraz w³asnorêcznie pisanych skryptów w jêzyku Python wykorzystuj¹cych liczne specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
+wypisaæ póŸniej u¿yte biblioteki
+
 \begin{thebibliography}{11}
 %\url{}
 \bibitem[1]{handbook}
@@ -466,7 +460,9 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 	\emph{From Word Embeddings To Document Distances},
 	International Conference on Machine Learning (ICML),
 	2015
-
+\bibitem[13]{softmax}
+	\url{https://en.wikipedia.org/wiki/Softmax_function/}
+	(11.06.2017)
 \end{thebibliography}
 
 \appendix
