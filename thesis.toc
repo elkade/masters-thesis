@@ -7,8 +7,8 @@
 \contentsline {chapter}{\numberline {1}Wst\k ep}{4}{chapter.1}
 \contentsline {section}{\numberline {1.1}}{4}{section.1.1}
 \contentsline {section}{\numberline {1.2}Rekomendacje artyku\IeC {\l }\'ow tekstowych w Allegro}{5}{section.1.2}
-\contentsline {section}{\numberline {1.3}Struktura pracy}{6}{section.1.3}
-\contentsline {chapter}{\numberline {2}Przegl\k ad znanych metod}{8}{chapter.2}
+\contentsline {section}{\numberline {1.3}Struktura pracy}{7}{section.1.3}
+\contentsline {chapter}{\numberline {2}Przegl\k ad wybranych metod}{8}{chapter.2}
 \contentsline {section}{\numberline {2.1}Systemy rekomendacji}{8}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Filtrowanie kolaboratywne (collaborative filtering)}{9}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Filtrowanie oparte na tre\'sci (content-based filtering)}{9}{subsection.2.1.2}
@@ -26,8 +26,12 @@
 \contentsline {section}{\numberline {3.2}Opis danych po wst\k epnym przetwarzaniu}{19}{section.3.2}
 \contentsline {paragraph}{}{20}{section*.8}
 \contentsline {section}{\numberline {3.3}Metody ewaluacji}{20}{section.3.3}
-\contentsline {section}{\numberline {3.4}Wyniki bada\'n}{22}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}}{22}{subsection.3.4.1}
-\contentsline {section}{\numberline {3.5}Dalsze badania}{22}{section.3.5}
-\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{23}{appendix.A}
-\contentsline {paragraph}{}{23}{section*.9}
+\contentsline {subsection}{\numberline {3.3.1}Dystans oparty na metadanych}{21}{subsection.3.3.1}
+\contentsline {subsubsection}{S\IeC {\l }owa kluczowe}{21}{section*.9}
+\contentsline {subsection}{\numberline {3.3.2}Ocena u\.zytkownik\'ow offline}{22}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Historyczne klikni\k ecia u\.zytkownik\'ow serwisu}{22}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Opis i wyniki bada\'n}{23}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}}{23}{subsection.3.4.1}
+\contentsline {section}{\numberline {3.5}Dalsze badania}{24}{section.3.5}
+\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{25}{appendix.A}
+\contentsline {paragraph}{}{25}{section*.10}

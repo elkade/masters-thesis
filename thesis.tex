@@ -161,6 +161,9 @@ W niniejszej pracy skupiam siê g³ównie na podejœciu word2vec z racji tego, i¿ po
 
 
 Dochodzenie nowych rekomendacji - nie jest tematem pracy
+
+
+napisaæ, ¿e jêzyk polski stanowi trudnoœæ
 -------------------
 
 S³owa, które zostaj¹ po tokenizacji to np literówki
@@ -373,17 +376,39 @@ Praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych systemach
 
 Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych.
 
-Miara 1: jak daleko pod wzglêdem kategorii jesteœmy
+\subsection{Dystans oparty na metadanych}
+
+Jak wspomnia³em wczeœniej dane prócz treœci artyku³ów zawieraj¹ równie¿ pewne metadane, a wœród nich umo¿liwiaj¹ce tworzenie powi¹zañ miêdzy artyku³ami. Skupiê siê tu na dwóch polach: ,,s³owa kluczowe'' i ,,kategoria''.
+
+\subsubsection{S³owa kluczowe} 
 
 Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych artyku³ów jest ich odleg³oœæ ww wczeœniej wspomnianym drzewie kategorii: im mniejszy dystans pomiêdzy liœæmi drzewa, tym wiêksze podobieñstwo pomiêdzy artyku³ami. Zalet¹ miary jest fakt, i¿ przypisanie artyku³u do kategorii zosta³o wykonane przez autora, którego mo¿na okreœliæ ekspertem w danej dziedzinie, st¹d przynale¿noœæ artyku³u do danej kategorii jest obiektywnie uzasadniona. Kolejn¹ zalet¹ tej miary (w odró¿nieniu od nastêpnej) jest fakt, i¿ mo¿na j¹ zastosowaæ automatycznie - wiedza ekspercka jest ju¿ zapisana w danych artyku³ów. Nale¿y zaznaczyæ tu jednak, ¿e miara nie jest idealna - ka¿dy artyku³ nale¿y do tylko jednego liœcia drzewa kategorii. St¹d artyku³ poruszaj¹cy zagadnienia z ró¿nych obszarów, który mo¿na by przypisaæ dwóm stosunkowo odleg³ym kategoriom A i B, zostanie przypisany tylko do jednej kategorii, np. A. Miara poka¿e wtedy du¿¹ odleg³oœæ od artyku³ów z kategorii B, co nie jest prawd¹.
 
-Miara 2: subiektywna - trzeba wymyœliæ jak¹œ punktacjê
+\subsection{Ocena u¿ytkowników offline}
 
 Kolejn¹ wprowadzon¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny ewaluacja powinna byæ dokonana przez wiêcej ni¿ jedn¹ osobê. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które poddane zostan¹ ocenie.
 
-Miara 3: kliki
+\subsection{Historyczne klikniêcia u¿ytkowników serwisu}
 
-\section{Wyniki badañ}
+Zbieranie a nastêpnie przechowywanie informacji o aktywnoœci u¿ytkownika w ramach serwisu internetowego jest powszechn¹ praktyk¹. Proces ten pozwala na analizê zachowania u¿ytkowników co mo¿e doprowadziæ do wniosków, jakie usprawnienia nale¿y przedsiêwzi¹æ, aby spe³niæ cele biznesowe. Jednym z przyk³adów aktywnoœci u¿ytkownika zapisywanej przez serwis Allego s¹ klikniêcia w linki znajduj¹ce siê na stronie internetowej. Informacja ta pozwala sporz¹dziæ jeszcze jedn¹ miarê jakoœci dopasowania podobnych do siebie artyku³ów. Postaæ danych, jakie uda³o mi siê uzyskaæ z serwisu to tabela o polach: adres strony, na której nast¹pi³o klikniêcie, adres strony, na któr¹ prowadzi link, data klikniêcia.
+
+Jak ju¿ zosta³o opisane powy¿ej strona z artyku³em tekstowym zawiera odnoœiki do innych artyku³ów poruszaj¹cych tematykê podobn¹ do danego. Skoro zapisywana jest informacja o przejœciach pomiêdzy podstronami serwisu, to mo¿na policzyæ ile razy z artyku³u X dokonano przejœcia na rekomendowany do niego artyku³ Y1, a ile razy na rekomendowany artyku³ Y2. Je¿eli liczba przejœæ na artyku³ Y1 jest wiêksza ni¿ na Y2, mo¿na wnioskowaæ, i¿ Y1 wydaje siê byæ bardziej adekwatn¹ rekomendacj¹ dla artyku³u X.
+
+Pos³uguj¹c siê powy¿szym za³o¿eniem, mo¿na zaproponowaæ miarê jakoœci rekomendacji generowanych przez testowane metody w odniesieniu do popularnoœci rzeczywistych rekomendacji wyekstrahowanej z danych serwisu o aktywnoœci u¿ytkowników.
+
+W tym celu dokonujê adaptacji miary nDCG (Normalized Discounted Cumulative Gain). Miara ta s³u¿y do oceny jakoœci uszeregowania przedmiotów, np. wyników zwracanych przez silniki
+wyszukiwania. 
+
+TUTAJ OPISUJÊ MIARÊ + podajê Ÿród³o
+PROBLEM - algorytm allegro zmienia³ siê w czasie
+
+Za³ó¿my, ¿e dany algorytm $A$ zwraca pewien ci¹g artyku³ów $c_A=a1,\ a2,\ ...,\ a6$ podobnych do danego artyku³u $x$, w kolejnoœci od najbardziej adekwatnego. Za³ó¿my równie¿, czêœæ elementów ci¹gu $c_B$ artyku³ów rekomandowanych w serwisie dla $x$ (u¿ywan¹ dotychczas w serwisie metod¹ $B$) znajduje siê równie¿ w ci¹gu $c_A$, tj. np. ISTNIEJ¥ TAKIE $a_i, a_j$ (i, j to indeksy w ci¹gu $c_A$), ¿e nale¿¹ do $c_A$ i $c_B$. Za³ó¿my ponadto, ¿e z danych o klikniêciach u¿ytkowników w linki w ramach serwisu wiadomo, ¿e przejœcie z $x$ na $a_i$ jest bardziej popularne ni¿ przejœcie z $x$ na $a_j$. St¹d je¿eli $i<j$ ($i>j$), to jakoœæ dzia³ania metody $A$ jest dobra (z³a), bo metoda ta generuje podobne artyku³y w kolejnoœci zgodnej ze stopniem podobieñstwa z artyku³em bazowym, opartym o czêstoœc przejœæ u¿ytkowników miêdzy artyku³ami. DO PRZEREDAGOWANIA!!!!
+
+Za wagi metody nDCG przyjmujê kiczby przejœæ pomiêdzy artyku³ami, a sam¹ metodê stosujê tylko do przeciêcia zbioru artyku³ów podobnych do danego generowanych przez dan¹ metodê ze zborem artyku³ów rekomendowanych do danego przez dotychczasow¹ metodê dzia³aj¹c¹ w serwisie.
+
+
+
+\section{Opis i wyniki badañ}
 \subsection{}
 model piaseckiego
 ile unikalnych s³ów on nie zawiera
