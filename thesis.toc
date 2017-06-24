@@ -26,12 +26,13 @@
 \contentsline {section}{\numberline {3.2}Opis danych po wst\k epnym przetwarzaniu}{19}{section.3.2}
 \contentsline {paragraph}{}{20}{section*.8}
 \contentsline {section}{\numberline {3.3}Metody ewaluacji}{20}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Dystans oparty na metadanych}{21}{subsection.3.3.1}
-\contentsline {subsubsection}{S\IeC {\l }owa kluczowe}{21}{section*.9}
-\contentsline {subsection}{\numberline {3.3.2}Ocena u\.zytkownik\'ow offline}{22}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Historyczne klikni\k ecia u\.zytkownik\'ow serwisu}{22}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Opis i wyniki bada\'n}{23}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}}{23}{subsection.3.4.1}
-\contentsline {section}{\numberline {3.5}Dalsze badania}{24}{section.3.5}
-\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{25}{appendix.A}
-\contentsline {paragraph}{}{25}{section*.10}
+\contentsline {subsection}{\numberline {3.3.1}Miara 1: Dystans oparty na metadanych}{21}{subsection.3.3.1}
+\contentsline {subsubsection}{Kategorie}{22}{section*.9}
+\contentsline {subsubsection}{S\IeC {\l }owa kluczowe}{23}{section*.10}
+\contentsline {subsection}{\numberline {3.3.2}Miara 2: Ocena u\.zytkownik\'ow offline}{23}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Miara 3: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{24}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Opis i wyniki bada\'n}{25}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}}{25}{subsection.3.4.1}
+\contentsline {section}{\numberline {3.5}Dalsze badania}{25}{section.3.5}
+\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{27}{appendix.A}
+\contentsline {paragraph}{}{27}{section*.11}
