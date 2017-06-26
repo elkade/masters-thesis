@@ -31,6 +31,7 @@
 \newtheorem{np}{Przyk³ad}[section]
 \newtheorem{lemma}[theorem]{Lemat}
 \linespread{1.5}
+\usepackage{indentfirst}
 \newcommand*{\norm}[1]{\left\Vert{#1}\right\Vert}
 \newcommand*{\abs}[1]{\left\vert{#1}\right\vert}
 \newcommand*{\om}{\omega}
@@ -103,39 +104,37 @@ podpis promotora & \hspace*{100pt} & podpis autora
 \hyphenation{Syl-ves-tra}
 \hyphenation{Syl-ves-ter-a}
 
-\begin{abstract}
-\paragraph{}
-W niniejszej pracy zajmujê siê porównaniem metod wyszukiwania podobnych do siebie artyku³ów tekstowych. Celem jest znalezienie w oparciu o treœæ danego artyku³u podobnych artyku³ów, które mo¿naby zarekomendowaæ u¿ytkownikowi przegl¹daj¹cemu dany artyku³. Problem zaczerpniêty jest z serwisu aukcyjnego Allegro, który posiada dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. Dzia³ ten posiada system rekomendacji dopasowuj¹cy do danego artyku³u listê artyku³ów, które s¹ do niego najbardziej podobne i mog¹ zainteresowaæ u¿ytkownika. W swojej pracy staram siê przeanalizowaæ i zaaplikowaæ znane metody wyszukiwania podobnych dokumentów tekstowych oraz porównaæ rezultaty. Skupiam siê szczególnie na metodach opartych o semantyczn¹ analizê tekstu.
-
+\begin{abstract}%DONE
+	
+	Tematyka niniejszej pracy skupia siê wokó³ zagadnieñ okreœlania podobieñstwa semantycznego pomiêdzy dokumentami tekstowymi i rekomendacji dokumentów podobnych do danego. Szczegó³owy problem pochodzi z internetowego serwisu aukcyjnego Allegro, który posiada dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W dziale tym funkcjonuje system rekomendacji podobnych artyku³ów tekstowych w oparciu o ich treœæ. Celem pracy jest zbadanie mo¿liwoœci usprawnienia dzia³ania istniej¹cego systemu rekomandacji.
+	
+	W niniejszej pracy adaptujê dostêpne metody okreœlania podobieñstwa pomiêdzy dokumentami testowymi do powy¿szego problemu, wprowadzam miary umo¿liwiaj¹ce ocenê dzia³ania tych metod oraz dokonujê analizy mo¿liwoœci ich wykorzystania w rzeczywistym systemie. Skupiam siê szczególnie na metodach opartych o semantyczn¹ analizê tekstu.
 \end{abstract}
 
 \begin{otherlanguage}{english}
-\begin{abstract}
-\paragraph{} xcfghdfghhdfghfdgh
-\paragraph{} dfgdsfgsdfgsdfgds
-\end{abstract}
+	\begin{abstract}%TODO przet³umaczyæ
+		
+	\end{abstract}
 \end{otherlanguage}
+
 \tableofcontents
 \clearpage
-
 %-----------Pocz¹tek czêœci zasadniczej-----------
 
-\chapter{Wstêp}
+\chapter{Wstêp}%TODO skorygowaæ
 
-\section{}
+Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron to konkretnego u¿ytkownika. Pozwala to u¿ytkownikowi na bardziej efektywne korzystanie z serwisu. Mo¿e to prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
 
+Celem niniejszej pracy magisterskiej jest analiza mo¿liwoœci usprawnienia istniejacego systemu rekomendacji o oparciu o adaptacjê istniej¹cych metod wyszukiwania semantycznego podobieñstwa pomiêdzy dokumentami tekstowymi. Rzeczony system rekomendacji istnieje w internetowym serwisie e-commerce Allegro w dziale artyku³ów tekstowych o tematyce zwi¹zanej z produktami dostêpnymi za poœrednictwem serwisu. System ma na celu zarekomendowanie u¿ytkownikowi artyku³ów o tematyce podobnej do tego, który znajduje siê na stornie aktualnie odwiedzanej przez uzytkownika.
 
-Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê w takich polach jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron to konkretnego u¿ytkownika. Pozwalato u¿ytkownikowi na bardziej efektywne korzystanie z serwisu. Mo¿e to prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
+W swojej pracy badam mo¿liwoœæ u¿ycia istniej¹cych metod semantycznej analizy tekstu w odniesieniu do opisanego problemu. Badane metody to Latent Dirichlet Allocation oraz word2vec z wariantem Word Mover's Dictance oraz bez niego.
 
-Tematem mojej pracy magisterskiej jest stworzenie mechanizmu dopasowuj¹cego podobne do danego artyku³y tekstowe w oparciu o ich treœæ. Szczegó³owy problem poruszany w pracy pochodzi z serwisu Allegro posiadaj¹cego dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W celu zachêcenia u¿ytkownika do dalszej lektury artyku³ów stosuje siê mechanizm rekomendacji podobnych artyku³ów. Celem niniejszej pracy jest zbadanie i udoskonalenie obecnego w serwisie mechanizmu generowania rekomendacji. 
+Podczas prowadzenia badañ stworzy³em szereg skryptów przetwarzaj¹cych dane i wykorzystuj¹cych implementacje opisywanych w tej pracy metod. Opis u¿ytych narzêdzi programistycznych i bibliotek zawar³em w dodatku A do niniejszej pracy.
 
+\section{Rekomendacje artyku³ów tekstowych w Allegro}%TODO potrzebne przypisy
+% do 'najwiêksz¹'
+%TODO przeredagowaæ
 
-W swojej pracy korzystam z metod przetwarzania jêzyka naturalnego a w tym z metod semantycznej analizy tekstu.
-
-
-Podczas prowadzenia badañ stworzy³em szereg skryptów przetwarzaj¹cych dane i wykorzystuj¹cych implementacje opisywanych poni¿ej metod. Opis u¿ytych narzêdzi programistycznych i bibliotek zawar³em w dodatku A do niniejszej pracy.
-
-\section{Rekomendacje artyku³ów tekstowych w Allegro}
 
 Allegro jest najwiêksz¹ dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Posiada ponad 20 mln zarejestrowanych klientów. Ka¿dego dnia na Allegro sprzedaje siê ponad 870 tysiêcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu. Allegro pobiera prowizjê za dokonanie sprzeda¿y za swoim poœrednictwem.
 
@@ -143,42 +142,62 @@ Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia
 
 Po to, aby zachêciæ u¿ytkowników do zapoznania siê z treœci¹ kolejnych artyku³ów, zastosowany zosta³ tu system rekomendacji przyporz¹dkowuj¹cy danemu artyku³owi listê powi¹zanych artyku³ów. Kryterium mówi¹cym, czy artyku³y s¹ powi¹zane jest tutaj jedynie treœæ artyku³ów a nie wczeœciejsze zachowanie u¿ytkownika.
 
-W celu unikniêcia nieporozumieñ pragnê tutaj zaznaczyæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/screen_allegro.png}
+	\caption{Widok strony internetowej zawieraj¹cej jeden z artyku³ów serwisu Allegro. \cite{screen_allegro}}
+\end{figure}
 
-Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz pewnych metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczwg³óy i nieodbiegaj¹ od informacji publicznie dostêpnych przez stronê allegro.pl.
+Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczegó³y i nieodbiegaj¹ od informacji publicznie dostêpnych za poœrednictwem strony pod adresem /url{https://allegro.pl}.
 
-W niniejszej pracy wykonujê eksperymenty wykorzystuj¹c znane metody okreœlania podobieñstw pomiêdzy dokumentami, które adaptujê do zbioru dokumentów, które otrzyma³em od serwisu Allegro.
-
-W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji jest, aby u¿ytkownik odwiedza³ kolejne podstrony serwisu, co wprost zwiêksza szansê na dokonanie przez niego transakcji.
-
-Obecnie wykorzystywana metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON.
-
-Metoda ta ogranicza siê jednak jedynie do wyszukiwania tekstowego pomijaj¹c zagadnienia semantyczne. Znaczy to, ¿e je¿eli dwa teksty opisuj¹ ten sam temat, ale u¿ywaj¹ to tego ró¿nych s³ów, np. synonimów, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siê stwierdziæ podobieñstwa miêdzy tymi tekstami, mimo, i¿ takowe istnieje.
-
-St¹d w mojej pracy postanowi³em wykonaæ eksperymenty z metodami u¿ywaj¹cymi semantycznej analizy tekstu, aby oceniæ, czy daj¹ one lepsze rezultaty od obecnie stosowanej metody.
-
-W niniejszej pracy skupiam siê g³ównie na podejœciu word2vec z racji tego, i¿ powsta³ niedawno.
-
-
-Dochodzenie nowych rekomendacji - nie jest tematem pracy
-
-
-napisaæ, ¿e jêzyk polski stanowi trudnoœæ
--------------------
-
-S³owa, które zostaj¹ po tokenizacji to np literówki
+%W niniejszej pracy wykonujê eksperymenty wykorzystuj¹c znane metody okreœlania podobieñstw pomiêdzy dokumentami, które adaptujê do zbioru dokumentów, które otrzyma³em od serwisu Allegro.
+%
+%W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji jest, aby u¿ytkownik odwiedza³ kolejne podstrony serwisu, co wprost zwiêksza szansê na dokonanie przez niego transakcji.
+%
+%Obecnie wykorzystywana metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON.
+%
+%Metoda ta ogranicza siê jednak jedynie do wyszukiwania tekstowego pomijaj¹c zagadnienia semantyczne. Znaczy to, ¿e je¿eli dwa teksty opisuj¹ ten sam temat, ale u¿ywaj¹ to tego ró¿nych s³ów, np. synonimów, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siê stwierdziæ podobieñstwa miêdzy tymi tekstami, mimo, i¿ takowe istnieje.
+%
+%St¹d w mojej pracy postanowi³em wykonaæ eksperymenty z metodami u¿ywaj¹cymi semantycznej analizy tekstu, aby oceniæ, czy daj¹ one lepsze rezultaty od obecnie stosowanej metody.
+%
+%W niniejszej pracy skupiam siê g³ównie na podejœciu word2vec z racji tego, i¿ powsta³ niedawno.
+%
+%
+%Dochodzenie nowych rekomendacji - nie jest tematem pracy
+%
+%
+%napisaæ, ¿e jêzyk polski stanowi trudnoœæ
+%-------------------
+%
+%S³owa, które zostaj¹ po tokenizacji to np literówki
 
 \section{Struktura pracy}
 Rozdzia³ 2 wprowadza do zagadnienia rekomendacji i opisuje wybrane metody przetwarzania jêzyka naturalnego s³u¿¹ce do wyszukiwania podobieñstw miêdzy dokumentami tekstowymi.
 
 Nastêpnie w rozdziale 3 dokonujê opisu konkretnego problemu, jakim jest generacja rekomendacji artyku³ów tekstowych w serwisie Allegro. Opisujê dane otrzymane z serwisu oraz kolejne wstêpnego etapy przetwarzania ich, aby nadawa³y siê do zaaplikowania do nich wybranych metod.
 
-Dalej, w rozdziale 4 opisujê proces zastosowania wybranych metod oraz porównanie efektów ich dzia³ania. Opisujê równie¿ u¿yte metody ewaluacji wyników.
+Dalej, w rozdziale 4 opisujê stworzone i zastosowane póŸniej metody ewaluacji wyników.
 
-Ostatecznie dokonujê podsumowania przeprowadzonych badañ i rozwa¿am kierunki dalszych prac w tej dziedzinie.
+Nastêpnie w rozdziale 5 opisujê proces zastosowania wybranych metod oraz porównanie efektów ich dzia³ania. 
+
+Ostatecznie w rozdziale 6 dokonujê podsumowania przeprowadzonych badañ i rozwa¿am kierunki dalszych prac w tej dziedzinie.
+
+Za³¹cznik A zawiera opis narzêdzi programistycznych i bibliotek wykorzystanych przez mnie podczas prowadzenia badañ.
+
+\section{Uwagi}
+
+\subsection{}
+
+W celu unikniêcia nieporozumieñ pragnê tutaj zaznaczyæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
+
+%TODO
+%\subsection{}
+%
+%W niniejszej pracy operujê na statycznym zbiorze artyku³ów pochodz¹cych wprost z serwisu (styczeñ 2017). Serwis Allegor dynamiczne ewoluuje, st¹d czêœæ 
+
 \chapter{Przegl¹d wybranych metod}
 
-W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i narzêdzi umo¿liwiaj¹cych przetwarzanie jêzyka naturalnego, semantyczn¹ analizê tekstu i wykrywanie podobieñstwa pomiêdzy tekstami. Czêœæ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystaj¹ce z semantycznej analizy tekstu - nie tak popularne z powodu swojej nowoœci, b¹dŸ trudnoœci w zaaplikowaniu. Daje to pole do badañ i ewentualnych usprawnieñ istniej¹cych systemów opieraj¹cych siê o klasyczne metody. Wybrane metody stosujê, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, st¹d przegl¹d metod zaczynam w³aœnie od wprowadzenia do tego zagadnienia.
+W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i narzêdzi umo¿liwiaj¹cych przetwarzanie jêzyka naturalnego, semantyczn¹ analizê tekstu i wykrywanie podobieñstwa pomiêdzy tekstami. Czêœæ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystaj¹ce z semantycznej analizy tekstu - nie s¹ tak popularne z powodu swojej nowoœci, b¹dŸ trudnoœci w zaaplikowaniu. Daje to pole do badañ i ewentualnych usprawnieñ istniej¹cych systemów opieraj¹cych siê o klasyczne metody. Wybrane metody stosujê, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, st¹d przegl¹d metod zaczynam w³aœnie od wprowadzenia do tego zagadnienia.
 
 \section{Systemy rekomendacji}
 
@@ -197,26 +216,19 @@ Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y p
 
 \section{Techniki przetwarzania jêzyka naturalnego}
 
-Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami - dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym - zrozumia³ym dla cz³owieka - który mówi¹c potocznie niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary).
+Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami - dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym - zrozumia³ym dla cz³owieka - który mówi¹c potocznie niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary). W poni¿szych paragrafach opisujê techniki przetwarzania jêzyka naturalnego u¿yte przeze mnie wprost lub z których koncepcji czerpa³em.
 
-W poni¿szych paragrafach opisujê techniki przetwarzania jêzyka naturalnego u¿yte przeze mnie wprost lub 
-
-W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce
-
-
-
-Korpus $C$: zbiór dokumentów $d$,\\
-Dokument $d$: skoñczony ci¹g zdañ $s$,\\
-Zdanie $s$: skoñczony ci¹g s³ów $w$,\\
-S³owo $w$: skoñczony ci¹g znaków $c$,\\
-W celu uproszczenia zapisu: $w \in d \equiv \exists_{s \in d}\ w \in s$,\\
-S³ownik zbudowany na korpusie $C$: $V = {w\ |\ \exists_{d \in C}\ w \in d}$.\\
-
-
+W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznaczenia:
+\begin{itemize}
+	\item Korpus $C$: zbiór dokumentów $d$,
+	\item Dokument $d$: skoñczony ci¹g zdañ $s$,
+	\item Zdanie $s$: skoñczony ci¹g s³ów $w$,
+	\item S³owo $w$: skoñczony ci¹g znaków $c$,
+	\item W celu uproszczenia zapisu: $w \in d \equiv \exists_{s \in d}\ w \in s$,
+	\item S³ownik zbudowany na korpusie $C$: $V = {w\ |\ \exists_{d \in C}\ w \in d}$.
+\end{itemize}
 \subsection{Bag-of-words}
 Bag-of-words (worek s³ów) jest metod¹ reprezentacji tekstu jako zbioru zawartych w nim s³ów niezachowuj¹cego kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Jako korpus bêdê nazywaæ zbiór przetwarzanych dokumentów, natomiast jako s³ownik zbiór s³ów 
-
-
 
 Bag-of-words mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus\\
@@ -226,24 +238,22 @@ $n = |V|$: liczba s³ów w $V$\\
 $v_i \in \mathbb{R}^n$, gdzie $i \in 1, 2, ..., n$ wektor reprezentuj¹cy dokument $d_i \in C$\\
 $v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
 
-Ka¿dy dokument reprezentowany jest przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TFIDF informuje o czêstoœci wyst¹pienia termów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego termu i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
-
-
- W celu sprowadzenia korpusu do reprezentacji bag-of-words 
-
-
 Technika ta jest stosunkowo prosta jest jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu.
 \subsection{Term frequency - inverted document frequency}
 TF-IDF(wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
 $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
-$idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$
+$idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$,
+
+%Ka¿dy dokument reprezentowany jest przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TFIDF informuje o czêstoœci wyst¹pienia termów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego termu i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
+
 W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 \subsection{Latent Dirichlet Allocation}
+%TODO opisaæ metodê
 
 
+\subsection{Word2vec}%TODO obrazek z sieci¹
 
-\subsection{Word2vec}
 Word2vec jest stosunkowo now¹ (2013) metod¹ osadzania s³ów w przestrzeni wektorowej (word embedding), opisan¹ w \cite{word2vec}. 
 
 Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieci neuronowej, która ma za zadanie odtworzyæ kontekst danego s³owa. Jako wejœcie metoda otrzymuje s³owa z korpusu. Wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom   sk³adaj¹cej siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa siec przewiduje N s¹siednich s³ów lub CBOW: na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}
@@ -293,32 +303,19 @@ EMD jest to dobrze zbadanym problem transportowym\cite{emd}, dla którego powsta³
 Przypuœæmy, ¿e dziêki metodzie word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
 
 
-\chapter{Dane}
+\chapter{Dane}%TODO przerobiæ ca³y rozdzia³
+%opis specyfiki danych
 Dane, na których testowane by³y opisywane w niniejszej pracy metody otzryma³em dziêki ¿yczliwoœci serwisu e-commerce Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
 
-NApisaæ, ¿e w korpusie znajduje siê wiele specyficznych s³ów bran¿owych
+%NApisaæ, ¿e w korpusie znajduje siê wiele specyficznych s³ów bran¿owych
 
-Jako, ¿e artyku³y ze zbioru dotycz¹ produktów sprzedawanych za poœrednictwem serwisu Allegro, w sk³ad s³ownika wchodzi wiele s³ów specyficznych dla danej bran¿y. S¹ to m.in. nazwy modeli aparatów: !!!!!!!!!!!!!, samochodów: !!!!!!!!!!!!!, gier komputerowych: !!!!!!!!!!!!!, a tak¿e nazwy techniczne: sprê¿arka, !!!!!!!!!!!!!!!!!!!!. W zwi¹zku z tym zachodzi podejrzenie, ¿e zastosowanie metod wykorzystuj¹cych model nauczony na ogólnym zbiorze tekstu mo¿e nie dawaæ satysfakcjonuj¹cych rezultatów.
+Jako, ¿e artyku³y ze zbioru dotycz¹ produktów sprzedawanych za poœrednictwem serwisu Allegro, w sk³ad s³ownika wchodzi wiele s³ów specyficznych dla danej bran¿y. S¹ to m.in. nazwy modeli aparatów: ........., samochodów: ........, gier komputerowych: .........., a tak¿e nazwy techniczne: sprê¿arka, ........ W zwi¹zku z tym zachodzi podejrzenie, ¿e zastosowanie metod wykorzystuj¹cych model nauczony na ogólnym zbiorze tekstu mo¿e nie dawaæ satysfakcjonuj¹cych rezultatów.
 
-\paragraph{} 
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=1\textwidth]{img/words_hist_log.png}
-  \caption{Histogram wyst¹pieñ s³ów w korpusie}
-  %\label{fig:warstwy}
-\end{figure}
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=1\textwidth]{img/articles_length_hist.png}
-  \caption{Histogram d³ugoœci artyku³ów.}
-  %\label{fig:warstwy}
-\end{figure}
-
-\section{Wstêpne przetwarzanie danych}
-A celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych.
+\section{Wstêpne przetwarzanie danych}%TODO przeredagowaæ
+W celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych.
 Jego techniki nie wchodz¹ w sk³¹d ¿adnego standardu. Wykonujê pewne techniki, opisane ni¿ej, zgodnie z intuicj¹.
 
-Surowe artyku³y odtrymane od Allegro posiadaj¹ w swej treœci wiele znaczników interpretowanych przez system, na podstawie których wzbogacana jest warstwa wizualna strony internetowej zawiraj¹cej artyku³. Np. obrazki czy ³¹cza do ofert zwi¹zanych z tematem artyku³u. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne (ich postaæ jest szczegó³em nieistotnym z punktu widzenia tematyki niniejszej pracy).
+Surowe artyku³y odtrzymane od Allegro posiadaj¹ w swej treœci wiele znaczników interpretowanych przez system, na podstawie których wzbogacana jest warstwa wizualna strony internetowej zawieraj¹cej artyku³. Np. obrazki czy ³¹cza do ofert zwi¹zanych z tematem artyku³u. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne (ich postaæ jest szczegó³em nieistotnym z punktu widzenia tematyki niniejszej pracy).
 
 Kolejnym elemantem wstêpnego pzetwarzania tekstu jest usuniêcie tzw. s³ów stopu (ang. stopwords) - na ogó³ krótkich s³ów nie wnosz¹cych nic do znaczenia ca³oœci artyku³u. S¹ to np. ,,w'', ,,z'', ,,poniewa¿''. Ich usuniêcie zmniejsza liczbê s³ów dokumentu skracaj¹c tym samym czas jego przetwarzania. Jako ¿e s³owa te wystêpuj¹ czêsto, usuniêcie ich daje mo¿liwoœæ uwypuklenia znaczenia innych s³ów maj¹cych wp³yw na rzeczywiste znaczenie ca³ego artyku³u.
 
@@ -332,10 +329,11 @@ rozbijanie s³ów po³¹czonych myœlnikiem
 
 Po powy¿szych etepach s³ownik zbudowan na korpusie zawiera 98174 s³ów.
 
-filtracja ekstremalnych s³ów
+%TODO opisaæ filtracja ekstremalnych s³ów
 
 \section{Opis danych po wstêpnym przetwarzaniu}
 
+%wykonaæ ca³y opis
 
 Opisaæ dok³adnie pola jsona
 Napisaæ o koniecznoœci oczyszczenia tekstu z [werew]
@@ -359,12 +357,24 @@ Ka¿demu artyku³owi przypisana jest lista kategorii (zawieraj¹cych siê w sobie po
 Jakoœæ danych: czy nie ma luk
 Jakoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu jest zawsze wype³nione - brak jest wartoœci NULL.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/words_hist_log.png}
+	\caption{Histogram wyst¹pieñ s³ów w korpusie}
+	%\label{fig:warstwy}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/articles_length_hist.png}
+	\caption{Histogram d³ugoœci artyku³ów.}
+	%\label{fig:warstwy}
+\end{figure}
 
 \paragraph{}
 Otrzymane przeze mnie dane to nieco ponad 20000 dokumentów zapisanych w formacie JSON zawieraj¹cych g³ówn¹ zawartoœæ artyku³u oraz metadane, m.in: id, s³owa kluczowe, kategoria, id autora, tytu³, nag³ówek.
 
 
-\section{Metody ewaluacji}
+\chapter{Metody ewaluacji}
 W celu porównania stosowanych metod wyznaczania podobieñstwa miêdzy artyku³ami konieczna jest formalizacja pewnych miar tego podobieñstwa.
 
 Ewaluacja rankingu, którym trafnoœæ wyników jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowalibyœmy obiektywn¹ miar¹ podobieñstwa pomiêdzy N artyku³ami (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to N artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza mo¿liwoœciami autora.
@@ -375,17 +385,17 @@ Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji 
 
 Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnyh za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ samej miary.
 
-Dzia³anie testowanych metod mo¿na sformalizwaæ w postaci pewnej funkcji $S: C \to ZAPYTAÆ REJMERA jak zapisaæ skoñczony ci¹g elementów z C$. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby artyku³ów s¹ nastêpnie uœredniane.
+Dzia³anie testowanych metod mo¿na sformalizwaæ w postaci pewnej funkcji $S_n: C \to \{a_{i}\}_{i < n}$, gdzie $a_i \in C$, a $n$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby artyku³ów s¹ nastêpnie uœredniane.
 
 Opisane poni¿ej miary 1 i 2 dokonuj¹ porównania podobieñstwa dla pary artyku³ów. W celu rozszerzenia dzia³ania tych miar do pary wejœcie-wyjœcie metody stosujê œredni¹ wa¿on¹ podobieñstwa kolejnych elementów wyjœcia z wejœciem. Stosowane wagi: $\dfrac{1}{i}$ dla $i=1,\ ...,\ N$, gdzie $N$ to d³ugoœæ ci¹gu wyjœciowego danej metody.
 
 
-\subsection{Miara 1: Dystans oparty na metadanych}
+\section{Miara 1: Dystans oparty na metadanych}
 
 Jak wspomnia³em wczeœniej dane prócz treœci artyku³ów zawieraj¹ równie¿ pewne metadane, a wœród nich umo¿liwiaj¹ce tworzenie powi¹zañ miêdzy artyku³ami. Skupiê siê tu na dwóch polach: ,,s³owa kluczowe'' i ,,kategoria''.
 
 
-\subsubsection{Kategorie} 
+\subsection{Kategorie} 
 
 Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych artyku³ów jest ich odleg³oœæ we wczeœniej wspomnianym drzewie kategorii. Zak³adam tu, ¿e im wiêcej wspólnych przodków w drzewie oraz im mniej przodków rozbierzmych, tym bardziej podobe do siebie s¹ artyku³y reprezentowane przez wêz³y drzewa. Zalet¹ miary jest fakt, i¿ przypisanie artyku³u do kategorii zosta³o wykonane przez autora, którego mo¿na okreœliæ ekspertem w danej dziedzinie. St¹d przynale¿noœæ artyku³u do danej kategorii jest mocno uzasadniona. Kolejn¹ zalet¹ tej miary jest fakt, i¿ mo¿na j¹ zastosowaæ automatycznie - wiedza ekspercka jest ju¿ zapisana w danych artyku³ów. Nale¿y zaznaczyæ tu jednak, ¿e miara nie jest idealna - ka¿dy artyku³ nale¿y do tylko jednego liœcia drzewa kategorii. St¹d artyku³ poruszaj¹cy zagadnienia z ró¿nych obszarów, który mo¿na by przypisaæ dwóm stosunkowo odleg³ym kategoriom $A$ i $B$, zostanie przypisany tylko do jednej kategorii, np. $A$. Miara poka¿e wtedy du¿¹ odleg³oœæ od artyku³ów z kategorii $B$, co nie jest prawd¹.
 
@@ -405,14 +415,14 @@ $d(a_1, a_2) = \dfrac{w(a_1,a_2)}{D}$, gdzie $d$ to dystans miêdzy artyku³ami $a
 \end{figure}
 W powy¿szych przyk³adowych drzewach $w(X, Y) = 1$, $w(Y, Z) = 2$, $D=3$, st¹d $d(X, Y) = \dfrac{1}{3}$, $d(X, Y) = \dfrac{2}{3}$. Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
 
-\subsubsection{S³owa kluczowe}
+\subsection{S³owa kluczowe}
 NIE WIEM, CZY MIARA U¯YWAJ¥CA KEYWORDÓW JEST POTRZEBNA
 
-\subsection{Miara 2: Ocena przez u¿ytkowników offline}
+\section{Miara 2: Ocena przez u¿ytkowników offline}
 
 Kolejn¹ wypracowan¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny ewaluacja powinna byæ dokonana przez grupê osób operuj¹cycha na tych samych danych. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa. Skala ocen to 1-10: 1, gdy artyku³y nie s¹ do siebie podobne, 10, gdy podobieñstwo jest ca³kowite.
 
-\subsection{Miara 3: Historyczna aktywnoœæ u¿ytkowników serwisu}
+\section{Miara 3: Historyczna aktywnoœæ u¿ytkowników serwisu}
 
 Zbieranie a nastêpnie przechowywanie informacji o aktywnoœci u¿ytkownika w ramach serwisu internetowego jest powszechn¹ praktyk¹. Proces ten pozwala na analizê zachowania u¿ytkowników co mo¿e doprowadziæ do wniosków, jakie usprawnienia nale¿y przedsiêwzi¹æ, aby spe³niæ cele biznesowe. Jednym z przyk³adów aktywnoœci u¿ytkownika zapisywanej przez serwis Allego s¹ klikniêcia w linki znajduj¹ce siê na stronie internetowej. Informacja ta pozwala sporz¹dziæ jeszcze jedn¹ miarê jakoœci dopasowania podobnych do siebie artyku³ów. Postaæ danych, jakie uda³o mi siê uzyskaæ z serwisu to tabela o polach: adres strony, na której nast¹pi³o klikniêcie, adres strony, na któr¹ prowadzi link, data klikniêcia.
 
@@ -428,12 +438,12 @@ wyszukiwania.
 TUTAJ OPISUJÊ MIARÊ + podajê Ÿród³o
 PROBLEM - algorytm allegro zmienia³ siê w czasie
 
-Za³ó¿my, ¿e dany algorytm $A$ zwraca pewien ci¹g artyku³ów $c_A=a1,\ a2,\ ...,\ a6$ podobnych do danego artyku³u $x$, w kolejnoœci od najbardziej adekwatnego. Za³ó¿my równie¿, czêœæ elementów ci¹gu $c_B$ artyku³ów rekomandowanych w serwisie dla $x$ (u¿ywan¹ dotychczas w serwisie metod¹ $B$) znajduje siê równie¿ w ci¹gu $c_A$, tj. np. ISTNIEJ¥ TAKIE $a_i, a_j$ (i, j to indeksy w ci¹gu $c_A$), ¿e nale¿¹ do $c_A$ i $c_B$. Za³ó¿my ponadto, ¿e z danych o klikniêciach u¿ytkowników w linki w ramach serwisu wiadomo, ¿e przejœcie z $x$ na $a_i$ jest bardziej popularne ni¿ przejœcie z $x$ na $a_j$. St¹d je¿eli $i<j$ ($i>j$), to jakoœæ dzia³ania metody $A$ jest dobra (z³a), bo metoda ta generuje podobne artyku³y w kolejnoœci zgodnej ze stopniem podobieñstwa z artyku³em bazowym, opartym o czêstoœc przejœæ u¿ytkowników miêdzy artyku³ami. DO PRZEREDAGOWANIA!!!!
+Za³ó¿my, ¿e dany algorytm $A$ zwraca pewien ci¹g artyku³ów $c_A=a1,\ a2,\ ...,\ a6$ podobnych do danego artyku³u $x$, w kolejnoœci od najbardziej adekwatnego. Za³ó¿my równie¿, czêœæ elementów ci¹gu $c_B$ artyku³ów rekomandowanych w serwisie dla $x$ (u¿ywan¹ dotychczas w serwisie metod¹ $B$) znajduje siê równie¿ w ci¹gu $c_A$, tj. np. ISTNIEJ¥ TAKIE $a_i, a_j$ (i, j to indeksy w ci¹gu $c_A$), ¿e nale¿¹ do $c_A$ i $c_B$. Za³ó¿my ponadto, ¿e z danych o klikniêciach u¿ytkowników w linki w ramach serwisu wiadomo, ¿e przejœcie z $x$ na $a_i$ jest bardziej popularne ni¿ przejœcie z $x$ na $a_j$. St¹d je¿eli $i<j$ ($i>j$), to jakoœæ dzia³ania metody $A$ jest dobra (z³a), bo metoda ta generuje podobne artyku³y w kolejnoœci zgodnej ze stopniem podobieñstwa z artyku³em bazowym, opartym o czêstoœc przejœæ u¿ytkowników miêdzy artyku³ami. %TODO DO PRZEREDAGOWANIA!!!!
 
 Za wagi metody nDCG przyjmujê kiczby przejœæ pomiêdzy artyku³ami, a sam¹ metodê stosujê tylko do przeciêcia zbioru artyku³ów podobnych do danego generowanych przez dan¹ metodê ze zborem artyku³ów rekomendowanych do danego przez dotychczasow¹ metodê dzia³aj¹c¹ w serwisie.
 
 
-\section{Opis i wyniki badañ}
+\chapter{Opis i wyniki badañ}
 \subsection{}
 model piaseckiego
 ile unikalnych s³ów on nie zawiera
@@ -513,6 +523,9 @@ wypisaæ póŸniej u¿yte biblioteki
 \bibitem[13]{softmax}
 	\url{https://en.wikipedia.org/wiki/Softmax_function/}
 	(11.06.2017)
+\bibitem[14]{screen_allegro}
+	\url{https://allegro.pl/artykul/jaka-farba-dla-alergika-55917/}
+	(26.06.2017)
 \end{thebibliography}
 
 \appendix

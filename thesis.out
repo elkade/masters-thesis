@@ -1,25 +1,28 @@
 \BOOKMARK [0][-]{chapter.1}{Wstep}{}% 1
-\BOOKMARK [1][-]{section.1.1}{}{chapter.1}% 2
-\BOOKMARK [1][-]{section.1.2}{Rekomendacje artyku\233\363w tekstowych w Allegro}{chapter.1}% 3
-\BOOKMARK [1][-]{section.1.3}{Struktura pracy}{chapter.1}% 4
-\BOOKMARK [0][-]{chapter.2}{Przeglad wybranych metod}{}% 5
-\BOOKMARK [1][-]{section.2.1}{Systemy rekomendacji}{chapter.2}% 6
-\BOOKMARK [2][-]{subsection.2.1.1}{Filtrowanie kolaboratywne \(collaborative filtering\)}{section.2.1}% 7
-\BOOKMARK [2][-]{subsection.2.1.2}{Filtrowanie oparte na tresci \(content-based filtering\)}{section.2.1}% 8
-\BOOKMARK [1][-]{section.2.2}{Techniki przetwarzania jezyka naturalnego}{chapter.2}% 9
-\BOOKMARK [2][-]{subsection.2.2.1}{Bag-of-words}{section.2.2}% 10
-\BOOKMARK [2][-]{subsection.2.2.2}{Term frequency - inverted document frequency}{section.2.2}% 11
-\BOOKMARK [2][-]{subsection.2.2.3}{Latent Dirichlet Allocation}{section.2.2}% 12
-\BOOKMARK [2][-]{subsection.2.2.4}{Word2vec}{section.2.2}% 13
-\BOOKMARK [2][-]{subsection.2.2.5}{Odleg\233osc miedzy dokumentami}{section.2.2}% 14
-\BOOKMARK [0][-]{chapter.3}{Dane}{}% 15
-\BOOKMARK [1][-]{section.3.1}{Wstepne przetwarzanie danych}{chapter.3}% 16
-\BOOKMARK [1][-]{section.3.2}{Opis danych po wstepnym przetwarzaniu}{chapter.3}% 17
-\BOOKMARK [1][-]{section.3.3}{Metody ewaluacji}{chapter.3}% 18
-\BOOKMARK [2][-]{subsection.3.3.1}{Miara 1: Dystans oparty na metadanych}{section.3.3}% 19
-\BOOKMARK [2][-]{subsection.3.3.2}{Miara 2: Ocena uzytkownik\363w offline}{section.3.3}% 20
-\BOOKMARK [2][-]{subsection.3.3.3}{Miara 3: Historyczna aktywnosc uzytkownik\363w serwisu}{section.3.3}% 21
-\BOOKMARK [1][-]{section.3.4}{Opis i wyniki badan}{chapter.3}% 22
-\BOOKMARK [2][-]{subsection.3.4.1}{}{section.3.4}% 23
-\BOOKMARK [1][-]{section.3.5}{Dalsze badania}{chapter.3}% 24
-\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzie}{}% 25
+\BOOKMARK [1][-]{section.1.1}{Rekomendacje artyku\233\363w tekstowych w Allegro}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Struktura pracy}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Uwagi}{chapter.1}% 4
+\BOOKMARK [2][-]{subsection.1.3.1}{}{section.1.3}% 5
+\BOOKMARK [0][-]{chapter.2}{Przeglad wybranych metod}{}% 6
+\BOOKMARK [1][-]{section.2.1}{Systemy rekomendacji}{chapter.2}% 7
+\BOOKMARK [2][-]{subsection.2.1.1}{Filtrowanie kolaboratywne \(collaborative filtering\)}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.2}{Filtrowanie oparte na tresci \(content-based filtering\)}{section.2.1}% 9
+\BOOKMARK [1][-]{section.2.2}{Techniki przetwarzania jezyka naturalnego}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.1}{Bag-of-words}{section.2.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.2}{Term frequency - inverted document frequency}{section.2.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.3}{Latent Dirichlet Allocation}{section.2.2}% 13
+\BOOKMARK [2][-]{subsection.2.2.4}{Word2vec}{section.2.2}% 14
+\BOOKMARK [2][-]{subsection.2.2.5}{Odleg\233osc miedzy dokumentami}{section.2.2}% 15
+\BOOKMARK [0][-]{chapter.3}{Dane}{}% 16
+\BOOKMARK [1][-]{section.3.1}{Wstepne przetwarzanie danych}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.2}{Opis danych po wstepnym przetwarzaniu}{chapter.3}% 18
+\BOOKMARK [0][-]{chapter.4}{Metody ewaluacji}{}% 19
+\BOOKMARK [1][-]{section.4.1}{Miara 1: Dystans oparty na metadanych}{chapter.4}% 20
+\BOOKMARK [2][-]{subsection.4.1.1}{Kategorie}{section.4.1}% 21
+\BOOKMARK [2][-]{subsection.4.1.2}{S\233owa kluczowe}{section.4.1}% 22
+\BOOKMARK [1][-]{section.4.2}{Miara 2: Ocena przez uzytkownik\363w offline}{chapter.4}% 23
+\BOOKMARK [1][-]{section.4.3}{Miara 3: Historyczna aktywnosc uzytkownik\363w serwisu}{chapter.4}% 24
+\BOOKMARK [0][-]{chapter.5}{Opis i wyniki badan}{}% 25
+\BOOKMARK [1][-]{subsection.5.0.1}{}{chapter.5}% 26
+\BOOKMARK [1][-]{section.5.1}{Dalsze badania}{chapter.5}% 27
+\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzie}{}% 28
