@@ -135,7 +135,7 @@ Podczas prowadzenia badañ stworzy³em szereg skryptów przetwarzaj¹cych dane i wyk
 % do 'najwiêksz¹'
 %TODO przeredagowaæ
 
-
+%TODO OPISAÆ, JAK DZIA£A OBECNY MECHANIZM
 Allegro jest najwiêksz¹ dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Posiada ponad 20 mln zarejestrowanych klientów. Ka¿dego dnia na Allegro sprzedaje siê ponad 870 tysiêcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu. Allegro pobiera prowizjê za dokonanie sprzeda¿y za swoim poœrednictwem.
 
 Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia³ zajmuj¹cy siê publikacj¹ artyku³ów opisuj¹cych produkty wystawiane za poœrednictwem serwisu. Ma to na celu pomoc u¿ytkownikom przy wyborze interesuj¹cego ich produktu.
@@ -305,40 +305,53 @@ Przypuœæmy, ¿e dziêki metodzie word2vec dla s³ownika $V$ o $n$ s³owach otrzymuje
 
 \chapter{Dane}%TODO przerobiæ ca³y rozdzia³
 %opis specyfiki danych
-Dane, na których testowane by³y opisywane w niniejszej pracy metody otzryma³em dziêki ¿yczliwoœci serwisu e-commerce Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
+Dane, na których testowane by³y opisywane w niniejszej pracy metody otrzyma³em dziêki ¿yczliwoœci serwisu Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
 
-%NApisaæ, ¿e w korpusie znajduje siê wiele specyficznych s³ów bran¿owych
+\section{Opis danych}
 
-Jako, ¿e artyku³y ze zbioru dotycz¹ produktów sprzedawanych za poœrednictwem serwisu Allegro, w sk³ad s³ownika wchodzi wiele s³ów specyficznych dla danej bran¿y. S¹ to m.in. nazwy modeli aparatów: ........., samochodów: ........, gier komputerowych: .........., a tak¿e nazwy techniczne: sprê¿arka, ........ W zwi¹zku z tym zachodzi podejrzenie, ¿e zastosowanie metod wykorzystuj¹cych model nauczony na ogólnym zbiorze tekstu mo¿e nie dawaæ satysfakcjonuj¹cych rezultatów.
+Otrzymane dane to baza ok. 20000 artyku³ów tekstowych w formacie JSON. S¹ to te same artyku³y, które s¹ dostêpne dla u¿ytkowników poprzez serwis internetowy (stan na styczeñ 2017). Pojedynczy rekord danych sk³ada siê z g³ównej treœci artyku³u oraz z metadanych, z których za istotne z punktu widzenia tematu pracy uzna³em pola: id, kategoria i s³owa kluczowe.
+
+\subsection{Treœæ artyku³u}
+
+Treœæ ka¿dego artyku³u sk³ada siê z trzech pól: ,,zawartoœæ'', ,,nag³ówek'' i ,,tytu³''. Œrednia d³ugoœæ artyku³u to 821 s³ów, w tym nag³ówek to jednozdaniowy wstêp. Œredni¹ t¹ estymujê na podstawie œredniej liczby znaków artyku³u i œredniej d³ugoœci s³owa w jêzyku polskim. Dok³adne statystyki tekstu bêd¹ dostêpne dopiero po wstêpnym przetwarzaniu.
+
+Wszystkie artyku³y napisane s¹ w jêzyku polskim, w nielicznych przypadkach wykry³em b³êdy, tzw. ,,literówki''. Jako, ¿e artyku³y ze zbioru dotycz¹ produktów sprzedawanych za poœrednictwem serwisu Allegro, w sk³ad s³ownika zbudowanego na ich bazie wchodzi wiele s³ów specyficznych dla ró¿nych bran¿. S¹ to m.in. nazwy modeli aparatów (np. ,,Sony Alpha 77 II''), samochodów, gier komputerowych, a tak¿e nazwy techniczne: ,,sprê¿arka'', ,,hipertoniczny'', ,,autofocus''.
+
+Artyku³y posiadaj¹ w swej treœci wiele znaczników interpretowanych przez system, na podstawie których wzbogacana jest warstwa wizualna strony internetowej zawieraj¹cej artyku³, np. obrazki czy ³¹cza do ofert zwi¹zanych z tematem artyku³u.
+
+Spójnoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu jest zawsze wype³nione - brak jest wartoœci typu NULL.
+
+\subsection{Kategoria}
+
+Ka¿dy artyku³ zosta³ przez autora przydzielony do pewnej kategorii, która odpowiada tematyce artyku³u, np. ,,Aparaty cyfrowe'' czy ,,Przyprawy i zio³a''. W sk³ad pola ,,kategoria'' wchodzi równie¿ lista kategorii nadrzêdnych, a ca³a hierarcha kategorii ma strukturê drzewiast¹. Np. kategoria nadrzêdna dla kat. ,,Przyprawy i zio³a'' to ,,Delikatesy'', a dla kat. ,,Delikatesy'' to  ,,Dom i zdrowie''. Ka¿dy artyku³ nale¿y do tylko jednej kategorii bêd¹cej dowolnym wêz³em w drzewie (nie tylko liœciem).
+
+\subsection{S³owa kluczowe}%TODO opisaæ pole
+
+Do ka¿dego artyku³u do³¹czone s¹ s³owa kluczowe charakteryzuj¹ce jego zawartoœæ, np. ,,aparaty'', ,,aparaty cyfrowe'', ,,lustrzanki'', ,,sony''. Pole to jest wykorzystywane w dotychczasowym mechaniŸmie generowania rekomendacji - artyku³y podobne do danego s¹ wyszukiwane na podstawie jego s³ów kluczowych.
 
 \section{Wstêpne przetwarzanie danych}%TODO przeredagowaæ
-W celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych.
-Jego techniki nie wchodz¹ w sk³¹d ¿adnego standardu. Wykonujê pewne techniki, opisane ni¿ej, zgodnie z intuicj¹.
 
-Surowe artyku³y odtrzymane od Allegro posiadaj¹ w swej treœci wiele znaczników interpretowanych przez system, na podstawie których wzbogacana jest warstwa wizualna strony internetowej zawieraj¹cej artyku³. Np. obrazki czy ³¹cza do ofert zwi¹zanych z tematem artyku³u. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne (ich postaæ jest szczegó³em nieistotnym z punktu widzenia tematyki niniejszej pracy).
+W celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych. Ma ono na celu takie przygotowanie tekstu, aby zmaksymalizowaæ jakoœæ wyników operuj¹cych na nim póŸniej algorytmy. Techniki wstêpnego przetwarzania tekstu nie wchodz¹ w sk³¹d ¿adnego standardu - dobieram je indywidualnie do konkrtenego przypadku, zgodnie z intuicj¹.
 
-Kolejnym elemantem wstêpnego pzetwarzania tekstu jest usuniêcie tzw. s³ów stopu (ang. stopwords) - na ogó³ krótkich s³ów nie wnosz¹cych nic do znaczenia ca³oœci artyku³u. S¹ to np. ,,w'', ,,z'', ,,poniewa¿''. Ich usuniêcie zmniejsza liczbê s³ów dokumentu skracaj¹c tym samym czas jego przetwarzania. Jako ¿e s³owa te wystêpuj¹ czêsto, usuniêcie ich daje mo¿liwoœæ uwypuklenia znaczenia innych s³ów maj¹cych wp³yw na rzeczywiste znaczenie ca³ego artyku³u.
+Ni¿ej opisujê kolejne kroki wstêpnego przetwarzania tekstu, które wykonujê na posiadanym zbiorze artyku³ów.
+\begin{enumerate}
+	\item Oczyszczanie tekstu ze zbêdnych, wspomnianych wczeœniej znaczników. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne (ich postaæ jest szczegó³em nieistotnym z punktu widzenia tematyki niniejszej pracy).
+	\item Usuniêcie ,,s³ów stopu''(ang. stopwords) - na ogó³ krótkich s³ów nie wnosz¹cych nic do znaczenia ca³oœci artyku³u. S¹ to np. ,,w'', ,,z'', ,,poniewa¿''. Ich usuniêcie zmniejsza liczbê s³ów dokumentu skracaj¹c tym samym czas jego przetwarzania. Jako ¿e s³owa te wystêpuj¹ czêsto, usuniêcie ich daje mo¿liwoœæ uwypuklenia znaczenia innych s³ów maj¹cych wp³yw na rzeczywiste znaczenie ca³ego artyku³u. Zbiór s³ów stopu czerpiê z \cite{stopwords}.
+	\item Sprowadzenie wszystkich s³ów dokumentu do ma³ych liter. Pomaga to ujednoliciæ postaæ czêœci s³ów o tym samym znaczeniu, wœród których jedno wystêpuje na pocz¹tku zdania a inne w œrodku.
+	\item Rozbicie s³ów po³¹czonych myœlnikiem. Doœwiadczenie w póŸniejszym etapie (tokenizacji) pokazuje, ¿e narzêdzie jej dokonuj¹ce nie radzi sobie z tego typu s³owami (np. ,,bia³o-czerwony'') i zostania je w niezmienionej postaci gramatycznej (np. ,,bia³o-czerwonego''). St¹d koniecznoœæ rêcznego wykoania mechanizmu rozbijaj¹cego takie s³owa do postaci kompatybilnej z tokenizerem.
+	\item Tokenizacja. Jest to najistotniejszy element ca³ego procesu. Polega na sprowadzaniu s³ów o tym samym znaczeniu, a ró¿nej formie gramatycznej do tej samej postaci. Sporym utrudnieniem jest tutaj stopieñ skomplikowania jêzyka polskiego oraz liczba wyj¹tków, jak¹ ten jêzyk posiada. Za przyk³ad mo¿e pos³u¿yæ s³owo ,,mieæ'', którego jedna z form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie ka¿dego z tych wyrazów do formy podstawowej ,,mieæ''. Do przeprowadzenia tej operacji stosujê narzêdzie Morfologik\cite{morfologik}.
+\end{enumerate}
 
-Nastêpnie sprowadzam wszystkie s³owa dokumentu do ma³ych liter, ¿eby ujednoliciæ postaæ czêœci s³ów o tym samym znaczeniu, wœród których jedno wystêpuje na pocz¹tku zdania a inne w œrodku.
-
-Kolejnym, najistotniejszym etapem wstêpnego przetwarzania danych jest tzw. tokenizacja, czyli sprowadzanie s³ów o tym samym znaczeniu, a ró¿nej formie gramatycznej do tej samej postaci. Sporym utrudnieniem jest tutaj stopieñ skomplikowania jêzyka polskiego oraz liczba wyj¹tków, jak¹ ten jêzyk posiada. Za przyk³ad mo¿e pos³u¿yæ s³owo ,,mieæ'', którego jedna z form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie ka¿dego z tych wyrazów do formy podstawowej ,,mieæ''. Do przeprowadzenia tej operacji stosujê narzêdzie Morfologik\cite{morfologik}.
-
-U¿ycie wymienionych technik nie jest jedynym standardem a wynikiem analizy przetwarzanych danych i techniki te zosta³y dobrane dla konkretnego przypadku
-
-rozbijanie s³ów po³¹czonych myœlnikiem
-
-Po powy¿szych etepach s³ownik zbudowan na korpusie zawiera 98174 s³ów.
-
-%TODO opisaæ filtracja ekstremalnych s³ów
+U¿ycie wymienionych technik nie jest jedynym standardem a wynikiem analizy przetwarzanych danych i techniki te zosta³y dobrane dla tego konkretnego przypadku
 
 \section{Opis danych po wstêpnym przetwarzaniu}
-
+%TODO opisaæ filtracja ekstremalnych s³ów
 %wykonaæ ca³y opis
+%Opisaæ statystyki
+Po powy¿szych etepach s³ownik zbudowany na korpusie zawiera 98174 s³ów.
 
 Opisaæ dok³adnie pola jsona
 Napisaæ o koniecznoœci oczyszczenia tekstu z [werew]
-
-W sk³ad faktycznej treœci artyku³u wchodz¹ trzy pola odpowiadaj¹ce za: zawartoœæ, tytu³ i nag³ówek. Pozosta³e pola wykorzystywane przez mnie pola to: s³owa kluczowe i lista kategorii.
 
 Trudnoœci wynikaj¹ce z przetwarzania jêzyka polskiego
 
@@ -350,12 +363,7 @@ Ewaluacja rankingów jest zadaniem trudniejszym od oceny np. klasyfikatora.
 
 Jaka by³aby sytuacja idealna - w której ocena nie by³aby problemem
 
-Wspomnieæ, ze kategorie s¹ drzewiaste
 
-Ka¿demu artyku³owi przypisana jest lista kategorii (zawieraj¹cych siê w sobie pod k¹tem szczegó³owoœci) klasyfikuj¹cych artyku³ pod k¹tem poruszanej tematyki. Wszystkie kategorie tworz¹ strukturê drzewiast¹. Jest to wa¿ny element danych poniewa¿ pozwala w póŸniejszym etapie na dokonanie ewaluacji rozwi¹zania.
-
-Jakoœæ danych: czy nie ma luk
-Jakoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu jest zawsze wype³nione - brak jest wartoœci NULL.
 
 \begin{figure}[H]
 	\centering
@@ -371,7 +379,7 @@ Jakoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu j
 \end{figure}
 
 \paragraph{}
-Otrzymane przeze mnie dane to nieco ponad 20000 dokumentów zapisanych w formacie JSON zawieraj¹cych g³ówn¹ zawartoœæ artyku³u oraz metadane, m.in: id, s³owa kluczowe, kategoria, id autora, tytu³, nag³ówek.
+
 
 
 \chapter{Metody ewaluacji}
@@ -449,7 +457,7 @@ model piaseckiego
 ile unikalnych s³ów on nie zawiera
 ile wyst¹pieñ s³ów nie zawiera - wykresy
 
-\section{Dalsze badania}
+\chapter{Podsumowanie}
 Dalsze badania.
 
 Niniejsza praca nie wyczerpuje sposobów wyboru artyku³ów podobnych. 
@@ -526,6 +534,9 @@ wypisaæ póŸniej u¿yte biblioteki
 \bibitem[14]{screen_allegro}
 	\url{https://allegro.pl/artykul/jaka-farba-dla-alergika-55917/}
 	(26.06.2017)
+\bibitem[15]{stopwords}
+	\url{https://pl.wikipedia.org/wiki/Wikipedia:Stopwords}
+	(15.04.2017)
 \end{thebibliography}
 
 \appendix
