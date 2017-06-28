@@ -25,15 +25,19 @@
 \contentsline {subsection}{\numberline {3.1.3}S\IeC {\l }owa kluczowe}{17}{subsection.3.1.3}
 \contentsline {section}{\numberline {3.2}Wst\k epne przetwarzanie danych}{18}{section.3.2}
 \contentsline {section}{\numberline {3.3}Opis danych po wst\k epnym przetwarzaniu}{19}{section.3.3}
-\contentsline {paragraph}{}{20}{section*.4}
 \contentsline {chapter}{\numberline {4}Metody ewaluacji}{21}{chapter.4}
 \contentsline {section}{\numberline {4.1}Miara 1: Dystans oparty na metadanych}{22}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Kategorie}{22}{subsection.4.1.1}
 \contentsline {subsection}{\numberline {4.1.2}S\IeC {\l }owa kluczowe}{24}{subsection.4.1.2}
 \contentsline {section}{\numberline {4.2}Miara 2: Ocena przez u\.zytkownik\'ow offline}{24}{section.4.2}
 \contentsline {section}{\numberline {4.3}Miara 3: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{24}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}nDCG}{25}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Adaptacja metody nDCG}{25}{subsection.4.3.2}
 \contentsline {chapter}{\numberline {5}Opis i wyniki bada\'n}{27}{chapter.5}
-\contentsline {subsection}{\numberline {5.0.1}}{27}{subsection.5.0.1}
-\contentsline {chapter}{\numberline {6}Podsumowanie}{28}{chapter.6}
-\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{29}{appendix.A}
-\contentsline {paragraph}{}{29}{section*.5}
+\contentsline {section}{\numberline {5.1}Przygotowanie eksperyment\'ow}{27}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Modele Word2Vec}{28}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Model LDA}{28}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Wyniki bada\'n}{28}{section.5.2}
+\contentsline {chapter}{\numberline {6}Podsumowanie}{29}{chapter.6}
+\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{30}{appendix.A}
+\contentsline {paragraph}{}{30}{section*.4}

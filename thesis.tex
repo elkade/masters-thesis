@@ -345,67 +345,46 @@ Ni¿ej opisujê kolejne kroki wstêpnego przetwarzania tekstu, które wykonujê na po
 U¿ycie wymienionych technik nie jest jedynym standardem a wynikiem analizy przetwarzanych danych i techniki te zosta³y dobrane dla tego konkretnego przypadku
 
 \section{Opis danych po wstêpnym przetwarzaniu}
-%TODO opisaæ filtracja ekstremalnych s³ów
-%wykonaæ ca³y opis
-%Opisaæ statystyki
-Po powy¿szych etepach s³ownik zbudowany na korpusie zawiera 98174 s³ów.
 
-Opisaæ dok³adnie pola jsona
-Napisaæ o koniecznoœci oczyszczenia tekstu z [werew]
-
-Trudnoœci wynikaj¹ce z przetwarzania jêzyka polskiego
-
-Liczba s³ów w korpusie
-S³owa rzadkie itp
-Rzeczy, które pomijam mo¿na zaznaczyæ, ¿e s¹ tematem osobnych badañ
-
-Ewaluacja rankingów jest zadaniem trudniejszym od oceny np. klasyfikatora.
-
-Jaka by³aby sytuacja idealna - w której ocena nie by³aby problemem
-
-
+Powy¿sze kroki doprowadzaj¹ dane do stanu, w którym mo¿na zastosowaæ techniki semantycznej analizy tekstu. Obecnie s³ownik zbudowany na korpusie zawiera 98174 s³ów. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/words_hist_log.png}
-	\caption{Histogram wyst¹pieñ s³ów w korpusie}
+	\includegraphics[width=1\textwidth]{img/words_hist_log.png}
+	\caption{Histogram liczby wyst¹pieñ s³ów w korpusie w skali logarytmicznej.}
 	%\label{fig:warstwy}
 \end{figure}
+
+Wiêkszoœæ artyku³ów okaza³a siê byæ podobnej d³ugoœci, œrednia d³ugoœæ artyku³u to 370 s³ów.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/articles_length_hist.png}
+	\includegraphics[width=1\textwidth]{img/articles_length_hist.png}
 	\caption{Histogram d³ugoœci artyku³ów.}
 	%\label{fig:warstwy}
 \end{figure}
 
-\paragraph{}
-
-
-
 \chapter{Metody ewaluacji}
 W celu porównania stosowanych metod wyznaczania podobieñstwa miêdzy artyku³ami konieczna jest formalizacja pewnych miar tego podobieñstwa.
 
-Ewaluacja rankingu, którym trafnoœæ wyników jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowalibyœmy obiektywn¹ miar¹ podobieñstwa pomiêdzy N artyku³ami (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to N artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza mo¿liwoœciami autora.
+Ewaluacja rankingu, w którym trafnoœæ wyników zale¿y od oceny u¿ytkowników jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowalibyœmy obiektywn¹ miar¹ podobieñstwa pomiêdzy parami N artyku³ów (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to N artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza moimi mo¿liwoœciami.
 
-Praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych systemach s¹ tzw. testy A/B polegaj¹ce na podziale u¿ytkowników na grupy i zaaplikowaniu ka¿dej grupie innego rozwi¹zania. Nastêpnie mierzone s¹ pewne wskaŸniki wœród ka¿dej grupy (w naszym przypadku np. liczba klikniêæ w artyku³y rekomendowane) i spoœród zgromadzonych wyników wybierane jest rozwi¹zanie najlepsze.
+Praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych systemach s¹ tzw. testy A/B polegaj¹ce na podziale u¿ytkowników na grupy i zaaplikowaniu ka¿dej grupie innego rozwi¹zania. Nastêpnie mierzone s¹ pewne wskaŸniki wœród ka¿dej grupy (w naszym przypadku np. liczba ,,klikniêæ'' prawdziwych u¿ytkowników w artyku³y rekomendowane) i spoœród zgromadzonych wyników wybierane jest rozwi¹zanie najlepsze.
 
-Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych.
+Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych. Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnyh za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ ca³ej miary.
 
-Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnyh za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ samej miary.
-
-Dzia³anie testowanych metod mo¿na sformalizwaæ w postaci pewnej funkcji $S_n: C \to \{a_{i}\}_{i < n}$, gdzie $a_i \in C$, a $n$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby artyku³ów s¹ nastêpnie uœredniane.
+Dzia³anie testowanych metod mo¿na sformalizwaæ w postaci pewnej funkcji $S_n: C \to \{a_{i}\}_{i < n}$, gdzie $a_i \in C$, a $n$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze postaci: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby artyku³ów s¹ nastêpnie uœredniane.
 
 Opisane poni¿ej miary 1 i 2 dokonuj¹ porównania podobieñstwa dla pary artyku³ów. W celu rozszerzenia dzia³ania tych miar do pary wejœcie-wyjœcie metody stosujê œredni¹ wa¿on¹ podobieñstwa kolejnych elementów wyjœcia z wejœciem. Stosowane wagi: $\dfrac{1}{i}$ dla $i=1,\ ...,\ N$, gdzie $N$ to d³ugoœæ ci¹gu wyjœciowego danej metody.
 
 
 \section{Miara 1: Dystans oparty na metadanych}
 
-Jak wspomnia³em wczeœniej dane prócz treœci artyku³ów zawieraj¹ równie¿ pewne metadane, a wœród nich umo¿liwiaj¹ce tworzenie powi¹zañ miêdzy artyku³ami. Skupiê siê tu na dwóch polach: ,,s³owa kluczowe'' i ,,kategoria''.
-
+Jak wspomnia³em wczeœniej dane prócz treœci artyku³ów zawieraj¹ równie¿ pewne metadane, a wœród nich umo¿liwiaj¹ce tworzenie powi¹zañ miêdzy artyku³ami. Skupiam siê tu na polach: ,,s³owa kluczowe'' i ,,kategoria''.
 
 \subsection{Kategorie} 
 
-Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych artyku³ów jest ich odleg³oœæ we wczeœniej wspomnianym drzewie kategorii. Zak³adam tu, ¿e im wiêcej wspólnych przodków w drzewie oraz im mniej przodków rozbierzmych, tym bardziej podobe do siebie s¹ artyku³y reprezentowane przez wêz³y drzewa. Zalet¹ miary jest fakt, i¿ przypisanie artyku³u do kategorii zosta³o wykonane przez autora, którego mo¿na okreœliæ ekspertem w danej dziedzinie. St¹d przynale¿noœæ artyku³u do danej kategorii jest mocno uzasadniona. Kolejn¹ zalet¹ tej miary jest fakt, i¿ mo¿na j¹ zastosowaæ automatycznie - wiedza ekspercka jest ju¿ zapisana w danych artyku³ów. Nale¿y zaznaczyæ tu jednak, ¿e miara nie jest idealna - ka¿dy artyku³ nale¿y do tylko jednego liœcia drzewa kategorii. St¹d artyku³ poruszaj¹cy zagadnienia z ró¿nych obszarów, który mo¿na by przypisaæ dwóm stosunkowo odleg³ym kategoriom $A$ i $B$, zostanie przypisany tylko do jednej kategorii, np. $A$. Miara poka¿e wtedy du¿¹ odleg³oœæ od artyku³ów z kategorii $B$, co nie jest prawd¹.
+Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych artyku³ów jest ich odleg³oœæ we wczeœniej wspomnianym drzewie kategorii. Zak³adam tu, ¿e im wiêcej wspólnych przodków w drzewie, tym bardziej podobe do siebie s¹ artyku³y reprezentowane przez wêz³y drzewa. Zalet¹ miary jest fakt, i¿ przypisanie artyku³u do kategorii zosta³o wykonane przez autora, którego mo¿na okreœliæ ekspertem w dziedzinie tematyki artyku³u. St¹d przynale¿noœæ artyku³u do danej kategorii jest mocno uzasadniona. Kolejn¹ zalet¹ tej miary jest fakt, i¿ mo¿na j¹ zastosowaæ automatycznie - wiedza ekspercka jest ju¿ zapisana w danych artyku³ów. Nale¿y zaznaczyæ tu jednak, ¿e miara nie jest idealna - ka¿dy artyku³ nale¿y do tylko jednego liœcia drzewa kategorii. St¹d artyku³ poruszaj¹cy zagadnienia z ró¿nych obszarów, który mo¿na by przypisaæ dwóm stosunkowo odleg³ym kategoriom $A$ i $B$, zostanie przypisany tylko do jednej kategorii, np. $A$. Miara poka¿e wtedy du¿¹ odleg³oœæ od artyku³ów z kategorii $B$, co nie jest prawd¹.
 
 Formalnie miarê mo¿na zapisaæ jako: 
 $d(a_1, a_2) = \dfrac{w(a_1,a_2)}{D}$, gdzie $d$ to dystans miêdzy artyku³ami $a_1$ i $a_2$, $w(x, y)$ to d³ugoœæ czêœci wspólnej œcie¿ek od korzenia drzewa kategorii do wêz³ów reprezentuj¹cych artyku³y $x$ i $y$, a $D$ to g³êbokoœæ ca³ego drzewa (wprowadzone w celu normalizacji). Im wy¿szy wynik, tym wiêksze podobieñstwo artyku³ów.
@@ -424,11 +403,12 @@ $d(a_1, a_2) = \dfrac{w(a_1,a_2)}{D}$, gdzie $d$ to dystans miêdzy artyku³ami $a
 W powy¿szych przyk³adowych drzewach $w(X, Y) = 1$, $w(Y, Z) = 2$, $D=3$, st¹d $d(X, Y) = \dfrac{1}{3}$, $d(X, Y) = \dfrac{2}{3}$. Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
 
 \subsection{S³owa kluczowe}
-NIE WIEM, CZY MIARA U¯YWAJ¥CA KEYWORDÓW JEST POTRZEBNA
+%TODO
+TODO, ale NIE WIEM, CZY MIARA U¯YWAJ¥CA KEYWORDÓW JEST POTRZEBNA
 
 \section{Miara 2: Ocena przez u¿ytkowników offline}
 
-Kolejn¹ wypracowan¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny ewaluacja powinna byæ dokonana przez grupê osób operuj¹cycha na tych samych danych. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa. Skala ocen to 1-10: 1, gdy artyku³y nie s¹ do siebie podobne, 10, gdy podobieñstwo jest ca³kowite.
+Kolejn¹ wypracowan¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny, ewaluacja powinna byæ dokonana przez grupê osób operuj¹cycha na tych samych danych. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa. Skala ocen to 1-10: 1, gdy artyku³y nie s¹ do siebie podobne, 10, gdy podobieñstwo jest ca³kowite.
 
 \section{Miara 3: Historyczna aktywnoœæ u¿ytkowników serwisu}
 
@@ -440,22 +420,46 @@ Jak ju¿ zosta³o opisane powy¿ej strona z artyku³em tekstowym zawiera odnoœiki do
 
 Pos³uguj¹c siê powy¿szym za³o¿eniem, mo¿na zaproponowaæ miarê jakoœci rekomendacji generowanych przez testowane metody w odniesieniu do popularnoœci rzeczywistych rekomendacji wyekstrahowanej z danych serwisu o aktywnoœci u¿ytkowników.
 
-W tym celu dokonujê adaptacji miary nDCG (Normalized Discounted Cumulative Gain). Miara ta s³u¿y do oceny jakoœci uszeregowania przedmiotów, np. wyników zwracanych przez silniki
-wyszukiwania. 
+W tym celu dokonujê adaptacji miary nDCG (Normalized Discounted Cumulative Gain). Miara ta s³u¿y do oceny jakoœci uszeregowania przedmiotów, np. wyników zwracanych przez silniki wyszukiwania. 
 
+
+\subsection{nDCG}
 TUTAJ OPISUJÊ MIARÊ + podajê Ÿród³o
-PROBLEM - algorytm allegro zmienia³ siê w czasie
+%TODO PROBLEM - algorytm allegro zmienia³ siê w czasie
 
+
+\subsection{Adaptacja metody nDCG}
 Za³ó¿my, ¿e dany algorytm $A$ zwraca pewien ci¹g artyku³ów $c_A=a1,\ a2,\ ...,\ a6$ podobnych do danego artyku³u $x$, w kolejnoœci od najbardziej adekwatnego. Za³ó¿my równie¿, czêœæ elementów ci¹gu $c_B$ artyku³ów rekomandowanych w serwisie dla $x$ (u¿ywan¹ dotychczas w serwisie metod¹ $B$) znajduje siê równie¿ w ci¹gu $c_A$, tj. np. ISTNIEJ¥ TAKIE $a_i, a_j$ (i, j to indeksy w ci¹gu $c_A$), ¿e nale¿¹ do $c_A$ i $c_B$. Za³ó¿my ponadto, ¿e z danych o klikniêciach u¿ytkowników w linki w ramach serwisu wiadomo, ¿e przejœcie z $x$ na $a_i$ jest bardziej popularne ni¿ przejœcie z $x$ na $a_j$. St¹d je¿eli $i<j$ ($i>j$), to jakoœæ dzia³ania metody $A$ jest dobra (z³a), bo metoda ta generuje podobne artyku³y w kolejnoœci zgodnej ze stopniem podobieñstwa z artyku³em bazowym, opartym o czêstoœc przejœæ u¿ytkowników miêdzy artyku³ami. %TODO DO PRZEREDAGOWANIA!!!!
 
-Za wagi metody nDCG przyjmujê kiczby przejœæ pomiêdzy artyku³ami, a sam¹ metodê stosujê tylko do przeciêcia zbioru artyku³ów podobnych do danego generowanych przez dan¹ metodê ze zborem artyku³ów rekomendowanych do danego przez dotychczasow¹ metodê dzia³aj¹c¹ w serwisie.
+Za wagi metody nDCG przyjmujê liczby przejœæ pomiêdzy artyku³ami, a sam¹ metodê stosujê tylko do przeciêcia zbioru artyku³ów podobnych do danego generowanych przez dan¹ metodê ze zborem artyku³ów rekomendowanych do danego przez dotychczasow¹ metodê dzia³aj¹c¹ w serwisie.
 
 
 \chapter{Opis i wyniki badañ}
-\subsection{}
+
+\section{Przygotowanie eksperymentów}
+
+Metodami, które aplikujê do problemu rekomendacji artyku³ów s¹:
+\begin{enumerate}
+	\item Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
+	\item Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
+	\item Word2Vec z modelem uczonym na ogólnym zbiorze s³ów (model opisany jest poni¿ej) oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
+	\item Word2Vec z modelem uczonym na ogólnym zbiorze s³ów oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
+	\item Latent Dirichlet Allocation
+\end{enumerate}
+
+Ponadto wyniki zastosowania powy¿szych metod porównujê z dotychczasow¹ metod¹ wykorzystywan¹ w serwisie allegro oraz z losowym wyborem artyku³ów podobnych.
+
+\subsection{Modele Word2Vec}
+
+
+\subsection{Model LDA}
 model piaseckiego
 ile unikalnych s³ów on nie zawiera
 ile wyst¹pieñ s³ów nie zawiera - wykresy
+
+\section{Wyniki badañ}
+
+Do ka¿dej z wymienionych powy¿ej metod stosujê ka¿d¹ z trzech opracowanych przez mnie miar.
 
 \chapter{Podsumowanie}
 Dalsze badania.

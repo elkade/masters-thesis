@@ -26,7 +26,12 @@
 \BOOKMARK [2][-]{subsection.4.1.2}{S\233owa kluczowe}{section.4.1}% 26
 \BOOKMARK [1][-]{section.4.2}{Miara 2: Ocena przez uzytkownik\363w offline}{chapter.4}% 27
 \BOOKMARK [1][-]{section.4.3}{Miara 3: Historyczna aktywnosc uzytkownik\363w serwisu}{chapter.4}% 28
-\BOOKMARK [0][-]{chapter.5}{Opis i wyniki badan}{}% 29
-\BOOKMARK [1][-]{subsection.5.0.1}{}{chapter.5}% 30
-\BOOKMARK [0][-]{chapter.6}{Podsumowanie}{}% 31
-\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzie}{}% 32
+\BOOKMARK [2][-]{subsection.4.3.1}{nDCG}{section.4.3}% 29
+\BOOKMARK [2][-]{subsection.4.3.2}{Adaptacja metody nDCG}{section.4.3}% 30
+\BOOKMARK [0][-]{chapter.5}{Opis i wyniki badan}{}% 31
+\BOOKMARK [1][-]{section.5.1}{Przygotowanie eksperyment\363w}{chapter.5}% 32
+\BOOKMARK [2][-]{subsection.5.1.1}{Modele Word2Vec}{section.5.1}% 33
+\BOOKMARK [2][-]{subsection.5.1.2}{Model LDA}{section.5.1}% 34
+\BOOKMARK [1][-]{section.5.2}{Wyniki badan}{chapter.5}% 35
+\BOOKMARK [0][-]{chapter.6}{Podsumowanie}{}% 36
+\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzie}{}% 37
