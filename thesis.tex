@@ -123,19 +123,17 @@ podpis promotora & \hspace*{100pt} & podpis autora
 
 \chapter{Wstêp}%TODO skorygowaæ
 
-Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron to konkretnego u¿ytkownika. Pozwala to u¿ytkownikowi na bardziej efektywne korzystanie z serwisu. Mo¿e to prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
+Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron do konkretnego u¿ytkownika. Pozwala to u¿ytkownikowi na bardziej efektywne korzystanie z serwisu. oraz mo¿e prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
 
 Celem niniejszej pracy magisterskiej jest analiza mo¿liwoœci usprawnienia istniejacego systemu rekomendacji o oparciu o adaptacjê istniej¹cych metod wyszukiwania semantycznego podobieñstwa pomiêdzy dokumentami tekstowymi. Rzeczony system rekomendacji istnieje w internetowym serwisie e-commerce Allegro w dziale artyku³ów tekstowych o tematyce zwi¹zanej z produktami dostêpnymi za poœrednictwem serwisu. System ma na celu zarekomendowanie u¿ytkownikowi artyku³ów o tematyce podobnej do tego, który znajduje siê na stornie aktualnie odwiedzanej przez uzytkownika.
 
-W swojej pracy badam mo¿liwoœæ u¿ycia istniej¹cych metod semantycznej analizy tekstu w odniesieniu do opisanego problemu. Badane metody to Latent Dirichlet Allocation oraz word2vec z wariantem Word Mover's Dictance oraz bez niego.
+W swojej pracy badam mo¿liwoœæ u¿ycia istniej¹cych metod semantycznej analizy tekstu w odniesieniu do opisanego problemu. Badane metody to Word2vec z wariantem Word Mover's Dictance oraz bez niego. Jest to stosunkowo nowa metoda (2013), z czego wynika moje zainteresowanie. Porównujê równie¿ dzia³anie wspomnianych wariantów Word2vec z dzia³aniem starszego algorytmu Latent Dirichlet Allocation.
 
 Podczas prowadzenia badañ stworzy³em szereg skryptów przetwarzaj¹cych dane i wykorzystuj¹cych implementacje opisywanych w tej pracy metod. Opis u¿ytych narzêdzi programistycznych i bibliotek zawar³em w dodatku A do niniejszej pracy.
 
 \section{Rekomendacje artyku³ów tekstowych w Allegro}%TODO potrzebne przypisy
 % do 'najwiêksz¹'
 %TODO przeredagowaæ
-
-%TODO OPISAÆ, JAK DZIA£A OBECNY MECHANIZM
 Allegro jest najwiêksz¹ dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Posiada ponad 20 mln zarejestrowanych klientów. Ka¿dego dnia na Allegro sprzedaje siê ponad 870 tysiêcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu. Allegro pobiera prowizjê za dokonanie sprzeda¿y za swoim poœrednictwem.
 
 Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia³ zajmuj¹cy siê publikacj¹ artyku³ów opisuj¹cych produkty wystawiane za poœrednictwem serwisu. Ma to na celu pomoc u¿ytkownikom przy wyborze interesuj¹cego ich produktu.
@@ -148,7 +146,9 @@ Po to, aby zachêciæ u¿ytkowników do zapoznania siê z treœci¹ kolejnych artyku³ów
 	\caption{Widok strony internetowej zawieraj¹cej jeden z artyku³ów serwisu Allegro. \cite{screen_allegro}}
 \end{figure}
 
-Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczegó³y i nieodbiegaj¹ od informacji publicznie dostêpnych za poœrednictwem strony pod adresem /url{https://allegro.pl}.
+Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczegó³y i nieodbiegaj¹ od informacji publicznie dostêpnych za poœrednictwem strony pod adresem \url{https://allegro.pl}.
+
+Aktualnie w rzeczonym dziale serwisu Allegro istnieje system rekomendacyjny, który opiera siê o wyszukiwanie podobnych artyku³ów tekstowych za pomoc¹ silnika elasticsearch. Metoda ta opiera siê na s³owach kluczowych przypisanych do ka¿dego artyku³u jako metadane. W swojej pracy staram siê porównaæ wyniki dzia³ania dotychczasowej metody z metodami semantycznej analizy tekstu, które potrafi¹ wykryæ podobieñstwo pomiêdzy artyku³ami bazuj¹c jedynie na ich treœci, a nie na do³¹czonych metadanych.
 
 %W niniejszej pracy wykonujê eksperymenty wykorzystuj¹c znane metody okreœlania podobieñstw pomiêdzy dokumentami, które adaptujê do zbioru dokumentów, które otrzyma³em od serwisu Allegro.
 %
@@ -165,14 +165,9 @@ Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na
 %
 %Dochodzenie nowych rekomendacji - nie jest tematem pracy
 %
-%
-%napisaæ, ¿e jêzyk polski stanowi trudnoœæ
-%-------------------
-%
-%S³owa, które zostaj¹ po tokenizacji to np literówki
 
 \section{Struktura pracy}
-Rozdzia³ 2 wprowadza do zagadnienia rekomendacji i opisuje wybrane metody przetwarzania jêzyka naturalnego s³u¿¹ce do wyszukiwania podobieñstw miêdzy dokumentami tekstowymi.
+W rozdziale 2 wprowadzam do zagadnienia rekomendacji i opisujê wybrane metody przetwarzania jêzyka naturalnego s³u¿¹ce do wyszukiwania podobieñstw miêdzy dokumentami tekstowymi.
 
 Nastêpnie w rozdziale 3 dokonujê opisu konkretnego problemu, jakim jest generacja rekomendacji artyku³ów tekstowych w serwisie Allegro. Opisujê dane otrzymane z serwisu oraz kolejne wstêpnego etapy przetwarzania ich, aby nadawa³y siê do zaaplikowania do nich wybranych metod.
 
@@ -185,10 +180,8 @@ Ostatecznie w rozdziale 6 dokonujê podsumowania przeprowadzonych badañ i rozwa¿a
 Za³¹cznik A zawiera opis narzêdzi programistycznych i bibliotek wykorzystanych przez mnie podczas prowadzenia badañ.
 
 \section{Uwagi}
-
-\subsection{}
-
-W celu unikniêcia nieporozumieñ pragnê tutaj zaznaczyæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
+%TODO elastic pisaæ z du¿ej litery
+W celu unikniêcia nieporozumieñ pragnê podkreœliæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
 
 %TODO
 %\subsection{}
@@ -203,12 +196,12 @@ W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i narzêdzi
 
 Systemy rekomendacji to narzêdzia i techniki maj¹ce na celu zasugerowaæ u¿ytkownikowi przedmioty. Sugestie te odnosz¹ siê do ró¿nych procesów podejmowania decyzji takich jak np. które artyku³y kupiæ, jakiej muzyki s³uchaæ czy te¿ które wiadomoœci czytaæ. ,,Przedmiot'' jest tutaj ogólnym pojêciem oznaczaj¹cym coœ, co system poleca u¿ytkownikowi. \cite{handbook} 
 
-Przy wci¹¿ wzrastaj¹cej iloœci danych u¿ytkownicy serwisów internetowych czêsto nie s¹ w stanie dotrzeæ do informacji, która ich interesuje. Jest to pole do rozwoju zautomatyzowanych systemów rekomendacyjnych polecaj¹cych u¿ytkownikom treœci, które mog¹ ich zainterezowaæ. Dzia³alnoœæ tekiego systemu daj zysk zarówn u¿ytkownikowi, pozwalaj¹c mu dotrzeæ do informacji, której móg³by samodzielnie nie odszukaæ, albo wrêcz nie wiedzieæ, i¿ taka informacja istnieje, jak i dla w³aœcicieli serwisów internetowych, którym zale¿y, by przyci¹gn¹æ do siebie u¿ytkowników, aby ci w jak najwiêkszym stopniu korzystali z ich us³ug.
+Przy wci¹¿ wzrastaj¹cej iloœci danych u¿ytkownicy serwisów internetowych czêsto nie s¹ w stanie dotrzeæ do informacji, która ich interesuje. Jest to pole do rozwoju zautomatyzowanych systemów rekomendacyjnych polecaj¹cych u¿ytkownikom treœci, które mog¹ ich zainteresowaæ. Dzia³alnoœæ tekiego systemu daje zysk zarówno u¿ytkownikowi, pozwalaj¹c mu dotrzeæ do informacji, której móg³by samodzielnie nie odszukaæ, albo wrêcz nie wiedzieæ, i¿ taka informacja istnieje, jak i w³aœcicielowi serwisu internetowego, któremu zale¿y, by przyci¹gn¹æ do siebie u¿ytkowników, aby ci w jak najwiêkszym stopniu korzystali z ich us³ug.
 
-Sposoby dzia³ania systemów rekomendacji mo¿na podzieliæ na ró¿ne sposoby, spoœród których wyodrêbniæ mo¿na dwa najszerzej u¿ywane. S¹ to: filtrowanie kolaboratywne (collaborative filtering) i filtrowanie oparte na treœci (content-based filtering).
+Sposoby dzia³ania systemów rekomendacji mo¿na podzieliæ na ró¿ne warianty, spoœród których wyodrêbniæ mo¿na dwa najszerzej u¿ywane. S¹ to: filtrowanie kolaboratywne (collaborative filtering) i filtrowanie oparte na treœci (content-based filtering).
 
 \subsection{Filtrowanie kolaboratywne (collaborative filtering)}
-Technika ta opiera siê na spostrze¿eniu, i¿ u¿ytkownicy o podobnych preferencjach zachowuj¹ siê podobnie. St¹d je¿eli u¿ytkownik zachowuje siê podobnie do zaobserwowanej wczeœniej grupy u¿ytkowników, mo¿na przewidzieæ jego przeferencje. Istotn¹ zalet¹ tej metody jest fakt, i¿ nie zale¿y ona od dziedziny, w której ulokowany jest system rekomendacji (w przeciwieñstwie do rekomendacji opartych na treœci), a jedynie od zachowañ u¿ytkowników.
+Technika ta opiera siê na spostrze¿eniu, i¿ u¿ytkownicy o podobnych preferencjach zachowuj¹ siê podobnie. St¹d je¿eli u¿ytkownik zachowuje siê podobnie do zaobserwowanej wczeœniej grupy u¿ytkowników, mo¿na przewidzieæ jego preferencje na podstawie zachowañ ów grupy. Istotn¹ zalet¹ tej metody jest fakt, i¿ nie zale¿y ona od dziedziny, w której ulokowany jest system rekomendacji (w przeciwieñstwie do rekomendacji opartych na treœci), a jedynie od zachowañ u¿ytkowników.
 \subsection{Filtrowanie oparte na treœci (content-based filtering)}
 W technice tej przedmioty polecane u¿ytkownikowi zale¿¹ od innych przedmiotów, na temat których stwierdzono, ¿e u¿ytkownik siê nimi interesuje. Mog¹ siê one opieraæ np. na podobieñstwie przedmiotów: je¿eli u¿ytkownik ,,lubi'' przedmiot A, który jest podobny do przedmiotu ,,B'' to mo¿na spodziewaæ siê, ¿e równie¿ przedmiot B zainteresuje u¿ytkownika. Technika ta jest mocno zale¿na od dziedziny rekomendowanych przedmiotów, gdy¿ wymaga wprowadzenia pewnej miary podobieñstwa miêdzy nimi. St¹d jest trudniejsza do zastosowania, ale daje te¿ mo¿liwoœci nieosi¹galne dla filtrowania kolaboratywnego.
 
@@ -216,21 +209,19 @@ Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y p
 
 \section{Techniki przetwarzania jêzyka naturalnego}
 
-Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami - dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym - zrozumia³ym dla cz³owieka - który mówi¹c potocznie niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary). W poni¿szych paragrafach opisujê techniki przetwarzania jêzyka naturalnego u¿yte przeze mnie wprost lub z których koncepcji czerpa³em.
+Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami, czyli dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym, zrozumia³ym dla cz³owieka, który jest niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary). W poni¿szych paragrafach opisujê techniki matematycznej reprezentacji dokumentów pisanych w jêzyku naturalnym u¿yte przeze mnie wprost lub z których koncepcji czerpa³em.
 
 W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznaczenia:
 \begin{itemize}
-	\item Korpus $C$: zbiór dokumentów $d$,
-	\item Dokument $d$: skoñczony ci¹g zdañ $s$,
-	\item Zdanie $s$: skoñczony ci¹g s³ów $w$,
-	\item S³owo $w$: skoñczony ci¹g znaków $c$,
+	\item Korpus $C$: zbiór dokumentów $d_i$,
+	\item Dokument $d$: skoñczony ci¹g zdañ $s_i$,
+	\item Zdanie $s$: skoñczony ci¹g s³ów $w_i$,
+	\item S³owo $w$: skoñczony ci¹g znaków $c_i$,
 	\item W celu uproszczenia zapisu: $w \in d \equiv \exists_{s \in d}\ w \in s$,
-	\item S³ownik zbudowany na korpusie $C$: $V = {w\ |\ \exists_{d \in C}\ w \in d}$.
+	\item S³ownik zbudowany na korpusie $C$: $V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
 \end{itemize}
 \subsection{Bag-of-words}
-Bag-of-words (worek s³ów) jest metod¹ reprezentacji tekstu jako zbioru zawartych w nim s³ów niezachowuj¹cego kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Jako korpus bêdê nazywaæ zbiór przetwarzanych dokumentów, natomiast jako s³ownik zbiór s³ów 
-
-Bag-of-words mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
+Bag-of-words (worek s³ów) jest metod¹ reprezentacji tekstu jako zbioru zawartych w nim s³ów niezachowuj¹cego kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Metodê tê mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus\\
 $m = |C|$: liczba dokumentów w korpusie $C$\\
 $V$: s³ownik zbudowany na $C$\\
@@ -238,14 +229,16 @@ $n = |V|$: liczba s³ów w $V$\\
 $v_i \in \mathbb{R}^n$, gdzie $i \in 1, 2, ..., n$ wektor reprezentuj¹cy dokument $d_i \in C$\\
 $v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
 
-Technika ta jest stosunkowo prosta jest jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu.
+Technika ta jest stosunkowo prosta, lecz jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu.
 \subsection{Term frequency - inverted document frequency}
-TF-IDF(wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
+TF-IDF (wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
 $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
 $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$,
 
-%Ka¿dy dokument reprezentowany jest przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TFIDF informuje o czêstoœci wyst¹pienia termów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego termu i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
+%TODO Przyk³ad
+
+Ka¿dy dokument reprezentowany jest tu przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TF-IDF informuje o czêstoœci wyst¹pienia s³ów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego s³owa i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
 
 W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 \subsection{Latent Dirichlet Allocation}
@@ -256,51 +249,50 @@ W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 
 Word2vec jest stosunkowo now¹ (2013) metod¹ osadzania s³ów w przestrzeni wektorowej (word embedding), opisan¹ w \cite{word2vec}. 
 
-Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieci neuronowej, która ma za zadanie odtworzyæ kontekst danego s³owa. Jako wejœcie metoda otrzymuje s³owa z korpusu. Wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom   sk³adaj¹cej siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa siec przewiduje N s¹siednich s³ów lub CBOW: na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}
+Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieæ neuronow¹, która ma za zadanie odtworzyæ kontekst danego s³owa na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb. Jako wejœcie metoda otrzymuje s³owa z korpusu. Wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom wejœciowym. U¿yta tu sieæ neuronowa sk³ada siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa sieæ przewiduje N s¹siednich s³ów lub CBOW: na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}. W celu szczegó³owego opisu metody Word2vec wprowadzam pojêcie funkcji softmax.
 
 Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$\cite{softmax}. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
+
 
 U¿ywaj¹c tej stosunkowo prostej architektury mo¿na wykonaæ proces nauki u¿ywaj¹c milionów s³ów, których powi¹zania miêdzy sob¹ zostan¹ zachowane w systemie wag sieci neuronowej.
 
 
-W metodzie word2vec nauka polega na trzenowaniu sieci neuronowe. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieæi, które faktycznie s¹ wynikowymi wektorami s³ow.
+W metodzie Word2vec nauka polega na trenowaniu sieci neuronowej. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, Word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieæi, które faktycznie s¹ wynikowymi wektorami s³ow.
 
 W dalszym opisie metody szczegó³owo skupiam siê na podejœciu CBOW, lecz podejœcie skip-gram wygl¹da analogicznie.
 
-Sieæ neuronowa bêd¹ca wynikiem nauki przyjmuje na wejœciu wektor binarny d³ugoœci odpowiadaj¹cej liczbie s³ów w s³owniku V zbudowanym na korpusie treningowym. Wektor ten wype³niony jest wartoœciami 0 oraz jedn¹ wartoœci¹ 1 na i-tej pozycji. Taki wektor odpowiada i-temu s³owu ze s³ownika V. Wejœciem sieci s¹ kolejne s³owa z korpusu. Wyjœciem sieci jest wektor tej samej d³ugoœci o wartoœciach rzeczywistych z zakresu [0,1], w którym wartoœæ na i-tej pozycji odpowiada prawdopodobieñstwu, ¿e i-te s³owo ze s³ownika znajduje siê w s¹siedztwie s³owa wejœciowego. Za ,,s¹siedztwo'' wielkoœci x nale¿y tu rozumieæ zbiór z³o¿ony z x s³ów wystêpuj¹cych przed danym s³owem w korpusie i x s³ow po³o¿onych za danym s³owem. Wartoœæ x mo¿e byæ tu ograniczona przez pocz¹tek/koniec zdania, które ograniczaj¹ kontekst danego s³owa.
+Sieæ neuronowa bêd¹ca wynikiem nauki przyjmuje na wejœciu wektor binarny d³ugoœci odpowiadaj¹cej liczbie s³ów w s³owniku V zbudowanym na korpusie treningowym. Wektor ten wype³niony jest wartoœciami 0 oraz jedn¹ wartoœci¹ 1 na i-tej pozycji. Taki wektor odpowiada i-temu s³owu ze s³ownika V. Wejœciem sieci s¹ kolejne s³owa z korpusu w tej w³¹œnie reprezentacji. Wyjœciem sieci jest wektor tej samej d³ugoœci o wartoœciach rzeczywistych z zakresu [0,1], w którym wartoœæ na i-tej pozycji odpowiada prawdopodobieñstwu, ¿e i-te s³owo ze s³ownika znajduje siê w s¹siedztwie s³owa wejœciowego. Za ,,s¹siedztwo'' wielkoœci x nale¿y tu rozumieæ zbiór z³o¿ony z x s³ów wystêpuj¹cych przed danym s³owem w korpusie i x s³ow po³o¿onych za danym s³owem. Wartoœæ x mo¿e byæ tu ograniczona przez pocz¹tek/koniec zdania, które ograniczaj¹ kontekst danego s³owa.
 
 Jako efekt nale¿y siê spodziewaæ, ¿e dla s³owa wejœciowego ,,Brytania'' otrzymamy na wyjœciu wysok¹ wartoœæ prawdopodobieñstwa dla s³owa ,,Wielka'', a nisk¹ np. dla s³owa ,,skoroszyt''.
 
 
-Jednym z parametrów metody word2vec jest wymiarowoœæ przestrzeni, w której znajduj¹ siê otrzymane wektory odpowiadaj¹ce s³owom z korpusu. Liczba ta ma swoje Ÿród³o z wielkoœci warstwy warstwy ukrytej sieci neuronowej. Wagi warstwy ukrytej mo¿na interpretowaæ jako macierz MxN, gdzie M to liczba s³ów s³ownika V - wielkoœæ wektowa wejœciowego, a N to liczba neuronów w warstwie ukrytej. Po przeprowadzeniu nauki i-ty wiersz tej macierzy odpowiada wektorowi d³ugoœci N, który reprezentuje i-te s³owo ze s³ownika V.
+Jednym z parametrów metody Word2vec jest wymiarowoœæ przestrzeni, w której znajduj¹ siê otrzymane wektory odpowiadaj¹ce s³owom z korpusu. Liczba ta ma swoje Ÿród³o z wielkoœci warstwy ukrytej sieci neuronowej. Wagi warstwy ukrytej mo¿na interpretowaæ jako macierz MxN, gdzie M to liczba s³ów s³ownika V - wielkoœæ wektowa wejœciowego, a N to liczba neuronów w warstwie ukrytej. Po przeprowadzeniu nauki i-ty wiersz tej macierzy odpowiada wektorowi d³ugoœci N, który reprezentuje i-te s³owo ze s³ownika V.
 
-W sieci nie jest u¿ywa funkcja kakywacji, ale prawdopodobieñstwa na wyjœciu s¹ efektem dzi³ania funkcji softmax.
+W sieci nie jest u¿ywa funkcja akywacji, ale prawdopodobieñstwa na wyjœciu s¹ efektem dzi³ania funkcji softmax. Funkcja ta ma za zadanie sprowadziæ wyjœciowe wartoœci warstwy ukrytej do postaci rozk³adu prawdopodobieñstwa. 
 
-Funkcja softmax ma tutaj za zadanie sprowadziæ wyjœciowe wartoœci warstwy ukrytej do postaci rozk³adu prawdopodobieñstwa. 
-
-U¿ycie metody Word2vec pozwala oceniæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów. Jest to metoda osadzania (embedding) s³ów w pewnej przestrzeni wektorowej.
+Isotn¹ zalet¹ metody Word2vec jest fakt, i¿ pozwala ona oceniæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów.
 
 \subsection{Odleg³oœæ miêdzy dokumentami}
-W celu wykorzystania omówionej metody Word2vec w obszarze tematyki pracy nale¿y wybraæ metodê obliczania odleg³oœci miêdzy dokumentami. Zak³adamy, ¿e je¿eli dystans pomiêdzy dokumentami jest ma³y, to ich tematyka jest podobna.
+W celu wykorzystania omówionej metody Word2vec w obszarze tematyki pracy nale¿y wybraæ metodê obliczania odleg³oœci miêdzy ca³ymi dokumentami, których s³owa potrafimy reprezentowaæ jako wektory. Zak³adamy, ¿e je¿eli dystans pomiêdzy dokumentami jest ma³y, to ich tematyka jest podobna.
 \subsubsection{Centroid}
 Najprostsz¹ i najbardziej intuicyjn¹ metod¹ obliczenia odleg³oœci pomiêdzy wektorow¹ reprezentacj¹ dokumentów jest wykonanie dwóch prostych kroków:
 \begin{enumerate}
 \item Uœrednienie wektorów wchodz¹cych w sk³ad ka¿dego z dokumentów. Powsta³y w ten sposób wektor jest centroidem reprezentuj¹cym dokument w przestrzeni wektorowej.
-\item Obliczenie dystansu miêdzy wektorami. Powszechnie przyjêt¹ praktyk¹ jest stosowanie tzw. odleg³oœci kosinusowej - znormalizowanego iloczynu skalarnego wektorów $A$ i $B$. Jest to kosinus k¹ta pomiêdzy dwoma wektorami reprezentuj¹cymi dokumenty. Zalet¹ tej metody jest natychmiastowa normalizacja wyniku do zakresu $(0, 1)$.  $sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}}$,
+\item Obliczenie dystansu miêdzy wektorami. Powszechnie przyjêt¹ praktyk¹ jest stosowanie tzw. odleg³oœci kosinusowej - znormalizowanego iloczynu skalarnego wektorów $A$ i $B$. Jest to kosinus k¹ta pomiêdzy dwoma wektorami reprezentuj¹cymi dokumenty. Zalet¹ tej metody jest natychmiastowa normalizacja wyniku do zakresu $(0, 1)$. Odleg³oœæ $sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}}$,
  gdzie $A_i$ i $B_i$ s¹ sk³adowymi wektorów odpowiednio $A$ i $B$
 \end{enumerate}
-Wad¹ opisanej powy¿ej metody jest utrata potencjalnie u¿ytecznych zale¿noœci wektorami wchodz¹cymi w sk³ad dokumentu.
+Wad¹ opisanej powy¿ej metody jest utrata potencjalnie u¿ytecznych zale¿noœci pomiêdzy poszczególnymi wektorami wchodz¹cymi w sk³ad dokumentu.
 
-W kontrze to tego prezentujemy metodê liczenia szukanego dystansu uwzglêdniaj¹c¹ rozk³ad wektorów wewn¹tz dokumentu.
+W kontrze to tego prezentujê metodê obliczania dystansu miêdzy dokumentami uwzglêdniaj¹c¹ rozk³ad wektorów wewn¹tz dokumentu.
 
 \subsubsection{Word Mover's Distance}
-Word Mover's Distance\cite{wmd} to stosunkowo nowe rozwi¹zanie (2013) zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumantu.
+Word Mover's Distance\cite{wmd} to rozwi¹zanie zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumentu.
 
 EMD jest metod¹ mierzenia odleg³oœci pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
-$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przo odpowiednich ogramiczeniach\cite{emd_limit}.
-EMD jest to dobrze zbadanym problem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
+$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przy odpowiednich ogramiczeniach\cite{emd_limit}.
+EMD jest to dobrze zbadanym problemem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
 
-Przypuœæmy, ¿e dziêki metodzie word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
+Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
 
 
 \chapter{Dane}%TODO przerobiæ ca³y rozdzia³
@@ -346,7 +338,7 @@ U¿ycie wymienionych technik nie jest jedynym standardem a wynikiem analizy przet
 
 \section{Opis danych po wstêpnym przetwarzaniu}
 
-Powy¿sze kroki doprowadzaj¹ dane do stanu, w którym mo¿na zastosowaæ techniki semantycznej analizy tekstu. Obecnie s³ownik zbudowany na korpusie zawiera 98174 s³ów. 
+Powy¿sze kroki doprowadzaj¹ dane do stanu, w którym mo¿na zastosowaæ techniki semantycznej analizy tekstu. S³ownik zbudowany na wstêpnie przetworzonym korpusie zawiera 98174 unikalnych s³ów, oraz 7409145 wszystkich s³ów (z powtórzeniami).
 
 \begin{figure}[H]
 	\centering
@@ -440,10 +432,10 @@ Za wagi metody nDCG przyjmujê liczby przejœæ pomiêdzy artyku³ami, a sam¹ metodê 
 
 Metodami, które aplikujê do problemu rekomendacji artyku³ów s¹:
 \begin{enumerate}
+	\item Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci\cite{wordnet} (model opisany jest poni¿ej) oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
+	\item Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
 	\item Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
 	\item Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
-	\item Word2Vec z modelem uczonym na ogólnym zbiorze s³ów (model opisany jest poni¿ej) oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
-	\item Word2Vec z modelem uczonym na ogólnym zbiorze s³ów oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
 	\item Latent Dirichlet Allocation
 \end{enumerate}
 
@@ -451,15 +443,54 @@ Ponadto wyniki zastosowania powy¿szych metod porównujê z dotychczasow¹ metod¹ wy
 
 \subsection{Modele Word2Vec}
 
+\subsubsection{Model uczony na korpusie S³owosieci}
+
+Jako podstawowy model Word2vec u¿y³em gotowego modelu\cite{pias} stworzonego m.in. przez dr in¿. M. Piaseckiego. Model ten by³ uczony na korpusie S³owosieci wer. 10. Dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia Word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 100.
+
+Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
+\subsubsection{Model uczony na korpusie artyku³ów}
+W zwi¹zku z powy¿szym stwierdzeniem wykonujê naukê modelu Word2vec na korpusie artyku³ów w celu zawarcia brakuj¹cych w poprzednim modelu s³ów. Najrozs¹dniejszym postêpowaniem by³oby tutaj rozszerzenie modelu opartego na korpusie S³owosieci równie¿ o brakuj¹ce s³owa, jednak metoda Word2vec nie pozwala na dodanie nowych s³ów do s³ownika istniej¹cego modelu, a jedynie na dalsz¹ naukê w oparciu o s³owa ju¿ istniej¹ce w s³owniku.
+
+Si³¹ rzeczy model ten zawiera wszystkie s³owa zawarte w korpusie artyku³ów.
+
+Do uczenia u¿y³em parametrów identycznych, jak w metodzie powy¿ej.
+
+ILE TRWA£O BUDOWANIE MODELU
 
 \subsection{Model LDA}
-model piaseckiego
-ile unikalnych s³ów on nie zawiera
-ile wyst¹pieñ s³ów nie zawiera - wykresy
+
+Przed wykonaniem ostatecznych pomiarów nale¿y zbudowaæ model LDA w oparciu o przetwarzane dane. W moim przypadku trwa³o to: CZASY BUDOWANIA LDA
 
 \section{Wyniki badañ}
 
-Do ka¿dej z wymienionych powy¿ej metod stosujê ka¿d¹ z trzech opracowanych przez mnie miar.
+Do ka¿dej z wymienionych powy¿ej metod stosujê ka¿d¹ z trzech opracowanych przez mnie miar. Wyniki zestawiam w tabelce.
+
+TABELA Z WYNIKAMI
+
+\begin{center}
+	\begin{tabular}{ | l | l | l | p{5cm} |}
+		\hline
+		Alias metody & mean-clicks & mean-cat & mean-users \\ \hline
+		rnd & - & 0.145630871396 & \\ \hline
+		crp\_wmd & 1.29748226281 & 0.542820699708 & \\ \hline
+		crp\_ctr & 1.37170817357 & 0.521784904438 & \\ \hline
+		pias\_wmd & 1.3817891755  & 0.54587787496 & \\ \hline
+		pias\_ctr & 1.43155208802 & 0.517755911889 & \\ \hline
+		lda & 1.56573051337 & 0.493703433754 & \\ \hline
+		allgr & 1.14732593575 & 0.580296404276 & \\ \hline
+	\end{tabular}
+\end{center}
+
+%TODO WYKRES Z WYNIKAMI PO NORMALIZACJI
+
+%TODO Popatrzeæ w podsumowania innych prac
+
+\subsection{Efektywnoœæ czasowa}
+
+Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Z³¿onoœæ czasowa metody wynosi:
+Dla przypadku: ??? obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
+
+istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody LDA oraz Word2vec potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
 
 \chapter{Podsumowanie}
 Dalsze badania.
@@ -478,8 +509,26 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 %-----------Koniec czêœci zasadniczej-----------
 \appendix
 \chapter{Technologie i narzêdzie}
-\paragraph{}Przy wykonywaniu operacji na tekœcie korzysta³em g³ównie z silnika wyszukiwania Elasticsearch oraz w³asnorêcznie pisanych skryptów w jêzyku Python wykorzystuj¹cych liczne specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
-wypisaæ póŸniej u¿yte biblioteki
+%TODO przypisy
+Analizê danych, ich wstêpne przetworzenie a nastêpnie przeprowadzenie docelowych eksperymentów wykona³em korzystaj¹c g³ównie z jêzyka Python i szeregu skrytpów napisanych w nim w³asnorêcznie, wykorzystuj¹cych istniej¹ce specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
+
+Wykorzystane narzêdzia:
+\begin{itemize}
+	\item Elasticsearch - silnik wyszukiwania tekstowego. U¿ywam go do przechowywania bazy artyku³ów oraz ich przetworzonych wersji.
+	\item MongoDB - nierelacyjna baza danych, której u¿ywam do przechowywania wyników generowanych przez testowane algorytmy.
+\end{itemize}
+
+Wykorzystane biblioteki jêzyka Python:
+\begin{itemize}
+	\item Gensim - rozbudowana biblioteka s³u¿¹ca do przetwarzania jêzyka naturalnego. Zawiera implementacjê metod Word2Vec, LDA, TF-IDF i inne.
+	\item Morfologik - tokenizer jêzyka polskiego
+	\item Numpy - pozwala wydajnie wykonywaæ obliczenia numeryczne
+	\item Pyemd - implementacja algorytmu Earth Mover's Distance
+	\item Elasticsearch - u³atwia wykonywanie zapytañ do silnika Elasticsearch wprost z kodu Pythona
+	\item Matplotlib - biblioteka s³u¿¹ca do wykonywania wykresów
+	\item Pymongo - umo¿liwia wykonywanie zapytañ do bazy MongoDB wprost z kodu Pythona
+\end{itemize} 
+
 
 \begin{thebibliography}{11}
 %\url{}
@@ -541,6 +590,16 @@ wypisaæ póŸniej u¿yte biblioteki
 \bibitem[15]{stopwords}
 	\url{https://pl.wikipedia.org/wiki/Wikipedia:Stopwords}
 	(15.04.2017)
+\bibitem[16]{pias}
+	Pawe³ Kêdzia, Gabriela Czachor, Maciej Piasecki, Jan Kocoñ
+	\emph{Vector representations of polish words (Word2Vec method)}
+	Wroc³aw University of Technology
+	2016
+	\url{https://clarin-pl.eu/dspace/handle/11321/327}
+	(26.06.2017)
+\bibitem[16]{wordnet}
+	\url{http://plwordnet.pwr.wroc.pl/wordnet/}
+	(28.06.2017)
 \end{thebibliography}
 
 \appendix

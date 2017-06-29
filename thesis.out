@@ -2,36 +2,36 @@
 \BOOKMARK [1][-]{section.1.1}{Rekomendacje artyku\233\363w tekstowych w Allegro}{chapter.1}% 2
 \BOOKMARK [1][-]{section.1.2}{Struktura pracy}{chapter.1}% 3
 \BOOKMARK [1][-]{section.1.3}{Uwagi}{chapter.1}% 4
-\BOOKMARK [2][-]{subsection.1.3.1}{}{section.1.3}% 5
-\BOOKMARK [0][-]{chapter.2}{Przeglad wybranych metod}{}% 6
-\BOOKMARK [1][-]{section.2.1}{Systemy rekomendacji}{chapter.2}% 7
-\BOOKMARK [2][-]{subsection.2.1.1}{Filtrowanie kolaboratywne \(collaborative filtering\)}{section.2.1}% 8
-\BOOKMARK [2][-]{subsection.2.1.2}{Filtrowanie oparte na tresci \(content-based filtering\)}{section.2.1}% 9
-\BOOKMARK [1][-]{section.2.2}{Techniki przetwarzania jezyka naturalnego}{chapter.2}% 10
-\BOOKMARK [2][-]{subsection.2.2.1}{Bag-of-words}{section.2.2}% 11
-\BOOKMARK [2][-]{subsection.2.2.2}{Term frequency - inverted document frequency}{section.2.2}% 12
-\BOOKMARK [2][-]{subsection.2.2.3}{Latent Dirichlet Allocation}{section.2.2}% 13
-\BOOKMARK [2][-]{subsection.2.2.4}{Word2vec}{section.2.2}% 14
-\BOOKMARK [2][-]{subsection.2.2.5}{Odleg\233osc miedzy dokumentami}{section.2.2}% 15
-\BOOKMARK [0][-]{chapter.3}{Dane}{}% 16
-\BOOKMARK [1][-]{section.3.1}{Opis danych}{chapter.3}% 17
-\BOOKMARK [2][-]{subsection.3.1.1}{Tresc artyku\233u}{section.3.1}% 18
-\BOOKMARK [2][-]{subsection.3.1.2}{Kategoria}{section.3.1}% 19
-\BOOKMARK [2][-]{subsection.3.1.3}{S\233owa kluczowe}{section.3.1}% 20
-\BOOKMARK [1][-]{section.3.2}{Wstepne przetwarzanie danych}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.3}{Opis danych po wstepnym przetwarzaniu}{chapter.3}% 22
-\BOOKMARK [0][-]{chapter.4}{Metody ewaluacji}{}% 23
-\BOOKMARK [1][-]{section.4.1}{Miara 1: Dystans oparty na metadanych}{chapter.4}% 24
-\BOOKMARK [2][-]{subsection.4.1.1}{Kategorie}{section.4.1}% 25
-\BOOKMARK [2][-]{subsection.4.1.2}{S\233owa kluczowe}{section.4.1}% 26
-\BOOKMARK [1][-]{section.4.2}{Miara 2: Ocena przez uzytkownik\363w offline}{chapter.4}% 27
-\BOOKMARK [1][-]{section.4.3}{Miara 3: Historyczna aktywnosc uzytkownik\363w serwisu}{chapter.4}% 28
-\BOOKMARK [2][-]{subsection.4.3.1}{nDCG}{section.4.3}% 29
-\BOOKMARK [2][-]{subsection.4.3.2}{Adaptacja metody nDCG}{section.4.3}% 30
-\BOOKMARK [0][-]{chapter.5}{Opis i wyniki badan}{}% 31
-\BOOKMARK [1][-]{section.5.1}{Przygotowanie eksperyment\363w}{chapter.5}% 32
-\BOOKMARK [2][-]{subsection.5.1.1}{Modele Word2Vec}{section.5.1}% 33
-\BOOKMARK [2][-]{subsection.5.1.2}{Model LDA}{section.5.1}% 34
-\BOOKMARK [1][-]{section.5.2}{Wyniki badan}{chapter.5}% 35
+\BOOKMARK [0][-]{chapter.2}{Przeglad wybranych metod}{}% 5
+\BOOKMARK [1][-]{section.2.1}{Systemy rekomendacji}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.1.1}{Filtrowanie kolaboratywne \(collaborative filtering\)}{section.2.1}% 7
+\BOOKMARK [2][-]{subsection.2.1.2}{Filtrowanie oparte na tresci \(content-based filtering\)}{section.2.1}% 8
+\BOOKMARK [1][-]{section.2.2}{Techniki przetwarzania jezyka naturalnego}{chapter.2}% 9
+\BOOKMARK [2][-]{subsection.2.2.1}{Bag-of-words}{section.2.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.2}{Term frequency - inverted document frequency}{section.2.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.3}{Latent Dirichlet Allocation}{section.2.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.4}{Word2vec}{section.2.2}% 13
+\BOOKMARK [2][-]{subsection.2.2.5}{Odleg\233osc miedzy dokumentami}{section.2.2}% 14
+\BOOKMARK [0][-]{chapter.3}{Dane}{}% 15
+\BOOKMARK [1][-]{section.3.1}{Opis danych}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.1.1}{Tresc artyku\233u}{section.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.1.2}{Kategoria}{section.3.1}% 18
+\BOOKMARK [2][-]{subsection.3.1.3}{S\233owa kluczowe}{section.3.1}% 19
+\BOOKMARK [1][-]{section.3.2}{Wstepne przetwarzanie danych}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.3}{Opis danych po wstepnym przetwarzaniu}{chapter.3}% 21
+\BOOKMARK [0][-]{chapter.4}{Metody ewaluacji}{}% 22
+\BOOKMARK [1][-]{section.4.1}{Miara 1: Dystans oparty na metadanych}{chapter.4}% 23
+\BOOKMARK [2][-]{subsection.4.1.1}{Kategorie}{section.4.1}% 24
+\BOOKMARK [2][-]{subsection.4.1.2}{S\233owa kluczowe}{section.4.1}% 25
+\BOOKMARK [1][-]{section.4.2}{Miara 2: Ocena przez uzytkownik\363w offline}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.3}{Miara 3: Historyczna aktywnosc uzytkownik\363w serwisu}{chapter.4}% 27
+\BOOKMARK [2][-]{subsection.4.3.1}{nDCG}{section.4.3}% 28
+\BOOKMARK [2][-]{subsection.4.3.2}{Adaptacja metody nDCG}{section.4.3}% 29
+\BOOKMARK [0][-]{chapter.5}{Opis i wyniki badan}{}% 30
+\BOOKMARK [1][-]{section.5.1}{Przygotowanie eksperyment\363w}{chapter.5}% 31
+\BOOKMARK [2][-]{subsection.5.1.1}{Modele Word2Vec}{section.5.1}% 32
+\BOOKMARK [2][-]{subsection.5.1.2}{Model LDA}{section.5.1}% 33
+\BOOKMARK [1][-]{section.5.2}{Wyniki badan}{chapter.5}% 34
+\BOOKMARK [2][-]{subsection.5.2.1}{Efektywnosc czasowa}{section.5.2}% 35
 \BOOKMARK [0][-]{chapter.6}{Podsumowanie}{}% 36
 \BOOKMARK [0][-]{appendix.A}{Technologie i narzedzie}{}% 37
