@@ -8,7 +8,8 @@
 \usepackage{enumerate}
 \usepackage{verbatim}
 %\usepackage[MeX]{polski}
-
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \geometry{left=25mm,right=25mm,bindingoffset=10mm, top=25mm, bottom=25mm}
@@ -186,7 +187,7 @@ W celu unikniêcia nieporozumieñ pragnê podkreœliæ ró¿nicê pomiêdzy znaczeniami s
 %TODO
 %\subsection{}
 %
-%W niniejszej pracy operujê na statycznym zbiorze artyku³ów pochodz¹cych wprost z serwisu (styczeñ 2017). Serwis Allegor dynamiczne ewoluuje, st¹d czêœæ 
+%W niniejszej pracy operujê na statycznym zbiorze artyku³ów pochodz¹cych wprost z serwisu (styczeñ 2017). Serwis Allegro dynamiczne ewoluuje, st¹d czêœæ 
 
 \chapter{Przegl¹d wybranych metod}
 
@@ -209,7 +210,7 @@ Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y p
 
 \section{Techniki przetwarzania jêzyka naturalnego}
 
-Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami, czyli dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym, zrozumia³ym dla cz³owieka, który jest niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary). W poni¿szych paragrafach opisujê techniki matematycznej reprezentacji dokumentów pisanych w jêzyku naturalnym u¿yte przeze mnie wprost lub z których koncepcji czerpa³em.
+Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami, czyli dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym, zrozumia³ym dla cz³owieka, który jest niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary). W poni¿szych paragrafach dokonujê przegl¹du technik matematycznej reprezentacji dokumentów pisanych w jêzyku naturalnym. Warto wspomnieæ, i¿ dziedzina ta dynamicznie siê rozwija a czêœæ z opisywanych metod zosta³o stworzonych na przestrzeni ostatnich kilku lat.
 
 W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznaczenia:
 \begin{itemize}
@@ -220,7 +221,9 @@ W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznac
 	\item W celu uproszczenia zapisu: $w \in d \equiv \exists_{s \in d}\ w \in s$,
 	\item S³ownik zbudowany na korpusie $C$: $V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
 \end{itemize}
-\subsection{Bag-of-words}
+
+
+\subsection{Bag-of-words}%TODO napisaæ ¿e to stara metoda
 Bag-of-words (worek s³ów) jest metod¹ reprezentacji tekstu jako zbioru zawartych w nim s³ów niezachowuj¹cego kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Metodê tê mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus\\
 $m = |C|$: liczba dokumentów w korpusie $C$\\
@@ -241,15 +244,109 @@ $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to licz
 Ka¿dy dokument reprezentowany jest tu przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TF-IDF informuje o czêstoœci wyst¹pienia s³ów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego s³owa i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
 
 W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
+
+\subsection{Latent Semantic Analysis}
+
+LSA dokonuje transformacji ka¿dego dokumentu w wektor cech. W tym przypadku cechami s¹ s³owa wystêpuj¹ce w dokumencie. Nastêpnie macierz zawieraj¹ca wszystkie wektory jest tworzona: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. Liczba wierszy mo¿e byæ bardzo du¿a . W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³adu SVD, który jest popularn¹ technik¹ redukcji wymiarowoœci. Celem u¿yci SVD jest redukcja liczby wierszy macierzy utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów (topics). W tej metodzie temat sk³ada siê ze zbioru s³ów powi¹zanych z wagami definiuj¹cymi udzia³ ka¿dego ze s³ów w danym temacie. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹.
+
+
+Rank lowering[edit]
+After the construction of the occurrence matrix, LSA finds a low-rank approximation[4] to the term-document matrix. There could be various reasons for these approximations:
+
+The original term-document matrix is presumed too large for the computing resources; in this case, the approximated low rank matrix is interpreted as an approximation (a "least and necessary evil").
+The original term-document matrix is presumed noisy: for example, anecdotal instances of terms are to be eliminated. From this point of view, the approximated matrix is interpreted as a de-noisified matrix (a better matrix than the original).
+The original term-document matrix is presumed overly sparse relative to the "true" term-document matrix. That is, the original matrix lists only the words actually in each document, whereas we might be interested in all words related to each document—generally a much larger set due to synonymy.
+The consequence of the rank lowering is that some dimensions are combined and depend on more than one term:
+
+{(car), (truck), (flower)} --> {(1.3452 * car + 0.2828 * truck), (flower)}
+
+This mitigates the problem of identifying synonymy, as the rank lowering is expected to merge the dimensions associated with terms that have similar meanings. It also mitigates the problem with polysemy, since components of polysemous words that point in the "right" direction are added to the components of words that share a similar meaning. Conversely, components that point in other directions tend to either simply cancel out, or, at worst, to be smaller than components in the directions corresponding to the intended sense.
+
+
+
+This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
+
 \subsection{Latent Dirichlet Allocation}
 %TODO opisaæ metodê
 
 
-\subsection{Word2vec}%TODO obrazek z sieci¹
+\subsection{Word embedding}
+
+W ostatnim czasie nast¹pi³ gwa³towny rozwój metod ,,word embedding'' - osadzania s³ów w przestrzeni wrktorowej. S³owo jêzyka naturalnego samo w sobie jest tylko pewnym symbolem, tokenem - nie da siê wprost zastosowaæ dla niego ¿adnych matematycznych metod, które pozwoli³yby odwzorowaæ semantyczne zale¿noœci pomiêdzy s³owami i wykorzystaæ je do pewnych wy¿szych celów. Medoty osadzania s³ów pozwalaj¹ na wektorow¹ reprezentacjê s³ów, które s¹ w stanie zachowaæ semantyczne i syntaktyczne powi¹zania miêdzy s³owami. Przyk³adem mog¹ byæ tu operacje artymetyczne na wektorach odwzorowuj¹ce semantykê s³ów: $vector("król")?vector("mê¿czyzna")+vector("kobieta") \approx vector("królowa")$
+
+Wczeœniejsze metody opiera³y siê na g³êbokich sieciach neuronowych (%TODO podaæ linki do artyku³ów ) Bengio, Collobert and Weston
+Jednak istotn¹ wad¹ tych rozwi¹zañ pozostaje niska wydajnoœæ ich nauki, co jest szczególnie  odczuwalne w przypadku ogromnych zbiorów danych wykorzystywanych w œrodowiskach produkcyjnych. Rozwi¹zaniem tego problemu wydaj¹ siê byæ nowe metody wektorowej reprezentacji s³ów powsta³e na przestrzeni ostatnich lat. W odró¿nieniu do metod deep learningowych opieraj¹ siê one o metody szybkiej nauki, np. o p³ytkie sieci neuronowe, których czas nauki jest na tyle krótki, ¿e sprawdzaj¹ siê one do zastosowañ komercyjnych.
+
+Wyró¿nia siê dwa podstawowe podejœcia generowania wektorowych reprezentacji s³ów:
+\begin{enumerate}
+	\item Modele predykcyjne: ucz¹ siê wektorowych reprezentacji s³ów poprzez zmniejszenie b³êdu predykcji s³ów nale¿¹cych do lokalnego kontekstu s³owa $i$. Poni¿ej opisujê sztandarowy przyk³ad takiego modelu - word2vec, gdzie sposobem na optymalizacjê funkcji celu jest zastosowanie p³ytkiej sieci neuronowej typu feed-forward optymalizowanej za pomoc¹ metody stochastic gradient descent.
+	\item Metody oparte o zliczanie: generuj¹ wektory s³ów poprzez redukcjê wymiarowoœci w globalnej macierzy wspó³wyst¹pieñ s³ów.
+	Jako pierwszy etap konstruuj¹ one ogromn¹ (wymiar równa siê liczbie s³ów w s³owniku korpusu) macierz, która (podobnie, jak  metodzie LSI) nastêpnie ulega faktoryzacji, aby uzyskaæ macierz o mniejszym wymiarze, lecz nadal zachowuj¹c¹ powi¹zania pomiêdzy s³owami. Przyk³adem jest tu opisana poni¿ej metoda Global Vectors - GloVe.
+\end{enumerate}
+
+Jedn¹ z szerokiego wachlarza mo¿liwoœci, jakie daj¹ tego typu techniki jest okreœlanie podobieñstwa pomiêdzy ca³ymi dokumentami wykorzystuj¹c dodatkowe metody pozwalaj¹ce przenieœæ zale¿noœci miêdzy poszczególnymi s³owami dokumentu na zale¿noœci miêdzy ca³ymi zbiorami s³ów. Dwie z nich: metodê centroidu oraz Word Mover's Distance opisujê poni¿ej.
+
+The two main model families for learning word
+vectors are: 1) global matrix factorization methods,
+such as latent semantic analysis (LSA) (Deerwester
+et al., 1990) and 2) local context window
+methods, such as the skip-gram model of Mikolov
+et al. (2013c). Currently, both families suffer significant
+drawbacks. While methods like LSA ef-
+ficiently leverage statistical information, they do
+relatively poorly on the word analogy task, indicating
+a sub-optimal vector space structure. Methods
+like skip-gram may do better on the analogy
+task, but they poorly utilize the statistics of the corpus
+since they train on separate local context windows
+instead of on global co-occurrence counts.
+
+
+Unlike the matrix factorization methods, the
+shallow window-based methods suffer from the
+disadvantage that they do not operate directly on
+the co-occurrence statistics of the corpus. Instead,
+these models scan context windows across the entire
+corpus, which fails to take advantage of the
+vast amount of repetition in the data.
+
+
+
+Semantic vector space models of language represent
+each word with a real-valued vector. These
+vectors can be used as features in a variety of applications,
+such as information retrieval (Manning
+et al., 2008), document classification (Sebastiani,
+2002), question answering (Tellex et al., 2003),
+named entity recognition (Turian et al., 2010), and
+parsing (Socher et al., 2013)
+
+Learning continuous representations of words
+has a long history in natural language processing
+(Rumelhart et al., 1988).
+
+These representations
+are typically derived from large
+unlabeled corpora using co-occurrence statistics
+(Deerwester et al., 1990; Schütze, 1992;
+Lund and Burgess, 1996).
+
+In the neural network
+community, Collobert and Weston (2008) proposed
+to learn word embeddings using a feedforward
+?These authors contributed equally.
+neural network, by predicting a word based on the
+two words on the left and two words on the right.
+
+
+
+\subsection{Word2vec}%TODO obrazek z sieci¹, przepisaæ
+
+
 
 Word2vec jest stosunkowo now¹ (2013) metod¹ osadzania s³ów w przestrzeni wektorowej (word embedding), opisan¹ w \cite{word2vec}. 
 
-Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieæ neuronow¹, która ma za zadanie odtworzyæ kontekst danego s³owa na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb. Jako wejœcie metoda otrzymuje s³owa z korpusu. Wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom wejœciowym. U¿yta tu sieæ neuronowa sk³ada siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa sieæ przewiduje N s¹siednich s³ów lub CBOW: na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}. W celu szczegó³owego opisu metody Word2vec wprowadzam pojêcie funkcji softmax.
+Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieæ neuronow¹, która ma za zadanie odtworzyæ kontekst danego s³owa i na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb. Jako wejœcie metoda otrzymuje s³owa z korpusu. Wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom wejœciowym. U¿yta tu sieæ neuronowa sk³ada siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa sieæ przewiduje N s¹siednich s³ów lub CBOW: na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}. W celu szczegó³owego opisu metody Word2vec wprowadzam pojêcie funkcji softmax.
 
 Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$\cite{softmax}. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
 
@@ -293,6 +390,101 @@ $P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s
 EMD jest to dobrze zbadanym problemem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
 
 Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
+
+
+%TODO Opisaæ co to jest n-gram
+\subsection{FastText}
+
+Most of these techniques represent each word
+of the vocabulary by a distinct vector, without parameters
+sharing. In particular, they ignore the internal
+structure of words, which is an important
+limitation for morphologically rich languages, such
+as Turkish or Finnish. These languages contain
+many words that occur rarely, making it difficult to
+learn good word-level representations. In this paper,
+we propose to learn representations for character
+n-grams, and represent words as the sum of
+the n-gram vectors. Our main contribution is to introduce
+an extension of the continuous skip-gram
+model (Mikolov et al., 2013b), which takes into account
+subword information. We evaluate this model
+on five different languages, with various degree of
+morphology, showing the benefit of our approach.
+
+Rozszerzeniem koncepcji word2vec jest opracowana w 2016 przez Facebook AI Research metoda fastText\cite{fast_text}. G³ówn¹ innowacj¹ tej metody jest wziêcie pod uwagê wewnêtrznej struktury s³ów. Jest to szczególnie obiecuj¹ce w przypadku bogatych morfologicznie jêzyków, mp. jêzyka polskiego.
+
+Metoda fastText w du¿ej mierze opiera siê na zasadzie dzia³ania metody word2vec. Najistotniejsz¹ ró¿nic¹ jest sposób poziom szczegó³owoœci analizy s³ów. Word2vec traktuje s³owo jako niepodzieln¹ jednostkê, ignoruj¹c wewnêtrzn¹ strukturê jego znaków. Zgodnie z opisem z powy¿szego paragrafu ka¿de s³owo przygotowywane jest do wejœcia do sieci neuronowej w postaci unikalnego wektora wype³nionego zerami z wartoœci¹ '1' na jednej pozycji (,,one-hot-vector''). FastText natomiast analizuje ka¿de s³owo pod k¹tem struktury jego znaków. Wykorzystuje do tego rozbicie s³owa na pods³owa - ci¹gi znaków o okreœlonej d³ugoœci ,,character n-grams''. 
+
+S³owo reprezentowane jest jako suma wektorowych reprezentacji jego n-gramów.
+
+
+In this section, we
+thus propose a different scoring function s, in order
+to take into account this information. Given a
+word w, let us denote by Gw ? {1, . . . , G} the set
+of n-grams appearing in w. We associate a vector
+representation zg to each n-gram g. We represent a
+word by the sum of the vector representations of its
+n-grams. We thus obtain the scoring function
+s(w, c) = X
+g?Gw
+z
+?
+g vc.
+We always include the word w in the set of its ngrams,
+to also learn a vector representation for each
+word. The set of n-grams is thus a superset of the
+vocabulary. It should be noted that different vectors
+are assigned to a word and a n-gram sharing the
+same sequence of characters. For example, the word
+as and the bigram as, appearing in the word paste,
+will be assigned to different vectors. This simple
+model allows sharing the representations across
+words, thus allowing to learn reliable representation
+for rare words.
+Dictionary of n-grams. The presented model is
+simple and leaves room for design choices in the
+definition of Gw. In this paper, we adopt a very simple
+scheme: we keep all the n-grams with a length
+greater or equal than 3 and smaller or equal than 6.
+Different sets of n-grams could be used, for example
+prefixes and suffixes. We also add a special character
+for the beginning and the end of the word, thus
+allowing to distinguish prefixes and suffixes.
+In order to bound the memory requirements of our
+model, we use a hashing function that maps n-grams
+to integers in 1 to K. In the following, we use K
+equal to 2 millions. In the end, a word is represented
+by its index in the word dictionary and the value of
+the hashes of its n-grams. To improve the efficiency
+of our model, we do not use n-grams to represent
+the P most frequent words in the vocabulary. There
+is a trade-off in the choice of P, as smaller values
+imply higher computational cost but better performance.
+When P = W, our model is the skip-gram
+model of Mikolov et al. (2013b).
+
+
+Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza siê lepiej od word2vec w wykrywaniu syntaktycznych podobieñstw pomiêdzy s³owami. 
+
+\subsection{GloVe}
+
+Algroytm GloVe ró¿ni siê od word2vec w sposobie uzyskania wektorowej reprezentacji s³ów. Word2vec jest modelem predykcyjnym, natomiast GloVe opiera siê na globalnej macierzy wspó³wyst¹pieñ s³ów.
+
+
+
+Algorytm GloVe sk³ada siê z nastêpuj¹cych kroków\cite{glove_cran}:
+\begin{enumerate}
+	\item ZgromadŸ wspó³wyst¹pienia s³ów w formie macierzy $X$. Ka¿dy element $X_ij$ takiej macierzy reprezentuje jak czêsto s³owo $i$ wystêpuje w pobli¿u s³owa $j$. Zazwyczaj macierz buduje siê poprzez skanowanie bazowego korpusu oknem o ustalonej szerokoœci, w obrêbie którego centralne s³owo le¿y w kontekœcie s³ów je otaczaj¹cych. Dodatkowo mo¿na tu wprowadziæ wagi dla s³ów malej¹ce wraz ze wzrostem dystansu od s³owa centralnego.
+	\item Zdefiniuj ograniczenie dla ka¿dej pary s³ów: $w_i^Tw_j + b_i + b_j = log(X_{ij})$, gdzie $w_i$ oznacza wektor g³ównego s³owa, $w_j$ s³owa le¿¹cego w pobli¿u $i$, $b_i$ i $b_j$ to skalary.
+	\item Zdefiniuj funkcjê kosztu $J = \sum_{i=1}^V \sum_{j=1}^V \; f(X_{ij}) ( w_i^T w_j + b_i + b_j - \log X_{ij})^2$, gdzie f jest funkcj¹ wa¿¹c¹, która pomaga zapobiec uczeniu tylko na podstawie najbardziej popularnych par s³ów. Autorzy proponuj¹ funkcjê postaci:
+	$f(X_{ij}) = 
+	\begin{cases}
+	(\frac{X_{ij}}{x_{max}})^\alpha & \text{if } X_{ij} < XMAX \\
+	1 & \text{otherwise}
+	\end{cases}$
+\end{enumerate}
 
 
 \chapter{Dane}%TODO przerobiæ ca³y rozdzia³
@@ -395,8 +587,7 @@ $d(a_1, a_2) = \dfrac{w(a_1,a_2)}{D}$, gdzie $d$ to dystans miêdzy artyku³ami $a
 W powy¿szych przyk³adowych drzewach $w(X, Y) = 1$, $w(Y, Z) = 2$, $D=3$, st¹d $d(X, Y) = \dfrac{1}{3}$, $d(X, Y) = \dfrac{2}{3}$. Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
 
 \subsection{S³owa kluczowe}
-%TODO
-TODO, ale NIE WIEM, CZY MIARA U¯YWAJ¥CA KEYWORDÓW JEST POTRZEBNA
+%TODO, ale NIE WIEM, CZY MIARA U¯YWAJ¥CA KEYWORDÓW JEST POTRZEBNA
 
 \section{Miara 2: Ocena przez u¿ytkowników offline}
 
@@ -432,20 +623,20 @@ Za wagi metody nDCG przyjmujê liczby przejœæ pomiêdzy artyku³ami, a sam¹ metodê 
 
 Metodami, które aplikujê do problemu rekomendacji artyku³ów s¹:
 \begin{enumerate}
-	\item Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci\cite{wordnet} (model opisany jest poni¿ej) oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
-	\item Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
-	\item Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
-	\item Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
-	\item Latent Dirichlet Allocation
+	\item[] [w2v\_wdnt\_centr] Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci\cite{wordnet} (model opisany jest poni¿ej) oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
+	\item[] [w2v\_wdnt\_wmd] Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
+	\item[] [w2v\_art\_centr] Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
+	\item[] [w2v\_art\_wmd] Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
+	\item[] [lda] Latent Dirichlet Allocation
 \end{enumerate}
 
-Ponadto wyniki zastosowania powy¿szych metod porównujê z dotychczasow¹ metod¹ wykorzystywan¹ w serwisie allegro oraz z losowym wyborem artyku³ów podobnych.
+Ponadto wyniki zastosowania powy¿szych metod porównujê z dotychczasow¹ metod¹ wykorzystywan¹ w serwisie allegro [allegro] oraz z losow¹ ocena podobieñstwa artyku³ów [random].
 
 \subsection{Modele Word2Vec}
 
 \subsubsection{Model uczony na korpusie S³owosieci}
 
-Jako podstawowy model Word2vec u¿y³em gotowego modelu\cite{pias} stworzonego m.in. przez dr in¿. M. Piaseckiego. Model ten by³ uczony na korpusie S³owosieci wer. 10. Dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia Word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 100.
+Jako podstawowy model Word2vec u¿y³em gotowego modelu\cite{pias} stworzonego m.in. przez dr in¿. M. Piaseckiego. Model ten by³ uczony na korpusie S³owosieci wer. 10. Dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia Word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
 
 Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
 \subsubsection{Model uczony na korpusie artyku³ów}
@@ -455,53 +646,56 @@ Si³¹ rzeczy model ten zawiera wszystkie s³owa zawarte w korpusie artyku³ów.
 
 Do uczenia u¿y³em parametrów identycznych, jak w metodzie powy¿ej.
 
-ILE TRWA£O BUDOWANIE MODELU
+%ILE TRWA£O BUDOWANIE MODELU
 
 \subsection{Model LDA}
 
-Przed wykonaniem ostatecznych pomiarów nale¿y zbudowaæ model LDA w oparciu o przetwarzane dane. W moim przypadku trwa³o to: CZASY BUDOWANIA LDA
+%Przed wykonaniem ostatecznych pomiarów nale¿y zbudowaæ model LDA w oparciu o przetwarzane dane. W moim przypadku trwa³o to: CZASY BUDOWANIA LDA
 
 \section{Wyniki badañ}
 
-Do ka¿dej z wymienionych powy¿ej metod stosujê ka¿d¹ z trzech opracowanych przez mnie miar. Wyniki zestawiam w tabelce.
-
-TABELA Z WYNIKAMI
+Do ka¿dej z wymienionych powy¿ej metod stosujê ka¿d¹ z trzech opracowanych przez mnie, opisanych wczeœniej miar : opart¹ na kategoriach [categories], ocenach u¿ytkowników offline [users] i klikniêciach prawdziwych u¿ytkowników serwisu [clicks]. Wyniki zestawiam w tabelce.
 
 \begin{center}
 	\begin{tabular}{ | l | l | l | p{5cm} |}
 		\hline
-		Alias metody & mean-clicks & mean-cat & mean-users \\ \hline
-		rnd & - & 0.145630871396 & \\ \hline
-		crp\_wmd & 1.29748226281 & 0.542820699708 & \\ \hline
-		crp\_ctr & 1.37170817357 & 0.521784904438 & \\ \hline
-		pias\_wmd & 1.3817891755  & 0.54587787496 & \\ \hline
-		pias\_ctr & 1.43155208802 & 0.517755911889 & \\ \hline
+		Alias metody & clicks & categories & users \\ \hline
+		random & - & 0.145630871396 & \\ \hline
+		w2v\_art\_wmd & 1.29748226281 & 0.542820699708 & \\ \hline
+		wv2\_art\_centr & 1.37170817357 & 0.521784904438 & \\ \hline
+		w2v\_wdnt\_wmd & 1.3817891755  & 0.54587787496 & \\ \hline
+		w2v\_wdnt\_centr & 1.43155208802 & 0.517755911889 & \\ \hline
 		lda & 1.56573051337 & 0.493703433754 & \\ \hline
-		allgr & 1.14732593575 & 0.580296404276 & \\ \hline
+		allegro & 1.14732593575 & 0.580296404276 & \\ \hline
 	\end{tabular}
 \end{center}
 
-%TODO WYKRES Z WYNIKAMI PO NORMALIZACJI
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results.png}
+	\caption{Porównanie znormalizowanych wyników.}
+	%\label{fig:warstwy}
+\end{figure}
 
 %TODO Popatrzeæ w podsumowania innych prac
 
 \subsection{Efektywnoœæ czasowa}
 
 Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Z³¿onoœæ czasowa metody wynosi:
-Dla przypadku: ??? obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
+Dla przypadku: [w2v\_art\_wmd] obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
 
-istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody LDA oraz Word2vec potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
+Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody LDA oraz Word2vec potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
 
 \chapter{Podsumowanie}
 Dalsze badania.
 
 Niniejsza praca nie wyczerpuje sposobów wyboru artyku³ów podobnych. 
 
-Nie wszystkie pola zawarte w strukturze zosta³y wykorzystane: autor
+Nie wszystkie pola zawarte w strukturze zosta³y wykorzystane. Pozostaj¹ np. ,,autor''.
 
-Przed astosowaniem metod wyznaczania podobieñstwa wykona³em przetwarzanie wstêpne dokumentów, które mo¿na przeprowadziæ równie¿ na inne sposoby. Jest to temat osobnych badañ.
+Przed zastosowaniem metod wyznaczania podobieñstwa wykona³em przetwarzanie wstêpne dokumentów, które mo¿na przeprowadziæ równie¿ na inne sposoby. Jest to temat osobnych badañ.
 
-Zdajê sobie sprawê z niedoskona³oœci zastosowanych miar...
+Zdajê sobie sprawê z niedoskona³oœci zastosowanych miar.
 
 Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardziej podobnych. Warto tutaj zaznaczyæ ró¿nicê pomiêdzy tematyk¹ pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artyku³y, które mo¿na uznaæ za dobre rekomandacje, tj. takie, które przynosz¹ przedsiêbiorstwu najwiêkszy zysk, wcale nie mus¿ byæ podobne do danego. Powszechnym zjawiskiem jest wzbogacanie rekomandacji o przedmioty niepodobne do danego, a pozwalaj¹ce u¿ytkownikowi na poznanie osobnej kategorii przedmiotów, która mo¿e go zainteresowaæ a tym samym przyci¹gn¹æ do serwisu.
 
@@ -558,7 +752,7 @@ Wykorzystane biblioteki jêzyka Python:
 	(26.05.2017)
 \bibitem[7]{word2vec_tutorial}
 	\url{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}
-	26.05.2017)
+	(26.05.2017)
 \bibitem[9]{emd_method}
 	Ofir Pele, Michael Werman,
 	\emph{Fast and robust earth mover's distances},
@@ -597,9 +791,12 @@ Wykorzystane biblioteki jêzyka Python:
 	2016
 	\url{https://clarin-pl.eu/dspace/handle/11321/327}
 	(26.06.2017)
-\bibitem[16]{wordnet}
+\bibitem[17]{wordnet}
 	\url{http://plwordnet.pwr.wroc.pl/wordnet/}
 	(28.06.2017)
+\bibitem[18]{glove_cran}
+	\url{https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html}
+	(30.08.2017)
 \end{thebibliography}
 
 \appendix

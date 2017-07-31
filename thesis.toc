@@ -12,33 +12,37 @@
 \contentsline {section}{\numberline {2.2}Techniki przetwarzania j\k ezyka naturalnego}{11}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Bag-of-words}{11}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Term frequency - inverted document frequency}{12}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Latent Dirichlet Allocation}{13}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Word2vec}{13}{subsection.2.2.4}
-\contentsline {subsection}{\numberline {2.2.5}Odleg\IeC {\l }o\'s\'c mi\k edzy dokumentami}{15}{subsection.2.2.5}
-\contentsline {subsubsection}{Centroid}{15}{section*.2}
-\contentsline {subsubsection}{Word Mover's Distance}{15}{section*.3}
-\contentsline {chapter}{\numberline {3}Dane}{17}{chapter.3}
-\contentsline {section}{\numberline {3.1}Opis danych}{17}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Tre\'s\'c artyku\IeC {\l }u}{17}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Kategoria}{18}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}S\IeC {\l }owa kluczowe}{18}{subsection.3.1.3}
-\contentsline {section}{\numberline {3.2}Wst\k epne przetwarzanie danych}{19}{section.3.2}
-\contentsline {section}{\numberline {3.3}Opis danych po wst\k epnym przetwarzaniu}{20}{section.3.3}
-\contentsline {chapter}{\numberline {4}Metody ewaluacji}{23}{chapter.4}
-\contentsline {section}{\numberline {4.1}Miara 1: Dystans oparty na metadanych}{24}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Kategorie}{24}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}S\IeC {\l }owa kluczowe}{26}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Miara 2: Ocena przez u\.zytkownik\'ow offline}{26}{section.4.2}
-\contentsline {section}{\numberline {4.3}Miara 3: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{26}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}nDCG}{27}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Adaptacja metody nDCG}{27}{subsection.4.3.2}
-\contentsline {chapter}{\numberline {5}Opis i wyniki bada\'n}{29}{chapter.5}
-\contentsline {section}{\numberline {5.1}Przygotowanie eksperyment\'ow}{29}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Modele Word2Vec}{30}{subsection.5.1.1}
-\contentsline {subsubsection}{Model uczony na korpusie S\IeC {\l }owosieci}{30}{section*.4}
-\contentsline {subsubsection}{Model uczony na korpusie artyku\IeC {\l }\'ow}{30}{section*.5}
-\contentsline {subsection}{\numberline {5.1.2}Model LDA}{31}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Wyniki bada\'n}{31}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Efektywno\'s\'c czasowa}{31}{subsection.5.2.1}
-\contentsline {chapter}{\numberline {6}Podsumowanie}{32}{chapter.6}
-\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{33}{appendix.A}
+\contentsline {subsection}{\numberline {2.2.3}Latent Semantic Analysis}{13}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Latent Dirichlet Allocation}{14}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Word embedding}{14}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Word2vec}{16}{subsection.2.2.6}
+\contentsline {subsection}{\numberline {2.2.7}Odleg\IeC {\l }o\'s\'c mi\k edzy dokumentami}{18}{subsection.2.2.7}
+\contentsline {subsubsection}{Centroid}{18}{section*.2}
+\contentsline {subsubsection}{Word Mover's Distance}{19}{section*.3}
+\contentsline {subsection}{\numberline {2.2.8}FastText}{20}{subsection.2.2.8}
+\contentsline {subsection}{\numberline {2.2.9}GloVe}{22}{subsection.2.2.9}
+\contentsline {chapter}{\numberline {3}Dane}{24}{chapter.3}
+\contentsline {section}{\numberline {3.1}Opis danych}{24}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Tre\'s\'c artyku\IeC {\l }u}{24}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Kategoria}{25}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}S\IeC {\l }owa kluczowe}{25}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Wst\k epne przetwarzanie danych}{26}{section.3.2}
+\contentsline {section}{\numberline {3.3}Opis danych po wst\k epnym przetwarzaniu}{27}{section.3.3}
+\contentsline {chapter}{\numberline {4}Metody ewaluacji}{30}{chapter.4}
+\contentsline {section}{\numberline {4.1}Miara 1: Dystans oparty na metadanych}{31}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Kategorie}{31}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}S\IeC {\l }owa kluczowe}{33}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Miara 2: Ocena przez u\.zytkownik\'ow offline}{33}{section.4.2}
+\contentsline {section}{\numberline {4.3}Miara 3: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{33}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}nDCG}{34}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Adaptacja metody nDCG}{34}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Opis i wyniki bada\'n}{36}{chapter.5}
+\contentsline {section}{\numberline {5.1}Przygotowanie eksperyment\'ow}{36}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Modele Word2Vec}{37}{subsection.5.1.1}
+\contentsline {subsubsection}{Model uczony na korpusie S\IeC {\l }owosieci}{37}{section*.4}
+\contentsline {subsubsection}{Model uczony na korpusie artyku\IeC {\l }\'ow}{37}{section*.5}
+\contentsline {subsection}{\numberline {5.1.2}Model LDA}{38}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Wyniki bada\'n}{38}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Efektywno\'s\'c czasowa}{39}{subsection.5.2.1}
+\contentsline {chapter}{\numberline {6}Podsumowanie}{40}{chapter.6}
+\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{41}{appendix.A}
