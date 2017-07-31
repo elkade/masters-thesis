@@ -189,7 +189,7 @@ W celu unikniêcia nieporozumieñ pragnê podkreœliæ ró¿nicê pomiêdzy znaczeniami s
 %
 %W niniejszej pracy operujê na statycznym zbiorze artyku³ów pochodz¹cych wprost z serwisu (styczeñ 2017). Serwis Allegro dynamiczne ewoluuje, st¹d czêœæ 
 
-\chapter{Przegl¹d wybranych metod}
+\chapter{Przegl¹d wiedzy z zakresu temetyki pracy}
 
 W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i narzêdzi umo¿liwiaj¹cych przetwarzanie jêzyka naturalnego, semantyczn¹ analizê tekstu i wykrywanie podobieñstwa pomiêdzy tekstami. Czêœæ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystaj¹ce z semantycznej analizy tekstu - nie s¹ tak popularne z powodu swojej nowoœci, b¹dŸ trudnoœci w zaaplikowaniu. Daje to pole do badañ i ewentualnych usprawnieñ istniej¹cych systemów opieraj¹cych siê o klasyczne metody. Wybrane metody stosujê, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, st¹d przegl¹d metod zaczynam w³aœnie od wprowadzenia do tego zagadnienia.
 
@@ -239,35 +239,31 @@ $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
 $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$,
 
-%TODO Przyk³ad
+%TODO Przyk³ad, odleg³oœæ kosunusowa jest póŸniej. S³ownik - synonim, homonim
 
 Ka¿dy dokument reprezentowany jest tu przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TF-IDF informuje o czêstoœci wyst¹pienia s³ów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego s³owa i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
 
 W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 
 \subsection{Latent Semantic Analysis}
+%TODO odnoœnik, rok
+LSA, znane równie¿ jako Latent Semantic Indexing (LSI) jest technik¹ przetwarzania jêzka naturalnego maj¹c¹ na celu wydobycie powi¹zañ pomiêdzy zbiorem dokumentów. LSA zak³ada, ¿e istnieje korelacja pomiêdzy rozmieszczeniem s³ów a ich znaczeniem.
 
-LSA dokonuje transformacji ka¿dego dokumentu w wektor cech. W tym przypadku cechami s¹ s³owa wystêpuj¹ce w dokumencie. Nastêpnie macierz zawieraj¹ca wszystkie wektory jest tworzona: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. Liczba wierszy mo¿e byæ bardzo du¿a . W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³adu SVD, który jest popularn¹ technik¹ redukcji wymiarowoœci. Celem u¿yci SVD jest redukcja liczby wierszy macierzy utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów (topics). W tej metodzie temat sk³ada siê ze zbioru s³ów powi¹zanych z wagami definiuj¹cymi udzia³ ka¿dego ze s³ów w danym temacie. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹.
+LSA dokonuje transformacji ka¿dego dokumentu w wektor d³. $|V|$ z liczb¹ wyst¹pieñ $i$-tego s³owa na $i$-tej pozycji. W ten sposób tworzona jest macierz: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³ad wed³ug wartoœci osobliwych (singular value decomposition, SVD), który jest technik¹ redukcji wymiarowoœci. Celem u¿ycia SVD jest redukcja liczby wierszy macierzy oraz pozbycie siê szumów, utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Ostatecznie uzyskuje siê macierz: przynale¿noœci tematów do dokumentów, gdzie wiersze odpowiadaj¹ce tematom mo¿na interpretowaæ jako kombinacje pierwotnych wierszy-s³ów o podobnym znaczeniu. Np. $\{(samochód), (ciê¿arówka), (jezdnia)\} \to \{(1.3452 * samochód + 0.2828 * ciê¿arówka + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹.
 
+\subsubsection{Singular Value Decomposition}
+%TODO czy opisywaæ SVD
 
-Rank lowering[edit]
-After the construction of the occurrence matrix, LSA finds a low-rank approximation[4] to the term-document matrix. There could be various reasons for these approximations:
-
-The original term-document matrix is presumed too large for the computing resources; in this case, the approximated low rank matrix is interpreted as an approximation (a "least and necessary evil").
-The original term-document matrix is presumed noisy: for example, anecdotal instances of terms are to be eliminated. From this point of view, the approximated matrix is interpreted as a de-noisified matrix (a better matrix than the original).
-The original term-document matrix is presumed overly sparse relative to the "true" term-document matrix. That is, the original matrix lists only the words actually in each document, whereas we might be interested in all words related to each document—generally a much larger set due to synonymy.
-The consequence of the rank lowering is that some dimensions are combined and depend on more than one term:
-
-{(car), (truck), (flower)} --> {(1.3452 * car + 0.2828 * truck), (flower)}
-
-This mitigates the problem of identifying synonymy, as the rank lowering is expected to merge the dimensions associated with terms that have similar meanings. It also mitigates the problem with polysemy, since components of polysemous words that point in the "right" direction are added to the components of words that share a similar meaning. Conversely, components that point in other directions tend to either simply cancel out, or, at worst, to be smaller than components in the directions corresponding to the intended sense.
+Metoda ³agodzi problem synonimów poprzez scalanie podobnych s³ów w jeden temat. Niweluje równie¿ problem homonimów, w³¹czaj¹c je czêœciowo w sk³ad ró¿nych tematów.
+Poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbê tematów czêœæ semantycznie odrêbnych tematów mo¿e zostaæ wch³oniêta przez inne lub te¿ rozbicie na tematy mo¿e byæ zbyt ,,drobne'' nie wykorzystuj¹c w pe³ni semantycznych powi¹zañ.
 
 
 
-This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
+
+%This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
 
 \subsection{Latent Dirichlet Allocation}
-%TODO opisaæ metodê
+%TODO opisaæ metodê - jak bardzo szczegó³owo
 
 
 \subsection{Word embedding}
@@ -412,7 +408,7 @@ subword information. We evaluate this model
 on five different languages, with various degree of
 morphology, showing the benefit of our approach.
 
-Rozszerzeniem koncepcji word2vec jest opracowana w 2016 przez Facebook AI Research metoda fastText\cite{fast_text}. G³ówn¹ innowacj¹ tej metody jest wziêcie pod uwagê wewnêtrznej struktury s³ów. Jest to szczególnie obiecuj¹ce w przypadku bogatych morfologicznie jêzyków, mp. jêzyka polskiego.
+Rozszerzeniem koncepcji word2vec jest opracowana w 2016 przez Facebook AI Research metoda fastText\cite{fast_text}. G³ówn¹ innowacj¹ tej metody jest wziêcie pod uwagê wewnêtrznej struktury s³ów. Jest to szczególnie obiecuj¹ce w przypadku bogatych morfologicznie jêzyków, np. jêzyka polskiego.
 
 Metoda fastText w du¿ej mierze opiera siê na zasadzie dzia³ania metody word2vec. Najistotniejsz¹ ró¿nic¹ jest sposób poziom szczegó³owoœci analizy s³ów. Word2vec traktuje s³owo jako niepodzieln¹ jednostkê, ignoruj¹c wewnêtrzn¹ strukturê jego znaków. Zgodnie z opisem z powy¿szego paragrafu ka¿de s³owo przygotowywane jest do wejœcia do sieci neuronowej w postaci unikalnego wektora wype³nionego zerami z wartoœci¹ '1' na jednej pozycji (,,one-hot-vector''). FastText natomiast analizuje ka¿de s³owo pod k¹tem struktury jego znaków. Wykorzystuje do tego rozbicie s³owa na pods³owa - ci¹gi znaków o okreœlonej d³ugoœci ,,character n-grams''. 
 
