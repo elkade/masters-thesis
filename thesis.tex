@@ -224,7 +224,7 @@ W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznac
 
 
 \subsection{Bag-of-words}%TODO napisaæ ¿e to stara metoda
-Bag-of-words (worek s³ów) jest metod¹ reprezentacji tekstu jako zbioru zawartych w nim s³ów niezachowuj¹cego kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Metodê tê mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
+Bag-of-words (worek s³ów) jest jedn¹ z pierwszych opracowanych metod reprezentacji tekstu jako zbioru zawartych w nim s³ów, która nie zachowuje kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Metodê tê mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus\\
 $m = |C|$: liczba dokumentów w korpusie $C$\\
 $V$: s³ownik zbudowany na $C$\\
@@ -232,7 +232,7 @@ $n = |V|$: liczba s³ów w $V$\\
 $v_i \in \mathbb{R}^n$, gdzie $i \in 1, 2, ..., n$ wektor reprezentuj¹cy dokument $d_i \in C$\\
 $v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
 
-Technika ta jest stosunkowo prosta, lecz jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu.
+Technika ta jest stosunkowo prosta, lecz jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu. Mimo to metoda BOW jest cz¹stkowo wykorzystywana równie¿ w bardziej zawansowanych technikach NLP.
 \subsection{Term frequency - inverted document frequency}
 TF-IDF (wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
 $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
@@ -241,23 +241,24 @@ $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to licz
 
 %TODO Przyk³ad, odleg³oœæ kosunusowa jest póŸniej. S³ownik - synonim, homonim
 
-Ka¿dy dokument reprezentowany jest tu przez wektor, sk³adaj¹cy siê z wag s³ów wystêpuj¹cych w tym dokumencie. TF-IDF informuje o czêstoœci wyst¹pienia s³ów uwzglêdniaj¹c jednoczeœnie odpowiednie wywa¿enie znaczenia lokalnego s³owa i jego znaczenia w kontekœcie pe³nej kolekcji dokumentów.
+Dokumenty reprezentowane s¹ tu jako wektory, sk³adaj¹ce siê z wag s³ów wystêpuj¹cych w ka¿dym z nich. TF-IDF przechowuje informacjê o czêstotliwoœci wystêpowania s³ów bior¹c przy tym pod uwagê istotnoœæ znaczenia s³owa lokalnego w stosunku do jego znaczenia w kontekœcie ca³ego zbioru dokumentów. W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 
-W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
+\subsection{Distributional semantics}
+%TODO to jest wstêp do zaawansowanych metod
+
+%TODO https://en.wikipedia.org/wiki/Distributional_semantics
+
 
 \subsection{Latent Semantic Analysis}
 %TODO odnoœnik, rok
 LSA, znane równie¿ jako Latent Semantic Indexing (LSI) jest technik¹ przetwarzania jêzka naturalnego maj¹c¹ na celu wydobycie powi¹zañ pomiêdzy zbiorem dokumentów. LSA zak³ada, ¿e istnieje korelacja pomiêdzy rozmieszczeniem s³ów a ich znaczeniem.
 
-LSA dokonuje transformacji ka¿dego dokumentu w wektor d³. $|V|$ z liczb¹ wyst¹pieñ $i$-tego s³owa na $i$-tej pozycji. W ten sposób tworzona jest macierz: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³ad wed³ug wartoœci osobliwych (singular value decomposition, SVD), który jest technik¹ redukcji wymiarowoœci. Celem u¿ycia SVD jest redukcja liczby wierszy macierzy oraz pozbycie siê szumów, utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Ostatecznie uzyskuje siê macierz: przynale¿noœci tematów do dokumentów, gdzie wiersze odpowiadaj¹ce tematom mo¿na interpretowaæ jako kombinacje pierwotnych wierszy-s³ów o podobnym znaczeniu. Np. $\{(samochód), (ciê¿arówka), (jezdnia)\} \to \{(1.3452 * samochód + 0.2828 * ciê¿arówka + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹.
+LSA dokonuje transformacji ka¿dego dokumentu w wektor d³. $|V|$ z liczb¹ wyst¹pieñ $i$-tego s³owa na $i$-tej pozycji. W ten sposób tworzona jest macierz: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³ad wed³ug wartoœci osobliwych (singular value decomposition, SVD), który jest technik¹ redukcji wymiarowoœci. Celem u¿ycia SVD jest redukcja liczby wierszy macierzy oraz pozbycie siê szumów, utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Ostatecznie uzyskuje siê macierz: przynale¿noœci tematów do dokumentów, gdzie wiersze odpowiadaj¹ce tematom mo¿na interpretowaæ jako kombinacje pierwotnych wierszy-s³ów o podobnym znaczeniu. Np. $\{(samochód), (ciê¿arówka), (jezdnia)\} \to \{(1.3452 * samochód + 0.2828 * ciê¿arówka + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹ (opisan¹ póŸniej w tym rodziale).
 
 \subsubsection{Singular Value Decomposition}
 %TODO czy opisywaæ SVD
 
-Metoda ³agodzi problem synonimów poprzez scalanie podobnych s³ów w jeden temat. Niweluje równie¿ problem homonimów, w³¹czaj¹c je czêœciowo w sk³ad ró¿nych tematów.
-Poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbê tematów czêœæ semantycznie odrêbnych tematów mo¿e zostaæ wch³oniêta przez inne lub te¿ rozbicie na tematy mo¿e byæ zbyt ,,drobne'' nie wykorzystuj¹c w pe³ni semantycznych powi¹zañ.
-
-
+Metoda LSA ³agodzi problem synonimów poprzez scalanie podobnych s³ów w jeden temat. Niweluje równie¿ problem homonimów, w³¹czaj¹c je czêœciowo w sk³ad ró¿nych tematów. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbê tematów czêœæ semantycznie odrêbnych tematów mo¿e zostaæ wch³oniêta przez inne lub te¿ rozbicie na tematy mo¿e byæ zbyt ,,drobne'' nie wykorzystuj¹c w pe³ni semantycznych powi¹zañ.
 
 
 %This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
@@ -268,10 +269,19 @@ Poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbê tematów c
 
 \subsection{Word embedding}
 
-W ostatnim czasie nast¹pi³ gwa³towny rozwój metod ,,word embedding'' - osadzania s³ów w przestrzeni wrktorowej. S³owo jêzyka naturalnego samo w sobie jest tylko pewnym symbolem, tokenem - nie da siê wprost zastosowaæ dla niego ¿adnych matematycznych metod, które pozwoli³yby odwzorowaæ semantyczne zale¿noœci pomiêdzy s³owami i wykorzystaæ je do pewnych wy¿szych celów. Medoty osadzania s³ów pozwalaj¹ na wektorow¹ reprezentacjê s³ów, które s¹ w stanie zachowaæ semantyczne i syntaktyczne powi¹zania miêdzy s³owami. Przyk³adem mog¹ byæ tu operacje artymetyczne na wektorach odwzorowuj¹ce semantykê s³ów: $vector("król")?vector("mê¿czyzna")+vector("kobieta") \approx vector("królowa")$
+%TODO to jest wstêp do word embeddingu
 
-Wczeœniejsze metody opiera³y siê na g³êbokich sieciach neuronowych (%TODO podaæ linki do artyku³ów ) Bengio, Collobert and Weston
-Jednak istotn¹ wad¹ tych rozwi¹zañ pozostaje niska wydajnoœæ ich nauki, co jest szczególnie  odczuwalne w przypadku ogromnych zbiorów danych wykorzystywanych w œrodowiskach produkcyjnych. Rozwi¹zaniem tego problemu wydaj¹ siê byæ nowe metody wektorowej reprezentacji s³ów powsta³e na przestrzeni ostatnich lat. W odró¿nieniu do metod deep learningowych opieraj¹ siê one o metody szybkiej nauki, np. o p³ytkie sieci neuronowe, których czas nauki jest na tyle krótki, ¿e sprawdzaj¹ siê one do zastosowañ komercyjnych.
+W ostatnim czasie nast¹pi³ gwa³towny rozwój i niew¹tpliwy sukces metod ,,word embedding'' - osadzania s³ów w przestrzeni wektorowej przy pomocy uczenia nienadzorowanego.
+
+
+%TODO The distributional hypothesis in linguistics is derived from the semantic theory of language usage, i.e. words that are used and occur in the same contexts tend to purport similar meanings. Harris, Z. (1954). "Distributional structure". Word. 10 (23): 146–162. Firth, J.R. (1957). "A synopsis of linguistic theory 1930-1955". Studies in Linguistic Analysis. Oxford: Philological Society: 1–32. Reprinted in F.R. Palmer, ed. (1968). Selected Papers of J.R. Firth 1952-1959. London: Longman.
+Vector space models have been used in distributional semantics since the 1990s. Since then, we have seen the development of a number models used for estimating continuous representations of words, Latent Dirichlet Allocation (LDA) and Latent Semantic Analysis (LSA) being two such examples.
+
+
+S³owo jêzyka naturalnego samo w sobie jest tylko pewnym symbolem, tokenem - nie da siê wprost zastosowaæ dla niego ¿adnych matematycznych metod, które pozwoli³yby odwzorowaæ semantyczne zale¿noœci pomiêdzy s³owami i wykorzystaæ je do pewnych wy¿szych celów. Medoty osadzania s³ów pozwalaj¹ na wektorow¹ reprezentacjê s³ów, które s¹ w stanie zachowaæ semantyczne i syntaktyczne powi¹zania miêdzy s³owami. Przyk³adem mog¹ byæ tu operacje artymetyczne na wektorach odwzorowuj¹ce semantykê s³ów: $vector("król")-vector("mê¿czyzna")+vector("kobieta") \approx vector("królowa")$
+
+Pocz¹tkowo metody word embedding opiera³y siê w du¿ej mierze na g³êbokich sieciach neuronowych (%TODO podaæ linki do artyku³ów ) Bengio, Collobert and Weston
+Jednak istotn¹ wad¹ tych rozwi¹zañ by³a niska wydajnoœæ ich nauki, co jest szczególnie odczuwalne w przypadku ogromnych zbiorów danych wykorzystywanych w œrodowiskach produkcyjnych. Rozwi¹zaniem tego problemu wydaj¹ siê byæ nowe metody wektorowej reprezentacji s³ów powsta³e na przestrzeni ostatnich lat. W odró¿nieniu do metod deep learningowych opieraj¹ siê one o metody szybkiej nauki, np. o p³ytkie sieci neuronowe, które ucz¹ siê na tyle krótko, ¿e sprawdzaj¹ siê one w zastosowaniach komercyjnych.
 
 Wyró¿nia siê dwa podstawowe podejœcia generowania wektorowych reprezentacji s³ów:
 \begin{enumerate}
@@ -280,7 +290,7 @@ Wyró¿nia siê dwa podstawowe podejœcia generowania wektorowych reprezentacji s³ów
 	Jako pierwszy etap konstruuj¹ one ogromn¹ (wymiar równa siê liczbie s³ów w s³owniku korpusu) macierz, która (podobnie, jak  metodzie LSI) nastêpnie ulega faktoryzacji, aby uzyskaæ macierz o mniejszym wymiarze, lecz nadal zachowuj¹c¹ powi¹zania pomiêdzy s³owami. Przyk³adem jest tu opisana poni¿ej metoda Global Vectors - GloVe.
 \end{enumerate}
 
-Jedn¹ z szerokiego wachlarza mo¿liwoœci, jakie daj¹ tego typu techniki jest okreœlanie podobieñstwa pomiêdzy ca³ymi dokumentami wykorzystuj¹c dodatkowe metody pozwalaj¹ce przenieœæ zale¿noœci miêdzy poszczególnymi s³owami dokumentu na zale¿noœci miêdzy ca³ymi zbiorami s³ów. Dwie z nich: metodê centroidu oraz Word Mover's Distance opisujê poni¿ej.
+Jedn¹ z szerokiego wachlarza mo¿liwoœci, jakie daj¹ tego typu techniki jest okreœlanie podobieñstwa pomiêdzy ca³ymi dokumentami, wykorzystuj¹c dodatkowe metody pozwalaj¹ce przenieœæ zale¿noœci miêdzy poszczególnymi s³owami dokumentu na zale¿noœci miêdzy ca³ymi zbiorami s³ów. Dwie z nich: metodê centroidu oraz Word Mover's Distance opisujê poni¿ej.
 
 The two main model families for learning word
 vectors are: 1) global matrix factorization methods,
@@ -305,8 +315,6 @@ the co-occurrence statistics of the corpus. Instead,
 these models scan context windows across the entire
 corpus, which fails to take advantage of the
 vast amount of repetition in the data.
-
-
 
 Semantic vector space models of language represent
 each word with a real-valued vector. These
@@ -338,19 +346,22 @@ two words on the left and two words on the right.
 
 \subsection{Word2vec}%TODO obrazek z sieci¹, przepisaæ
 
+Word2vec jest stosunkowo now¹ (2013) predykcyjn¹ metod¹ osadzania s³ów w przestrzeni wektorowej, opisan¹ w \cite{word2vec}. 
 
+Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieæ neuronow¹, która ma za zadanie odtworzyæ kontekst danego s³owa i na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb rzeczywistych. Jako wejœcie metoda otrzymuje s³owa z korpusu, wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom wejœciowym. U¿yta tu sieæ neuronowa sk³ada siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa sieæ dokonuje predykcji N s¹siednich s³ów lub CBOW (continuous bag of words): na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}. W celu szczegó³owego opisu metody Word2vec wprowadzam pojêcie funkcji softmax.
 
-Word2vec jest stosunkowo now¹ (2013) metod¹ osadzania s³ów w przestrzeni wektorowej (word embedding), opisan¹ w \cite{word2vec}. 
-
-Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieæ neuronow¹, która ma za zadanie odtworzyæ kontekst danego s³owa i na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb. Jako wejœcie metoda otrzymuje s³owa z korpusu. Wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom wejœciowym. U¿yta tu sieæ neuronowa sk³ada siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci: skip-gram: na podstawie s³owa sieæ przewiduje N s¹siednich s³ów lub CBOW: na postawie okna N s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te N s³ów jest s¹siedztwem. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}. W celu szczegó³owego opisu metody Word2vec wprowadzam pojêcie funkcji softmax.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
+	\caption{Schemat sieci wykorzystuj¹cej podejœcie skip-gram i CBOW. ród³o: \cite{word2vec}.}
+	%\label{fig:warstwy}
+\end{figure}
 
 Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$\cite{softmax}. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
 
-
 U¿ywaj¹c tej stosunkowo prostej architektury mo¿na wykonaæ proces nauki u¿ywaj¹c milionów s³ów, których powi¹zania miêdzy sob¹ zostan¹ zachowane w systemie wag sieci neuronowej.
 
-
-W metodzie Word2vec nauka polega na trenowaniu sieci neuronowej. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, Word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieæi, które faktycznie s¹ wynikowymi wektorami s³ow.
+W metodzie Word2vec nauka polega na trenowaniu sieci neuronowej. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, Word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieci, które faktycznie s¹ wynikowymi wektorami s³ow.
 
 W dalszym opisie metody szczegó³owo skupiam siê na podejœciu CBOW, lecz podejœcie skip-gram wygl¹da analogicznie.
 
@@ -358,35 +369,11 @@ Sieæ neuronowa bêd¹ca wynikiem nauki przyjmuje na wejœciu wektor binarny d³ugoœc
 
 Jako efekt nale¿y siê spodziewaæ, ¿e dla s³owa wejœciowego ,,Brytania'' otrzymamy na wyjœciu wysok¹ wartoœæ prawdopodobieñstwa dla s³owa ,,Wielka'', a nisk¹ np. dla s³owa ,,skoroszyt''.
 
-
-Jednym z parametrów metody Word2vec jest wymiarowoœæ przestrzeni, w której znajduj¹ siê otrzymane wektory odpowiadaj¹ce s³owom z korpusu. Liczba ta ma swoje Ÿród³o z wielkoœci warstwy ukrytej sieci neuronowej. Wagi warstwy ukrytej mo¿na interpretowaæ jako macierz MxN, gdzie M to liczba s³ów s³ownika V - wielkoœæ wektowa wejœciowego, a N to liczba neuronów w warstwie ukrytej. Po przeprowadzeniu nauki i-ty wiersz tej macierzy odpowiada wektorowi d³ugoœci N, który reprezentuje i-te s³owo ze s³ownika V.
+Jednym z parametrów metody Word2vec jest wymiarowoœæ przestrzeni, w której znajduj¹ siê otrzymane wektory odpowiadaj¹ce s³owom z korpusu. Liczba ta ma swoje Ÿród³o z wielkoœci warstwy ukrytej sieci neuronowej. Wagi warstwy ukrytej mo¿na interpretowaæ jako macierz $M$x$N$, gdzie $M$ to liczba s³ów s³ownika $V$ - wielkoœæ wektowa wejœciowego, a $N$ to liczba neuronów w warstwie ukrytej. Po przeprowadzeniu nauki $i$-ty wiersz tej macierzy odpowiada wektorowi d³ugoœci $N$, który reprezentuje $i$-te s³owo ze s³ownika $V$.
 
 W sieci nie jest u¿ywa funkcja akywacji, ale prawdopodobieñstwa na wyjœciu s¹ efektem dzi³ania funkcji softmax. Funkcja ta ma za zadanie sprowadziæ wyjœciowe wartoœci warstwy ukrytej do postaci rozk³adu prawdopodobieñstwa. 
 
 Isotn¹ zalet¹ metody Word2vec jest fakt, i¿ pozwala ona oceniæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów.
-
-\subsection{Odleg³oœæ miêdzy dokumentami}
-W celu wykorzystania omówionej metody Word2vec w obszarze tematyki pracy nale¿y wybraæ metodê obliczania odleg³oœci miêdzy ca³ymi dokumentami, których s³owa potrafimy reprezentowaæ jako wektory. Zak³adamy, ¿e je¿eli dystans pomiêdzy dokumentami jest ma³y, to ich tematyka jest podobna.
-\subsubsection{Centroid}
-Najprostsz¹ i najbardziej intuicyjn¹ metod¹ obliczenia odleg³oœci pomiêdzy wektorow¹ reprezentacj¹ dokumentów jest wykonanie dwóch prostych kroków:
-\begin{enumerate}
-\item Uœrednienie wektorów wchodz¹cych w sk³ad ka¿dego z dokumentów. Powsta³y w ten sposób wektor jest centroidem reprezentuj¹cym dokument w przestrzeni wektorowej.
-\item Obliczenie dystansu miêdzy wektorami. Powszechnie przyjêt¹ praktyk¹ jest stosowanie tzw. odleg³oœci kosinusowej - znormalizowanego iloczynu skalarnego wektorów $A$ i $B$. Jest to kosinus k¹ta pomiêdzy dwoma wektorami reprezentuj¹cymi dokumenty. Zalet¹ tej metody jest natychmiastowa normalizacja wyniku do zakresu $(0, 1)$. Odleg³oœæ $sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}}$,
- gdzie $A_i$ i $B_i$ s¹ sk³adowymi wektorów odpowiednio $A$ i $B$
-\end{enumerate}
-Wad¹ opisanej powy¿ej metody jest utrata potencjalnie u¿ytecznych zale¿noœci pomiêdzy poszczególnymi wektorami wchodz¹cymi w sk³ad dokumentu.
-
-W kontrze to tego prezentujê metodê obliczania dystansu miêdzy dokumentami uwzglêdniaj¹c¹ rozk³ad wektorów wewn¹tz dokumentu.
-
-\subsubsection{Word Mover's Distance}
-Word Mover's Distance\cite{wmd} to rozwi¹zanie zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumentu.
-
-EMD jest metod¹ mierzenia odleg³oœci pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
-$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przy odpowiednich ogramiczeniach\cite{emd_limit}.
-EMD jest to dobrze zbadanym problemem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
-
-Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
-
 
 %TODO Opisaæ co to jest n-gram
 \subsection{FastText}
@@ -465,10 +452,7 @@ model of Mikolov et al. (2013b).
 Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza siê lepiej od word2vec w wykrywaniu syntaktycznych podobieñstw pomiêdzy s³owami. 
 
 \subsection{GloVe}
-
-Algroytm GloVe ró¿ni siê od word2vec w sposobie uzyskania wektorowej reprezentacji s³ów. Word2vec jest modelem predykcyjnym, natomiast GloVe opiera siê na globalnej macierzy wspó³wyst¹pieñ s³ów.
-
-
+GloVe\cite{glove} (GLObal VEctors) jest kolejn¹ wart¹ uwagi metod¹ word embedding powsta³¹ na przestrzeni ostatnich lat. Algorytm GloVe ró¿ni siê od word2vec w sposobie uzyskania wektorowej reprezentacji s³ów. Word2vec jest modelem predykcyjnym, natomiast trening w GloVe opiera siê na globalnej macierzy wspó³wyst¹pieñ s³ów.
 
 Algorytm GloVe sk³ada siê z nastêpuj¹cych kroków\cite{glove_cran}:
 \begin{enumerate}
@@ -481,6 +465,28 @@ Algorytm GloVe sk³ada siê z nastêpuj¹cych kroków\cite{glove_cran}:
 	1 & \text{otherwise}
 	\end{cases}$
 \end{enumerate}
+
+\subsection{Odleg³oœæ miêdzy dokumentami}
+W celu wykorzystania omówionych metod osadzania s³ów nale¿y wybraæ metodê obliczania odleg³oœci miêdzy ca³ymi dokumentami, których s³owa potrafimy reprezentowaæ jako wektory. Zak³adamy, ¿e je¿eli dystans pomiêdzy dokumentami jest ma³y, to ich tematyka jest podobna.
+\subsubsection{Centroid}
+Najprostsz¹ i najbardziej intuicyjn¹ metod¹ obliczenia odleg³oœci pomiêdzy wektorow¹ reprezentacj¹ dokumentów jest wykonanie dwóch prostych kroków:
+\begin{enumerate}
+	\item Uœrednienie wektorów wchodz¹cych w sk³ad ka¿dego z dokumentów. Powsta³y w ten sposób wektor jest centroidem reprezentuj¹cym dokument w przestrzeni wektorowej.
+	\item Obliczenie dystansu miêdzy wektorami. Powszechnie przyjêt¹ praktyk¹ jest stosowanie tzw. odleg³oœci kosinusowej - znormalizowanego iloczynu skalarnego wektorów $A$ i $B$. Jest to kosinus k¹ta pomiêdzy dwoma wektorami reprezentuj¹cymi dokumenty. Zalet¹ tej metody jest natychmiastowa normalizacja wyniku do zakresu $(0, 1)$. Odleg³oœæ $sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}}$,
+	gdzie $A_i$ i $B_i$ s¹ sk³adowymi wektorów odpowiednio $A$ i $B$
+\end{enumerate}
+Wad¹ opisanej powy¿ej metody jest utrata potencjalnie u¿ytecznych zale¿noœci pomiêdzy poszczególnymi wektorami wchodz¹cymi w sk³ad dokumentu.
+
+W kontrze to tego prezentujê metodê obliczania dystansu miêdzy dokumentami uwzglêdniaj¹c¹ rozk³ad wektorów wewn¹tz dokumentu.
+
+\subsubsection{Word Mover's Distance}
+Word Mover's Distance\cite{wmd} to rozwi¹zanie zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumentu.
+
+EMD jest metod¹ mierzenia odleg³oœci pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
+$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przy odpowiednich ogramiczeniach\cite{emd_limit}.
+EMD jest to dobrze zbadanym problemem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
+
+Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
 
 
 \chapter{Dane}%TODO przerobiæ ca³y rozdzia³
@@ -793,6 +799,11 @@ Wykorzystane biblioteki jêzyka Python:
 \bibitem[18]{glove_cran}
 	\url{https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html}
 	(30.08.2017)
+\bibitem[19]{glove}
+	Jeffrey Pennington, Richard Socher, Christopher D. Manning
+	\emph{GloVe: Global Vectors for Word Representation}
+	Computer Science Department, Stanford University, Stanford, CA 94305
+	2014
 \end{thebibliography}
 
 \appendix
