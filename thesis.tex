@@ -348,14 +348,20 @@ two words on the left and two words on the right.
 
 Word2vec jest stosunkowo nowπ (2013) predykcyjnπ metodπ osadzania s≥Ûw w przestrzeni wektorowej, opisanπ w \cite{word2vec}. 
 
-Autorzy metody proponujπ p≥ytkπ, dwuwarstwowπ sieÊ neuronowπ, ktÛra ma za zadanie odtworzyÊ kontekst danego s≥owa i na tej podstawie dokonaÊ reprezentacji s≥owa jako wektora liczb rzeczywistych. Jako wejúcie metoda otrzymuje s≥owa z korpusu, wyjúciem metody sπ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadajπce s≥owom wejúciowym. Uøyta tu sieÊ neuronowa sk≥ada siÍ z warstw: wejúciowej, jednej warstwy ukrytej i warstwy wyjúciowej. WyrÛønia siÍ dwie architektury sieci: skip-gram: na podstawie s≥owa sieÊ dokonuje predykcji N sπsiednich s≥Ûw lub CBOW (continuous bag of words): na postawie okna N sπsiednich s≥Ûw sieÊ przewiduje s≥owo, ktÛrego z najwiÍkszym prawdopodobieÒstwem te N s≥Ûw jest sπsiedztwem. Wady i zalety obu podejúÊ sπ wymienione w \cite{google_word2vec}. W celu szczegÛ≥owego opisu metody Word2vec wprowadzam pojÍcie funkcji softmax.
-
+Autorzy metody proponujπ p≥ytkπ, dwuwarstwowπ sieÊ neuronowπ, ktÛra ma za zadanie odtworzyÊ kontekst danego s≥owa i na tej podstawie dokonaÊ reprezentacji s≥owa jako wektora liczb rzeczywistych. Jako wejúcie metoda otrzymuje s≥owa z korpusu, wyjúciem metody sπ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadajπce s≥owom wejúciowym. Uøyta tu sieÊ neuronowa sk≥ada siÍ z warstw: wejúciowej, jednej warstwy ukrytej i warstwy wyjúciowej. WyrÛønia siÍ dwie architektury sieci:
+\begin{itemize}
+	\item skip-gram: na podstawie s≥owa sieÊ dokonuje predykcji $N$ sπsiednich s≥Ûw. Zadaniem sieci neuronowej jest wtedy optymalizacja funkcji celu postaci $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space p(w_t \: | \: w_{t-n} , \cdots , w_{t-1}, w_{t+1}, \cdots , w_{t+n})$.
+	\item CBOW (continuous bag of words): na postawie okna $N$ sπsiednich s≥Ûw sieÊ przewiduje s≥owo, ktÛrego z najwiÍkszym prawdopodobieÒstwem te $N$ s≥Ûw jest sπsiedztwem. W tym modelu funkcja celu przyjmuje postaÊ $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \sum\limits_{-n \leq j \leq n , \neq 0} \text{log} \space p(w_{t+j} \: | \: w_t)$.
+\end{itemize}
+%TODO opisaÊ literki w funkcji celu
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
 	\caption{Schemat sieci wykorzystujπcej podejúcie skip-gram i CBOW. èrÛd≥o: \cite{word2vec}.}
 	%\label{fig:warstwy}
 \end{figure}
+
+Wady i zalety obu podejúÊ sπ wymienione w \cite{google_word2vec}. W celu szczegÛ≥owego opisu metody Word2vec wprowadzam pojÍcie funkcji softmax.
 
 Softmax jest generalizacjπ funkcji logistycznej, zamieniajπcπ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, ktÛre sumujπ siÍ do $1$\cite{softmax}. Funkcja wyraøa siÍ wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjúcie funkcji moøna traktowaÊ jako pewien rozk≥ad prawdopodobieÒstwa.
 
@@ -452,6 +458,9 @@ model of Mikolov et al. (2013b).
 Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza siÍ lepiej od word2vec w wykrywaniu syntaktycznych podobieÒstw pomiÍdzy s≥owami. 
 
 \subsection{GloVe}
+
+%TODO glove stara siÍ osiπgnπÊ to, co w word2vec wydaje siÍ byÊ jedynie efektem ubocznym. Zmienia w tym celu funkcjÍ celu.... http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/
+
 GloVe\cite{glove} (GLObal VEctors) jest kolejnπ wartπ uwagi metodπ word embedding powsta≥π na przestrzeni ostatnich lat. Algorytm GloVe rÛøni siÍ od word2vec w sposobie uzyskania wektorowej reprezentacji s≥Ûw. Word2vec jest modelem predykcyjnym, natomiast trening w GloVe opiera siÍ na globalnej macierzy wspÛ≥wystπpieÒ s≥Ûw.
 
 Algorytm GloVe sk≥ada siÍ z nastÍpujπcych krokÛw\cite{glove_cran}:
