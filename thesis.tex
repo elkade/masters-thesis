@@ -181,7 +181,7 @@ Ostatecznie w rozdziale 6 dokonujÍ podsumowania przeprowadzonych badaÒ i rozwaøa
 Za≥πcznik A zawiera opis narzÍdzi programistycznych i bibliotek wykorzystanych przez mnie podczas prowadzenia badaÒ.
 
 \section{Uwagi}
-%TODO elastic pisaÊ z duøej litery
+%TODO opisaÊ Elastic i pisaÊ go z duøej litery
 W celu unikniÍcia nieporozumieÒ naleøy podkreúliÊ rÛønicÍ pomiÍdzy znaczeniami s≥owa ,,artyku≥'', ktÛre moøe oznaczaÊ zarÛwno tekst publicystyczny, literacki lub naukowy jak i rzecz, ktÛra jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siÍ na rekomendacjach artyku≥Ûw tekstowych, stπd uøywam pierwszego znaczenia (chyba, øe inne znaczenie jest wyraünie zaznaczone).
 
 %TODO
@@ -194,7 +194,7 @@ W celu unikniÍcia nieporozumieÒ naleøy podkreúliÊ rÛønicÍ pomiÍdzy znaczeniami s
 
 W swojej pracy dokonujÍ adaptacji metod przetwarzania jÍzyka naturalnego na potrzeby generowania rekomendacji artyku≥Ûw tekstowych w oparciu o ich treúÊ. W niniejszym rozdziale dokonujÍ przeglπdu znanych metod z obszaru tematyki pracy dyplomowej, skupiajπc siÍ szczegÛlnie na nowo powsta≥ych metodach wektorowej reprezentacji s≥Ûw, ktÛre cieszπ siÍ obecnie duøym zainteresowaniem úrodowisk naukowych oraz firm komercyjnych. 
 
-DokonujÍ krÛtkiego wprowadzenia do zagadnienia generowania rekomendacji, ktÛrego g≥Íboka analiza nie jest konieczna z punktu widzenia niniejszej pracy. NastÍpnie wykonujÍ chronologiczny przeglπd metod ciπg≥ej reprezentacji s≥Ûw zaczynajπc od trywialnych metod zliczania s≥Ûw (bag-of-words, tf-idf), przechodzπc przez metody wykorzystujπce koncepcjÍ tematÛw (Latent Semantic Analysis, Latent Dirichlet Allocation) i koÒczπc na g≥oúnych ostatnio metodach osadzania s≥Ûw w przestrzeni wektorowej (Word2vec, GloVe, FastText).
+DokonujÍ krÛtkiego wprowadzenia do zagadnienia generowania rekomendacji, ktÛrego g≥Íboka analiza nie jest konieczna z punktu widzenia niniejszej pracy. NastÍpnie wykonujÍ chronologiczny przeglπd metod ciπg≥ej reprezentacji s≥Ûw zaczynajπc od trywialnych metod zliczania s≥Ûw (bag-of-words, tf-idf), przechodzπc przez metody wykorzystujπce koncepcjÍ tematÛw (Latent Semantic Analysis, Latent Dirichlet Allocation) i koÒczπc na g≥oúnych ostatnio metodach osadzania s≥Ûw w przestrzeni wektorowej (Word2vec, GloVe, FastText). Przy zarysie historycznym opieram siÍ w duøej mierze na artykule\cite{aylien}.
 
 %CzÍúÊ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch oparty na indeksie Lucene\cite{lucene}) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystajπce z semantycznej analizy tekstu - nie sπ tak popularne z powodu swojej nowoúci, bπdü trudnoúci w zaaplikowaniu. Daje to pole do badaÒ i ewentualnych usprawnieÒ istniejπcych systemÛw opierajπcych siÍ o klasyczne metody. Wybrane metody stosujÍ, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, stπd przeglπd metod zaczynam w≥aúnie od wprowadzenia do tego zagadnienia.
 
@@ -225,7 +225,7 @@ W celu formalizacji w dalszych opisach stosowanych metod stosujÍ nastÍpujπce ozn
 	\item S≥ownik zbudowany na korpusie $C$: $V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
 \end{itemize}
 
-\subsection{Bag-of-words}%TODO napisaÊ øe to stara metoda
+\subsection{Bag-of-words}
 Bag-of-words (worek s≥Ûw)\cite{bow} jest jednπ z pierwszych koncepcji reprezentacji tekstu jako zbioru zawartych w nim s≥Ûw. Metoda nie zachowuje kolejnoúci s≥Ûw w tekúcie, lecz liczbÍ ich wystπpieÒ. TechnikÍ tÍ moøna opisaÊ jako przekszta≥cenie z korpusu w przestrzeÒ wektorÛw $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus\\
 $m = |C|$: liczba dokumentÛw w korpusie $C$\\
@@ -247,103 +247,55 @@ Dokumenty reprezentowane sπ tu jako wektory, sk≥adajπce siÍ z wag s≥Ûw wystÍpujπ
 Kolejne, bardziej zaawansowane, omawiane tu metody opierajπ siÍ na tzw. ,,distributional hypothesis'' - hipotezie zak≥adajπcej, øe s≥owa wystÍpujπce w tym samym kontekúcie niosπ ze sobπ podobne znaczenie\cite{bow}\cite{firth}. Sprzyja to zastosowaniu metod algebry liniowej jako narzÍdzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejúcie polega na zgromadzeniu informacji o rozk≥adzie s≥Ûw w dokumentach w postaci wielowymiarowych wektorÛw a nastÍpnie wyodrÍbnieniu podobieÒstw pomiÍdzy tymi wektorami, ktÛre úwiadczy≥yby o pewnych powiπzaniach miÍdzy reprezentowanymi s≥owami. 
 
 \subsection{Latent Semantic Analysis}
-Alaliza rozk≥adu s≥Ûw w dokumentach tekstowych pozwala na wyodrÍbnienie podobieÒstw miÍdzy s≥owami zwiπzanych z: ich znaczeniem (podobieÒstwo tematu s≥owa), ich osadzeniem w stosunku do innych typÛw s≥Ûw czy teø ich strukturπ wewnÍtrznπ. Dwie znaczπce metody: Latent Semantic Analysis\cite{lsa} oraz kolejna omawiana przeze mnie Latent Dirichlet Allocation\cite{lda} zak≥adajπ istnienie niejawnych (latent) tematÛw, do ktÛrych moøna przydzieliÊ s≥owa wchodzπce w sk≥ad korpusu.
+Alaliza rozk≥adu s≥Ûw w dokumentach tekstowych pozwala na wyodrÍbnienie podobieÒstw miÍdzy s≥owami pod kπtem: ich znaczenia (podobieÒstwo tematu s≥owa), ich osadzenia w stosunku do innych typÛw s≥Ûw czy teø ich struktury wewnÍtrznej. Dwie istotne metody: Latent Semantic Analysis\cite{lsa} oraz Latent Dirichlet Allocation\cite{lda} zak≥adajπ istnienie abstrakcyjnych niejawnych (latent) tematÛw, do ktÛrych moøna przydzieliÊ s≥owa wchodzπce w sk≥ad korpusu.
 
-LSA\cite{lsa}, znane rÛwnieø jako Latent Semantic Indexing (LSI) dokonuje transformacji kaødego dokumentu w wektor d≥. $|V|$ posiadajπcy na $i$-tym miejscu wagÍ TF-IDF $i$-tego s≥owa ze s≥ownika. W ten sposÛb tworzona jest macierz: kolumny reprezentujπ dokumenty a wiersze reprezentujπ unikalne s≥owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siÍ rozk≥adu wed≥ug wartoúci osobliwych (singular value decomposition, SVD), ktÛry jest technikπ redukcji wymiarowoúci. Celem uøycia SVD jest redukcja liczby wierszy macierzy oraz pozbycie siÍ szumÛw, utrzymujπc jednoczeúnie podobieÒstwa pomiÍdzy kolumnami. Ostatecznie uzyskuje siÍ macierz przynaleønoúci tematÛw do dokumentÛw, gdzie wiersze odpowiadajπce tematom moøna interpretowaÊ jako kombinacje pierwotnych wierszy-s≥Ûw o podobnym znaczeniu. Np. $\{(samochod), (ciagnik), (jezdnia)\} \to \{(1.3452 * samochod + 0.2828 * ciagnik + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomocπ hiperparamtru, ktÛry oznacza liczbÍ tematÛw. Uøywajπc uzyskanej macierzy, podobieÒstwo pomiÍdzy kolumnami-dokumentami obliczane jest wykorzystujπc odleg≥oúÊ kosinusowπ (opisanπ pÛüniej w tym rodziale).
+LSA (1990) \cite{lsa}, znane rÛwnieø jako Latent Semantic Indexing (LSI) dokonuje transformacji kaødego dokumentu w wektor d≥. $|V|$ posiadajπcy na $i$-tym miejscu wagÍ TF-IDF $i$-tego s≥owa ze s≥ownika. W ten sposÛb tworzona jest rzadka macierz: kolumny reprezentujπ dokumenty a wiersze reprezentujπ unikalne s≥owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siÍ rozk≥adu wed≥ug wartoúci osobliwych (Singular Value Decomposition, SVD), ktÛry jest technikπ redukcji wymiarowoúci. Celem uøycia SVD jest redukcja liczby wierszy macierzy dla wydajniejszych dalszych obliczeÒ numerycznych oraz pozbycie siÍ szumÛw, utrzymujπc jednoczeúnie podobieÒstwa pomiÍdzy kolumnami. Ostatecznie uzyskuje siÍ macierz przynaleønoúci tematÛw do dokumentÛw, gdzie wiersze odpowiadajπce tematom moøna interpretowaÊ jako kombinacje pierwotnych wierszy-s≥Ûw o podobnym znaczeniu. Np. $\{(samochod), (ciagnik), (jezdnia)\} \to \{(1.3452 * samochod + 0.2828 * ciagnik + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomocπ hiperparamtru, ktÛry oznacza liczbÍ tematÛw. Uøywajπc uzyskanej macierzy, podobieÒstwo pomiÍdzy kolumnami-dokumentami obliczane jest wykorzystujπc odleg≥oúÊ kosinusowπ (opisanπ pÛüniej w tym rodziale). Metoda LSA ≥agodzi problem synonimÛw poprzez scalanie podobnych s≥Ûw w jeden temat. Niweluje rÛwnieø problem homonimÛw, w≥πczajπc je czÍúciowo w sk≥ad rÛønych tematÛw. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbÍ tematÛw czÍúÊ semantycznie odrÍbnych tematÛw moøe zostaÊ wch≥oniÍta przez inne lub teø rozbicie na tematy moøe byÊ zbyt ,,drobne'' nie wykorzystujπc w pe≥ni semantycznych powiπzaÒ.
 
 \subsubsection{Singular Value Decomposition}
 %TODO czy opisywaÊ SVD
-
-Metoda LSA ≥agodzi problem synonimÛw poprzez scalanie podobnych s≥Ûw w jeden temat. Niweluje rÛwnieø problem homonimÛw, w≥πczajπc je czÍúciowo w sk≥ad rÛønych tematÛw. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbÍ tematÛw czÍúÊ semantycznie odrÍbnych tematÛw moøe zostaÊ wch≥oniÍta przez inne lub teø rozbicie na tematy moøe byÊ zbyt ,,drobne'' nie wykorzystujπc w pe≥ni semantycznych powiπzaÒ.
-
-
+%(2003)
 %This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
 
 \subsection{Latent Dirichlet Allocation}
-%TODO opisaÊ metodÍ - jak bardzo szczegÛ≥owo
+%TODO opisaÊ metodÍ - jak bardzo szczegÛ≥owo?
 
-We describe latent Dirichlet allocation (LDA), a generative probabilistic model for collections of discrete data such as text corpora. LDA is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. In the context of text modeling, the topic probabilities provide an explicit representation of a document. We present efficient approximate inference techniques based on variational methods and an EM algorithm for empirical Bayes parameter estimation. We report results in document modeling, text classification, and collaborative filtering, comparing to a mixture of unigrams model and the probabilistic LSI model.
+%We describe latent Dirichlet allocation (LDA), a generative probabilistic model for collections of discrete data such as text corpora. LDA is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. In the context of text modeling, the topic probabilities provide an explicit representation of a document. We present efficient approximate inference techniques based on variational methods and an EM algorithm for empirical Bayes parameter estimation. We report results in document modeling, text classification, and collaborative filtering, comparing to a mixture of unigrams model and the probabilistic LSI model.
 
-\subsection{Word embedding}
-
-%TODO to jest wstÍp do word embeddingu
-
-W ostatnim czasie nastπpi≥ gwa≥towny rozwÛj i niewπtpliwy sukces metod ,,word embedding'' - osadzania s≥Ûw w przestrzeni wektorowej przy pomocy uczenia nienadzorowanego.
-
-
-%TODO The distributional hypothesis in linguistics is derived from the semantic theory of language usage, i.e. words that are used and occur in the same contexts tend to purport similar meanings. Harris, Z. (1954). "Distributional structure". Word. 10 (23): 146ñ162. Firth, J.R. (1957). "A synopsis of linguistic theory 1930-1955". Studies in Linguistic Analysis. Oxford: Philological Society: 1ñ32. Reprinted in F.R. Palmer, ed. (1968). Selected Papers of J.R. Firth 1952-1959. London: Longman.
-Vector space models have been used in distributional semantics since the 1990s. Since then, we have seen the development of a number models used for estimating continuous representations of words, Latent Dirichlet Allocation (LDA) and Latent Semantic Analysis (LSA) being two such examples.
-
-
-S≥owo jÍzyka naturalnego samo w sobie jest tylko pewnym symbolem, tokenem - nie da siÍ wprost zastosowaÊ dla niego øadnych matematycznych metod, ktÛre pozwoli≥yby odwzorowaÊ semantyczne zaleønoúci pomiÍdzy s≥owami i wykorzystaÊ je do pewnych wyøszych celÛw. Medoty osadzania s≥Ûw pozwalajπ na wektorowπ reprezentacjÍ s≥Ûw, ktÛre sπ w stanie zachowaÊ semantyczne i syntaktyczne powiπzania miÍdzy s≥owami. Przyk≥adem mogπ byÊ tu operacje artymetyczne na wektorach odwzorowujπce semantykÍ s≥Ûw: $vector("krÛl")-vector("mÍøczyzna")+vector("kobieta") \approx vector("krÛlowa")$
-
-Poczπtkowo metody word embedding opiera≥y siÍ w duøej mierze na g≥Íbokich sieciach neuronowych (%TODO podaÊ linki do artyku≥Ûw ) Bengio, Collobert and Weston
-Jednak istotnπ wadπ tych rozwiπzaÒ by≥a niska wydajnoúÊ ich nauki, co jest szczegÛlnie odczuwalne w przypadku ogromnych zbiorÛw danych wykorzystywanych w úrodowiskach produkcyjnych. Rozwiπzaniem tego problemu wydajπ siÍ byÊ nowe metody wektorowej reprezentacji s≥Ûw powsta≥e na przestrzeni ostatnich lat. W odrÛønieniu do metod deep learningowych opierajπ siÍ one o metody szybkiej nauki, np. o p≥ytkie sieci neuronowe, ktÛre uczπ siÍ na tyle krÛtko, øe sprawdzajπ siÍ one w zastosowaniach komercyjnych.
-
-WyrÛønia siÍ dwa podstawowe podejúcia generowania wektorowych reprezentacji s≥Ûw:
+\subsection{Word embeddings}
+Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody Word2vec\cite{word2vec} nastπpi≥ gwa≥towny rozwÛj i niewπtpliwy sukces metod ,,word embeddings''. Okreúlenie ,,word embeddings'' oznacza osadzanie s≥Ûw w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zosta≥o po raz pierwszy uøyte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory s≥Ûw generowane sπ przez g≥Íbokπ sieÊ neuronowπ. OgÛ≥ technik zaliczanych obecnie do ,,word embeddings'' cechuje siÍ usi≥owaniem reprezentacji s≥Ûw wraz z zaleønoúciami pomiÍdzy nimi w postaci wektorÛw o stosunkowo niskiej wymiarowoúci. Dzieje siÍ to w opozycji do wczeúniejszych podejúÊ podobnych do Bag of words - produkujπcego ogromne, rzadkie wektory, ktÛrych wymiary rÛwnajπ siÍ rozmiarowi s≥ownika, o ktÛry oparty jest model (rzÍdu setek tysiÍcy). Waønπ w≥asnoúciπ metod osadzania s≥Ûw jest zachowanie przez wektory semantycznych i syntaktycznych w≥aúciwoúci s≥Ûw, co pozwala wykonywaÊ na nich operacje artymetyczne na wektorach odwzorowujπce cechy tychøe s≥Ûw np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
+%TODO obrazek z wektorami w przestrzeni
+Stosowane obecnie podejúcia generowania wektorowych reprezentacji s≥Ûw moøna podzieliÊ na dwa typy:
 \begin{enumerate}
 	\item Modele predykcyjne: uczπ siÍ wektorowych reprezentacji s≥Ûw poprzez zmniejszenie b≥Ídu predykcji s≥Ûw naleøπcych do lokalnego kontekstu s≥owa $i$. Poniøej opisujÍ sztandarowy przyk≥ad takiego modelu - word2vec, gdzie sposobem na optymalizacjÍ funkcji celu jest zastosowanie p≥ytkiej sieci neuronowej typu feed-forward optymalizowanej za pomocπ metody stochastic gradient descent.
 	\item Metody oparte o zliczanie: generujπ wektory s≥Ûw poprzez redukcjÍ wymiarowoúci w globalnej macierzy wspÛ≥wystπpieÒ s≥Ûw.
 	Jako pierwszy etap konstruujπ one ogromnπ (wymiar rÛwna siÍ liczbie s≥Ûw w s≥owniku korpusu) macierz, ktÛra (podobnie, jak  metodzie LSI) nastÍpnie ulega faktoryzacji, aby uzyskaÊ macierz o mniejszym wymiarze, lecz nadal zachowujπcπ powiπzania pomiÍdzy s≥owami. Przyk≥adem jest tu opisana poniøej metoda Global Vectors - GloVe.
 \end{enumerate}
 
-Jednπ z szerokiego wachlarza moøliwoúci, jakie dajπ tego typu techniki jest okreúlanie podobieÒstwa pomiÍdzy ca≥ymi dokumentami, wykorzystujπc dodatkowe metody pozwalajπce przenieúÊ zaleønoúci miÍdzy poszczegÛlnymi s≥owami dokumentu na zaleønoúci miÍdzy ca≥ymi zbiorami s≥Ûw. Dwie z nich: metodÍ centroidu oraz Word Mover's Distance opisujÍ poniøej.
+Jednπ z szerokiego wachlarza moøliwoúci, jakie dajπ tego typu techniki jest okreúlanie podobieÒstwa pomiÍdzy ca≥ymi dokumentami, wykorzystujπc dodatkowe metody pozwalajπce przenieúÊ zaleønoúci miÍdzy poszczegÛlnymi s≥owami dokumentu na zaleønoúci miÍdzy ca≥ymi zbiorami s≥Ûw, co jest istotne z punktu widzenia tematu niniejszej pracy. Dwie z nich: metodÍ centroidu oraz Word Mover's Distance opisujÍ pÛüniej w tym rozdziale.
 
-The two main model families for learning word
-vectors are: 1) global matrix factorization methods,
-such as latent semantic analysis (LSA) (Deerwester
-et al., 1990) and 2) local context window
-methods, such as the skip-gram model of Mikolov
-et al. (2013c). Currently, both families suffer significant
-drawbacks. While methods like LSA ef-
-ficiently leverage statistical information, they do
-relatively poorly on the word analogy task, indicating
-a sub-optimal vector space structure. Methods
-like skip-gram may do better on the analogy
-task, but they poorly utilize the statistics of the corpus
-since they train on separate local context windows
-instead of on global co-occurrence counts.
+\subsection{Podejúcia deep learningowe}
+
+Wspomniane podejúcie Bengio oparte jest o sieÊ neuronowπ typu feed-forward o jednej warstwie ukrytej zgodnie z architekturπ z poniøszego rysunku.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/bengio_language_model.png}
+	\caption{Neuronowy model jÍzyka. èrÛd≥o: \cite{bengio}.}
+\end{figure}
+
+Celem dzia≥ania sieci jest maksymalizacja funkcji celu $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space f(w_t , w_{t-1} , \cdots , w_{t-n+1})$, gdzie $f(w_t , w_{t-1} , \cdots , w_{t-n+1})$ odpowiada prawdopodobieÒstwu $p(w_t \: | \: w_{t-1} , \cdots , w_{t-n+1})$ wystπpienia s≥owa $w_t$ bezpoúrednio po sekwencji s≥Ûw $w_{t-1} , \cdots , w_{t-n+1}$.
 
 
-Unlike the matrix factorization methods, the
-shallow window-based methods suffer from the
-disadvantage that they do not operate directly on
-the co-occurrence statistics of the corpus. Instead,
-these models scan context windows across the entire
-corpus, which fails to take advantage of the
-vast amount of repetition in the data.
+%In the neural network community, Collobert and Weston (2008) proposed to learn word embeddings using a feedforward ?These authors contributed equally. neural network, by predicting a word based on the two words on the left and two words on the right.
 
-Semantic vector space models of language represent
-each word with a real-valued vector. These
-vectors can be used as features in a variety of applications,
-such as information retrieval (Manning
-et al., 2008), document classification (Sebastiani,
-2002), question answering (Tellex et al., 2003),
-named entity recognition (Turian et al., 2010), and
-parsing (Socher et al., 2013)
-
-Learning continuous representations of words
-has a long history in natural language processing
-(Rumelhart et al., 1988).
-
-These representations
-are typically derived from large
-unlabeled corpora using co-occurrence statistics
-(Deerwester et al., 1990; Sch¸tze, 1992;
-Lund and Burgess, 1996).
-
-In the neural network
-community, Collobert and Weston (2008) proposed
-to learn word embeddings using a feedforward
-?These authors contributed equally.
-neural network, by predicting a word based on the
-two words on the left and two words on the right.
+Wadπ obu opisanych rozwiπzaÒ siÍ wydajnoúÊ nauki na tyle niska, øe wykorzystanie modelu okazuje siÍ niemoøliwe w celach komercyjnych.
+%Jednak istotnπ wadπ tych rozwiπzaÒ by≥a niska wydajnoúÊ ich nauki, co jest szczegÛlnie odczuwalne w przypadku ogromnych zbiorÛw danych wykorzystywanych w úrodowiskach produkcyjnych.
+Rozwiπzaniem tego problemu wydajπ siÍ byÊ nowe metody wektorowej reprezentacji s≥Ûw powsta≥e na przestrzeni ostatnich lat. W odrÛønieniu do metod deep learningowych opierajπ siÍ one o metody szybkiej nauki, np. o p≥ytkie sieci neuronowe, ktÛre uczπ siÍ na tyle krÛtko, øe sprawdzajπ siÍ one w zastosowaniach komercyjnych
 
 
+\subsection{Word2vec}%TODO przepisaÊ rozdzia≥ tak, by by≥ spÛjny z poprzednimi
 
-\subsection{Word2vec}%TODO obrazek z sieciπ, przepisaÊ
-
-Word2vec jest stosunkowo nowπ (2013) predykcyjnπ metodπ osadzania s≥Ûw w przestrzeni wektorowej, opisanπ w \cite{word2vec}. 
+Word2vec jest stosunkowo nowπ (2013r.) predykcyjnπ metodπ osadzania s≥Ûw w przestrzeni wektorowej, opisanπ w \cite{word2vec}. 
 
 Autorzy metody proponujπ p≥ytkπ, dwuwarstwowπ sieÊ neuronowπ, ktÛra ma za zadanie odtworzyÊ kontekst danego s≥owa i na tej podstawie dokonaÊ reprezentacji s≥owa jako wektora liczb rzeczywistych. Jako wejúcie metoda otrzymuje s≥owa z korpusu, wyjúciem metody sπ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadajπce s≥owom wejúciowym. Uøyta tu sieÊ neuronowa sk≥ada siÍ z warstw: wejúciowej, jednej warstwy ukrytej i warstwy wyjúciowej. WyrÛønia siÍ dwie architektury sieci:
 \begin{itemize}
@@ -462,7 +414,7 @@ GloVe\cite{glove} (GLObal VEctors) jest kolejnπ wartπ uwagi metodπ word embeddin
 
 Algorytm GloVe sk≥ada siÍ z nastÍpujπcych krokÛw\cite{glove_cran}:
 \begin{enumerate}
-	\item Zgromadü wspÛ≥wystπpienia s≥Ûw w formie macierzy $X$. Kaødy element $X_ij$ takiej macierzy reprezentuje jak czÍsto s≥owo $i$ wystÍpuje w pobliøu s≥owa $j$. Zazwyczaj macierz buduje siÍ poprzez skanowanie bazowego korpusu oknem o ustalonej szerokoúci, w obrÍbie ktÛrego centralne s≥owo leøy w kontekúcie s≥Ûw je otaczajπcych. Dodatkowo moøna tu wprowadziÊ wagi dla s≥Ûw malejπce wraz ze wzrostem dystansu od s≥owa centralnego.
+	\item Zgromadü wspÛ≥wystπpienia s≥Ûw w formie macierzy $X$. Kaødy element $X_{ij}$ takiej macierzy reprezentuje jak czÍsto s≥owo $i$ wystÍpuje w pobliøu s≥owa $j$. Zazwyczaj macierz buduje siÍ poprzez skanowanie bazowego korpusu oknem o ustalonej szerokoúci, w obrÍbie ktÛrego centralne s≥owo leøy w kontekúcie s≥Ûw je otaczajπcych. Dodatkowo moøna tu wprowadziÊ wagi dla s≥Ûw malejπce wraz ze wzrostem dystansu od s≥owa centralnego.
 	\item Zdefiniuj ograniczenie dla kaødej pary s≥Ûw: $w_i^Tw_j + b_i + b_j = log(X_{ij})$, gdzie $w_i$ oznacza wektor g≥Ûwnego s≥owa, $w_j$ s≥owa leøπcego w pobliøu $i$, $b_i$ i $b_j$ to skalary.
 	\item Zdefiniuj funkcjÍ kosztu $J = \sum_{i=1}^V \sum_{j=1}^V \; f(X_{ij}) ( w_i^T w_j + b_i + b_j - \log X_{ij})^2$, gdzie f jest funkcjπ waøπcπ, ktÛra pomaga zapobiec uczeniu tylko na podstawie najbardziej popularnych par s≥Ûw. Autorzy proponujπ funkcjÍ postaci:
 	$f(X_{ij}) = 
@@ -824,6 +776,11 @@ Wykorzystane biblioteki jÍzyka Python:
 	\emph{Latent Dirichlet Allocation}
 	Journal of Machine Learning Research, tom 3 num. 4ñ5
 	2003
+\bibitem[24]{bengio}
+	Bengio
+\bibitem[25]{aylien}
+	\url{http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/}
+	(30.08.2017)
 \end{thebibliography}
 
 \appendix
