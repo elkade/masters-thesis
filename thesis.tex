@@ -182,16 +182,21 @@ Za³¹cznik A zawiera opis narzêdzi programistycznych i bibliotek wykorzystanych p
 
 \section{Uwagi}
 %TODO elastic pisaæ z du¿ej litery
-W celu unikniêcia nieporozumieñ pragnê podkreœliæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
+W celu unikniêcia nieporozumieñ nale¿y podkreœliæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
 
 %TODO
 %\subsection{}
 %
 %W niniejszej pracy operujê na statycznym zbiorze artyku³ów pochodz¹cych wprost z serwisu (styczeñ 2017). Serwis Allegro dynamiczne ewoluuje, st¹d czêœæ 
 
-\chapter{Przegl¹d wiedzy z zakresu temetyki pracy}
+\chapter{Przegl¹d wiedzy z zakresu tematyki pracy}
 
-W swojej pracy wykorzystujê i adaptujê do swoich potrzeb szereg metod i narzêdzi umo¿liwiaj¹cych przetwarzanie jêzyka naturalnego, semantyczn¹ analizê tekstu i wykrywanie podobieñstwa pomiêdzy tekstami. Czêœæ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystaj¹ce z semantycznej analizy tekstu - nie s¹ tak popularne z powodu swojej nowoœci, b¹dŸ trudnoœci w zaaplikowaniu. Daje to pole do badañ i ewentualnych usprawnieñ istniej¹cych systemów opieraj¹cych siê o klasyczne metody. Wybrane metody stosujê, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, st¹d przegl¹d metod zaczynam w³aœnie od wprowadzenia do tego zagadnienia.
+
+W swojej pracy dokonujê adaptacji metod przetwarzania jêzyka naturalnego na potrzeby generowania rekomendacji artyku³ów tekstowych w oparciu o ich treœæ. W niniejszym rozdziale dokonujê przegl¹du znanych metod z obszaru tematyki pracy dyplomowej, skupiaj¹c siê szczególnie na nowo powsta³ych metodach wektorowej reprezentacji s³ów, które ciesz¹ siê obecnie du¿ym zainteresowaniem œrodowisk naukowych oraz firm komercyjnych. 
+
+Dokonujê krótkiego wprowadzenia do zagadnienia generowania rekomendacji, którego g³êboka analiza nie jest konieczna z punktu widzenia niniejszej pracy. Nastêpnie wykonujê chronologiczny przegl¹d metod ci¹g³ej reprezentacji s³ów zaczynaj¹c od trywialnych metod zliczania s³ów (bag-of-words, tf-idf), przechodz¹c przez metody wykorzystuj¹ce koncepcjê tematów (Latent Semantic Analysis, Latent Dirichlet Allocation) i koñcz¹c na g³oœnych ostatnio metodach osadzania s³ów w przestrzeni wektorowej (Word2vec, GloVe, FastText).
+
+%Czêœæ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch oparty na indeksie Lucene\cite{lucene}) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystaj¹ce z semantycznej analizy tekstu - nie s¹ tak popularne z powodu swojej nowoœci, b¹dŸ trudnoœci w zaaplikowaniu. Daje to pole do badañ i ewentualnych usprawnieñ istniej¹cych systemów opieraj¹cych siê o klasyczne metody. Wybrane metody stosujê, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, st¹d przegl¹d metod zaczynam w³aœnie od wprowadzenia do tego zagadnienia.
 
 \section{Systemy rekomendacji}
 
@@ -210,21 +215,18 @@ Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y p
 
 \section{Techniki przetwarzania jêzyka naturalnego}
 
-Temat niniejszej pracy skupia siê na podobieñstwie pomiêdzy artyku³ami, czyli dokumentami tekstowymi. Ich treœæ zapisana jest w jêzyku naturalnym, zrozumia³ym dla cz³owieka, który jest niezrozumia³y dla maszyny. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których komputer jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami (wed³ug pewnej sformalizowanej miary). W poni¿szych paragrafach dokonujê przegl¹du technik matematycznej reprezentacji dokumentów pisanych w jêzyku naturalnym. Warto wspomnieæ, i¿ dziedzina ta dynamicznie siê rozwija a czêœæ z opisywanych metod zosta³o stworzonych na przestrzeni ostatnich kilku lat.
+Oparcie rekomendacji jedynie na treœci artyku³u wymaga zag³êbienia siê w tematykê analizy i przetwarzania jêzyka naturalnego, wszak w³aœnie w jêzyku naturalnym, zrozumia³ym dla cz³owieka (polskim) pisane s¹ owe artyku³y. Jêzyk naturalny z powodu swojego niskiego stopnia sformalizowania nie jest niestety wprost zrozumia³y dla maszyn. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których maszyna obliczeniowa przy pomocy pewnych algorytmów jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami. W poni¿szych paragrafach dokonujê przegl¹du technik matematycznej reprezentacji dokumentów pisanych w jêzyku naturalnym. Warto wspomnieæ, i¿ dziedzina ta bardzo dynamicznie siê rozwija a czêœæ z opisywanych metod zosta³o stworzonych na przestrzeni ostatnich kilku lat, czy wrêcz miesiêcy.
 
-W celu formalizacji dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznaczenia:
+W celu formalizacji w dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznaczenia:
 \begin{itemize}
 	\item Korpus $C$: zbiór dokumentów $d_i$,
 	\item Dokument $d$: skoñczony ci¹g zdañ $s_i$,
-	\item Zdanie $s$: skoñczony ci¹g s³ów $w_i$,
 	\item S³owo $w$: skoñczony ci¹g znaków $c_i$,
-	\item W celu uproszczenia zapisu: $w \in d \equiv \exists_{s \in d}\ w \in s$,
 	\item S³ownik zbudowany na korpusie $C$: $V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
 \end{itemize}
 
-
 \subsection{Bag-of-words}%TODO napisaæ ¿e to stara metoda
-Bag-of-words (worek s³ów) jest jedn¹ z pierwszych opracowanych metod reprezentacji tekstu jako zbioru zawartych w nim s³ów, która nie zachowuje kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Metodê tê mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
+Bag-of-words (worek s³ów)\cite{bow} jest jedn¹ z pierwszych koncepcji reprezentacji tekstu jako zbioru zawartych w nim s³ów. Metoda nie zachowuje kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Technikê tê mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus\\
 $m = |C|$: liczba dokumentów w korpusie $C$\\
 $V$: s³ownik zbudowany na $C$\\
@@ -232,28 +234,22 @@ $n = |V|$: liczba s³ów w $V$\\
 $v_i \in \mathbb{R}^n$, gdzie $i \in 1, 2, ..., n$ wektor reprezentuj¹cy dokument $d_i \in C$\\
 $v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
 
-Technika ta jest stosunkowo prosta, lecz jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu. Mimo to metoda BOW jest cz¹stkowo wykorzystywana równie¿ w bardziej zawansowanych technikach NLP.
+Technika ta jest stosunkowo prosta, lecz jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu. Mimo to metoda BOW jest czêsto wykorzystywana w bardziej zawansowanych technikach NLP.
 \subsection{Term frequency - inverted document frequency}
 TF-IDF (wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
 $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
 $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$,
 
-%TODO Przyk³ad, odleg³oœæ kosunusowa jest póŸniej. S³ownik - synonim, homonim
-
 Dokumenty reprezentowane s¹ tu jako wektory, sk³adaj¹ce siê z wag s³ów wystêpuj¹cych w ka¿dym z nich. TF-IDF przechowuje informacjê o czêstotliwoœci wystêpowania s³ów bior¹c przy tym pod uwagê istotnoœæ znaczenia s³owa lokalnego w stosunku do jego znaczenia w kontekœcie ca³ego zbioru dokumentów. W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
 
 \subsection{Distributional semantics}
-%TODO to jest wstêp do zaawansowanych metod
-
-%TODO https://en.wikipedia.org/wiki/Distributional_semantics
-
+Kolejne, bardziej zaawansowane, omawiane tu metody opieraj¹ siê na tzw. ,,distributional hypothesis'' - hipotezie zak³adaj¹cej, ¿e s³owa wystêpuj¹ce w tym samym kontekœcie nios¹ ze sob¹ podobne znaczenie\cite{bow}\cite{firth}. Sprzyja to zastosowaniu metod algebry liniowej jako narzêdzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejœcie polega na zgromadzeniu informacji o rozk³adzie s³ów w dokumentach w postaci wielowymiarowych wektorów a nastêpnie wyodrêbnieniu podobieñstw pomiêdzy tymi wektorami, które œwiadczy³yby o pewnych powi¹zaniach miêdzy reprezentowanymi s³owami. 
 
 \subsection{Latent Semantic Analysis}
-%TODO odnoœnik, rok
-LSA, znane równie¿ jako Latent Semantic Indexing (LSI) jest technik¹ przetwarzania jêzka naturalnego maj¹c¹ na celu wydobycie powi¹zañ pomiêdzy zbiorem dokumentów. LSA zak³ada, ¿e istnieje korelacja pomiêdzy rozmieszczeniem s³ów a ich znaczeniem.
+Alaliza rozk³adu s³ów w dokumentach tekstowych pozwala na wyodrêbnienie podobieñstw miêdzy s³owami zwi¹zanych z: ich znaczeniem (podobieñstwo tematu s³owa), ich osadzeniem w stosunku do innych typów s³ów czy te¿ ich struktur¹ wewnêtrzn¹. Dwie znacz¹ce metody: Latent Semantic Analysis\cite{lsa} oraz kolejna omawiana przeze mnie Latent Dirichlet Allocation\cite{lda} zak³adaj¹ istnienie niejawnych (latent) tematów, do których mo¿na przydzieliæ s³owa wchodz¹ce w sk³ad korpusu.
 
-LSA dokonuje transformacji ka¿dego dokumentu w wektor d³. $|V|$ z liczb¹ wyst¹pieñ $i$-tego s³owa na $i$-tej pozycji. W ten sposób tworzona jest macierz: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³ad wed³ug wartoœci osobliwych (singular value decomposition, SVD), który jest technik¹ redukcji wymiarowoœci. Celem u¿ycia SVD jest redukcja liczby wierszy macierzy oraz pozbycie siê szumów, utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Ostatecznie uzyskuje siê macierz: przynale¿noœci tematów do dokumentów, gdzie wiersze odpowiadaj¹ce tematom mo¿na interpretowaæ jako kombinacje pierwotnych wierszy-s³ów o podobnym znaczeniu. Np. $\{(samochód), (ciê¿arówka), (jezdnia)\} \to \{(1.3452 * samochód + 0.2828 * ciê¿arówka + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹ (opisan¹ póŸniej w tym rodziale).
+LSA\cite{lsa}, znane równie¿ jako Latent Semantic Indexing (LSI) dokonuje transformacji ka¿dego dokumentu w wektor d³. $|V|$ posiadaj¹cy na $i$-tym miejscu wagê TF-IDF $i$-tego s³owa ze s³ownika. W ten sposób tworzona jest macierz: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³adu wed³ug wartoœci osobliwych (singular value decomposition, SVD), który jest technik¹ redukcji wymiarowoœci. Celem u¿ycia SVD jest redukcja liczby wierszy macierzy oraz pozbycie siê szumów, utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Ostatecznie uzyskuje siê macierz przynale¿noœci tematów do dokumentów, gdzie wiersze odpowiadaj¹ce tematom mo¿na interpretowaæ jako kombinacje pierwotnych wierszy-s³ów o podobnym znaczeniu. Np. $\{(samochod), (ciagnik), (jezdnia)\} \to \{(1.3452 * samochod + 0.2828 * ciagnik + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹ (opisan¹ póŸniej w tym rodziale).
 
 \subsubsection{Singular Value Decomposition}
 %TODO czy opisywaæ SVD
@@ -266,6 +262,7 @@ Metoda LSA ³agodzi problem synonimów poprzez scalanie podobnych s³ów w jeden tem
 \subsection{Latent Dirichlet Allocation}
 %TODO opisaæ metodê - jak bardzo szczegó³owo
 
+We describe latent Dirichlet allocation (LDA), a generative probabilistic model for collections of discrete data such as text corpora. LDA is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. In the context of text modeling, the topic probabilities provide an explicit representation of a document. We present efficient approximate inference techniques based on variational methods and an EM algorithm for empirical Bayes parameter estimation. We report results in document modeling, text classification, and collaborative filtering, comparing to a mixture of unigrams model and the probabilistic LSI model.
 
 \subsection{Word embedding}
 
@@ -492,7 +489,7 @@ W kontrze to tego prezentujê metodê obliczania dystansu miêdzy dokumentami uwzgl
 Word Mover's Distance\cite{wmd} to rozwi¹zanie zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumentu.
 
 EMD jest metod¹ mierzenia odleg³oœci pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
-$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przy odpowiednich ogramiczeniach\cite{emd_limit}.
+$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przy odpowiednich ogramiczeniach\cite{emd}.
 EMD jest to dobrze zbadanym problemem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
 
 Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
@@ -736,7 +733,7 @@ Wykorzystane biblioteki jêzyka Python:
 
 
 \begin{thebibliography}{11}
-%\url{}
+%TODO uporz¹dkowaæ bibliografiê, dodaæ przecinki
 \bibitem[1]{handbook}
 	Francesco Ricci, Lior Rokach, Bracha Shapira,
 	\emph{Introduction to Recommender Systems Handbook},
@@ -771,14 +768,8 @@ Wykorzystane biblioteki jêzyka Python:
 	2009
 \bibitem[10]{emd}
 	Yossi Rubner, Carlo Tomasi, and Leonidas J. Guibas,
-	\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
+	\emph{The Earth Mover's Distance as a Metric for Image Retrieval}
 	str. 1,
-	Computer Science Department, Stanford University,
-	2000
-\bibitem[11]{emd_limit}
-	Yossi Rubner, Carlo Tomasi, and Leonidas J. Guibas,
-	\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
-	str. 8,
 	Computer Science Department, Stanford University,
 	2000
 \bibitem[12]{wmd}
@@ -813,6 +804,26 @@ Wykorzystane biblioteki jêzyka Python:
 	\emph{GloVe: Global Vectors for Word Representation}
 	Computer Science Department, Stanford University, Stanford, CA 94305
 	2014
+\bibitem[20]{bow}
+	Zellig Harris
+	\emph{Distributional Structure}
+	WORD, tom 10, num. 2-3
+	1954
+\bibitem[21]{firth}
+	J.R. Firth.
+	\emph{A synopsis of linguistic theory 1930-1955}
+	Oxford: Philological Society
+	1957
+\bibitem[22]{lsa}
+	Scott Deerwester, Susan T. Dumais, George W. Furnas, Thomas K. Landauer, Richard Harshman
+	\emph{Indexing by latent semantic analysis}
+	Journal of the American Society for Information Science, tom 41, num. 6
+	1990
+\bibitem[23]{lda}
+	David M. Blei, Andrew Y. Ng, Michael I. Jordan
+	\emph{Latent Dirichlet Allocation}
+	Journal of Machine Learning Research, tom 3 num. 4–5
+	2003
 \end{thebibliography}
 
 \appendix
