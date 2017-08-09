@@ -83,7 +83,7 @@ Promotor:
 dr in¿. Anna Wróblewska
 \vfill
 \large
-Warszawa, czerwiec 2017
+Warszawa, wrzesieñ 2017
 \end{center}
 \newpage
 \hfill
@@ -107,14 +107,15 @@ podpis promotora & \hspace*{100pt} & podpis autora
 
 \begin{abstract}%DONE
 	
-	Tematyka niniejszej pracy skupia siê wokó³ zagadnieñ okreœlania podobieñstwa semantycznego pomiêdzy dokumentami tekstowymi i rekomendacji dokumentów podobnych do danego. Szczegó³owy problem pochodzi z internetowego serwisu aukcyjnego Allegro, który posiada dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W dziale tym funkcjonuje system rekomendacji podobnych artyku³ów tekstowych w oparciu o ich treœæ. Celem pracy jest zbadanie mo¿liwoœci usprawnienia dzia³ania istniej¹cego systemu rekomandacji.
+	Tematyka niniejszej pracy skupia siê wokó³ zagadnieñ okreœlania podobieñstwa semantycznego pomiêdzy dokumentami tekstowymi i rekomendacji dokumentów podobnych do danego. Szczegó³owy problem pochodzi z internetowego serwisu aukcyjnego Allegro, który posiada dzia³ artyku³ów opisuj¹cych produkty dostêpne w serwisie. W dziale tym funkcjonuje system rekomendacji podobnych artyku³ów tekstowych w oparciu o ich treœæ. Celem pracy jest zbadanie mo¿liwoœci usprawnienia dzia³ania istniej¹cego systemu rekomandacji wykorzystuj¹c metody semantycznej analizy tekstu.
 	
-	W niniejszej pracy adaptujê dostêpne metody okreœlania podobieñstwa pomiêdzy dokumentami testowymi do powy¿szego problemu, wprowadzam miary umo¿liwiaj¹ce ocenê dzia³ania tych metod oraz dokonujê analizy mo¿liwoœci ich wykorzystania w rzeczywistym systemie. Skupiam siê szczególnie na metodach opartych o semantyczn¹ analizê tekstu.
+	W niniejszej pracy adaptujê dostêpne metody okreœlania podobieñstwa pomiêdzy dokumentami tekstowymi do powy¿szego problemu, wprowadzam miary umo¿liwiaj¹ce ocenê dzia³ania tych metod oraz dokonujê analizy mo¿liwoœci ich wykorzystania w rzeczywistym systemie.
 \end{abstract}
-
 \begin{otherlanguage}{english}
-	\begin{abstract}%TODO przet³umaczyæ
-		
+	\begin{abstract}
+	The subject of this paper focuses on the issues of determining the semantic similarity between text documents and the recommendation of documents similar to a given. A detailed problem comes from the Allegro on-line auction site, which has a section of articles describing the products available on the site. This section offers a recommendation system for similar textual articles based on their content. The aim of this paper is to investigate the possibility of improving the existing recommendation system using semantic text analysis methods.
+	
+	In this paper, I adapt the available methods for determining the similarity between text documents to the above problem, I introduce measures to evaluate the performance of these methods and analyze the possibilities of using them in the real system.
 	\end{abstract}
 \end{otherlanguage}
 
@@ -122,24 +123,22 @@ podpis promotora & \hspace*{100pt} & podpis autora
 \clearpage
 %-----------Pocz¹tek czêœci zasadniczej-----------
 
-\chapter{Wstêp}%TODO skorygowaæ
+\chapter{Wstêp}%DONE
 
-Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron do konkretnego u¿ytkownika. Pozwala to u¿ytkownikowi na bardziej efektywne korzystanie z serwisu. oraz mo¿e prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
+Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron do konkretnego u¿ytkownika. Pozwala to u¿ytkownikowi na bardziej efektywne korzystanie z serwisu oraz mo¿e prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
 
 Celem niniejszej pracy magisterskiej jest analiza mo¿liwoœci usprawnienia istniejacego systemu rekomendacji o oparciu o adaptacjê istniej¹cych metod wyszukiwania semantycznego podobieñstwa pomiêdzy dokumentami tekstowymi. Rzeczony system rekomendacji istnieje w internetowym serwisie e-commerce Allegro w dziale artyku³ów tekstowych o tematyce zwi¹zanej z produktami dostêpnymi za poœrednictwem serwisu. System ma na celu zarekomendowanie u¿ytkownikowi artyku³ów o tematyce podobnej do tego, który znajduje siê na stornie aktualnie odwiedzanej przez uzytkownika.
 
-W swojej pracy badam mo¿liwoœæ u¿ycia istniej¹cych metod semantycznej analizy tekstu w odniesieniu do opisanego problemu. Badane metody to Word2vec z wariantem Word Mover's Dictance oraz bez niego. Jest to stosunkowo nowa metoda (2013), z czego wynika moje zainteresowanie. Porównujê równie¿ dzia³anie wspomnianych wariantów Word2vec z dzia³aniem starszego algorytmu Latent Dirichlet Allocation.
+W swojej pracy badam mo¿liwoœæ u¿ycia istniej¹cych metod semantycznej analizy tekstu w odniesieniu do opisanego problemu. Badane metody to: Latent Semantic Analysis, Latent Dirichlet Allocation, Word2vec, GloVe oraz FastText. Jakoœæ dzia³ania tych metod porównujê poprzez samodzielnie opracowane metody ewaluacji.
 
 Podczas prowadzenia badañ stworzy³em szereg skryptów przetwarzaj¹cych dane i wykorzystuj¹cych implementacje opisywanych w tej pracy metod. Opis u¿ytych narzêdzi programistycznych i bibliotek zawar³em w dodatku A do niniejszej pracy.
 
-\section{Rekomendacje artyku³ów tekstowych w Allegro}%TODO potrzebne przypisy
-% do 'najwiêksz¹'
-%TODO przeredagowaæ
-Allegro jest najwiêksz¹ dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Posiada ponad 20 mln zarejestrowanych klientów. Ka¿dego dnia na Allegro sprzedaje siê ponad 870 tysiêcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu. Allegro pobiera prowizjê za dokonanie sprzeda¿y za swoim poœrednictwem.
+\section{Rekomendacje artyku³ów tekstowych w Allegro}%DONE
+Allegro jest najwiêksz¹\cite{all_naj} dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Posiada ponad 20 mln zarejestrowanych klientów. Ka¿dego dnia na Allegro sprzedaje siê ponad 870 tysiêcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu.
 
 Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia³ zajmuj¹cy siê publikacj¹ artyku³ów opisuj¹cych produkty wystawiane za poœrednictwem serwisu. Ma to na celu pomoc u¿ytkownikom przy wyborze interesuj¹cego ich produktu.
 
-Po to, aby zachêciæ u¿ytkowników do zapoznania siê z treœci¹ kolejnych artyku³ów, zastosowany zosta³ tu system rekomendacji przyporz¹dkowuj¹cy danemu artyku³owi listê powi¹zanych artyku³ów. Kryterium mówi¹cym, czy artyku³y s¹ powi¹zane jest tutaj jedynie treœæ artyku³ów a nie wczeœciejsze zachowanie u¿ytkownika.
+Po to, aby zachêciæ u¿ytkowników do zapoznania siê z treœci¹ kolejnych artyku³ów, zastosowany zosta³ tu system rekomendacji przyporz¹dkowuj¹cy danemu artyku³owi listê powi¹zanych artyku³ów. Kryterium mówi¹cym, czy artyku³y s¹ powi¹zane jest tutaj jedynie treœæ samych artyku³ów, a nie wczeœciejsze zachowanie u¿ytkownika.
 
 \begin{figure}[H]
 	\centering
@@ -147,51 +146,29 @@ Po to, aby zachêciæ u¿ytkowników do zapoznania siê z treœci¹ kolejnych artyku³ów
 	\caption{Widok strony internetowej zawieraj¹cej jeden z artyku³ów serwisu Allegro. \cite{screen_allegro}}
 \end{figure}
 
-Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczegó³y i nieodbiegaj¹ od informacji publicznie dostêpnych za poœrednictwem strony pod adresem \url{https://allegro.pl}.
+Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczegó³y i nieodbiegaj¹ od informacji publicznie dostêpnych za poœrednictwem strony pod adresem \url{https://allegro.pl/artykuly}.
 
-Aktualnie w rzeczonym dziale serwisu Allegro istnieje system rekomendacyjny, który opiera siê o wyszukiwanie podobnych artyku³ów tekstowych za pomoc¹ silnika elasticsearch. Metoda ta opiera siê na s³owach kluczowych przypisanych do ka¿dego artyku³u jako metadane. W swojej pracy staram siê porównaæ wyniki dzia³ania dotychczasowej metody z metodami semantycznej analizy tekstu, które potrafi¹ wykryæ podobieñstwo pomiêdzy artyku³ami bazuj¹c jedynie na ich treœci, a nie na do³¹czonych metadanych.
-
-%W niniejszej pracy wykonujê eksperymenty wykorzystuj¹c znane metody okreœlania podobieñstw pomiêdzy dokumentami, które adaptujê do zbioru dokumentów, które otrzyma³em od serwisu Allegro.
-%
-%W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji jest, aby u¿ytkownik odwiedza³ kolejne podstrony serwisu, co wprost zwiêksza szansê na dokonanie przez niego transakcji.
-%
-%Obecnie wykorzystywana metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON.
-%
-%Metoda ta ogranicza siê jednak jedynie do wyszukiwania tekstowego pomijaj¹c zagadnienia semantyczne. Znaczy to, ¿e je¿eli dwa teksty opisuj¹ ten sam temat, ale u¿ywaj¹ to tego ró¿nych s³ów, np. synonimów, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siê stwierdziæ podobieñstwa miêdzy tymi tekstami, mimo, i¿ takowe istnieje.
-%
-%St¹d w mojej pracy postanowi³em wykonaæ eksperymenty z metodami u¿ywaj¹cymi semantycznej analizy tekstu, aby oceniæ, czy daj¹ one lepsze rezultaty od obecnie stosowanej metody.
-%
-%W niniejszej pracy skupiam siê g³ównie na podejœciu word2vec z racji tego, i¿ powsta³ niedawno.
-%
-%
-%Dochodzenie nowych rekomendacji - nie jest tematem pracy
-%
+Aktualnie w rzeczonym dziale serwisu Allegro istnieje system rekomendacyjny, który opiera siê o wyszukiwanie podobnych artyku³ów tekstowych za pomoc¹ silnika Elasticsearch\cite{elastic}. Metoda ta wykorzystuje s³owa kluczowe przypisane do ka¿dego artyku³u przez autora. W swojej pracy staram siê porównaæ wyniki dzia³ania dotychczasowej metody z metodami semantycznej analizy tekstu, które potrafi¹ wykryæ podobieñstwo pomiêdzy artyku³ami bazuj¹c jedynie na ich treœci, bez potrzeby do³¹czania ¿adnych metadanych. Pomyœlna próba zastosowania metod semantycznych pozwoli³aby na dok³adniejsze dopasowanie podobnych artyku³ów w oparciu byæ mo¿e o pewne ukryte cechy semantyczne nieosi¹galne dla silnika wyszukiwania tekstowego, jakim jest Elasticsearch. Bardziej szczegó³owego opisu silnika Elasticsearch dokonujê w kolejnym rozdziale.
 
 \section{Struktura pracy}
-W rozdziale 2 wprowadzam do zagadnienia rekomendacji i opisujê wybrane metody przetwarzania jêzyka naturalnego s³u¿¹ce do wyszukiwania podobieñstw miêdzy dokumentami tekstowymi.
+W rozdziale 2 wprowadzam do zagadnienia rekomendacji oraz dokonujê przegl¹du metod semantycznej analizy tekstu, które mog¹ zostaæ zastosowane w celu okreœlenia podobieñstwa pomiêdzy dokumentami tekstowymi.
 
-Nastêpnie w rozdziale 3 dokonujê opisu konkretnego problemu, jakim jest generacja rekomendacji artyku³ów tekstowych w serwisie Allegro. Opisujê dane otrzymane z serwisu oraz kolejne wstêpnego etapy przetwarzania ich, aby nadawa³y siê do zaaplikowania do nich wybranych metod.
+Nastêpnie w rozdziale 3 dokonujê opisu konkretnego problemu, jakim jest generacja rekomendacji artyku³ów tekstowych w serwisie Allegro. Opisujê dane otrzymane z serwisu oraz kolejne etapy ich wstêpnego przetwarzania, aby nadawa³y siê do zaaplikowania do nich wybranych metod.
 
 Dalej, w rozdziale 4 opisujê stworzone i zastosowane póŸniej metody ewaluacji wyników.
 
-Nastêpnie w rozdziale 5 opisujê proces zastosowania wybranych metod oraz porównanie efektów ich dzia³ania. 
+Nastêpnie w rozdziale 5 dokonujê opisu testów: jakie metody i w jako sposób testujê.
 
-Ostatecznie w rozdziale 6 dokonujê podsumowania przeprowadzonych badañ i rozwa¿am kierunki dalszych prac w tej dziedzinie.
+W rozdziale 6 opisujê wyniki przeprowadzonych eksperymentów.
 
-Za³¹cznik A zawiera opis narzêdzi programistycznych i bibliotek wykorzystanych przez mnie podczas prowadzenia badañ.
+Ostatecznie w rozdziale 7 dokonujê podsumowania przeprowadzonych badañ i rozwa¿am kierunki dalszych prac w tej dziedzinie.
+
+Za³¹cznik A zawiera opis narzêdzi programistycznych i bibliotek wykorzystanych przeze mnie podczas prowadzenia badañ.
 
 \section{Uwagi}
-%TODO opisaæ Elastic i pisaæ go z du¿ej litery
 W celu unikniêcia nieporozumieñ nale¿y podkreœliæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
 
-%TODO
-%\subsection{}
-%
-%W niniejszej pracy operujê na statycznym zbiorze artyku³ów pochodz¹cych wprost z serwisu (styczeñ 2017). Serwis Allegro dynamiczne ewoluuje, st¹d czêœæ 
-
 \chapter{Przegl¹d wiedzy z zakresu tematyki pracy}
-
-
 W swojej pracy dokonujê adaptacji metod przetwarzania jêzyka naturalnego na potrzeby generowania rekomendacji artyku³ów tekstowych w oparciu o ich treœæ. W niniejszym rozdziale dokonujê przegl¹du znanych metod z obszaru tematyki pracy dyplomowej, skupiaj¹c siê szczególnie na nowo powsta³ych metodach wektorowej reprezentacji s³ów, które ciesz¹ siê obecnie du¿ym zainteresowaniem œrodowisk naukowych oraz firm komercyjnych. 
 
 Dokonujê krótkiego wprowadzenia do zagadnienia generowania rekomendacji, którego g³êboka analiza nie jest konieczna z punktu widzenia niniejszej pracy. Nastêpnie wykonujê chronologiczny przegl¹d metod ci¹g³ej reprezentacji s³ów zaczynaj¹c od trywialnych metod zliczania s³ów (bag-of-words, tf-idf), przechodz¹c przez metody wykorzystuj¹ce koncepcjê tematów (Latent Semantic Analysis, Latent Dirichlet Allocation) i koñcz¹c na g³oœnych ostatnio metodach osadzania s³ów w przestrzeni wektorowej (Word2vec, GloVe, FastText). Przy zarysie historycznym opieram siê w du¿ej mierze na artykule\cite{aylien}.
@@ -212,6 +189,27 @@ Technika ta opiera siê na spostrze¿eniu, i¿ u¿ytkownicy o podobnych preferencjac
 W technice tej przedmioty polecane u¿ytkownikowi zale¿¹ od innych przedmiotów, na temat których stwierdzono, ¿e u¿ytkownik siê nimi interesuje. Mog¹ siê one opieraæ np. na podobieñstwie przedmiotów: je¿eli u¿ytkownik ,,lubi'' przedmiot A, który jest podobny do przedmiotu ,,B'' to mo¿na spodziewaæ siê, ¿e równie¿ przedmiot B zainteresuje u¿ytkownika. Technika ta jest mocno zale¿na od dziedziny rekomendowanych przedmiotów, gdy¿ wymaga wprowadzenia pewnej miary podobieñstwa miêdzy nimi. St¹d jest trudniejsza do zastosowania, ale daje te¿ mo¿liwoœci nieosi¹galne dla filtrowania kolaboratywnego.
 
 Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y podobne do aktualnie odwiedzanego, co wprost wi¹¿e siê z metodami u¿ywanymi w technice filtrowania opartego na treœci.
+
+\section{Silnik Elasticsearch}
+
+Obecnie wykorzystywana przez Allegro metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch wykorzystuj¹ce s³owa kluczowe do³¹czone do artyku³ów. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene\cite{lucene}. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON.
+
+%W niniejszej pracy wykonujê eksperymenty wykorzystuj¹c znane metody okreœlania podobieñstw pomiêdzy dokumentami, które adaptujê do zbioru dokumentów, które otrzyma³em od serwisu Allegro.
+%
+%W obszarze, którym zajmuje siê niniejsza praca, bezpoœrednim celem rekomendacji jest, aby u¿ytkownik odwiedza³ kolejne podstrony serwisu, co wprost zwiêksza szansê na dokonanie przez niego transakcji.
+%
+
+%
+%Metoda ta ogranicza siê jednak jedynie do wyszukiwania tekstowego pomijaj¹c zagadnienia semantyczne. Znaczy to, ¿e je¿eli dwa teksty opisuj¹ ten sam temat, ale u¿ywaj¹ to tego ró¿nych s³ów, np. synonimów, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siê stwierdziæ podobieñstwa miêdzy tymi tekstami, mimo, i¿ takowe istnieje.
+%
+%St¹d w mojej pracy postanowi³em wykonaæ eksperymenty z metodami u¿ywaj¹cymi semantycznej analizy tekstu, aby oceniæ, czy daj¹ one lepsze rezultaty od obecnie stosowanej metody.
+%
+%W niniejszej pracy skupiam siê g³ównie na podejœciu word2vec z racji tego, i¿ powsta³ niedawno.
+%
+%
+%Dochodzenie nowych rekomendacji - nie jest tematem pracy
+%
+
 
 \section{Techniki przetwarzania jêzyka naturalnego}
 
@@ -236,12 +234,15 @@ $v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$
 
 Technika ta jest stosunkowo prosta, lecz jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu. Mimo to metoda BOW jest czêsto wykorzystywana w bardziej zawansowanych technikach NLP.
 \subsection{Term frequency - inverted document frequency}
+%TODO Salton and McGill, 1983
 TF-IDF (wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
 $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
 $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$,
 
 Dokumenty reprezentowane s¹ tu jako wektory, sk³adaj¹ce siê z wag s³ów wystêpuj¹cych w ka¿dym z nich. TF-IDF przechowuje informacjê o czêstotliwoœci wystêpowania s³ów bior¹c przy tym pod uwagê istotnoœæ znaczenia s³owa lokalnego w stosunku do jego znaczenia w kontekœcie ca³ego zbioru dokumentów. W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych.
+
+%In the popular tf-idf scheme (Salton and McGill, 1983), a basic vocabulary of “words” or “terms” is chosen, and, for each document in the corpus, a count is formed of the number of occurrences of each word. After suitable normalization, this term frequency count is compared to an inverse document frequency count, which measures the number of occurrences of a word in the entire corpus (generally on a log scale, and again suitably normalized). The end result is a term-by-document matrix X whose columns contain the tf-idf values for each of the documents in the corpus. Thus the tf-idf scheme reduces documents of arbitrary length to fixed-length lists of numbers. While the tf-idf reduction has some appealing features—notably in its basic identification of sets of words that are discriminative for documents in the collection—the approach also provides a relatively small amount of reduction in description length and reveals little in the way of inter- or intradocument statistical structure. To address these shortcomings, IR researchers have proposed several other dimensionality reduction techniques, most notably latent semantic indexing (LSI) (Deerwester et al., 1990).
 
 \subsection{Distributional semantics}
 Kolejne, bardziej zaawansowane, omawiane tu metody opieraj¹ siê na tzw. ,,distributional hypothesis'' - hipotezie zak³adaj¹cej, ¿e s³owa wystêpuj¹ce w tym samym kontekœcie nios¹ ze sob¹ podobne znaczenie\cite{bow}\cite{firth}. Sprzyja to zastosowaniu metod algebry liniowej jako narzêdzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejœcie polega na zgromadzeniu informacji o rozk³adzie s³ów w dokumentach w postaci wielowymiarowych wektorów a nastêpnie wyodrêbnieniu podobieñstw pomiêdzy tymi wektorami, które œwiadczy³yby o pewnych powi¹zaniach miêdzy reprezentowanymi s³owami. 
@@ -287,7 +288,7 @@ Celem dzia³ania sieci jest maksymalizacja funkcji celu $J_\theta = \frac{1}{T}\s
 
 
 %In the neural network community, Collobert and Weston (2008) proposed to learn word embeddings using a feedforward ?These authors contributed equally. neural network, by predicting a word based on the two words on the left and two words on the right.
-
+%TODO Collobert Weston
 Wad¹ obu opisanych rozwi¹zañ siê wydajnoœæ nauki na tyle niska, ¿e wykorzystanie modelu okazuje siê niemo¿liwe w celach komercyjnych.
 %Jednak istotn¹ wad¹ tych rozwi¹zañ by³a niska wydajnoœæ ich nauki, co jest szczególnie odczuwalne w przypadku ogromnych zbiorów danych wykorzystywanych w œrodowiskach produkcyjnych.
 Rozwi¹zaniem tego problemu wydaj¹ siê byæ nowe metody wektorowej reprezentacji s³ów powsta³e na przestrzeni ostatnich lat. W odró¿nieniu do metod deep learningowych opieraj¹ siê one o metody szybkiej nauki, np. o p³ytkie sieci neuronowe, które ucz¹ siê na tyle krótko, ¿e sprawdzaj¹ siê one w zastosowaniach komercyjnych
@@ -333,22 +334,7 @@ Isotn¹ zalet¹ metody Word2vec jest fakt, i¿ pozwala ona oceniæ ,,odleg³oœæ'' pom
 %TODO Opisaæ co to jest n-gram
 \subsection{FastText}
 
-Most of these techniques represent each word
-of the vocabulary by a distinct vector, without parameters
-sharing. In particular, they ignore the internal
-structure of words, which is an important
-limitation for morphologically rich languages, such
-as Turkish or Finnish. These languages contain
-many words that occur rarely, making it difficult to
-learn good word-level representations. In this paper,
-we propose to learn representations for character
-n-grams, and represent words as the sum of
-the n-gram vectors. Our main contribution is to introduce
-an extension of the continuous skip-gram
-model (Mikolov et al., 2013b), which takes into account
-subword information. We evaluate this model
-on five different languages, with various degree of
-morphology, showing the benefit of our approach.
+%Most of these techniques represent each word of the vocabulary by a distinct vector, without parameters sharing. In particular, they ignore the internal structure of words, which is an important limitation for morphologically rich languages, such as Turkish or Finnish. These languages contain many words that occur rarely, making it difficult to learn good word-level representations. In this paper, we propose to learn representations for character n-grams, and represent words as the sum of the n-gram vectors. Our main contribution is to introduce an extension of the continuous skip-gram model (Mikolov et al., 2013b), which takes into account subword information. We evaluate this model on five different languages, with various degree of morphology, showing the benefit of our approach.
 
 Rozszerzeniem koncepcji word2vec jest opracowana w 2016 przez Facebook AI Research metoda fastText\cite{fast_text}. G³ówn¹ innowacj¹ tej metody jest wziêcie pod uwagê wewnêtrznej struktury s³ów. Jest to szczególnie obiecuj¹ce w przypadku bogatych morfologicznie jêzyków, np. jêzyka polskiego.
 
@@ -357,51 +343,7 @@ Metoda fastText w du¿ej mierze opiera siê na zasadzie dzia³ania metody word2vec.
 S³owo reprezentowane jest jako suma wektorowych reprezentacji jego n-gramów.
 
 
-In this section, we
-thus propose a different scoring function s, in order
-to take into account this information. Given a
-word w, let us denote by Gw ? {1, . . . , G} the set
-of n-grams appearing in w. We associate a vector
-representation zg to each n-gram g. We represent a
-word by the sum of the vector representations of its
-n-grams. We thus obtain the scoring function
-s(w, c) = X
-g?Gw
-z
-?
-g vc.
-We always include the word w in the set of its ngrams,
-to also learn a vector representation for each
-word. The set of n-grams is thus a superset of the
-vocabulary. It should be noted that different vectors
-are assigned to a word and a n-gram sharing the
-same sequence of characters. For example, the word
-as and the bigram as, appearing in the word paste,
-will be assigned to different vectors. This simple
-model allows sharing the representations across
-words, thus allowing to learn reliable representation
-for rare words.
-Dictionary of n-grams. The presented model is
-simple and leaves room for design choices in the
-definition of Gw. In this paper, we adopt a very simple
-scheme: we keep all the n-grams with a length
-greater or equal than 3 and smaller or equal than 6.
-Different sets of n-grams could be used, for example
-prefixes and suffixes. We also add a special character
-for the beginning and the end of the word, thus
-allowing to distinguish prefixes and suffixes.
-In order to bound the memory requirements of our
-model, we use a hashing function that maps n-grams
-to integers in 1 to K. In the following, we use K
-equal to 2 millions. In the end, a word is represented
-by its index in the word dictionary and the value of
-the hashes of its n-grams. To improve the efficiency
-of our model, we do not use n-grams to represent
-the P most frequent words in the vocabulary. There
-is a trade-off in the choice of P, as smaller values
-imply higher computational cost but better performance.
-When P = W, our model is the skip-gram
-model of Mikolov et al. (2013b).
+%In this section, we thus propose a different scoring function s, in order to take into account this information. Given a word w, let us denote by Gw ? {1, . . . , G} the set of n-grams appearing in w. We associate a vector representation zg to each n-gram g. We represent a word by the sum of the vector representations of its n-grams. We thus obtain the scoring function s(w, c) = X g?Gw z ? g vc. We always include the word w in the set of its ngrams, to also learn a vector representation for each word. The set of n-grams is thus a superset of the vocabulary. It should be noted that different vectors are assigned to a word and a n-gram sharing the same sequence of characters. For example, the word as and the bigram as, appearing in the word paste, will be assigned to different vectors. This simple model allows sharing the representations across words, thus allowing to learn reliable representation for rare words. Dictionary of n-grams. The presented model is simple and leaves room for design choices in the definition of Gw. In this paper, we adopt a very simple scheme: we keep all the n-grams with a length greater or equal than 3 and smaller or equal than 6. Different sets of n-grams could be used, for example prefixes and suffixes. We also add a special character for the beginning and the end of the word, thus allowing to distinguish prefixes and suffixes. In order to bound the memory requirements of our model, we use a hashing function that maps n-grams to integers in 1 to K. In the following, we use K equal to 2 millions. In the end, a word is represented by its index in the word dictionary and the value of the hashes of its n-grams. To improve the efficiency of our model, we do not use n-grams to represent the P most frequent words in the vocabulary. There is a trade-off in the choice of P, as smaller values imply higher computational cost but better performance. When P = W, our model is the skip-gram model of Mikolov et al. (2013b).
 
 
 Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza siê lepiej od word2vec w wykrywaniu syntaktycznych podobieñstw pomiêdzy s³owami. 
@@ -547,7 +489,7 @@ $d(a_1, a_2) = \dfrac{w(a_1,a_2)}{D}$, gdzie $d$ to dystans miêdzy artyku³ami $a
 W powy¿szych przyk³adowych drzewach $w(X, Y) = 1$, $w(Y, Z) = 2$, $D=3$, st¹d $d(X, Y) = \dfrac{1}{3}$, $d(X, Y) = \dfrac{2}{3}$. Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
 
 \subsection{S³owa kluczowe}
-%TODO, ale NIE WIEM, CZY MIARA U¯YWAJ¥CA KEYWORDÓW JEST POTRZEBNA
+%TODO, opisaæ now¹ miarê
 
 \section{Miara 2: Ocena przez u¿ytkowników offline}
 
@@ -781,6 +723,9 @@ Wykorzystane biblioteki jêzyka Python:
 \bibitem[25]{aylien}
 	\url{http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/}
 	(30.08.2017)
+\bibitem[26]{all_naj}
+	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
+	(09.08.17)
 \end{thebibliography}
 
 \appendix
