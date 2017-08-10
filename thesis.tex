@@ -192,23 +192,15 @@ Celem niniejszej pracy jest zbadanie metod sugerujπcych uøytkownikowi artyku≥y p
 
 \section{Silnik Elasticsearch}
 
-Obecnie wykorzystywana przez Allegro metoda generowania rekomendacji artyku≥Ûw opiera siÍ o zapytanie do us≥ugi Elasticsearch wykorzystujπce s≥owa kluczowe do≥πczone do artyku≥Ûw. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene\cite{lucene}. Dzia≥a w architekturze rozproszonej a komunikacja z nim nastÍpuje poprzez protokÛ≥ HTTP i format JSON.
+Obecnie wykorzystywana przez Allegro metoda generowania rekomendacji artyku≥Ûw opiera siÍ o zapytanie do us≥ugi Elasticsearch wykorzystujπce s≥owa kluczowe do≥πczone do artyku≥Ûw. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene\cite{lucene}. Dzia≥a w architekturze rozproszonej a komunikacja z nim nastÍpuje poprzez protokÛ≥ HTTP i format JSON. Umoøliwia on efektywne przechowywanie dokumentÛw tekstowych oraz efektywne ich wyszukiwanie. 
 
-%W niniejszej pracy wykonujÍ eksperymenty wykorzystujπc znane metody okreúlania podobieÒstw pomiÍdzy dokumentami, ktÛre adaptujÍ do zbioru dokumentÛw, ktÛre otrzyma≥em od serwisu Allegro.
-%
-%W obszarze, ktÛrym zajmuje siÍ niniejsza praca, bezpoúrednim celem rekomendacji jest, aby uøytkownik odwiedza≥ kolejne podstrony serwisu, co wprost zwiÍksza szansÍ na dokonanie przez niego transakcji.
-%
+Apache Lucene jest bibliotekπ napisanπ w jÍzyku Java s≥uøπcπ do wyszukiwania tekstu, ktÛra w tym celu wykorzystuje mechanizm odwrÛconego indeksu. Zasada dzia≥ania biblioteki polega na stworzeniu s≥ownika ze wszystkich (odpowiednio wstÍpnie przetworzonych) s≥Ûw dokumentÛw przeznaczonych do wyszukiwania. NastÍpnie na bazie Ûw s≥ownika tworzony jest odwrÛcony indeks: kaødemu ze s≥Ûw przypisywana jest lista dokumentÛw, ktÛre zawierajπ to s≥owo. Pozwala to przyspieszyÊ proces wyszukiwania, gdyø w poszukiwaniu pojedynczego s≥owa biblioteka nie przeszukuje ca≥ego zbioru dokumentÛw, a jedynie s≥ownik, ktÛry na ogÛ≥ jest wielokrotnie krÛtszy.
 
-%
-%Metoda ta ogranicza siÍ jednak jedynie do wyszukiwania tekstowego pomijajπc zagadnienia semantyczne. Znaczy to, øe jeøeli dwa teksty opisujπ ten sam temat, ale uøywajπ to tego rÛønych s≥Ûw, np. synonimÛw, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siÍ stwierdziÊ podobieÒstwa miÍdzy tymi tekstami, mimo, iø takowe istnieje.
-%
-%Stπd w mojej pracy postanowi≥em wykonaÊ eksperymenty z metodami uøywajπcymi semantycznej analizy tekstu, aby oceniÊ, czy dajπ one lepsze rezultaty od obecnie stosowanej metody.
-%
-%W niniejszej pracy skupiam siÍ g≥Ûwnie na podejúciu word2vec z racji tego, iø powsta≥ niedawno.
-%
-%
-%Dochodzenie nowych rekomendacji - nie jest tematem pracy
-%
+Zaletπ silnika Elasticsearch sπ jego wydajnoúÊ, skalowalnoúÊ, niezawodnoúÊ i prostota uøytkowania, co przek≥ada siÍ na jego duøπ popularnoúÊ wúrÛd np. serwisÛw internetowych\cite{elastic_companies}.
+
+Wadπ metody jest to, øe ogranicza siÍ ona do wyszukiwania tekstowego pomijajπc aspekt semantyczny. Stwarza to trudnoúci przy wyszukiwaniu synonimÛw lub homonimÛw.%Znaczy to, øe jeøeli dwa teksty opisujπ ten sam temat, ale uøywajπ to tego rÛønych s≥Ûw, np. synonimÛw, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siÍ stwierdziÊ podobieÒstwa miÍdzy tymi tekstami, mimo, iø takowe istnieje. Innπ trudnoúciπ jest problem polisemii - sytuacji, gdy jedno s≥owo posiada dwa znaczenia (homonimy). Metoda  wyszuka wszystkie dokumenty je zawierajπce niezaleønie od kontekstu, w jakim szuka ich uøytkownik.
+
+
 
 
 \section{Techniki przetwarzania jÍzyka naturalnego}
@@ -224,7 +216,7 @@ W celu formalizacji w dalszych opisach stosowanych metod stosujÍ nastÍpujπce ozn
 \end{itemize}
 
 \subsection{Bag-of-words}
-Bag-of-words (worek s≥Ûw)\cite{bow} jest jednπ z pierwszych koncepcji reprezentacji tekstu jako zbioru zawartych w nim s≥Ûw. Metoda nie zachowuje kolejnoúci s≥Ûw w tekúcie, lecz liczbÍ ich wystπpieÒ. TechnikÍ tÍ moøna opisaÊ jako przekszta≥cenie z korpusu w przestrzeÒ wektorÛw $ bow: C \to \mathbb{R}^n $ gdzie:\\
+Bag-of-words (worek s≥Ûw)\cite{bow} jest jednπ z pierwszych koncepcji reprezentacji tekstu jako zbioru zawartych w nim s≥Ûw w postaci wektorÛw. Metoda nie zachowuje kolejnoúci s≥Ûw w tekúcie, lecz liczbÍ ich wystπpieÒ. Istotnπ zaletπ reprezentacji wektorowej dokumentÛw jest moøliwoúÊ zdefiniowania miary odleg≥oúci pomiÍdzy dokumentami (np. miara kosunusowa opisana pÛüniej) odzwierciedlajπcej ich podobieÒstwo. TechnikÍ tÍ moøna opisaÊ jako przekszta≥cenie z korpusu w przestrzeÒ wektorÛw $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus\\
 $m = |C|$: liczba dokumentÛw w korpusie $C$\\
 $V$: s≥ownik zbudowany na $C$\\
@@ -234,33 +226,125 @@ $v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wystπpieÒ w dokumencie  $d_i \in C$
 
 Technika ta jest stosunkowo prosta, lecz jej wadπ jest traktowanie kaødego s≥owa z jednakowπ wagπ. Pewne s≥owa (np. ,,i'', ,,lub'', ,,o'') wystÍpujπ bardzo czÍsto, lecz ich wk≥ad w znaczenie ca≥ego dokumentu jest marginalny. Stπd powsta≥y bardziej zaawansowane techniki uwzglÍdniajπce istotnoúÊ s≥Ûw dla znaczenia ca≥ego dokumentu. Mimo to metoda BOW jest czÍsto wykorzystywana w bardziej zawansowanych technikach NLP.
 \subsection{Term frequency - inverted document frequency}
-%TODO Salton and McGill, 1983
-TF-IDF (waøenie czÍstoúciπ termÛw - odwrotna czÍstoúÊ w dokumentach) jest metodπ reprezentacji tekstu jako zbioru s≥Ûw przy jednoczesnym uwzglÍdnieniu wagi s≥Ûw, ktÛra zaleøy od czÍstoúci wystÍpowania s≥owa w korpusie. Oznaczenia formalne takie same tak w przypdku BOW.
+
+TF-IDF\cite{tf_idf} (waøenie czÍstoúciπ termÛw - odwrotna czÍstoúÊ w dokumentach) jest metodπ reprezentacji tekstu jako zbioru s≥Ûw przy jednoczesnym uwzglÍdnieniu wagi s≥Ûw, ktÛra zaleøy od czÍstoúci wystÍpowania s≥owa w korpusie.  Oznaczenia formalne takie same tak w przypdku BOW.
 $v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
 $tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wystπpieÒ s≥owa $w_i$ w dokumencie $d_j$ podzielona przez liczbÍ s≥Ûw dokumentu $d_j$,\\
 $idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentÛw w korpusie podzielona przez liczbÍ dokumentÛw zawierajπcych przynajmniej jedno wystπpienie s≥owa $w_i$,
 
-Dokumenty reprezentowane sπ tu jako wektory, sk≥adajπce siÍ z wag s≥Ûw wystÍpujπcych w kaødym z nich. TF-IDF przechowuje informacjÍ o czÍstotliwoúci wystÍpowania s≥Ûw biorπc przy tym pod uwagÍ istotnoúÊ znaczenia s≥owa lokalnego w stosunku do jego znaczenia w kontekúcie ca≥ego zbioru dokumentÛw. W tej technice s≥owa wystÍpujπce rzadko sπ premiowane wzglÍdem s≥Ûw pospolitych.
-
-%In the popular tf-idf scheme (Salton and McGill, 1983), a basic vocabulary of ìwordsî or ìtermsî is chosen, and, for each document in the corpus, a count is formed of the number of occurrences of each word. After suitable normalization, this term frequency count is compared to an inverse document frequency count, which measures the number of occurrences of a word in the entire corpus (generally on a log scale, and again suitably normalized). The end result is a term-by-document matrix X whose columns contain the tf-idf values for each of the documents in the corpus. Thus the tf-idf scheme reduces documents of arbitrary length to fixed-length lists of numbers. While the tf-idf reduction has some appealing featuresónotably in its basic identification of sets of words that are discriminative for documents in the collectionóthe approach also provides a relatively small amount of reduction in description length and reveals little in the way of inter- or intradocument statistical structure. To address these shortcomings, IR researchers have proposed several other dimensionality reduction techniques, most notably latent semantic indexing (LSI) (Deerwester et al., 1990).
+Dokumenty reprezentowane sπ tu jako wektory, sk≥adajπce siÍ z wag s≥Ûw wystÍpujπcych w kaødym z nich. TF-IDF przechowuje informacjÍ o czÍstotliwoúci wystÍpowania s≥Ûw biorπc przy tym pod uwagÍ istotnoúÊ znaczenia s≥owa lokalnego w stosunku do jego znaczenia w kontekúcie ca≥ego zbioru dokumentÛw. W tej technice s≥owa wystÍpujπce rzadko sπ premiowane wzglÍdem s≥Ûw pospolitych. Wadπ metody tej i poprzedniej jest postaÊ wektorÛw reprezentujπcych s≥owa: sπ to na ogÛ≥ rzadkie wektory duøej wymiarowoúci.
 
 \subsection{Distributional semantics}
 Kolejne, bardziej zaawansowane, omawiane tu metody opierajπ siÍ na tzw. ,,distributional hypothesis'' - hipotezie zak≥adajπcej, øe s≥owa wystÍpujπce w tym samym kontekúcie niosπ ze sobπ podobne znaczenie\cite{bow}\cite{firth}. Sprzyja to zastosowaniu metod algebry liniowej jako narzÍdzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejúcie polega na zgromadzeniu informacji o rozk≥adzie s≥Ûw w dokumentach w postaci wielowymiarowych wektorÛw a nastÍpnie wyodrÍbnieniu podobieÒstw pomiÍdzy tymi wektorami, ktÛre úwiadczy≥yby o pewnych powiπzaniach miÍdzy reprezentowanymi s≥owami. 
 
 \subsection{Latent Semantic Analysis}
-Alaliza rozk≥adu s≥Ûw w dokumentach tekstowych pozwala na wyodrÍbnienie podobieÒstw miÍdzy s≥owami pod kπtem: ich znaczenia (podobieÒstwo tematu s≥owa), ich osadzenia w stosunku do innych typÛw s≥Ûw czy teø ich struktury wewnÍtrznej. Dwie istotne metody: Latent Semantic Analysis\cite{lsa} oraz Latent Dirichlet Allocation\cite{lda} zak≥adajπ istnienie abstrakcyjnych niejawnych (latent) tematÛw, do ktÛrych moøna przydzieliÊ s≥owa wchodzπce w sk≥ad korpusu.
+Analiza rozk≥adu s≥Ûw w dokumentach tekstowych pozwala na wyodrÍbnienie podobieÒstw miÍdzy s≥owami pod kπtem: ich znaczenia (podobieÒstwo tematu s≥owa), ich osadzenia w stosunku do innych typÛw s≥Ûw czy teø ich struktury wewnÍtrznej. Dwie istotne metody: Latent Semantic Analysis\cite{lsa} oraz Latent Dirichlet Allocation\cite{lda} zak≥adajπ istnienie abstrakcyjnych niejawnych (latent) tematÛw, do ktÛrych moøna przydzieliÊ s≥owa wchodzπce w sk≥ad korpusu.
 
-LSA (1990) \cite{lsa}, znane rÛwnieø jako Latent Semantic Indexing (LSI) dokonuje transformacji kaødego dokumentu w wektor d≥. $|V|$ posiadajπcy na $i$-tym miejscu wagÍ TF-IDF $i$-tego s≥owa ze s≥ownika. W ten sposÛb tworzona jest rzadka macierz: kolumny reprezentujπ dokumenty a wiersze reprezentujπ unikalne s≥owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siÍ rozk≥adu wed≥ug wartoúci osobliwych (Singular Value Decomposition, SVD), ktÛry jest technikπ redukcji wymiarowoúci. Celem uøycia SVD jest redukcja liczby wierszy macierzy dla wydajniejszych dalszych obliczeÒ numerycznych oraz pozbycie siÍ szumÛw, utrzymujπc jednoczeúnie podobieÒstwa pomiÍdzy kolumnami. Ostatecznie uzyskuje siÍ macierz przynaleønoúci tematÛw do dokumentÛw, gdzie wiersze odpowiadajπce tematom moøna interpretowaÊ jako kombinacje pierwotnych wierszy-s≥Ûw o podobnym znaczeniu. Np. $\{(samochod), (ciagnik), (jezdnia)\} \to \{(1.3452 * samochod + 0.2828 * ciagnik + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomocπ hiperparamtru, ktÛry oznacza liczbÍ tematÛw. Uøywajπc uzyskanej macierzy, podobieÒstwo pomiÍdzy kolumnami-dokumentami obliczane jest wykorzystujπc odleg≥oúÊ kosinusowπ (opisanπ pÛüniej w tym rodziale). Metoda LSA ≥agodzi problem synonimÛw poprzez scalanie podobnych s≥Ûw w jeden temat. Niweluje rÛwnieø problem homonimÛw, w≥πczajπc je czÍúciowo w sk≥ad rÛønych tematÛw. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbÍ tematÛw czÍúÊ semantycznie odrÍbnych tematÛw moøe zostaÊ wch≥oniÍta przez inne lub teø rozbicie na tematy moøe byÊ zbyt ,,drobne'' nie wykorzystujπc w pe≥ni semantycznych powiπzaÒ.
+LSA (1990) \cite{lsa}, znane rÛwnieø jako Latent Semantic Indexing (LSI) dokonuje transformacji kaødego dokumentu w wektor d≥. $|V|$ posiadajπcy na $i$-tym miejscu wagÍ TF-IDF $i$-tego s≥owa ze s≥ownika. W ten sposÛb tworzona jest rzadka macierz: kolumny reprezentujπ dokumenty a wiersze reprezentujπ unikalne s≥owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siÍ rozk≥adu wed≥ug wartoúci osobliwych (Singular Value Decomposition\cite{svd}, SVD), ktÛry jest technikπ redukcji wymiarowoúci. Celem uøycia SVD jest redukcja liczby wierszy macierzy dla wydajniejszych dalszych obliczeÒ numerycznych oraz pozbycie siÍ szumÛw, utrzymujπc jednoczeúnie podobieÒstwa pomiÍdzy kolumnami. Ostatecznie uzyskuje siÍ macierz przynaleønoúci tematÛw do dokumentÛw, gdzie wiersze odpowiadajπce tematom moøna interpretowaÊ jako kombinacje pierwotnych wierszy-s≥Ûw o podobnym znaczeniu. Np. $\{(samochod), (ciagnik), (jezdnia)\} \to \{(1.3452 * samochod + 0.2828 * ciagnik + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomocπ hiperparamtru, ktÛry oznacza liczbÍ tematÛw. Uøywajπc uzyskanej macierzy, podobieÒstwo pomiÍdzy kolumnami-dokumentami obliczane jest wykorzystujπc odleg≥oúÊ kosinusowπ (opisanπ pÛüniej w tym rodziale). Metoda LSA ≥agodzi problem synonimÛw poprzez scalanie podobnych s≥Ûw w jeden temat. Niweluje rÛwnieø problem homonimÛw, w≥πczajπc je czÍúciowo w sk≥ad rÛønych tematÛw. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbÍ tematÛw czÍúÊ semantycznie odrÍbnych tematÛw moøe zostaÊ wch≥oniÍta przez inne lub teø rozbicie na tematy moøe byÊ zbyt ,,drobne'' nie wykorzystujπc w pe≥ni semantycznych powiπzaÒ.
 
-\subsubsection{Singular Value Decomposition}
-%TODO czy opisywaÊ SVD
 %(2003)
 %This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
 
 \subsection{Latent Dirichlet Allocation}
-%TODO opisaÊ metodÍ - jak bardzo szczegÛ≥owo?
+%TODO opisaÊ metodÍ
+
+
+
+LDA jest technikπ automatycznego wykrywania tematÛw zawartych w dokumentach.
+
+LDA reprezentuje dokumenty jako mieszanki tematÛw, ktÛre z kolei sk≥adajπ sie z mieszanki s≥Ûw ca≥ego korpusu.
+
+Wybierz mieszankÍ tematÛw dla dokumentu (zgodnie z rozk≥adem Dirichleta dla ustalonej liczby $K$ tematÛw)
+
+	Wybierz temat zgodnie z rozk≥adem wielomianowym.
+	
+	Uøyj tematu do wybrania s≥owa zgodnie z rozk≥adem wielomianowym.
+	
+
+LDA iteruje po dokumentach starajπc siÍ znaleüÊ mieszankÍ tematÛw, ktÛre z najwiÍkszym prawdopodobieÒstwem wygenerowa≥y zbiÛr s≥Ûw dokumentu.
+
+
+Learning
+
+So now suppose you have a set of documents. You've chosen some fixed number of K topics to discover, and want to use LDA to learn the topic representation of each document and the words associated to each topic. How do you do this? One way (known as collapsed Gibbs sampling*) is the following:
+
+Go through each document, and randomly assign each word in the document to one of the K topics.
+Notice that this random assignment already gives you both topic representations of all the documents and word distributions of all the topics (albeit not very good ones).
+So to improve on them, for each document d...
+....Go through each word w in d...
+........And for each topic t, compute two things: 1) p(topic t | document d) = the proportion of words in document d that are currently assigned to topic t, and 2) p(word w | topic t) = the proportion of assignments to topic t over all documents that come from this word w. Reassign w a new topic, where you choose topic t with probability p(topic t | document d) * p(word w | topic t) (according to our generative model, this is essentially the probability that topic t generated word w, so it makes sense that we resample the current word's topic with this probability). (Also, I'm glossing over a couple of things here, such as the use of priors/pseudocounts in these probabilities.)
+........In other words, in this step, we're assuming that all topic assignments except for the current word in question are correct, and then updating the assignment of the current word using our model of how documents are generated.
+After repeating the previous step a large number of times, you'll eventually reach a roughly steady state where your assignments are pretty good. So use these assignments to estimate the topic mixtures of each document (by counting the proportion of words assigned to each topic within that document) and the words associated to each topic (by counting the proportion of words assigned to each topic overall).
+
+
+Jego ideπ jest reprezentacja tekstÛw ja-
+ko mieszanki tematÛw, definiowanych jako rozk≥ady prawdopodobieÒstwa na zbiorze s≥Ûw.
+Z jednej strony jest to pewna metoda redukcji wymiaru danych, natomiast z drugiej strony
+LDA jest narzÍdziem, ktÛre dostarcza uøytecznej reprezentacji danych wraz z czÍsto cennπ
+interpretacjπ.
+
+
+Model LDA jest przyk≥adem probabilistycznego modelu graficznego, a konkretniej sieci bay-
+esowskiej, ktÛry zosta≥ zaproponowany do modelowania danych tekstowych w [5]. Ideπ LDA
+jest reprezentacja tekstu jako mieszanki tematÛw, definiowanych jako rozk≥ady prawdopo-
+dobieÒstwa na zbiorze s≥Ûw. W modelu zak≥ada siÍ, øe kaøde s≥owo w dokumencie pochodzi
+z pewnego tematu i ostatecznie staramy siÍ opisaÊ dokument jako procentowy rozk≥ad za-
+wartych w nim tematÛw. LDA jest metodπ uczenia bez nadzoru i moøna jπ traktowaÊ jako
+pewien sposÛb redukcji wymiaru, gdyø staramy siÍ przedstawiÊ zbiÛr tekstÛw, przy pomo-
+cy pewnej (mniejszej niø liczba tekstÛw) liczby tematÛw. Ponadto z praktycznego punktu
+widzenia czÍsto waøna jest rÛwnieø interpretacja wyestymowanych tematÛw.
+
+Przedstawimy ideÍ modelu LDA na przyk≥adzie. Za≥Ûømy, øe naszymi dokumentami sπ trzy
+zdania:
+ï Mam gorπczkÍ i katar;
+ï Graliúmy w siatkÛwkÍ;
+ï Sport to zdrowie;2.3. Latent Dirichlet Allocation
+19
+gdzie pogrubienie oznacza, øe tylko te s≥owa pozosta≥y w tekstach po wstÍpnym przygoto-
+waniu danych. Za≥Ûømy rÛwnieø, øe mamy okreúlone dwa tematy, z czego w pierwszym naj-
+czÍstsze s≥owa to ÑprzeziÍbienieî, Ñgorπczkaî, Ñgrypaî i inne s≥owa zwiπzane ze zdrowiem,
+natomiast w drugim sπ to Ñpi≥kaî, ÑgraÊî, Ñsportî i inne zwiπzane ze sportem. WÛwczas
+jeøeli zak≥adamy, øe s≥owa w dokumentach pochodzπ z jakiegoú tematu, to moøna intuicyjnie
+oceniÊ, øe pierwsze zdanie w 100% bÍdzie sk≥adaÊ siÍ ze s≥Ûw z tematu Ñzdrowieî, drugie
+w 100% z tematu Ñsportî, a trzecie w 50% z obu tematÛw.
+W niniejszej pracy opisujemy model LDA w zastosowaniu do modelowania danych teksto-
+wych. Do formalnego opisu modelu, bÍdzie potrzebne kilka pojÍÊ, ktÛre teraz zdefiniuje-
+my:
+ï S≥owo ñ podstawowa jednostka danych. ZbiÛr wszystkich s≥Ûw nazywamy Ñs≥ownikiemî,
+a jego licznoúÊ oznaczamy przez V . Formalnie s≥owo reprezentujemy jako liczbÍ ze zbioru
+{1, ..., V }.
+ï Dokument ñ skoÒczony ciπg s≥Ûw dowolnej d≥ugoúci. Formalnie jest ciπg liczbowy o war-
+toúciach ze zbioru {1, ..., V }, ktÛry moøna interpretowaÊ jako wektor.
+ï Korpus ñ zbiÛr sk≥adajπcy siÍ ze skoÒczonej liczby dokumentÛw.
+ï Temat ñ dyskretny rozk≥ad prawdopodobieÒstwa wymiaru V , opisujπcy rozk≥ad na zbio-
+rze s≥Ûw. W pracy bÍdziemy wymiennie uøywaÊ sformu≥owaÒ Ñrozk≥ad s≥Ûw w temacieî,
+Ñrozk≥ad tematuî
+
+W modelu LDA wystÍpujπ trzy parametry:
+ï K ñ liczba tematÛw,
+ï ? ñ wektor dodatnich liczb rzeczywistych, sterujπcy rozk≥adami tematÛw w dokumen-
+tach,
+ï ? ñ macierz wymiaru K ◊ V , ktÛrej i-ty wiersz opisuje rozk≥ad i-tego tematu.
+Jedynym parametrem, ktÛrego wartoúÊ trzeba zadaÊ, jest K. Oznacza to, øe musimy a priori
+za≥oøyÊ, ile tematÛw w danych chcemy wykryÊ. Wartoúci ? oraz ? moøna ustaliÊ z gÛry lub
+wyestymowaÊ ich wartoúci, w zaleønoúci od problemu, do ktÛrego wykorzystujemy model.
+LiczbÍ dokumentÛw w korpusie bÍdziemy oznaczaÊ jako M .
+
+In natural language processing, latent Dirichlet allocation (LDA) is a generative statistical model that allows sets of observations to be explained by unobserved groups that explain why some parts of the data are similar. For example, if observations are words collected into documents, it posits that each document is a mixture of a small number of topics and that each word's creation is attributable to one of the document's topics. LDA is an example of a topic model and was first presented as a graphical model for topic discovery by David Blei, Andrew Ng, and Michael I. Jordan in 2003.[1] Essentially the same model was also proposed independently by J. K. Pritchard, M. Stephens, and P. Donnelly in the study of population genetics in 2000.[2] Both papers have been highly influential, with 16488 and 18170 citations respectively by December 2016.
+
+In LDA, each document may be viewed as a mixture of various topics where each document is considered to have a set of topics that are assigned to it via LDA. This is identical to probabilistic latent semantic analysis (pLSA), except that in LDA the topic distribution is assumed to have a sparse Dirichlet prior. The sparse Dirichlet priors encode the intuition that documents cover only a small set of topics and that topics use only a small set of words frequently. In practice, this results in a better disambiguation of words and a more precise assignment of documents to topics. LDA is a generalisation of the pLSA model, which is equivalent to LDA under a uniform Dirichlet prior distribution.[5]
+
+For example, an LDA model might have topics that can be classified as CAT_related and DOG_related. A topic has probabilities of generating various words, such as milk, meow, and kitten, which can be classified and interpreted by the viewer as "CAT_related". Naturally, the word cat itself will have high probability given this topic. The DOG_related topic likewise has probabilities of generating each word: puppy, bark, and bone might have high probability. Words without special relevance, such as the (see function word), will have roughly even probability between classes (or can be placed into a separate category). A topic is not strongly defined, neither semantically nor epistemologically. It is identified on the basis of automatic detection of the likelihood of term co-occurrence. A lexical word may occur in several topics with a different probability, however, with a different typical set of neighboring words in each topic.
+
+Each document is assumed to be characterized by a particular set of topics. This is akin to the standard bag of words model assumption, and makes the individual words exchangeable.
+
+LDA\cite{lda} jest modelem, w ktÛrym kaødy dokument jest modelowany przez skoÒczony zbiÛr tematÛw, z ktÛrych siÍ sk≥ada. Kaødy temat z kolei
 
 %We describe latent Dirichlet allocation (LDA), a generative probabilistic model for collections of discrete data such as text corpora. LDA is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. In the context of text modeling, the topic probabilities provide an explicit representation of a document. We present efficient approximate inference techniques based on variational methods and an EM algorithm for empirical Bayes parameter estimation. We report results in document modeling, text classification, and collaborative filtering, comparing to a mixture of unigrams model and the probabilistic LSI model.
+
+With plate notation, the dependencies among the many variables can be captured concisely. The boxes are ìplatesî representing replicates. The outer plate represents documents, while the inner plate represents the repeated choice of topics and words within a document. M denotes the number of documents, N the number of words in a document.
+
+The generative process is as follows. Documents are represented as random mixtures over latent topics, where each topic is characterized by a distribution over words. LDA assumes the following generative process for a corpus {\displaystyle D} D consisting of {\displaystyle M} M documents each of length {\displaystyle N_{i}} N_{i}:
 
 \subsection{Word embeddings}
 Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody Word2vec\cite{word2vec} nastπpi≥ gwa≥towny rozwÛj i niewπtpliwy sukces metod ,,word embeddings''. Okreúlenie ,,word embeddings'' oznacza osadzanie s≥Ûw w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zosta≥o po raz pierwszy uøyte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory s≥Ûw generowane sπ przez g≥Íbokπ sieÊ neuronowπ. OgÛ≥ technik zaliczanych obecnie do ,,word embeddings'' cechuje siÍ usi≥owaniem reprezentacji s≥Ûw wraz z zaleønoúciami pomiÍdzy nimi w postaci wektorÛw o stosunkowo niskiej wymiarowoúci. Dzieje siÍ to w opozycji do wczeúniejszych podejúÊ podobnych do Bag of words - produkujπcego ogromne, rzadkie wektory, ktÛrych wymiary rÛwnajπ siÍ rozmiarowi s≥ownika, o ktÛry oparty jest model (rzÍdu setek tysiÍcy). Waønπ w≥asnoúciπ metod osadzania s≥Ûw jest zachowanie przez wektory semantycznych i syntaktycznych w≥aúciwoúci s≥Ûw, co pozwala wykonywaÊ na nich operacje artymetyczne na wektorach odwzorowujπce cechy tychøe s≥Ûw np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
@@ -284,14 +368,13 @@ Wspomniane podejúcie Bengio oparte jest o sieÊ neuronowπ typu feed-forward o jed
 	\caption{Neuronowy model jÍzyka. èrÛd≥o: \cite{bengio}.}
 \end{figure}
 
-Celem dzia≥ania sieci jest maksymalizacja funkcji celu $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space f(w_t , w_{t-1} , \cdots , w_{t-n+1})$, gdzie $f(w_t , w_{t-1} , \cdots , w_{t-n+1})$ odpowiada prawdopodobieÒstwu $p(w_t \: | \: w_{t-1} , \cdots , w_{t-n+1})$ wystπpienia s≥owa $w_t$ bezpoúrednio po sekwencji s≥Ûw $w_{t-1} , \cdots , w_{t-n+1}$.
+Celem dzia≥ania sieci jest maksymalizacja funkcji celu $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space f(w_t , w_{t-1} , \cdots , w_{t-n+1})$, gdzie $f(w_t , w_{t-1} , \cdots , w_{t-n+1})$ odpowiada prawdopodobieÒstwu $p(w_t \: | \: w_{t-1} , \cdots , w_{t-n+1})$ wystπpienia s≥owa $w_t$ bezpoúrednio po sekwencji s≥Ûw $w_{t-1} , \cdots , w_{t-n+1}$. Wektorowa reprezentacja s≥owa uzyskiwana jest tu przez przemnoøenie wejúciowego wektora (wektor zer z jedynkπ na $i$-tym miejscu reprezentujπcy $i$-te s≥owo, ,,one-hot-vector'') z macierzπ wag pierwszej warstwy sieci.
 
 
-%In the neural network community, Collobert and Weston (2008) proposed to learn word embeddings using a feedforward ?These authors contributed equally. neural network, by predicting a word based on the two words on the left and two words on the right.
-%TODO Collobert Weston
-Wadπ obu opisanych rozwiπzaÒ siÍ wydajnoúÊ nauki na tyle niska, øe wykorzystanie modelu okazuje siÍ niemoøliwe w celach komercyjnych.
-%Jednak istotnπ wadπ tych rozwiπzaÒ by≥a niska wydajnoúÊ ich nauki, co jest szczegÛlnie odczuwalne w przypadku ogromnych zbiorÛw danych wykorzystywanych w úrodowiskach produkcyjnych.
-Rozwiπzaniem tego problemu wydajπ siÍ byÊ nowe metody wektorowej reprezentacji s≥Ûw powsta≥e na przestrzeni ostatnich lat. W odrÛønieniu do metod deep learningowych opierajπ siÍ one o metody szybkiej nauki, np. o p≥ytkie sieci neuronowe, ktÛre uczπ siÍ na tyle krÛtko, øe sprawdzajπ siÍ one w zastosowaniach komercyjnych
+Podejúcie to jak i kolejne (\cite{c_w}) wykorzystujπce g≥Íbokie sieci neuronowe nie znalaz≥y zastosowaÒ komercyjnych, poniewaø ich wydajnoúÊ nauki jest na tyle  niska, øe niemoøliwe jest uøycie przy ogromnych zbiorach danych wykorzystywanych w úrodowiskach produkcyjnych.
+
+
+Rozwiπzaniem tego problemu wydajπ siÍ byÊ nowe metody wektorowej reprezentacji s≥Ûw powsta≥e na przestrzeni ostatnich lat. W odrÛønieniu do metod deep learningowych opierajπ siÍ one o metody szybkiej nauki, np. o p≥ytkie sieci neuronowe, ktÛre uczπ siÍ na tyle krÛtko, øe sprawdzajπ siÍ one w zastosowaniach komercyjnych.
 
 
 \subsection{Word2vec}%TODO przepisaÊ rozdzia≥ tak, by by≥ spÛjny z poprzednimi
@@ -336,12 +419,7 @@ Isotnπ zaletπ metody Word2vec jest fakt, iø pozwala ona oceniÊ ,,odleg≥oúÊ'' pom
 
 %Most of these techniques represent each word of the vocabulary by a distinct vector, without parameters sharing. In particular, they ignore the internal structure of words, which is an important limitation for morphologically rich languages, such as Turkish or Finnish. These languages contain many words that occur rarely, making it difficult to learn good word-level representations. In this paper, we propose to learn representations for character n-grams, and represent words as the sum of the n-gram vectors. Our main contribution is to introduce an extension of the continuous skip-gram model (Mikolov et al., 2013b), which takes into account subword information. We evaluate this model on five different languages, with various degree of morphology, showing the benefit of our approach.
 
-Rozszerzeniem koncepcji word2vec jest opracowana w 2016 przez Facebook AI Research metoda fastText\cite{fast_text}. G≥Ûwnπ innowacjπ tej metody jest wziÍcie pod uwagÍ wewnÍtrznej struktury s≥Ûw. Jest to szczegÛlnie obiecujπce w przypadku bogatych morfologicznie jÍzykÛw, np. jÍzyka polskiego.
-
-Metoda fastText w duøej mierze opiera siÍ na zasadzie dzia≥ania metody word2vec. Najistotniejszπ rÛønicπ jest sposÛb poziom szczegÛ≥owoúci analizy s≥Ûw. Word2vec traktuje s≥owo jako niepodzielnπ jednostkÍ, ignorujπc wewnÍtrznπ strukturÍ jego znakÛw. Zgodnie z opisem z powyøszego paragrafu kaøde s≥owo przygotowywane jest do wejúcia do sieci neuronowej w postaci unikalnego wektora wype≥nionego zerami z wartoúciπ '1' na jednej pozycji (,,one-hot-vector''). FastText natomiast analizuje kaøde s≥owo pod kπtem struktury jego znakÛw. Wykorzystuje do tego rozbicie s≥owa na pods≥owa - ciπgi znakÛw o okreúlonej d≥ugoúci ,,character n-grams''. 
-
-S≥owo reprezentowane jest jako suma wektorowych reprezentacji jego n-gramÛw.
-
+Rozszerzeniem koncepcji Word2vec jest opracowana w 2016 przez Facebook AI Research metoda fastText\cite{fast_text}. Metoda fastText w duøej mierze opiera siÍ na zasadzie dzia≥ania metody word2vec, a jej g≥Ûwnπ innowacjπ jest branie pod uwagÍ (w odrÛønieniu od Word2vec) rÛwnieø wewnÍtrznej struktury s≥Ûw. FastText wykorzystuje w tym celu rozbicie s≥owa na pods≥owa - ciπgi znakÛw o okreúlonej d≥ugoúci, ,,character n-grams''. Jest to szczegÛlnie obiecujπce w przypadku bogatych morfologicznie jÍzykÛw, np. jÍzyka polskiego.
 
 %In this section, we thus propose a different scoring function s, in order to take into account this information. Given a word w, let us denote by Gw ? {1, . . . , G} the set of n-grams appearing in w. We associate a vector representation zg to each n-gram g. We represent a word by the sum of the vector representations of its n-grams. We thus obtain the scoring function s(w, c) = X g?Gw z ? g vc. We always include the word w in the set of its ngrams, to also learn a vector representation for each word. The set of n-grams is thus a superset of the vocabulary. It should be noted that different vectors are assigned to a word and a n-gram sharing the same sequence of characters. For example, the word as and the bigram as, appearing in the word paste, will be assigned to different vectors. This simple model allows sharing the representations across words, thus allowing to learn reliable representation for rare words. Dictionary of n-grams. The presented model is simple and leaves room for design choices in the definition of Gw. In this paper, we adopt a very simple scheme: we keep all the n-grams with a length greater or equal than 3 and smaller or equal than 6. Different sets of n-grams could be used, for example prefixes and suffixes. We also add a special character for the beginning and the end of the word, thus allowing to distinguish prefixes and suffixes. In order to bound the memory requirements of our model, we use a hashing function that maps n-grams to integers in 1 to K. In the following, we use K equal to 2 millions. In the end, a word is represented by its index in the word dictionary and the value of the hashes of its n-grams. To improve the efficiency of our model, we do not use n-grams to represent the P most frequent words in the vocabulary. There is a trade-off in the choice of P, as smaller values imply higher computational cost but better performance. When P = W, our model is the skip-gram model of Mikolov et al. (2013b).
 
@@ -391,6 +469,13 @@ PrzypuúÊmy, øe dziÍki metodzie Word2vec dla s≥ownika $V$ o $n$ s≥owach otrzymuje
 
 \chapter{Dane}%TODO przerobiÊ ca≥y rozdzia≥
 %opis specyfiki danych
+
+%W niniejszej pracy wykonujÍ eksperymenty wykorzystujπc znane metody okreúlania podobieÒstw pomiÍdzy dokumentami, ktÛre adaptujÍ do zbioru dokumentÛw, ktÛre otrzyma≥em od serwisu Allegro.
+%
+%Stπd w mojej pracy postanowi≥em wykonaÊ eksperymenty z metodami uøywajπcymi semantycznej analizy tekstu, aby oceniÊ, czy dajπ one lepsze rezultaty od obecnie stosowanej metody.
+
+%Dochodzenie nowych rekomendacji - nie jest tematem pracy
+%
 Dane, na ktÛrych testowane by≥y opisywane w niniejszej pracy metody otrzyma≥em dziÍki øyczliwoúci serwisu Allegro. Jednak, by dane te otrzymaÊ, zobowiπzany zosta≥em po podpisania umowy o poufnoúci. Stπd, w niniejszej pracy brak jakichkolwiek przyk≥adÛw danych, a jedynie opisy metod uøytych do ich przetwarzania i generowania rekomendacji.
 
 \section{Opis danych}
@@ -726,6 +811,25 @@ Wykorzystane biblioteki jÍzyka Python:
 \bibitem[26]{all_naj}
 	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
 	(09.08.17)
+\bibitem[25]{elastic_companies}
+	\url{https://www.elastic.co/use-cases}
+	(10.08.17)
+\bibitem[26]{tf_idf}
+	G. Salton and M. McGill,
+	\emph{Introduction to modern information retrieval},
+	McGraw-Hill,
+	1983
+\bibitem[27]{svd}
+	G. H. Golub, W. Kahan,
+	\emph{Calculating the singular values and pseudo-inverse of a matrix},
+	Journal of the Society for Industrial and Applied Mathematics: Series B, Numerical Analysis. 2 (2),
+	1965
+\bibitem[28]{c_w}
+	R. Collobert, J. Weston,
+	\emph{A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
+	NEC Labs America,
+	2008
+	
 \end{thebibliography}
 
 \appendix
