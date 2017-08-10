@@ -423,16 +423,9 @@ Zasada dzia³ania metody bazuje na word2vec. Jednak¿e oprócz predykcji tylko ca³y
 
 Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza siê lepiej od word2vec w wykrywaniu syntaktycznych podobieñstw pomiêdzy s³owami. 
 
-
-%In this section, we thus propose a different scoring function s, in order to take into account this information. Given a word w, let us denote by Gw ? {1, . . . , G} the set of n-grams appearing in w. We associate a vector representation zg to each n-gram g. We represent a word by the sum of the vector representations of its n-grams. We thus obtain the scoring function s(w, c) = X g?Gw z ? g vc. We always include the word w in the set of its ngrams, to also learn a vector representation for each word. The set of n-grams is thus a superset of the vocabulary. It should be noted that different vectors are assigned to a word and a n-gram sharing the same sequence of characters. For example, the word as and the bigram as, appearing in the word paste, will be assigned to different vectors. This simple model allows sharing the representations across words, thus allowing to learn reliable representation for rare words. Dictionary of n-grams. The presented model is simple and leaves room for design choices in the definition of Gw. In this paper, we adopt a very simple scheme: we keep all the n-grams with a length greater or equal than 3 and smaller or equal than 6. Different sets of n-grams could be used, for example prefixes and suffixes. We also add a special character for the beginning and the end of the word, thus allowing to distinguish prefixes and suffixes. In order to bound the memory requirements of our model, we use a hashing function that maps n-grams to integers in 1 to K. In the following, we use K equal to 2 millions. In the end, a word is represented by its index in the word dictionary and the value of the hashes of its n-grams. To improve the efficiency of our model, we do not use n-grams to represent the P most frequent words in the vocabulary. There is a trade-off in the choice of P, as smaller values imply higher computational cost but better performance. When P = W, our model is the skip-gram model of Mikolov et al. (2013b).
-
-
-
 \subsection{GloVe}
 
-%TODO glove stara siê osi¹gn¹æ to, co w word2vec wydaje siê byæ jedynie efektem ubocznym. Zmienia w tym celu funkcjê celu.... http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/
-
-GloVe\cite{glove} (GLObal VEctors) jest kolejn¹ wart¹ uwagi metod¹ word embedding powsta³¹ na przestrzeni ostatnich lat. Algorytm GloVe ró¿ni siê od word2vec w sposobie uzyskania wektorowej reprezentacji s³ów. Word2vec jest modelem predykcyjnym, natomiast trening w GloVe opiera siê na globalnej macierzy wspó³wyst¹pieñ s³ów.
+GloVe\cite{glove} (GLObal VEctors) jest kolejn¹ wart¹ uwagi metod¹ word embedding powsta³¹ na przestrzeni ostatnich lat. Algorytm GloVe ró¿ni siê od word2vec w sposobie uzyskania wektorowej reprezentacji s³ów. Word2vec jest modelem predykcyjnym, natomiast trening w GloVe opiera siê na globalnej macierzy wspó³wyst¹pieñ s³ów. Ponadto w porównaniu do word2vec GloVe stara siê wyznaczyæ reprezentacje wektorowe wprost, podczas gdy w word2vec dzieje siê ,,przy okazji'' - szkoli siê sieæ neuronow¹ nie w celu jej dalszego wykorzystania w celu predykcji, a jedynie dla jej macierzy wag. 
 
 Algorytm GloVe sk³ada siê z nastêpuj¹cych kroków\cite{glove_cran}:
 \begin{enumerate}
@@ -444,6 +437,8 @@ Algorytm GloVe sk³ada siê z nastêpuj¹cych kroków\cite{glove_cran}:
 	(\frac{X_{ij}}{x_{max}})^\alpha & \text{if } X_{ij} < XMAX \\
 	1 & \text{otherwise}
 	\end{cases}$
+	Celem funkcji optymalizacji funkcji	 kosztu jest minimalizacja ró¿nicy pomiêdzy iloczynami skalarnymi wektorów wspó³wystêpuj¹cych s³ów.
+	\item Dokonaj minimalizacji funkcji kosztu poprzez stopniow¹ aktualizacjê wektorów $w_i$ i $w_j$.
 \end{enumerate}
 
 \subsection{Odleg³oœæ miêdzy dokumentami}
