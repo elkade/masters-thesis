@@ -124,7 +124,7 @@ podpis promotora & \hspace*{100pt} & podpis autora
 %-----------Pocz¹tek czêœci zasadniczej-----------
 
 \chapter{Wstêp}%DONE
-
+%TODO JAkie pytanie stawiam w pracy: czy semantyczne metody analizy jêzyka naturalnego s¹ w stanie daæ lepsze efekty w zadaniu generowania rakomandacji od dotychczasowej metody stosowanej w Allegro opartej o silnik wyszukiwania Elasticearch i s³owa kluczowe dobierane do artyku³ów przez ich autorów.
 Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron do konkretnego u¿ytkownika. Pozwala to u¿ytkownikowi na bardziej efektywne korzystanie z serwisu oraz mo¿e prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
 
 Celem niniejszej pracy magisterskiej jest analiza mo¿liwoœci usprawnienia istniejacego systemu rekomendacji o oparciu o adaptacjê istniej¹cych metod wyszukiwania semantycznego podobieñstwa pomiêdzy dokumentami tekstowymi. Rzeczony system rekomendacji istnieje w internetowym serwisie e-commerce Allegro w dziale artyku³ów tekstowych o tematyce zwi¹zanej z produktami dostêpnymi za poœrednictwem serwisu. System ma na celu zarekomendowanie u¿ytkownikowi artyku³ów o tematyce podobnej do tego, który znajduje siê na stornie aktualnie odwiedzanej przez uzytkownika.
@@ -201,10 +201,8 @@ Zalet¹ silnika Elasticsearch s¹ jego wydajnoœæ, skalowalnoœæ, niezawodnoœæ i pro
 Wad¹ metody jest to, ¿e ogranicza siê ona do wyszukiwania tekstowego pomijaj¹c aspekt semantyczny. Stwarza to trudnoœci przy wyszukiwaniu synonimów lub homonimów.%Znaczy to, ¿e je¿eli dwa teksty opisuj¹ ten sam temat, ale u¿ywaj¹ to tego ró¿nych s³ów, np. synonimów, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siê stwierdziæ podobieñstwa miêdzy tymi tekstami, mimo, i¿ takowe istnieje. Inn¹ trudnoœci¹ jest problem polisemii - sytuacji, gdy jedno s³owo posiada dwa znaczenia (homonimy). Metoda  wyszuka wszystkie dokumenty je zawieraj¹ce niezale¿nie od kontekstu, w jakim szuka ich u¿ytkownik.
 
 
-
-
 \section{Techniki przetwarzania jêzyka naturalnego}
-
+%TODO na koñcu zreformatowaæ ca³y rozdzia³, ¿eby zachowaæ spójnoœæ formy opisu metod
 Oparcie rekomendacji jedynie na treœci artyku³u wymaga zag³êbienia siê w tematykê analizy i przetwarzania jêzyka naturalnego, wszak w³aœnie w jêzyku naturalnym, zrozumia³ym dla cz³owieka (polskim) pisane s¹ owe artyku³y. Jêzyk naturalny z powodu swojego niskiego stopnia sformalizowania nie jest niestety wprost zrozumia³y dla maszyn. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których maszyna obliczeniowa przy pomocy pewnych algorytmów jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami. W poni¿szych paragrafach dokonujê przegl¹du technik matematycznej reprezentacji dokumentów pisanych w jêzyku naturalnym. Warto wspomnieæ, i¿ dziedzina ta bardzo dynamicznie siê rozwija a czêœæ z opisywanych metod zosta³o stworzonych na przestrzeni ostatnich kilku lat, czy wrêcz miesiêcy.
 
 W celu formalizacji w dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznaczenia:
@@ -246,113 +244,30 @@ LSA (1990) \cite{lsa}, znane równie¿ jako Latent Semantic Indexing (LSI) dokonuj
 %This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
 
 \subsection{Latent Dirichlet Allocation}
-%TODO opisaæ metodê
+%TODO zreformatowaæ
 
-LDA jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. LDA uczone jest w sposób nienadzorowany oraz mo¿e byæ traktowane jako technika redukcji wymiarowoœci, gdy¿ dopasowuje dokumentowi sk³adaj¹cemu siê z wielu s³ów reprezentacjê z³o¿on¹ z ma³ej liczby tematów. 
+LDA jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. Metoda wykorzystuje uczenie nienadzorowane. LDA jest modelem statystycznym, który wykorzystuje m.in. rozk³ad Dirichleta. Liczba tematów ustalana jes za pomoc¹ hiperparametru.
 
-Rozk³ad Dirichleta to ci¹g³y rozk³ad prawdopodobieñstwa parametryzowany przez wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ okreœla wymiar rozk³adu. Gêstoœæ rozk³adu Dirichleta wyra¿a siê wzorem: $ f\left(x_{1},\cdots ,x_{K-1};\alpha _{1},\cdots ,\alpha _{K}\right)={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}$, gdzie {\displaystyle {\begin{aligned}&x_{1},\cdots ,x_{K-1}>0\\&x_{1}+\cdots +x_{K-1}<1\\&x_{K}=1-x_{1}-\cdots -x_{K-1}\end{aligned}}}, a $B$ to sta³a normalizuj¹ca. Noœnikiem gêstoœci rozk³adu jest $K-1$ wymiarowy sympleks.
+Rozk³ad Dirichleta to ci¹g³y rozk³ad prawdopodobieñstwa parametryzowany przez wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ okreœla wymiar rozk³adu. Gêstoœæ rozk³adu Dirichleta wyra¿a siê wzorem: $ f\left(x_{1},\cdots ,x_{K-1};\alpha _{1},\cdots ,\alpha _{K}\right)={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}$, gdzie $ x_{1},\cdots ,x_{K-1}>0$, $x_{1}+\cdots +x_{K-1}<1$, $x_{K}=1-x_{1}-\cdots -x_{K-1}$, a $B$ to sta³a normalizuj¹ca. Noœnikiem gêstoœci rozk³adu jest $K-1$ wymiarowy sympleks.
 
 W LDA rozk³ad Dirichleta jest wykorzystany w celu nadania pocz¹tkowych wartoœci przynale¿noœci tematów do dokumentów oraz s³ów do tematów. Cechy rozk³adu spraiaj¹, ¿e tak dobrane pocz¹tkowe wartoœci paramentrów modelu pokrywaj¹ siê z intuicj¹, ¿e dokument pokrywa jedynie ma³y zestaw tematów, a temat zawiera najczêœciej tylko ma³y zestaw s³ów. Wykorzystanie rozk³adu Dirichleta do okreœlenia wartoœci pocz¹tkowych skutkuje w rezultacie lepszym dopasowaniem dokumentów i tematów.
 
 %TODO sprawdziæ, czy nazwy zmiennych siê nie pokrywaj¹
-Przypuœæmy, ¿e mamy zestaw dokumentów. Wybieramy ustalon¹ liczbê $K$ tematów
+Przypuœæmy, ¿e mamy zestaw dokumentów. Wybieramy ustalon¹ liczbê $K$ tematów, które zamierzamy wykryæ. Chcemy u¿yæ LDA w celu wyznaczenia reprezentacji ka¿dego dokumentu jako mieszanki tematów oraz s³ów powi¹zanych z ka¿dym tematem. Jednym ze sposobów, aby osi¹gn¹æ ten cel jest wnioskowanie oparte na próbkowaniu
+Gibbsa. Metoda ta dzia³a zgodnie z nastêpuj¹cymi krokami.
 
+PrzejdŸ przez ka¿dy dokument i losowo (zgodnie z rozk³adem Dirichleta) przypisz ka¿de s³owo dokumentu do jednego z $K$ tematów.
+Warto zauwa¿yæ, i¿ etap ten daje pierwsze przybli¿enie docelowej reprezentacji. W kolejnych krokach nale¿y poprawiaæ to przybli¿enie.
+Dla ka¿dego dokumentu $d$, dla ka¿dego s³owa $w$ nale¿¹cego do $d$, dla ka¿dego tematu $t$ oblicz: $p(t | d)$, czyli odsetek liczby s³ów w $d$, które s¹ aktualnie przypisane do tematu $t$ oraz oblicz $p(w | t)$, czyli odsetek liczby wyst¹pieñ s³owa $w$, które s¹ przypisane do tematu $t$ w skali ca³ego korpusu. Przypisz s³owu $w$ nowy temat poprzez losowanie z prawdopodobienstwem $p(t_i|d)*p(w|t)$ dla ka¿dego tematu $t_i$.
 
+Ci¹g³e wykonywanie powy¿szych kroków doprowadzi do stabilnej sytuacji, w której przestan¹ nastêpowaæ zmiany przypisañ s³ów do tematów. Wtedy nale¿y zakoñczyæ dzia³anie algorytmu.
 
-Wybierz mieszankê tematów dla dokumentu (zgodnie z rozk³adem Dirichleta dla ustalonej liczby $K$ tematów)
+Zalet¹ LDA jest jego interpretowalnoœæ: do ka¿dego tematu przypisane s¹ z pewn¹ wag¹ przwdziwe s³owa pochodz¹ce z przetwarzanego korpusu. Metoda ta mo¿e byæ traktowana jako technika redukcji wymiarowoœci, gdy¿ dopasowuje dokumentowi sk³adaj¹cemu siê z wielu s³ów reprezentacjê z³o¿on¹ z ma³ej liczby tematów.
 
-	Wybierz temat zgodnie z rozk³adem wielomianowym.
-	
-	U¿yj tematu do wybrania s³owa zgodnie z rozk³adem wielomianowym.
-	
-
-LDA iteruje po dokumentach staraj¹c siê znaleŸæ mieszankê tematów, które z najwiêkszym prawdopodobieñstwem wygenerowa³y zbiór s³ów dokumentu.
-
-
-Learning
-
-So now suppose you have a set of documents. You've chosen some fixed number of K topics to discover, and want to use LDA to learn the topic representation of each document and the words associated to each topic. How do you do this? One way (known as collapsed Gibbs sampling*) is the following:
-
-Go through each document, and randomly assign each word in the document to one of the K topics.
-Notice that this random assignment already gives you both topic representations of all the documents and word distributions of all the topics (albeit not very good ones).
-So to improve on them, for each document d...
-....Go through each word w in d...
-........And for each topic t, compute two things: 1) p(topic t | document d) = the proportion of words in document d that are currently assigned to topic t, and 2) p(word w | topic t) = the proportion of assignments to topic t over all documents that come from this word w. Reassign w a new topic, where you choose topic t with probability p(topic t | document d) * p(word w | topic t) (according to our generative model, this is essentially the probability that topic t generated word w, so it makes sense that we resample the current word's topic with this probability). (Also, I'm glossing over a couple of things here, such as the use of priors/pseudocounts in these probabilities.)
-........In other words, in this step, we're assuming that all topic assignments except for the current word in question are correct, and then updating the assignment of the current word using our model of how documents are generated.
-After repeating the previous step a large number of times, you'll eventually reach a roughly steady state where your assignments are pretty good. So use these assignments to estimate the topic mixtures of each document (by counting the proportion of words assigned to each topic within that document) and the words associated to each topic (by counting the proportion of words assigned to each topic overall).
-
-
-Jego ide¹ jest reprezentacja tekstów ja-
-ko mieszanki tematów, definiowanych jako rozk³ady prawdopodobieñstwa na zbiorze s³ów.
-Z jednej strony jest to pewna metoda redukcji wymiaru danych, natomiast z drugiej strony
-LDA jest narzêdziem, które dostarcza u¿ytecznej reprezentacji danych wraz z czêsto cenn¹
-interpretacj¹.
-
-
-Model LDA jest przyk³adem probabilistycznego modelu graficznego, a konkretniej sieci bay-
-esowskiej, który zosta³ zaproponowany do modelowania danych tekstowych w [5]. Ide¹ LDA
-jest reprezentacja tekstu jako mieszanki tematów, definiowanych jako rozk³ady prawdopo-
-dobieñstwa na zbiorze s³ów. W modelu zak³ada siê, ¿e ka¿de s³owo w dokumencie pochodzi
-z pewnego tematu i ostatecznie staramy siê opisaæ dokument jako procentowy rozk³ad za-
-wartych w nim tematów. LDA jest metod¹ uczenia bez nadzoru i mo¿na j¹ traktowaæ jako
-pewien sposób redukcji wymiaru, gdy¿ staramy siê przedstawiæ zbiór tekstów, przy pomo-
-cy pewnej (mniejszej ni¿ liczba tekstów) liczby tematów. Ponadto z praktycznego punktu
-widzenia czêsto wa¿na jest równie¿ interpretacja wyestymowanych tematów.
-
-Przedstawimy ideê modelu LDA na przyk³adzie. Za³ó¿my, ¿e naszymi dokumentami s¹ trzy
-zdania:
-• Mam gor¹czkê i katar;
-• Graliœmy w siatkówkê;
-• Sport to zdrowie;
-gdzie pogrubienie oznacza, ¿e tylko te s³owa pozosta³y w tekstach po wstêpnym przygoto-
-waniu danych. Za³ó¿my równie¿, ¿e mamy okreœlone dwa tematy, z czego w pierwszym naj-
-czêstsze s³owa to „przeziêbienie”, „gor¹czka”, „grypa” i inne s³owa zwi¹zane ze zdrowiem,
-natomiast w drugim s¹ to „pi³ka”, „graæ”, „sport” i inne zwi¹zane ze sportem. Wówczas
-je¿eli zak³adamy, ¿e s³owa w dokumentach pochodz¹ z jakiegoœ tematu, to mo¿na intuicyjnie
-oceniæ, ¿e pierwsze zdanie w 100\% bêdzie sk³adaæ siê ze s³ów z tematu „zdrowie”, drugie
-w 100\% z tematu „sport”, a trzecie w 50\% z obu tematów.
-W niniejszej pracy opisujemy model LDA w zastosowaniu do modelowania danych teksto-
-wych. Do formalnego opisu modelu, bêdzie potrzebne kilka pojêæ, które teraz zdefiniuje-
-my:
-• S³owo – podstawowa jednostka danych. Zbiór wszystkich s³ów nazywamy „s³ownikiem”,
-a jego licznoœæ oznaczamy przez V . Formalnie s³owo reprezentujemy jako liczbê ze zbioru
-{1, ..., V }.
-• Dokument – skoñczony ci¹g s³ów dowolnej d³ugoœci. Formalnie jest ci¹g liczbowy o war-
-toœciach ze zbioru {1, ..., V }, który mo¿na interpretowaæ jako wektor.
-• Korpus – zbiór sk³adaj¹cy siê ze skoñczonej liczby dokumentów.
-• Temat – dyskretny rozk³ad prawdopodobieñstwa wymiaru V , opisuj¹cy rozk³ad na zbio-
-rze s³ów. W pracy bêdziemy wymiennie u¿ywaæ sformu³owañ „rozk³ad s³ów w temacie”,
-„rozk³ad tematu”
-
-W modelu LDA wystêpuj¹ trzy parametry:
-• K – liczba tematów,
-• ? – wektor dodatnich liczb rzeczywistych, steruj¹cy rozk³adami tematów w dokumen-
-tach,
-• ? – macierz wymiaru K × V , której i-ty wiersz opisuje rozk³ad i-tego tematu.
-Jedynym parametrem, którego wartoœæ trzeba zadaæ, jest K. Oznacza to, ¿e musimy a priori
-za³o¿yæ, ile tematów w danych chcemy wykryæ. Wartoœci ? oraz ? mo¿na ustaliæ z góry lub
-wyestymowaæ ich wartoœci, w zale¿noœci od problemu, do którego wykorzystujemy model.
-Liczbê dokumentów w korpusie bêdziemy oznaczaæ jako M .
-
-In natural language processing, latent Dirichlet allocation (LDA) is a generative statistical model that allows sets of observations to be explained by unobserved groups that explain why some parts of the data are similar. For example, if observations are words collected into documents, it posits that each document is a mixture of a small number of topics and that each word's creation is attributable to one of the document's topics. LDA is an example of a topic model and was first presented as a graphical model for topic discovery by David Blei, Andrew Ng, and Michael I. Jordan in 2003.[1] Essentially the same model was also proposed independently by J. K. Pritchard, M. Stephens, and P. Donnelly in the study of population genetics in 2000.[2] Both papers have been highly influential, with 16488 and 18170 citations respectively by December 2016.
-
-In LDA, each document may be viewed as a mixture of various topics where each document is considered to have a set of topics that are assigned to it via LDA. This is identical to probabilistic latent semantic analysis (pLSA), except that in LDA the topic distribution is assumed to have a sparse Dirichlet prior. The sparse Dirichlet priors encode the intuition that documents cover only a small set of topics and that topics use only a small set of words frequently. In practice, this results in a better disambiguation of words and a more precise assignment of documents to topics. LDA is a generalisation of the pLSA model, which is equivalent to LDA under a uniform Dirichlet prior distribution.[5]
-
-For example, an LDA model might have topics that can be classified as CAT_related and DOG_related. A topic has probabilities of generating various words, such as milk, meow, and kitten, which can be classified and interpreted by the viewer as "CAT_related". Naturally, the word cat itself will have high probability given this topic. The DOG_related topic likewise has probabilities of generating each word: puppy, bark, and bone might have high probability. Words without special relevance, such as the (see function word), will have roughly even probability between classes (or can be placed into a separate category). A topic is not strongly defined, neither semantically nor epistemologically. It is identified on the basis of automatic detection of the likelihood of term co-occurrence. A lexical word may occur in several topics with a different probability, however, with a different typical set of neighboring words in each topic.
-
-Each document is assumed to be characterized by a particular set of topics. This is akin to the standard bag of words model assumption, and makes the individual words exchangeable.
-
-LDA\cite{lda} jest modelem, w którym ka¿dy dokument jest modelowany przez skoñczony zbiór tematów, z których siê sk³ada. Ka¿dy temat z kolei
-
-%We describe latent Dirichlet allocation (LDA), a generative probabilistic model for collections of discrete data such as text corpora. LDA is a three-level hierarchical Bayesian model, in which each item of a collection is modeled as a finite mixture over an underlying set of topics. Each topic is, in turn, modeled as an infinite mixture over an underlying set of topic probabilities. In the context of text modeling, the topic probabilities provide an explicit representation of a document. We present efficient approximate inference techniques based on variational methods and an EM algorithm for empirical Bayes parameter estimation. We report results in document modeling, text classification, and collaborative filtering, comparing to a mixture of unigrams model and the probabilistic LSI model.
-
-With plate notation, the dependencies among the many variables can be captured concisely. The boxes are “plates” representing replicates. The outer plate represents documents, while the inner plate represents the repeated choice of topics and words within a document. M denotes the number of documents, N the number of words in a document.
-
-The generative process is as follows. Documents are represented as random mixtures over latent topics, where each topic is characterized by a distribution over words. LDA assumes the following generative process for a corpus {\displaystyle D} D consisting of {\displaystyle M} M documents each of length {\displaystyle N_{i}} N_{i}:
 
 \subsection{Word embeddings}
 Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody Word2vec\cite{word2vec} nast¹pi³ gwa³towny rozwój i niew¹tpliwy sukces metod ,,word embeddings''. Okreœlenie ,,word embeddings'' oznacza osadzanie s³ów w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zosta³o po raz pierwszy u¿yte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory s³ów generowane s¹ przez g³êbok¹ sieæ neuronow¹. Ogó³ technik zaliczanych obecnie do ,,word embeddings'' cechuje siê usi³owaniem reprezentacji s³ów wraz z zale¿noœciami pomiêdzy nimi w postaci wektorów o stosunkowo niskiej wymiarowoœci. Dzieje siê to w opozycji do wczeœniejszych podejœæ podobnych do Bag of words - produkuj¹cego ogromne, rzadkie wektory, których wymiary równaj¹ siê rozmiarowi s³ownika, o który oparty jest model (rzêdu setek tysiêcy). Wa¿n¹ w³asnoœci¹ metod osadzania s³ów jest zachowanie przez wektory semantycznych i syntaktycznych w³aœciwoœci s³ów, co pozwala wykonywaæ na nich operacje artymetyczne na wektorach odwzorowuj¹ce cechy tych¿e s³ów np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
-%TODO obrazek z wektorami w przestrzeni
+
 Stosowane obecnie podejœcia generowania wektorowych reprezentacji s³ów mo¿na podzieliæ na dwa typy:
 \begin{enumerate}
 	\item Modele predykcyjne: ucz¹ siê wektorowych reprezentacji s³ów poprzez zmniejszenie b³êdu predykcji s³ów nale¿¹cych do lokalnego kontekstu s³owa $i$. Poni¿ej opisujê sztandarowy przyk³ad takiego modelu - word2vec, gdzie sposobem na optymalizacjê funkcji celu jest zastosowanie p³ytkiej sieci neuronowej typu feed-forward optymalizowanej za pomoc¹ metody stochastic gradient descent.
@@ -360,7 +275,8 @@ Stosowane obecnie podejœcia generowania wektorowych reprezentacji s³ów mo¿na pod
 	Jako pierwszy etap konstruuj¹ one ogromn¹ (wymiar równa siê liczbie s³ów w s³owniku korpusu) macierz, która (podobnie, jak  metodzie LSI) nastêpnie ulega faktoryzacji, aby uzyskaæ macierz o mniejszym wymiarze, lecz nadal zachowuj¹c¹ powi¹zania pomiêdzy s³owami. Przyk³adem jest tu opisana poni¿ej metoda Global Vectors - GloVe.
 \end{enumerate}
 
-Jedn¹ z szerokiego wachlarza mo¿liwoœci, jakie daj¹ tego typu techniki jest okreœlanie podobieñstwa pomiêdzy ca³ymi dokumentami, wykorzystuj¹c dodatkowe metody pozwalaj¹ce przenieœæ zale¿noœci miêdzy poszczególnymi s³owami dokumentu na zale¿noœci miêdzy ca³ymi zbiorami s³ów, co jest istotne z punktu widzenia tematu niniejszej pracy. Dwie z nich: metodê centroidu oraz Word Mover's Distance opisujê póŸniej w tym rozdziale.
+Jedn¹ z szerokiego wachlarza mo¿liwoœci, jakie daj¹ tego typu techniki jest okreœlanie podobieñstwa pomiêdzy ca³ymi dokumentami, wykorzystuj¹c dodatkowe metody pozwalaj¹ce przenieœæ zale¿noœci miêdzy poszczególnymi s³owami dokumentu na zale¿noœci miêdzy ca³ymi zbiorami s³ów, co jest istotne z punktu widzenia tematu niniejszej pracy. Dwie z nich: metodê centroidu oraz Word Mover's Distance opisujê póŸniej w tym rozdziale. Warto zauwa¿yæ, i¿ posiadaj¹c wektorow¹ reprezentacjê s³ów mo¿na wyznaczyæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów.
+
 
 \subsection{Podejœcia deep learningowe}
 
@@ -383,26 +299,21 @@ Rozwi¹zaniem tego problemu wydaj¹ siê byæ nowe metody wektorowej reprezentacji s
 
 \subsection{Word2vec}%TODO przepisaæ rozdzia³ tak, by by³ spójny z poprzednimi
 
-Word2vec jest stosunkowo now¹ (2013r.) predykcyjn¹ metod¹ osadzania s³ów w przestrzeni wektorowej, opisan¹ w \cite{word2vec}. 
-
-Autorzy metody proponuj¹ p³ytk¹, dwuwarstwow¹ sieæ neuronow¹, która ma za zadanie odtworzyæ kontekst danego s³owa i na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb rzeczywistych. Jako wejœcie metoda otrzymuje s³owa z korpusu, wyjœciem metody s¹ natomiast wektory z pewnej N wymiarowej przestrzeni odpowiadaj¹ce s³owom wejœciowym. U¿yta tu sieæ neuronowa sk³ada siê z warstw: wejœciowej, jednej warstwy ukrytej i warstwy wyjœciowej. Wyró¿nia siê dwie architektury sieci:
+Metoda word2vec wprowadzona w 2013r. m.in. przez T. Mikolova w \cite{word2vec} odnios³a niew¹tpliwy sukces w porównaniu z wczeœniejszymi metodami osadzania s³ów w przestrzeni wektorowej. Autorzy metody proponuj¹ sieæ neuronow¹, która podobnie jak wczeœniejsze podejœcia ma za zadanie odtworzyæ kontekst danego s³owa i na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb rzeczywistych. Ró¿nica jest taka, i¿ sieæ ta ani nie jest g³êboka, ani te¿ nie zawiera nieliniowych funkcji aktywacji wykorzystywanej orzy warstwie we wczeœniejsych modelach. Wyró¿nia siê dwie odwrotne architektury sieci:
 \begin{itemize}
-	\item skip-gram: na podstawie s³owa sieæ dokonuje predykcji $N$ s¹siednich s³ów. Zadaniem sieci neuronowej jest wtedy optymalizacja funkcji celu postaci $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space p(w_t \: | \: w_{t-n} , \cdots , w_{t-1}, w_{t+1}, \cdots , w_{t+n})$.
 	\item CBOW (continuous bag of words): na postawie okna $N$ s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te $N$ s³ów jest s¹siedztwem. W tym modelu funkcja celu przyjmuje postaæ $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \sum\limits_{-n \leq j \leq n , \neq 0} \text{log} \space p(w_{t+j} \: | \: w_t)$.
+	\item skip-gram: na podstawie s³owa sieæ dokonuje predykcji $N$ s¹siednich s³ów. Zadaniem sieci neuronowej jest wtedy optymalizacja funkcji celu postaci $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space p(w_t \: | \: w_{t-n} , \cdots , w_{t-1}, w_{t+1}, \cdots , w_{t+n})$.
 \end{itemize}
-%TODO opisaæ literki w funkcji celu
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
 	\caption{Schemat sieci wykorzystuj¹cej podejœcie skip-gram i CBOW. ród³o: \cite{word2vec}.}
 	%\label{fig:warstwy}
 \end{figure}
+U¿ywaj¹c tej stosunkowo prostej architektury mo¿na wykonaæ proces nauki u¿ywaj¹c milionów s³ów, których powi¹zania miêdzy sob¹ zostan¹ zachowane w systemie wag sieci neuronowej. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}.
 
-Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}. W celu szczegó³owego opisu metody Word2vec wprowadzam pojêcie funkcji softmax.
-
-Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$\cite{softmax}. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
-
-U¿ywaj¹c tej stosunkowo prostej architektury mo¿na wykonaæ proces nauki u¿ywaj¹c milionów s³ów, których powi¹zania miêdzy sob¹ zostan¹ zachowane w systemie wag sieci neuronowej.
+W celu dalszego opisu metody word2vec wprowadzam pojêcie funkcji softmax u¿ytej w warstwie wyjœciowej sieci neuronowej. Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$\cite{softmax}. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
 
 W metodzie Word2vec nauka polega na trenowaniu sieci neuronowej. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, Word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieci, które faktycznie s¹ wynikowymi wektorami s³ow.
 
@@ -416,9 +327,8 @@ Jednym z parametrów metody Word2vec jest wymiarowoœæ przestrzeni, w której znajd
 
 W sieci nie jest u¿ywa funkcja akywacji, ale prawdopodobieñstwa na wyjœciu s¹ efektem dzi³ania funkcji softmax. Funkcja ta ma za zadanie sprowadziæ wyjœciowe wartoœci warstwy ukrytej do postaci rozk³adu prawdopodobieñstwa. 
 
-Isotn¹ zalet¹ metody Word2vec jest fakt, i¿ pozwala ona oceniæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów.
 
-%TODO Opisaæ co to jest n-gram, word2vec ma³¹ liter¹
+%TODO word2vec ma³¹ liter¹
 \subsection{FastText}
 
 FastText\cite{fasttext} to biblioteka stworzona w 2016 w celu wydajnego uczenia wektorowej reprezentacji s³ów oraz klasyfikacji zdañ. Od ,,klasycznego'' word2vec ró¿ni siê stopniem szczegó³owoœci analizy s³ów. Word2vec traktuje s³owo jak¹ najmniejsz¹, niepodzieln¹ jednostkê, której wektorow¹ reprezentacjê usi³uje wyznaczyæ. FastText natomiast dokonuje analizy równie¿ wewnêtrznej analizy s³ów. Wykorzystuje w tym celu rozbicie s³owa na pods³owa - ci¹gi znaków o okreœlonej d³ugoœci $n$, ,,character n-grams''. Np. s³owo ,,pokój'' sk³ada siê nastêpuj¹cych 3-gramów: [pok], [okó], [kój]. Podejœcie takie daje szereg nowych mo¿liwoœci. Pomaga wyznaczyæ reprezentacjê wektorow¹ rzadkich s³ów, które byæ mo¿e maj¹ wspólny rdzeñ (i znaczenie) z innymi, czêœciej wystêpuj¹cymi s³owami. Metoda pozwala równie¿ nadaæ wektorow¹ reprezentacjê s³owom, których w ogóle nie ma w s³owniku, jako ¿e ich pods³owa mog¹ nale¿eæ do s³ów w s³owniku siê znajduj¹cych. Zalety te wydaj¹ siê byæ szczególnie obiecuj¹ce w przypadku bogatych morfologicznie jêzyków, np. jêzyka polskiego, tureskiego, czy fiñskiego.
@@ -477,7 +387,7 @@ Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymuje
 
 %Dochodzenie nowych rekomendacji - nie jest tematem pracy
 %
-Dane, na których testowane by³y opisywane w niniejszej pracy metody otrzyma³em dziêki ¿yczliwoœci serwisu Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych, a jedynie opisy metod u¿ytych do ich przetwarzania i generowania rekomendacji.
+Dane, na których testowane by³y opisywane w niniejszej pracy metody otrzyma³em dziêki ¿yczliwoœci serwisu Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych poza tymi dostêpnymi za poœrednictwem strony internetowej Allegro. W niniejszym rozdziale opisujê strukturê i stan pozyskanych danych oraz proces ich wstêpnego przetwarzania i nanalizy w celu zastosowania na nich zaadaprowanych metod opisanych w rozdziale poprzednim. 
 
 \section{Opis danych}
 
@@ -485,7 +395,7 @@ Otrzymane dane to baza ok. 20000 artyku³ów tekstowych w formacie JSON. S¹ to te 
 
 \subsection{Treœæ artyku³u}
 
-Treœæ ka¿dego artyku³u sk³ada siê z trzech pól: ,,zawartoœæ'', ,,nag³ówek'' i ,,tytu³''. Œrednia d³ugoœæ artyku³u to 821 s³ów, w tym nag³ówek to jednozdaniowy wstêp. Œredni¹ t¹ estymujê na podstawie œredniej liczby znaków artyku³u i œredniej d³ugoœci s³owa w jêzyku polskim. Dok³adne statystyki tekstu bêd¹ dostêpne dopiero po wstêpnym przetwarzaniu.
+Treœæ ka¿dego artyku³u sk³ada siê z trzech pól: ,,zawartoœæ'', ,,nag³ówek'' i ,,tytu³''. Œrednia d³ugoœæ artyku³u to 821 s³ów, w tym nag³ówek to jednozdaniowy wstêp. Œredni¹ tê estymujê na podstawie œredniej liczby znaków artyku³u i œredniej d³ugoœci s³owa w jêzyku polskim. Dok³adne statystyki tekstu bêd¹ dostêpne dopiero po wstêpnym przetwarzaniu.
 
 Wszystkie artyku³y napisane s¹ w jêzyku polskim, w nielicznych przypadkach wykry³em b³êdy, tzw. ,,literówki''. Jako, ¿e artyku³y ze zbioru dotycz¹ produktów sprzedawanych za poœrednictwem serwisu Allegro, w sk³ad s³ownika zbudowanego na ich bazie wchodzi wiele s³ów specyficznych dla ró¿nych bran¿. S¹ to m.in. nazwy modeli aparatów (np. ,,Sony Alpha 77 II''), samochodów, gier komputerowych, a tak¿e nazwy techniczne: ,,sprê¿arka'', ,,hipertoniczny'', ,,autofocus''.
 
@@ -493,24 +403,24 @@ Artyku³y posiadaj¹ w swej treœci wiele znaczników interpretowanych przez system,
 
 Spójnoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu jest zawsze wype³nione - brak jest wartoœci typu NULL.
 
-\subsection{Kategoria}
+\subsection{Kategoria}%TODO liczba kategorii w ogóle i na poszczególnych poziomach drzewa. œrednia g³êbokoœæ artyku³u w drzewie
 
 Ka¿dy artyku³ zosta³ przez autora przydzielony do pewnej kategorii, która odpowiada tematyce artyku³u, np. ,,Aparaty cyfrowe'' czy ,,Przyprawy i zio³a''. W sk³ad pola ,,kategoria'' wchodzi równie¿ lista kategorii nadrzêdnych, a ca³a hierarcha kategorii ma strukturê drzewiast¹. Np. kategoria nadrzêdna dla kat. ,,Przyprawy i zio³a'' to ,,Delikatesy'', a dla kat. ,,Delikatesy'' to  ,,Dom i zdrowie''. Ka¿dy artyku³ nale¿y do tylko jednej kategorii bêd¹cej dowolnym wêz³em w drzewie (nie tylko liœciem).
 
-\subsection{S³owa kluczowe}%TODO opisaæ pole
-
-Do ka¿dego artyku³u do³¹czone s¹ s³owa kluczowe charakteryzuj¹ce jego zawartoœæ, np. ,,aparaty'', ,,aparaty cyfrowe'', ,,lustrzanki'', ,,sony''. Pole to jest wykorzystywane w dotychczasowym mechaniŸmie generowania rekomendacji - artyku³y podobne do danego s¹ wyszukiwane na podstawie jego s³ów kluczowych.
+\subsection{S³owa kluczowe}%TODO liczba s³ów kluczowych w ogóle i po uspójnieniu. Œrednia liczba keywordów per artyku³
+%TODO s³owa kluczowe sk³adaj¹ siê nie tylko z pojedynczych s³ów ale równie¿ z wyra¿eñ
+Do ka¿dego artyku³u do³¹czone s¹ s³owa kluczowe charakteryzuj¹ce jego zawartoœæ, np. ,,aparaty'', ,,aparaty cyfrowe'', ,,lustrzanki'', ,,Sony''. Pole to jest wykorzystywane w dotychczasowym mechaniŸmie generowania rekomendacji - artyku³y podobne do danego s¹ wyszukiwane na podstawie jego s³ów kluczowych. S³owa kluczowe nadawane s¹ prowdopodobnie wg. uznania autora danego artyku³u. Przygl¹daj¹c siê wszystkim s³owom kluczowym zestawionym razem zauwa¿y³em pewne niespójnoœci: czêœæ s³ów kluczowych o tej samej treœci pisana jest w inny sposób, np. ró¿n¹ wielkoœci¹ liter, czy u¿ywaj¹c myœlnika zamiast spacji. Wynika to zapewne z faktu przypisawania s³ów kluczowych samodzielnie przez autorów w oderwaniu od s³ow przypisanych do reszty artyku³ów. 
 
 \section{Wstêpne przetwarzanie danych}%TODO przeredagowaæ
 
-W celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych. Ma ono na celu takie przygotowanie tekstu, aby zmaksymalizowaæ jakoœæ wyników operuj¹cych na nim póŸniej algorytmy. Techniki wstêpnego przetwarzania tekstu nie wchodz¹ w sk³¹d ¿adnego standardu - dobieram je indywidualnie do konkrtenego przypadku, zgodnie z intuicj¹.
+W celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych. Ma ono na celu takie przygotowanie tekstu, aby zmaksymalizowaæ jakoœæ wyników operuj¹cych na nim póŸniej algorytmów. Techniki wstêpnego przetwarzania tekstu nie wchodz¹ w sk³¹d ¿adnego standardu - dobieram je indywidualnie do konkrtenego przypadku, zgodnie z intuicj¹.
 
 Ni¿ej opisujê kolejne kroki wstêpnego przetwarzania tekstu, które wykonujê na posiadanym zbiorze artyku³ów.
 \begin{enumerate}
-	\item Oczyszczanie tekstu ze zbêdnych, wspomnianych wczeœniej znaczników. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne (ich postaæ jest szczegó³em nieistotnym z punktu widzenia tematyki niniejszej pracy).
+	\item Oczyszczanie tekstu ze zbêdnych, wspomnianych wczeœniej znaczników. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne.
 	\item Usuniêcie ,,s³ów stopu''(ang. stopwords) - na ogó³ krótkich s³ów nie wnosz¹cych nic do znaczenia ca³oœci artyku³u. S¹ to np. ,,w'', ,,z'', ,,poniewa¿''. Ich usuniêcie zmniejsza liczbê s³ów dokumentu skracaj¹c tym samym czas jego przetwarzania. Jako ¿e s³owa te wystêpuj¹ czêsto, usuniêcie ich daje mo¿liwoœæ uwypuklenia znaczenia innych s³ów maj¹cych wp³yw na rzeczywiste znaczenie ca³ego artyku³u. Zbiór s³ów stopu czerpiê z \cite{stopwords}.
 	\item Sprowadzenie wszystkich s³ów dokumentu do ma³ych liter. Pomaga to ujednoliciæ postaæ czêœci s³ów o tym samym znaczeniu, wœród których jedno wystêpuje na pocz¹tku zdania a inne w œrodku.
-	\item Rozbicie s³ów po³¹czonych myœlnikiem. Doœwiadczenie w póŸniejszym etapie (tokenizacji) pokazuje, ¿e narzêdzie jej dokonuj¹ce nie radzi sobie z tego typu s³owami (np. ,,bia³o-czerwony'') i zostania je w niezmienionej postaci gramatycznej (np. ,,bia³o-czerwonego''). St¹d koniecznoœæ rêcznego wykoania mechanizmu rozbijaj¹cego takie s³owa do postaci kompatybilnej z tokenizerem.
+	\item Rozbicie s³ów po³¹czonych myœlnikiem. Doœwiadczenie w póŸniejszym etapie (tokenizacji) pokazuje, ¿e narzêdzie jej dokonuj¹ce (Morfologik\cite{morfologik}) nie radzi sobie z tego typu s³owami (np. ,,bia³o-czerwony'') i zostania je w niezmienionej postaci gramatycznej (np. ,,bia³o-czerwonego''). St¹d koniecznoœæ rêcznego wykoania przeze mnie mechanizmu rozbijaj¹cego takie s³owa do postaci kompatybilnej z tokenizerem. Do wykonania odpowiedniej funkcji potrzebna by³a wczeœniejsza analiza tego typu s³ów pod k¹tem zachowania obu cz³onów w zale¿noœci od ich rodzaju, przypadku i wystêpowania konkretnych liter w sufiksach s³ów sk³adowych. Zale¿a³o mi tak¿e, aby nie rozbijaæ s³ów bêd¹cych nazwami w³asnymi, czy symbolami urz¹dzeñ.
 	\item Tokenizacja. Jest to najistotniejszy element ca³ego procesu. Polega na sprowadzaniu s³ów o tym samym znaczeniu, a ró¿nej formie gramatycznej do tej samej postaci. Sporym utrudnieniem jest tutaj stopieñ skomplikowania jêzyka polskiego oraz liczba wyj¹tków, jak¹ ten jêzyk posiada. Za przyk³ad mo¿e pos³u¿yæ s³owo ,,mieæ'', którego jedna z form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie ka¿dego z tych wyrazów do formy podstawowej ,,mieæ''. Do przeprowadzenia tej operacji stosujê narzêdzie Morfologik\cite{morfologik}.
 \end{enumerate}
 
@@ -539,11 +449,11 @@ Wiêkszoœæ artyku³ów okaza³a siê byæ podobnej d³ugoœci, œrednia d³ugoœæ artyku³u 
 \chapter{Metody ewaluacji}
 W celu porównania stosowanych metod wyznaczania podobieñstwa miêdzy artyku³ami konieczna jest formalizacja pewnych miar tego podobieñstwa.
 
-Ewaluacja rankingu, w którym trafnoœæ wyników zale¿y od oceny u¿ytkowników jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowalibyœmy obiektywn¹ miar¹ podobieñstwa pomiêdzy parami N artyku³ów (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to N artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza moimi mo¿liwoœciami.
+Ewaluacja rankingu, w którym trafnoœæ wyników zale¿y od zachowania realnych u¿ytkowników jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowa³bym obiektywn¹ miar¹ podobieñstwa pomiêdzy parami N artyku³ów (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to N artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza moimi mo¿liwoœciami.
 
 Praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych systemach s¹ tzw. testy A/B polegaj¹ce na podziale u¿ytkowników na grupy i zaaplikowaniu ka¿dej grupie innego rozwi¹zania. Nastêpnie mierzone s¹ pewne wskaŸniki wœród ka¿dej grupy (w naszym przypadku np. liczba ,,klikniêæ'' prawdziwych u¿ytkowników w artyku³y rekomendowane) i spoœród zgromadzonych wyników wybierane jest rozwi¹zanie najlepsze.
 
-Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych. Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnyh za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ ca³ej miary.
+Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych. Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnych za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ ca³ej miary.
 
 Dzia³anie testowanych metod mo¿na sformalizwaæ w postaci pewnej funkcji $S_n: C \to \{a_{i}\}_{i < n}$, gdzie $a_i \in C$, a $n$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze postaci: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby artyku³ów s¹ nastêpnie uœredniane.
 
@@ -575,10 +485,13 @@ $d(a_1, a_2) = \dfrac{w(a_1,a_2)}{D}$, gdzie $d$ to dystans miêdzy artyku³ami $a
 W powy¿szych przyk³adowych drzewach $w(X, Y) = 1$, $w(Y, Z) = 2$, $D=3$, st¹d $d(X, Y) = \dfrac{1}{3}$, $d(X, Y) = \dfrac{2}{3}$. Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
 
 \subsection{S³owa kluczowe}
-%TODO, opisaæ now¹ miarê
+
+Kolejna miara oparta na metadanych artyku³ów korzysta ze s³ów kluczowych. Jak wspomnia³em wczeœcniej wœród ogó³u s³ow kluczowych wystêpuj¹ niespójnoœci, których wiêkszoœæ zlikwidowa³em poprzez %TODO co?
+Niniejsza miara dzia³a podobnie do poprzedniej opartej o kategorie. Mierzy liczbê s³ów wspólnych kluczowych
+%todo przyk³ad
 
 \section{Miara 2: Ocena przez u¿ytkowników offline}
-
+%TODO opisaæ szczegó³owo i ¿e zrobi³m interfejs itp
 Kolejn¹ wypracowan¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny, ewaluacja powinna byæ dokonana przez grupê osób operuj¹cycha na tych samych danych. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa. Skala ocen to 1-10: 1, gdy artyku³y nie s¹ do siebie podobne, 10, gdy podobieñstwo jest ca³kowite.
 
 \section{Miara 3: Historyczna aktywnoœæ u¿ytkowników serwisu}
@@ -604,8 +517,9 @@ Za³ó¿my, ¿e dany algorytm $A$ zwraca pewien ci¹g artyku³ów $c_A=a1,\ a2,\ ...,\ 
 
 Za wagi metody nDCG przyjmujê liczby przejœæ pomiêdzy artyku³ami, a sam¹ metodê stosujê tylko do przeciêcia zbioru artyku³ów podobnych do danego generowanych przez dan¹ metodê ze zborem artyku³ów rekomendowanych do danego przez dotychczasow¹ metodê dzia³aj¹c¹ w serwisie.
 
+\chapter{Opis testów}
 
-\chapter{Opis i wyniki badañ}
+\chapter{Wyniki badañ}
 
 \section{Przygotowanie eksperymentów}
 
