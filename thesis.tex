@@ -248,11 +248,16 @@ LSA (1990) \cite{lsa}, znane równie¿ jako Latent Semantic Indexing (LSI) dokonuj
 \subsection{Latent Dirichlet Allocation}
 %TODO opisaæ metodê
 
+LDA jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. LDA uczone jest w sposób nienadzorowany oraz mo¿e byæ traktowane jako technika redukcji wymiarowoœci, gdy¿ dopasowuje dokumentowi sk³adaj¹cemu siê z wielu s³ów reprezentacjê z³o¿on¹ z ma³ej liczby tematów. 
+
+Rozk³ad Dirichleta to ci¹g³y rozk³ad prawdopodobieñstwa parametryzowany przez wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ okreœla wymiar rozk³adu. Gêstoœæ rozk³adu Dirichleta wyra¿a siê wzorem: $ f\left(x_{1},\cdots ,x_{K-1};\alpha _{1},\cdots ,\alpha _{K}\right)={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}$, gdzie {\displaystyle {\begin{aligned}&x_{1},\cdots ,x_{K-1}>0\\&x_{1}+\cdots +x_{K-1}<1\\&x_{K}=1-x_{1}-\cdots -x_{K-1}\end{aligned}}}, a $B$ to sta³a normalizuj¹ca. Noœnikiem gêstoœci rozk³adu jest $K-1$ wymiarowy sympleks.
+
+W LDA rozk³ad Dirichleta jest wykorzystany w celu nadania pocz¹tkowych wartoœci przynale¿noœci tematów do dokumentów oraz s³ów do tematów. Cechy rozk³adu spraiaj¹, ¿e tak dobrane pocz¹tkowe wartoœci paramentrów modelu pokrywaj¹ siê z intuicj¹, ¿e dokument pokrywa jedynie ma³y zestaw tematów, a temat zawiera najczêœciej tylko ma³y zestaw s³ów. Wykorzystanie rozk³adu Dirichleta do okreœlenia wartoœci pocz¹tkowych skutkuje w rezultacie lepszym dopasowaniem dokumentów i tematów.
+
+%TODO sprawdziæ, czy nazwy zmiennych siê nie pokrywaj¹
+Przypuœæmy, ¿e mamy zestaw dokumentów. Wybieramy ustalon¹ liczbê $K$ tematów
 
 
-LDA jest technik¹ automatycznego wykrywania tematów zawartych w dokumentach.
-
-LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei sk³adaj¹ sie z mieszanki s³ów ca³ego korpusu.
 
 Wybierz mieszankê tematów dla dokumentu (zgodnie z rozk³adem Dirichleta dla ustalonej liczby $K$ tematów)
 
@@ -298,15 +303,14 @@ Przedstawimy ideê modelu LDA na przyk³adzie. Za³ó¿my, ¿e naszymi dokumentami s¹ 
 zdania:
 • Mam gor¹czkê i katar;
 • Graliœmy w siatkówkê;
-• Sport to zdrowie;2.3. Latent Dirichlet Allocation
-19
+• Sport to zdrowie;
 gdzie pogrubienie oznacza, ¿e tylko te s³owa pozosta³y w tekstach po wstêpnym przygoto-
 waniu danych. Za³ó¿my równie¿, ¿e mamy okreœlone dwa tematy, z czego w pierwszym naj-
 czêstsze s³owa to „przeziêbienie”, „gor¹czka”, „grypa” i inne s³owa zwi¹zane ze zdrowiem,
 natomiast w drugim s¹ to „pi³ka”, „graæ”, „sport” i inne zwi¹zane ze sportem. Wówczas
 je¿eli zak³adamy, ¿e s³owa w dokumentach pochodz¹ z jakiegoœ tematu, to mo¿na intuicyjnie
-oceniæ, ¿e pierwsze zdanie w 100% bêdzie sk³adaæ siê ze s³ów z tematu „zdrowie”, drugie
-w 100% z tematu „sport”, a trzecie w 50% z obu tematów.
+oceniæ, ¿e pierwsze zdanie w 100\% bêdzie sk³adaæ siê ze s³ów z tematu „zdrowie”, drugie
+w 100\% z tematu „sport”, a trzecie w 50\% z obu tematów.
 W niniejszej pracy opisujemy model LDA w zastosowaniu do modelowania danych teksto-
 wych. Do formalnego opisu modelu, bêdzie potrzebne kilka pojêæ, które teraz zdefiniuje-
 my:
