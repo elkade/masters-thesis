@@ -566,9 +566,44 @@ Zalet¹ metody jest, i¿ mo¿na j¹ zastosowaæ automatycznie, lecz jest zale¿na od d
 
 \chapter{Opis testów}
 
-\chapter{Wyniki badañ}
+\section{Testowane metody generowania rekomendacji}
 
-\section{Przygotowanie eksperymentów}
+Wykonujê szereg testów metod w ró¿nych konfiguracjach. St¹d dla czytelnoœci wprowadzam skrócone sygnatury tych metod, które stosujê w dalszej czêœci pracy zamiast pe³nych opisów:
+\subsection{Latent Semantic Indexing}
+Testujê metodê LSI dla ró¿nej liczby tematów.
+lsi\_[n], gdzie n to liczba tematów.
+\subsection{Latent Dirichlet Allocation}
+Testujê metodê LDA dla ró¿nej liczby tematów.
+\subsection{Word embedding}
+Wykonujê testy adaptacji metod wektorowej reprezentacji s³ów dla wielu konfiguracji. Poni¿ej ró¿nice pomiêdzy poszczególnymi konfiguracjami.
+
+\subsubsection{Korpus bazowy}
+
+Pierwszy model word2vec, z jakim mia³em stycznoœæ to model\cite{pias} stworzony m.in. przez dr in¿. M. Piaseckiego z Politechniki Wroc³awskiej dostêpny poprzez stronê internetow¹. Model ten by³ uczony na korpusie S³owosieci wer. 10. Dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia Word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
+
+Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
+
+wn
+
+W zwi¹zku z powy¿szym stwierdzeniem wykonujê naukê modelu word2vec na w³asnym korpusie artyku³ów w celu zawarcia brakuj¹cych w poprzednim modelu s³ów. Najrozs¹dniejszym postêpowaniem by³oby tutaj rozszerzenie modelu opartego na korpusie S³owosieci równie¿ o brakuj¹ce s³owa, jednak metoda word2vec nie pozwala na dodanie nowych s³ów do s³ownika istniej¹cego modelu, a jedynie na dalsz¹ naukê w oparciu o s³owa ju¿ istniej¹ce w s³owniku. Si³¹ rzeczy model zbudowany na zbiorze artyku³ów zawiera wszystkie s³owa wystêpuj¹ce w artyku³ach s³owa. Korpusu tego u¿ywam do tworzenia modelów w oparciu o wszystkie poni¿sze sposoby. 
+
+art
+
+\subsubsection{Sposób generowania wektorów}
+Do wygenerowania wektorów reprezentuj¹cych s³owa u¿ywam metod: word2vec (w2v), GloVe (gv) oraz fastText (ft).
+
+\subsubsection{D³ugoœæ wektorów}
+
+
+
+\subsubsection{Metoda okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów}
+
+W celu okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów u¿ywam poni¿szych metod.
+\begin{enumerate}
+	\item Centroid
+	\item Word Mover's Distance
+	\item Tematy z LDA
+\end{enumerate}
 
 Metodami, które aplikujê do problemu rekomendacji artyku³ów s¹:
 \begin{enumerate}
@@ -579,21 +614,31 @@ Metodami, które aplikujê do problemu rekomendacji artyku³ów s¹:
 	\item[] [lda] Latent Dirichlet Allocation
 \end{enumerate}
 
-Ponadto wyniki zastosowania powy¿szych metod porównujê z dotychczasow¹ metod¹ wykorzystywan¹ w serwisie allegro [allegro] oraz z losow¹ ocena podobieñstwa artyku³ów [random].
+\subsection{Elasticsearch}
+W celu porównania z metodami semantycznymi testujê równie¿ dotychczasowe zapytanie do silnika Elasticsearch u¿ywane dotychczas w Allegro.
+elstc
+\subsection{Metoda losowa}
+W celu posiadania punktu odniesienia dokonujê testów dla metody losowo wybieraj¹cej $n$ podobnych do danego artyku³ów.
+rnd
 
-\subsection{Modele Word2Vec}
 
-\subsubsection{Model uczony na korpusie S³owosieci}
+\section{Metody ewaluacji}
 
-Jako podstawowy model Word2vec u¿y³em gotowego modelu\cite{pias} stworzonego m.in. przez dr in¿. M. Piaseckiego. Model ten by³ uczony na korpusie S³owosieci wer. 10. Dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia Word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
+W celu wykonania ocemy poszczególnych testowanych metod wykorzystujê wszystkie metody opisane w rozdziale 4.
+\begin{enumerate}
+	\item clicks
+	\item users
+	\item keywords
+	\item categories
+\end{enumerate}
 
-Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
-\subsubsection{Model uczony na korpusie artyku³ów}
-W zwi¹zku z powy¿szym stwierdzeniem wykonujê naukê modelu Word2vec na korpusie artyku³ów w celu zawarcia brakuj¹cych w poprzednim modelu s³ów. Najrozs¹dniejszym postêpowaniem by³oby tutaj rozszerzenie modelu opartego na korpusie S³owosieci równie¿ o brakuj¹ce s³owa, jednak metoda Word2vec nie pozwala na dodanie nowych s³ów do s³ownika istniej¹cego modelu, a jedynie na dalsz¹ naukê w oparciu o s³owa ju¿ istniej¹ce w s³owniku.
+\section{Metodologia}
 
-Si³¹ rzeczy model ten zawiera wszystkie s³owa zawarte w korpusie artyku³ów.
+Wykonujê najpierw testy automatyczne w obrêbie danej metody dla ró¿nych jej konfiguracji a nastêpnie testy userskie dla tych konfiguracji wszystkich metod, które da³y najlepse rezultaty.
 
-Do uczenia u¿y³em parametrów identycznych, jak w metodzie powy¿ej.
+\chapter{Wyniki badañ}
+
+
 
 %ILE TRWA£O BUDOWANIE MODELU
 
@@ -651,7 +696,7 @@ Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardzie
 
 %-----------Koniec czêœci zasadniczej-----------
 \appendix
-\chapter{Technologie i narzêdzie}
+\chapter{Technologie i narzêdzia}
 %TODO przypisy
 Analizê danych, ich wstêpne przetworzenie a nastêpnie przeprowadzenie docelowych eksperymentów wykona³em korzystaj¹c g³ównie z jêzyka Python i szeregu skrytpów napisanych w nim w³asnorêcznie, wykorzystuj¹cych istniej¹ce specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
 
