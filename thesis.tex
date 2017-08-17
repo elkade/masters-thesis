@@ -395,14 +395,7 @@ Powy¿sze miary dokonuj¹ binarnego podzia³y wyników wyszukiwania: na relewantne i
 Miara nDCG\cite{ndcg} (Normalized Discounted Cumulative Gain) jest miar¹ jakoœci rankingu, która opiera siê na za³o¿eniu, ¿e im bardziej relewantne wyniki, tym wy¿ej powinny byæ w rankingu, aby ranking by³ najbardziej wartoœciowy. Miara ta mierzy skumulowany ,,zysk'' powsta³y poprzez umieszczenie poszczególnych przedmiotów na okreœlonych pozycjach rankingu. Miara nDCG jest znormalizowan¹ wersj¹ miary DCG (Discounted Cumulative Gain), która wyra¿a siê wzorem: ${\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {2^{{rel_{{i}}}}-1}{\log _{{2}}(i+1)}}$, gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w rankingu, a $rel$ to poziom relewantnoœci elementu. DCG premiuje relewantne przedmioty, które s¹ wysoko w rankingu oraz karze za relewantlne przedmioty w dole rankingu. W wariancie nDCG nastêpuje jeszcze normalizacja przez podzielenie wartoœci DCG rzeczywistego rankingu przez DCG idealnego rankingu zbudowanego na elementach korpusu u³o¿onych malej¹co pod k¹tem relewantnoœci: ${\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}}$, $\mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}}$, gdzie $|REL|$ oznacza listê relewantnych przedmiotów z ca³ego zbioru podlegaj¹cego szeregowaniu.
 
 \chapter{Dane}
-%opis specyfiki danych
 
-%W niniejszej pracy wykonujê eksperymenty wykorzystuj¹c znane metody okreœlania podobieñstw pomiêdzy dokumentami, które adaptujê do zbioru dokumentów, które otrzyma³em od serwisu Allegro.
-%
-%St¹d w mojej pracy postanowi³em wykonaæ eksperymenty z metodami u¿ywaj¹cymi semantycznej analizy tekstu, aby oceniæ, czy daj¹ one lepsze rezultaty od obecnie stosowanej metody.
-
-%Dochodzenie nowych rekomendacji - nie jest tematem pracy
-%
 Dane, na których testowane by³y opisywane w niniejszej pracy metody otrzyma³em dziêki ¿yczliwoœci serwisu Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych poza tymi dostêpnymi za poœrednictwem strony internetowej Allegro. W niniejszym rozdziale opisujê strukturê i stan pozyskanych danych oraz proces ich wstêpnego przetwarzania i nanalizy w celu zastosowania na nich zaadaprowanych metod opisanych w rozdziale poprzednim. 
 
 \section{Opis danych}
@@ -476,7 +469,7 @@ Wiêkszoœæ artyku³ów okaza³a siê byæ podobnej d³ugoœci, œrednia d³ugoœæ artyku³u 
 
 \chapter{Metody ewaluacji}
 
-W celu porównania stosowanych metod wyznaczania podobieñstwa miêdzy artyku³ami konieczna jest formalizacja pewnych miar tego podobieñstwa. Do wczeœniejszego opisu znanych ogólnych miar pos³u¿y³em siê pojêciem ,,relewantnoœci'' formalni¹ wartoœci¹ wyra¿on¹ za pomoc¹ liczb rzeczywistych. Jednak¿e w praktyce rzadko dysponuje siê wartoœci¹, na ile dany element rankingu jest adekwatny do zapytania, generuj¹cego ów ranking.  
+W celu porównania stosowanych metod wyznaczania podobieñstwa miêdzy artyku³ami konieczna jest formalizacja pewnych miar tego podobieñstwa. W opisie znanych ogólnych miar pos³u¿y³em siê pojêciem ,,relewantnoœci'' - formaln¹ wartoœci¹ wyra¿on¹ za pomoc¹ liczb rzeczywistych. Jednak¿e w praktyce rzadko dysponuje siê wartoœci¹, na ile dany element rankingu jest adekwatny do zapytania, generuj¹cego ów ranking.  
 
 Ewaluacja rankingu, w którym trafnoœæ wyników zale¿y od zachowania realnych u¿ytkowników jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowa³bym obiektywn¹ miar¹ podobieñstwa pomiêdzy parami $N$ artyku³ów (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to $N$ artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza moimi mo¿liwoœciami.
 
@@ -484,7 +477,7 @@ Inn¹ praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych syst
 
 Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych. Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnych za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ ca³ej miary.
 
-Dzia³anie testowanych metod mo¿na sformalizwaæ w postaci pewnej funkcji $S_n: C \to \{a_{i}\}_{i < n}$, gdzie $a_i \in C$, a $n$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze postaci: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby par artyku³ów s¹ nastêpnie wykorzystane do wyznaczenia wartoœci œredniej miary nDCG tej metody.
+Dzia³anie testowanych metod wyznaczania listy dokumentów podobnych do danego mo¿na sformalizwaæ w postaci pewnej funkcji $S_p: C \to \{a_{i}\}_{i < p}$, gdzie $a_i \in C$, a $p$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze postaci: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby par artyku³ów s¹ nastêpnie wykorzystane do wyznaczenia wartoœci œredniej miary nDCG tej metody.
 
 %Opisane poni¿ej miary 1 i 2 dokonuj¹ porównania podobieñstwa dla pary artyku³ów. W celu rozszerzenia dzia³ania tych miar do pary wejœcie-wyjœcie metody stosujê œredni¹ wa¿on¹ podobieñstwa kolejnych elementów wyjœcia z wejœciem. Stosowane wagi: $\dfrac{1}{i}$ dla $i=1,\ ...,\ N$, gdzie $N$ to d³ugoœæ ci¹gu wyjœciowego danej metody.
 
@@ -517,6 +510,8 @@ Kolejna miara oparta na metadanych artyku³ów korzysta ze s³ów kluczowych. Jak ws
 Niniejsza miara dzia³a podobnie do poprzedniej opartej o kategorie. Dla ka¿dej pary s³ów kluczowych z obu artyku³ów dodaje 1, je¿eli s³owa te s¹ identyczne.
 
 \section{Miara 2: Ocena przez u¿ytkowników offline}
+\textbf{SEKCJA DO UZUPE£NIENIA}%TODO
+
 %TODO opisaæ szczegó³owo i ¿e zrobi³m interfejs itp
 Kolejn¹ wypracowan¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny, ewaluacja powinna byæ dokonana przez grupê osób operuj¹cych na na tych samych danych. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa. Skala ocen to 1-10: 1, gdy artyku³y nie s¹ do siebie podobne, 10, gdy podobieñstwo jest ca³kowite.
 
@@ -531,7 +526,7 @@ Po zakoñczeniu etapu ocen u¿ytkowników nastêpuje agregacja uzyskanych danych pop
 
 \section{Miara 3: Historyczna aktywnoœæ u¿ytkowników serwisu}
 
-Zbieranie a nastêpnie przechowywanie informacji o aktywnoœci u¿ytkownika w ramach serwisu internetowego jest powszechn¹ praktyk¹. Proces ten pozwala na analizê zachowania u¿ytkowników co mo¿e doprowadziæ do wniosków, jakie usprawnienia nale¿y przedsiêwzi¹æ, aby spe³niæ cele biznesowe. Jednym z przyk³adów aktywnoœci u¿ytkownika zapisywanej przez serwis Allego s¹ klikniêcia w linki znajduj¹ce siê na stronie internetowej. Informacja ta pozwala sporz¹dziæ jeszcze jedn¹ miarê jakoœci dopasowania podobnych do siebie artyku³ów. Postaæ danych, jakie uda³o mi siê uzyskaæ z serwisu to tabela o polach: adres strony, na której nast¹pi³o klikniêcie, adres strony, na któr¹ prowadzi link, data klikniêcia.
+Zbieranie a nastêpnie przechowywanie informacji o aktywnoœci u¿ytkownika w ramach serwisu internetowego jest powszechn¹ praktyk¹. Proces ten pozwala na analizê zachowania u¿ytkowników co mo¿e doprowadziæ do wniosków, jakie usprawnienia nale¿y przedsiêwzi¹æ, aby spe³niæ cele biznesowe. Jednym z przyk³adów aktywnoœci u¿ytkownika zapisywanej przez serwis Allegro s¹ klikniêcia w linki znajduj¹ce siê na stronie internetowej. Informacja ta pozwala sporz¹dziæ jeszcze jedn¹ miarê jakoœci dopasowania podobnych do siebie artyku³ów. Postaæ danych, jakie uda³o mi siê uzyskaæ z serwisu to tabela o polach: adres strony, na której nast¹pi³o klikniêcie, adres strony, na któr¹ prowadzi link, data klikniêcia.
 
 Jak ju¿ zosta³o opisane powy¿ej strona z artyku³em tekstowym zawiera odnoœiki do innych artyku³ów poruszaj¹cych tematykê podobn¹ do danego. Skoro zapisywana jest informacja o przejœciach pomiêdzy podstronami serwisu, to mo¿na obliczyæ ile razy z artyku³u $X$ dokonano przejœcia na rekomendowany do niego artyku³ $Y_1$, a ile razy na rekomendowany artyku³ $Y_2$. Je¿eli liczba przejœæ na artyku³ $Y_1$ jest wiêksza ni¿ na $Y_2$, mo¿na wnioskowaæ, i¿ $Y_1$ wydaje siê byæ bardziej relewantn¹ rekomendacj¹ dla artyku³u $X$.
 
@@ -545,82 +540,61 @@ Zalet¹ metody jest, i¿ mo¿na j¹ zastosowaæ automatycznie, lecz jest zale¿na od d
 
 \chapter{Opis testów}
 
+W przeprowadzanych testech staram siê dokonaæ porównania pomiêdzy ró¿nymi konfiguracjami tej samej metody oraz pomiêdzy najlepszymi wariantami ró¿nych metod. W tym celu wykorzystujê wprowadzone miary ewaluacji. W wiêkszoœci przypadków u¿ywam miar automatycznych bazuj¹cych na metadanych artyku³ów oraz historycznej aktywnoœci u¿ytkowników serwisu. Do ostatecznego porównania pomiêdzy najlepszymi wariantami testowanych metod stosujê równie¿ miarê opart¹ na ocenie realnych u¿ytkowników. Miara ta daje najbardziej rzetelne wyniki, jednak¿e jej u¿ycie jest wyj¹tkowo kosztowne - wymaga zaanga¿owania osób testuj¹cych oraz sporych nak³adów czasowych. St¹d zdecydowa³em na u¿ycie jej tylko w jednym przypadku.
+
 \section{Testowane metody generowania rekomendacji}
 
-Wykonujê szereg testów metod w ró¿nych konfiguracjach. St¹d dla czytelnoœci wprowadzam skrócone sygnatury tych metod, które stosujê w dalszej czêœci pracy zamiast pe³nych opisów:
-\subsection{Latent Semantic Indexing}
-Testujê metodê LSI dla ró¿nej liczby tematów.
-lsi\_[n], gdzie n to liczba tematów.
-\subsection{Latent Dirichlet Allocation}
-Testujê metodê LDA dla ró¿nej liczby tematów.
-\subsection{Word embedding}
-Wykonujê testy adaptacji metod wektorowej reprezentacji s³ów dla wielu konfiguracji. Poni¿ej ró¿nice pomiêdzy poszczególnymi konfiguracjami.
+Wykonujê szereg testów metod w ró¿nych konfiguracjach. St¹d dla czytelnoœci wprowadzam skrócone sygnatury tych metod, które stosujê w dalszej czêœci pracy zamiast pe³nych opisów.
+\subsection{Metody oparte o modelowanie tematu}
+Najwa¿niejszym hiperparametrem metod tej grupy: LSI oraz LDA jest liczba tematów, st¹d dokonujê testu jak zmiana tego parametru wp³ywa na jakoœæ modelu.
+\subsection{Metody oparte o word embedding}
+Wykonujê testy adaptacji metod wektorowej reprezentacji s³ów dla wielu konfiguracji. Poni¿ej obszary, na krórych dokonujê zmian konfiguracji.
 
 \subsubsection{Korpus bazowy}
 
-Pierwszy model word2vec, z jakim mia³em stycznoœæ to model\cite{pias} stworzony m.in. przez dr in¿. M. Piaseckiego z Politechniki Wroc³awskiej dostêpny poprzez stronê internetow¹. Model ten by³ uczony na korpusie S³owosieci wer. 10. Dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia Word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
+Pierwszy model word2vec, z jakim mia³em stycznoœæ to model\cite{pias} stworzony m.in. przez dr in¿. M. Piaseckiego z Politechniki Wroc³awskiej dostêpny poprzez stronê internetow¹. Model ten by³ uczony na korpusie S³owosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
 
-Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
+Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów korpusu artyku³ów Allegro oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
 
-wn
+W zwi¹zku z powy¿szym stwierdzeniem wykonujê naukê modelu word2vec równie¿ na w³asnym korpusie artyku³ów w celu zawarcia brakuj¹cych w poprzednim modelu s³ów. Najrozs¹dniejszym postêpowaniem by³oby tutaj rozszerzenie modelu opartego na korpusie S³owosieci równie¿ o brakuj¹ce s³owa, jednak metoda word2vec nie pozwala na dodanie nowych s³ów do s³ownika istniej¹cego modelu, a jedynie na dalsz¹ naukê w oparciu o s³owa ju¿ istniej¹ce w s³owniku. Si³¹ rzeczy model zbudowany na zbiorze artyku³ów zawiera wszystkie s³owa wystêpuj¹ce w artyku³ach s³owa. Korpusu tego u¿ywam do tworzenia modelów w oparciu o wszystkie pozosta³e sposoby.
 
-W zwi¹zku z powy¿szym stwierdzeniem wykonujê naukê modelu word2vec na w³asnym korpusie artyku³ów w celu zawarcia brakuj¹cych w poprzednim modelu s³ów. Najrozs¹dniejszym postêpowaniem by³oby tutaj rozszerzenie modelu opartego na korpusie S³owosieci równie¿ o brakuj¹ce s³owa, jednak metoda word2vec nie pozwala na dodanie nowych s³ów do s³ownika istniej¹cego modelu, a jedynie na dalsz¹ naukê w oparciu o s³owa ju¿ istniej¹ce w s³owniku. Si³¹ rzeczy model zbudowany na zbiorze artyku³ów zawiera wszystkie s³owa wystêpuj¹ce w artyku³ach s³owa. Korpusu tego u¿ywam do tworzenia modelów w oparciu o wszystkie poni¿sze sposoby. 
+Dokonujê porównania jakoœci modelu uczonego na korpusie S³owosieci z modelem uczonym na korpusie artyku³ów Allegro.
 
-art
-
-\subsubsection{Sposób generowania wektorów}
-Do wygenerowania wektorów reprezentuj¹cych s³owa u¿ywam metod: word2vec (w2v), GloVe (gv) oraz fastText (ft).
-
-\subsubsection{D³ugoœæ wektorów}
-
-
+\subsubsection{Sposób generowania wektorów i d³ugoœæ wektorów}
+Do wygenerowania wektorów reprezentuj¹cych s³owa u¿ywam metod wektorowej reprezentacji tekstu: word2vec (w2v), GloVe (gv) oraz fastText (ft). Ka¿d¹ z nich testujê pod k¹tem ró¿nej wymiarowoœci generowanych wektorów.
 
 \subsubsection{Metoda okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów}
 
-W celu okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów u¿ywam poni¿szych metod.
+W celu okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów u¿ywam poni¿szych metod:
 \begin{enumerate}
-	\item Centroid
-	\item Word Mover's Distance
-	\item Tematy z LDA
-\end{enumerate}
-
-Metodami, które aplikujê do problemu rekomendacji artyku³ów s¹:
-\begin{enumerate}
-	\item[] [w2v\_wdnt\_centr] Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci\cite{wordnet} (model opisany jest poni¿ej) oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
-	\item[] [w2v\_wdnt\_wmd] Word2Vec z modelem\cite{pias} uczonym na korpusie S³owosieci oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
-	\item[] [w2v\_art\_centr] Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi na bazie centroidu dokumentu.
-	\item[] [w2v\_art\_wmd] Word2Vec z modelem uczonym na korpusie oraz odleg³oœciami miêdzy dokumentami liczonymi metod¹ Word Mover's Distance
-	\item[] [lda] Latent Dirichlet Allocation
+	\item odleg³oœæ cosinusowa pomiêdzy centroidami wektorowej reprezentacji tekstów (w skrócie metoda centroidu),
+	\item Word Mover's Distance,
+	\item odleg³oœæ cosinusowa pomiêdzy wektorow¹ reprezentacj¹ s³ów kluczowych wyznaczonych metod¹ LDA.
+	W tej metodzie u¿ywam metody LDA do wyznaczenia przynale¿noœci  s³ów nale¿¹cych do tematów  LDA %TODO dokoñczyæ
 \end{enumerate}
 
 \subsection{Elasticsearch}
 W celu porównania z metodami semantycznymi testujê równie¿ dotychczasowe zapytanie do silnika Elasticsearch u¿ywane dotychczas w Allegro.
-elstc
-\subsection{Metoda losowa}
-W celu posiadania punktu odniesienia dokonujê testów dla metody losowo wybieraj¹cej $n$ podobnych do danego artyku³ów.
-rnd
 
+\subsection{Metoda losowa}
+W celu posiadania punktu odniesienia dokonujê testów dla metody losowo wybieraj¹cej $n$ podobnych do danego artyku³ów. Wybór nastêpuje zgodnie z rozk³adem jednostajnym ze zbioru wszystkich artyku³ów.
 
 \section{Metody ewaluacji}
 
-W celu wykonania ocemy poszczególnych testowanych metod wykorzystujê wszystkie metody opisane w rozdziale 4.
+W celu wykonania oceny poszczególnych testowanych metod wykorzystujê wszystkie metody opisane w rozdziale 4.
 \begin{enumerate}
-	\item clicks
-	\item users
-	\item keywords
-	\item categories
+	\item $clicks$ - ocena na podstawie historycznej aktywnoœci u¿ytkowników mierzona na podstawie liczby klikniêæ w odnoœniki.
+	\item $mut_cat[_ndcg]$ - relewantnoœæ wyszukanych artyku³ów na podstawie liczby wspólnych kategorii z artyku³m bazowym. Stosujê dwa warianty: œrednia relewantnoœæ wyszukanych artyku³ów oraz miara nDCG wykorzystuj¹ca miarê tê relewantnoœci.
+	\item $mut_kw[_ndcg]$ - relewantnoœæ wyszukanych artyku³ów na podstawie liczby wspólnych s³ów kluczowych z artyku³m bazowym. Równie¿ stosujê dwa warianty: œrednia relewantnoœæ wyszukanych artyku³ów oraz miara nDCG wykorzystuj¹ca miarê tê relewantnoœci.
+	\item $users$ - ocena na podstawie eksperckiej oceny u¿ytkowników \textbf{MO¯LIWE, ¯E TU RÓWNIE¯ WARIANT NDCG} %TODO
 \end{enumerate}
-
-\section{Metodologia}
-
-Wykonujê najpierw testy automatyczne w obrêbie danej metody dla ró¿nych jej konfiguracji a nastêpnie testy userskie dla tych konfiguracji wszystkich metod, które da³y najlepse rezultaty.
 
 \chapter{Wyniki badañ}
 
 
 %ILE TRWA£O BUDOWANIE MODELU
 
-Poni¿ej przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar.
+Poni¿ej przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar. Do wyników ka¿dego testu do³¹czam ich interpretacjê oraz wnioski.
 
 \subsection{LSI w zale¿noœci od liczby tematów}
 

@@ -36,24 +36,22 @@
 \BOOKMARK [1][-]{section.4.3}{Miara 3: Historyczna aktywnosc uzytkownik\363w serwisu}{chapter.4}% 36
 \BOOKMARK [0][-]{chapter.5}{Opis test\363w}{}% 37
 \BOOKMARK [1][-]{section.5.1}{Testowane metody generowania rekomendacji}{chapter.5}% 38
-\BOOKMARK [2][-]{subsection.5.1.1}{Latent Semantic Indexing}{section.5.1}% 39
-\BOOKMARK [2][-]{subsection.5.1.2}{Latent Dirichlet Allocation}{section.5.1}% 40
-\BOOKMARK [2][-]{subsection.5.1.3}{Word embedding}{section.5.1}% 41
-\BOOKMARK [2][-]{subsection.5.1.4}{Elasticsearch}{section.5.1}% 42
-\BOOKMARK [2][-]{subsection.5.1.5}{Metoda losowa}{section.5.1}% 43
-\BOOKMARK [1][-]{section.5.2}{Metody ewaluacji}{chapter.5}% 44
-\BOOKMARK [1][-]{section.5.3}{Metodologia}{chapter.5}% 45
-\BOOKMARK [0][-]{chapter.6}{Wyniki badan}{}% 46
-\BOOKMARK [1][-]{subsection.6.0.1}{LSI w zaleznosci od liczby temat\363w}{chapter.6}% 47
-\BOOKMARK [2][-]{subsection.6.0.2}{LDA w zaleznosci od liczby temat\363w}{subsection.6.0.1}% 48
-\BOOKMARK [1][-]{section.6.1}{Word2vec w zaleznosci od korpusu}{chapter.6}% 49
-\BOOKMARK [1][-]{section.6.2}{Word2vec w zaleznosci od metody por\363wnywania dokument\363w}{chapter.6}% 50
-\BOOKMARK [2][-]{subsection.6.2.1}{Wymiar wektor\363w: 100}{section.6.2}% 51
-\BOOKMARK [2][-]{subsection.6.2.2}{Wymiar wektor\363w: 300}{section.6.2}% 52
-\BOOKMARK [1][-]{section.6.3}{Metody word embedding w zaleznosci od wymiarowosci wektor\363w}{chapter.6}% 53
-\BOOKMARK [2][-]{subsection.6.3.1}{Word2vec}{section.6.3}% 54
-\BOOKMARK [2][-]{subsection.6.3.2}{GloVe}{section.6.3}% 55
-\BOOKMARK [2][-]{subsection.6.3.3}{FastText}{section.6.3}% 56
-\BOOKMARK [1][-]{section.6.4}{Ocena jakosci wybranych metod przez uzytkownik\363w}{chapter.6}% 57
-\BOOKMARK [0][-]{chapter.7}{Wnioski i podsumowanie}{}% 58
-\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzia}{}% 59
+\BOOKMARK [2][-]{subsection.5.1.1}{Metody oparte o modelowanie tematu}{section.5.1}% 39
+\BOOKMARK [2][-]{subsection.5.1.2}{Metody oparte o word embedding}{section.5.1}% 40
+\BOOKMARK [2][-]{subsection.5.1.3}{Elasticsearch}{section.5.1}% 41
+\BOOKMARK [2][-]{subsection.5.1.4}{Metoda losowa}{section.5.1}% 42
+\BOOKMARK [1][-]{section.5.2}{Metody ewaluacji}{chapter.5}% 43
+\BOOKMARK [0][-]{chapter.6}{Wyniki badan}{}% 44
+\BOOKMARK [1][-]{subsection.6.0.1}{LSI w zaleznosci od liczby temat\363w}{chapter.6}% 45
+\BOOKMARK [2][-]{subsection.6.0.2}{LDA w zaleznosci od liczby temat\363w}{subsection.6.0.1}% 46
+\BOOKMARK [1][-]{section.6.1}{Word2vec w zaleznosci od korpusu}{chapter.6}% 47
+\BOOKMARK [1][-]{section.6.2}{Word2vec w zaleznosci od metody por\363wnywania dokument\363w}{chapter.6}% 48
+\BOOKMARK [2][-]{subsection.6.2.1}{Wymiar wektor\363w: 100}{section.6.2}% 49
+\BOOKMARK [2][-]{subsection.6.2.2}{Wymiar wektor\363w: 300}{section.6.2}% 50
+\BOOKMARK [1][-]{section.6.3}{Metody word embedding w zaleznosci od wymiarowosci wektor\363w}{chapter.6}% 51
+\BOOKMARK [2][-]{subsection.6.3.1}{Word2vec}{section.6.3}% 52
+\BOOKMARK [2][-]{subsection.6.3.2}{GloVe}{section.6.3}% 53
+\BOOKMARK [2][-]{subsection.6.3.3}{FastText}{section.6.3}% 54
+\BOOKMARK [1][-]{section.6.4}{Ocena jakosci wybranych metod przez uzytkownik\363w}{chapter.6}% 55
+\BOOKMARK [0][-]{chapter.7}{Wnioski i podsumowanie}{}% 56
+\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzia}{}% 57
