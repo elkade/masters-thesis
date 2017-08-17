@@ -26,35 +26,43 @@
 \contentsline {subsubsection}{Word Mover's Distance}{26}{section*.3}
 \contentsline {section}{\numberline {2.4}Miary oceny wyszukiwania}{27}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}nDCG}{28}{subsection.2.4.1}
-\contentsline {chapter}{\numberline {3}Dane}{30}{chapter.3}
-\contentsline {section}{\numberline {3.1}Opis danych}{30}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Tre\'s\'c artyku\IeC {\l }u}{30}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Kategoria}{31}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}S\IeC {\l }owa kluczowe}{33}{subsection.3.1.3}
-\contentsline {section}{\numberline {3.2}Wst\k epne przetwarzanie danych}{34}{section.3.2}
-\contentsline {section}{\numberline {3.3}Opis danych po wst\k epnym przetwarzaniu}{35}{section.3.3}
-\contentsline {chapter}{\numberline {4}Metody ewaluacji}{38}{chapter.4}
-\contentsline {section}{\numberline {4.1}Miara 1: Dystans oparty na metadanych}{39}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Kategorie}{39}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}S\IeC {\l }owa kluczowe}{41}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Miara 2: Ocena przez u\.zytkownik\'ow offline}{41}{section.4.2}
-\contentsline {section}{\numberline {4.3}Miara 3: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{42}{section.4.3}
-\contentsline {chapter}{\numberline {5}Opis test\'ow}{44}{chapter.5}
-\contentsline {section}{\numberline {5.1}Testowane metody generowania rekomendacji}{44}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Latent Semantic Indexing}{44}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Latent Dirichlet Allocation}{44}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Word embedding}{44}{subsection.5.1.3}
-\contentsline {subsubsection}{Korpus bazowy}{45}{section*.4}
-\contentsline {subsubsection}{Spos\'ob generowania wektor\'ow}{46}{section*.5}
-\contentsline {subsubsection}{D\IeC {\l }ugo\'s\'c wektor\'ow}{46}{section*.6}
-\contentsline {subsubsection}{Metoda okre\'slenia podobie\'nstwa mi\k edzy wektorowymi reprezentacjami dokument\'ow}{46}{section*.7}
-\contentsline {subsection}{\numberline {5.1.4}Elasticsearch}{47}{subsection.5.1.4}
-\contentsline {subsection}{\numberline {5.1.5}Metoda losowa}{47}{subsection.5.1.5}
-\contentsline {section}{\numberline {5.2}Metody ewaluacji}{47}{section.5.2}
-\contentsline {section}{\numberline {5.3}Metodologia}{47}{section.5.3}
-\contentsline {chapter}{\numberline {6}Wyniki bada\'n}{48}{chapter.6}
-\contentsline {subsection}{\numberline {6.0.1}Model LDA}{48}{subsection.6.0.1}
-\contentsline {section}{\numberline {6.1}Wyniki bada\'n}{48}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}Efektywno\'s\'c czasowa}{49}{subsection.6.1.1}
-\contentsline {chapter}{\numberline {7}Podsumowanie}{50}{chapter.7}
-\contentsline {chapter}{\numberline {A}Technologie i narz\k edzie}{51}{appendix.A}
+\contentsline {chapter}{\numberline {3}Dane}{29}{chapter.3}
+\contentsline {section}{\numberline {3.1}Opis danych}{29}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Tre\'s\'c artyku\IeC {\l }u}{29}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Kategoria}{30}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}S\IeC {\l }owa kluczowe}{32}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Wst\k epne przetwarzanie danych}{33}{section.3.2}
+\contentsline {section}{\numberline {3.3}Opis danych po wst\k epnym przetwarzaniu}{34}{section.3.3}
+\contentsline {chapter}{\numberline {4}Metody ewaluacji}{37}{chapter.4}
+\contentsline {section}{\numberline {4.1}Miara 1: Dystans oparty na metadanych}{38}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Kategorie}{38}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}S\IeC {\l }owa kluczowe}{40}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Miara 2: Ocena przez u\.zytkownik\'ow offline}{40}{section.4.2}
+\contentsline {section}{\numberline {4.3}Miara 3: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{41}{section.4.3}
+\contentsline {chapter}{\numberline {5}Opis test\'ow}{43}{chapter.5}
+\contentsline {section}{\numberline {5.1}Testowane metody generowania rekomendacji}{43}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Latent Semantic Indexing}{43}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Latent Dirichlet Allocation}{43}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Word embedding}{43}{subsection.5.1.3}
+\contentsline {subsubsection}{Korpus bazowy}{44}{section*.4}
+\contentsline {subsubsection}{Spos\'ob generowania wektor\'ow}{45}{section*.5}
+\contentsline {subsubsection}{D\IeC {\l }ugo\'s\'c wektor\'ow}{45}{section*.6}
+\contentsline {subsubsection}{Metoda okre\'slenia podobie\'nstwa mi\k edzy wektorowymi reprezentacjami dokument\'ow}{45}{section*.7}
+\contentsline {subsection}{\numberline {5.1.4}Elasticsearch}{46}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Metoda losowa}{46}{subsection.5.1.5}
+\contentsline {section}{\numberline {5.2}Metody ewaluacji}{46}{section.5.2}
+\contentsline {section}{\numberline {5.3}Metodologia}{46}{section.5.3}
+\contentsline {chapter}{\numberline {6}Wyniki bada\'n}{47}{chapter.6}
+\contentsline {subsection}{\numberline {6.0.1}LSI w zale\.zno\'sci od liczby temat\'ow}{47}{subsection.6.0.1}
+\contentsline {subsection}{\numberline {6.0.2}LDA w zale\.zno\'sci od liczby temat\'ow}{48}{subsection.6.0.2}
+\contentsline {section}{\numberline {6.1}Word2vec w zale\.zno\'sci od korpusu}{50}{section.6.1}
+\contentsline {section}{\numberline {6.2}Word2vec w zale\.zno\'sci od metody por\'ownywania dokument\'ow}{51}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Wymiar wektor\'ow: 100}{51}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Wymiar wektor\'ow: 300}{52}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Metody word embedding w zale\.zno\'sci od wymiarowo\'sci wektor\'ow}{53}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Word2vec}{53}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}GloVe}{54}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}FastText}{55}{subsection.6.3.3}
+\contentsline {section}{\numberline {6.4}Ocena jako\'sci wybranych metod przez u\.zytkownik\'ow}{56}{section.6.4}
+\contentsline {chapter}{\numberline {7}Wnioski i podsumowanie}{58}{chapter.7}
+\contentsline {chapter}{\numberline {A}Technologie i narz\k edzia}{59}{appendix.A}

@@ -44,8 +44,16 @@
 \BOOKMARK [1][-]{section.5.2}{Metody ewaluacji}{chapter.5}% 44
 \BOOKMARK [1][-]{section.5.3}{Metodologia}{chapter.5}% 45
 \BOOKMARK [0][-]{chapter.6}{Wyniki badan}{}% 46
-\BOOKMARK [1][-]{subsection.6.0.1}{Model LDA}{chapter.6}% 47
-\BOOKMARK [1][-]{section.6.1}{Wyniki badan}{chapter.6}% 48
-\BOOKMARK [2][-]{subsection.6.1.1}{Efektywnosc czasowa}{section.6.1}% 49
-\BOOKMARK [0][-]{chapter.7}{Podsumowanie}{}% 50
-\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzie}{}% 51
+\BOOKMARK [1][-]{subsection.6.0.1}{LSI w zaleznosci od liczby temat\363w}{chapter.6}% 47
+\BOOKMARK [2][-]{subsection.6.0.2}{LDA w zaleznosci od liczby temat\363w}{subsection.6.0.1}% 48
+\BOOKMARK [1][-]{section.6.1}{Word2vec w zaleznosci od korpusu}{chapter.6}% 49
+\BOOKMARK [1][-]{section.6.2}{Word2vec w zaleznosci od metody por\363wnywania dokument\363w}{chapter.6}% 50
+\BOOKMARK [2][-]{subsection.6.2.1}{Wymiar wektor\363w: 100}{section.6.2}% 51
+\BOOKMARK [2][-]{subsection.6.2.2}{Wymiar wektor\363w: 300}{section.6.2}% 52
+\BOOKMARK [1][-]{section.6.3}{Metody word embedding w zaleznosci od wymiarowosci wektor\363w}{chapter.6}% 53
+\BOOKMARK [2][-]{subsection.6.3.1}{Word2vec}{section.6.3}% 54
+\BOOKMARK [2][-]{subsection.6.3.2}{GloVe}{section.6.3}% 55
+\BOOKMARK [2][-]{subsection.6.3.3}{FastText}{section.6.3}% 56
+\BOOKMARK [1][-]{section.6.4}{Ocena jakosci wybranych metod przez uzytkownik\363w}{chapter.6}% 57
+\BOOKMARK [0][-]{chapter.7}{Wnioski i podsumowanie}{}% 58
+\BOOKMARK [0][-]{appendix.A}{Technologie i narzedzia}{}% 59

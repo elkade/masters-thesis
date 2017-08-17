@@ -245,22 +245,21 @@ LSA (1990) \cite{lsa}, znane równie¿ jako Latent Semantic Indexing (LSI) dokonuj
 %This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
 
 \subsection{Latent Dirichlet Allocation}
-%TODO zreformatowaæ
 
-LDA jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. Metoda wykorzystuje uczenie nienadzorowane. LDA jest modelem statystycznym, który wykorzystuje m.in. rozk³ad Dirichleta. Liczba tematów ustalana jes za pomoc¹ hiperparametru.
+LDA jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach przy u¿yciu uczenia nienadzorowanego. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. Liczba tematów ustalana jest za pomoc¹ hiperparametru. LDA jest modelem statystycznym, który wykorzystuje m.in. rozk³ad Dirichleta. 
 
 Rozk³ad Dirichleta to ci¹g³y rozk³ad prawdopodobieñstwa parametryzowany przez wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ okreœla wymiar rozk³adu. Gêstoœæ rozk³adu Dirichleta wyra¿a siê wzorem: $ f\left(x_{1},\cdots ,x_{K-1};\alpha _{1},\cdots ,\alpha _{K}\right)={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}$, gdzie $ x_{1},\cdots ,x_{K-1}>0$, $x_{1}+\cdots +x_{K-1}<1$, $x_{K}=1-x_{1}-\cdots -x_{K-1}$, a $B$ to sta³a normalizuj¹ca. Noœnikiem gêstoœci rozk³adu jest $K-1$ wymiarowy sympleks.
 
-W LDA rozk³ad Dirichleta jest wykorzystany w celu nadania pocz¹tkowych wartoœci przynale¿noœci tematów do dokumentów oraz s³ów do tematów. Cechy rozk³adu spraiaj¹, ¿e tak dobrane pocz¹tkowe wartoœci paramentrów modelu pokrywaj¹ siê z intuicj¹, ¿e dokument pokrywa jedynie ma³y zestaw tematów, a temat zawiera najczêœciej tylko ma³y zestaw s³ów. Wykorzystanie rozk³adu Dirichleta do okreœlenia wartoœci pocz¹tkowych skutkuje w rezultacie lepszym dopasowaniem dokumentów i tematów.
+W LDA rozk³ad Dirichleta jest wykorzystany w celu nadania pocz¹tkowych wartoœci przynale¿noœci tematów do dokumentów oraz s³ów do tematów. Cechy rozk³adu sprawiaj¹, ¿e tak dobrane pocz¹tkowe wartoœci paramentrów modelu s¹ zgodne z intuicj¹, ¿e dokument pokrywa jedynie ma³y zestaw tematów, a temat zawiera najczêœciej tylko ma³y zestaw s³ów. Wykorzystanie rozk³adu Dirichleta do okreœlenia wartoœci pocz¹tkowych skutkuje w rezultacie lepszym dopasowaniem dokumentów i tematów.
 
 %TODO sprawdziæ, czy nazwy zmiennych siê nie pokrywaj¹
-Przypuœæmy, ¿e mamy zestaw dokumentów. Wybieramy ustalon¹ liczbê $K$ tematów, które zamierzamy wykryæ. Chcemy u¿yæ LDA w celu wyznaczenia reprezentacji ka¿dego dokumentu jako mieszanki tematów oraz s³ów powi¹zanych z ka¿dym tematem. Jednym ze sposobów, aby osi¹gn¹æ ten cel jest wnioskowanie oparte na próbkowaniu
-Gibbsa. Metoda ta dzia³a zgodnie z nastêpuj¹cymi krokami.
+Przypuœæmy, ¿e mamy zestaw dokumentów. Wybieramy ustalon¹ liczbê $T$ tematów, które zamierzamy wykryæ. Chcemy u¿yæ LDA w celu wyznaczenia reprezentacji ka¿dego dokumentu jako mieszanki tematów oraz s³ów powi¹zanych z ka¿dym tematem. Jednym ze sposobów, aby osi¹gn¹æ ten cel jest wnioskowanie oparte na próbkowaniu Gibbsa. Metoda ta dzia³a zgodnie z nastêpuj¹cymi krokami.
 
-PrzejdŸ przez ka¿dy dokument i losowo (zgodnie z rozk³adem Dirichleta) przypisz ka¿de s³owo dokumentu do jednego z $K$ tematów.
-Warto zauwa¿yæ, i¿ etap ten daje pierwsze przybli¿enie docelowej reprezentacji. W kolejnych krokach nale¿y poprawiaæ to przybli¿enie.
-Dla ka¿dego dokumentu $d$, dla ka¿dego s³owa $w$ nale¿¹cego do $d$, dla ka¿dego tematu $t$ oblicz: $p(t | d)$, czyli odsetek liczby s³ów w $d$, które s¹ aktualnie przypisane do tematu $t$ oraz oblicz $p(w | t)$, czyli odsetek liczby wyst¹pieñ s³owa $w$, które s¹ przypisane do tematu $t$ w skali ca³ego korpusu. Przypisz s³owu $w$ nowy temat poprzez losowanie z prawdopodobienstwem $p(t_i|d)*p(w|t)$ dla ka¿dego tematu $t_i$.
-
+\begin{enumerate}
+	\item PrzejdŸ przez ka¿dy dokument i losowo (zgodnie z rozk³adem Dirichleta) przypisz ka¿de s³owo dokumentu do jednego z $T$ tematów.
+	Warto zauwa¿yæ, i¿ etap ten daje pierwsze przybli¿enie docelowej reprezentacji. W kolejnych krokach nale¿y poprawiaæ to przybli¿enie.
+	\item Dla ka¿dego dokumentu $d$, dla ka¿dego s³owa $w$ nale¿¹cego do $d$, dla ka¿dego tematu $t$ oblicz: $p(t | d)$, czyli odsetek liczby s³ów w $d$, które s¹ aktualnie przypisane do tematu $t$ oraz oblicz $p(w | t)$, czyli odsetek liczby wyst¹pieñ s³owa $w$, które s¹ przypisane do tematu $t$ w skali ca³ego korpusu. Przypisz s³owu $w$ nowy temat poprzez losowanie z prawdopodobienstwem $p(t_i|d)*p(w|t)$ dla ka¿dego tematu $t_i$.
+\end{enumerate}
 Ci¹g³e wykonywanie powy¿szych kroków doprowadzi do stabilnej sytuacji, w której przestan¹ nastêpowaæ zmiany przypisañ s³ów do tematów. Wtedy nale¿y zakoñczyæ dzia³anie algorytmu.
 
 Zalet¹ LDA jest jego interpretowalnoœæ: do ka¿dego tematu przypisane s¹ z pewn¹ wag¹ przwdziwe s³owa pochodz¹ce z przetwarzanego korpusu. Metoda ta mo¿e byæ traktowana jako technika redukcji wymiarowoœci, gdy¿ dopasowuje dokumentowi sk³adaj¹cemu siê z wielu s³ów reprezentacjê z³o¿on¹ z ma³ej liczby tematów.
@@ -381,37 +380,17 @@ Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymuje
 \section{Miary oceny wyszukiwania}
 %TODO przeredagowaæ - to jest tekst ze slajdów
 
-W ramach systemów wyszukiwania informacji opracowano szereg miar, pozwalaj¹cych
-na ocenê wyniku wyszukiwania dokumentów. Dwie najpopularniejsze i najszerzej
-stosowane miary oceny wyszukiwania to precyzja i zwrot. Precyzjê definiujemy jako
-procent wyszukanych dokumentów, które s¹ relewantne z punktu widzenia zapytania (t.j.,
-s¹ to “poprawne” dokumenty). 100\% precyzja oznacza, ¿e zbiór wyszukanych
-dokumentów zawiera wy³¹cznie „poprawne” (tj. relewantne) dokumenty. Drug¹ z miar,
-zwrot, definiujemy jako procent relewantnych dokumentów, które zosta³y wyszukane.
-100\% zwrot oznacza, ¿e wyszukaliœmy wszystkie dokumenty relewantne z punktu
-widzenia zapytania. Oczywiœcie, okreœlenie miary zwrotu wymaga znajomoœci ca³ego
-zbioru „poprawnych” odpowiedzi. 
+Razem z rozwojem systemów wyszukiwania informacji powsta³y miary pozwalaj¹ce oceniæ wyniki dzdia³ania tych systemów. Do najbardziej popularnych nale¿¹ ,,precyzja'' i ,,zwrot''.
 
-Precyzja (ang. precision): procent wyszukanych dokumentów,
-które s¹ relewantne z punktu widzenia zapytania (t.j., “poprawne”
-odpowiedzi)
-$precision=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{retrieved\}|}$
+Precyzja to odsetek wyszukanych dokumentów, które s¹ relewantne do zapytania; $precision=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{retrieved\}|}$.
 
-Zwrot (ang. recall): procent relewantnych dokumentów, które
-zosta³y wyszukane
-$recall=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{relevant\}|}$
+Zwrot natomiast jest liczb¹ wyszukanych relewantnych dokumentów w stosunku do wszystkich relewantnych dokumentów (równie¿ tych niewyszukanych); $recall=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{relevant\}|}$.
 
-W ramach systemów wyszukiwania informacji opracowano szereg dodatkowych miar
-oceny wyszukiwania, które pozwalaj¹, dodatkowo, charakteryzowaæ jakoœæ procesu
-wyszukiwania. Na slajdzie przedstawiono definicje dwóch innych popularnych miar oceny
-wyszukiwania: tzw. fall-out i F-miarê. Fall-out definiujemy jako procent nierelewantnych
-(tj. „b³êdnych” dokumentów), które zosta³y wyszukane. 100\% fall-out oznacza, ¿e zbiór
-wyszukanych dokumentów zawiera wy³¹cznie „b³êdne” (tj. nierelewantne) dokumenty.
-Wreszcie, F-miarê definiujemy jako œrednia wa¿on¹ precyzji i zwrotu. Dla F-miary
-wspó³czynnik alfa przyjmuje, najczêœciej, 3 wartoœci: 1, 0.5 i 2. 
+Bardziej z³o¿on¹ miar¹ lepiej charakteryzuj¹c¹ jakoœæ procesu wyszukiwania jest F-miara. W celu obliczenia wyniku uwzglêdnia ona zarówno precyzjê jak i zwrot. Miara wyra¿a siê wzorem: $F_\beta = (1 + \beta^2) \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{(\beta^2 \cdot \mathrm{precision}) + \mathrm{recall}}$ Rezultat miary mo¿na interpretowaæ jako wa¿on¹ œredni¹ precyzji i zwrotu. 
+
 
 \subsection{nDCG}
-Poszczególne elementy listy rekomendacji prezentowanych u¿ytkownikowi nie s¹ jednakowo relewantne. Innymi s³owy czêœæ rekomendowanych przedmiotów mo¿e byæ mniej lub bardziej od innych istotnych dla u¿ytkownika. W tym œwietle listê rekomendacji mo¿na uznaæ za pewien ranking, którego elementy mog¹ byæ uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z punktu widzenia ewaluacji metod generuj¹cych elementy rankingu. St¹d zachodzi potrzeba wprowadzenia formalnej miary jakoœci uszeregowania elementów rankingu Mo¿na osi¹gn¹æ poprzez rozszerzenie podstawowych metod ewaluacji opartych na binarnej ocenie relewantnoœci, jak recall i precision.
+Powy¿sze miary dokonuj¹ binarnego podzia³y wyników wyszukiwania: na relewantne i nierelewantne. Jednak¿e czêœæ rekomendowanych przedmiotów mo¿e byæ mniej lub bardziej od innych istotnych dla u¿ytkownika. W tym œwietle listê rekomendacji mo¿na uznaæ za pewien ranking, którego elementy mog¹ byæ uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z punktu widzenia ewaluacji metod generuj¹cych elementy rankingu. St¹d zachodzi potrzeba wprowadzenia formalnej miary jakoœci uszeregowania elementów rankingu Mo¿na osi¹gn¹æ poprzez rozszerzenie podstawowych metod ewaluacji opartych na binarnej ocenie relewantnoœci, jak recall i precision.
 
 Miara nDCG\cite{ndcg} (Normalized Discounted Cumulative Gain) jest miar¹ jakoœci rankingu, która opiera siê na za³o¿eniu, ¿e im bardziej relewantne wyniki, tym wy¿ej powinny byæ w rankingu, aby ranking by³ najbardziej wartoœciowy. Miara ta mierzy skumulowany ,,zysk'' powsta³y poprzez umieszczenie poszczególnych przedmiotów na okreœlonych pozycjach rankingu. Miara nDCG jest znormalizowan¹ wersj¹ miary DCG (Discounted Cumulative Gain), która wyra¿a siê wzorem: ${\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {2^{{rel_{{i}}}}-1}{\log _{{2}}(i+1)}}$, gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w rankingu, a $rel$ to poziom relewantnoœci elementu. DCG premiuje relewantne przedmioty, które s¹ wysoko w rankingu oraz karze za relewantlne przedmioty w dole rankingu. W wariancie nDCG nastêpuje jeszcze normalizacja przez podzielenie wartoœci DCG rzeczywistego rankingu przez DCG idealnego rankingu zbudowanego na elementach korpusu u³o¿onych malej¹co pod k¹tem relewantnoœci: ${\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}}$, $\mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}}$, gdzie $|REL|$ oznacza listê relewantnych przedmiotów z ca³ego zbioru podlegaj¹cego szeregowaniu.
 
@@ -639,48 +618,235 @@ Wykonujê najpierw testy automatyczne w obrêbie danej metody dla ró¿nych jej konf
 \chapter{Wyniki badañ}
 
 
-
 %ILE TRWA£O BUDOWANIE MODELU
 
-\subsection{Model LDA}
+Poni¿ej przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar.
 
-%Przed wykonaniem ostatecznych pomiarów nale¿y zbudowaæ model LDA w oparciu o przetwarzane dane. W moim przypadku trwa³o to: CZASY BUDOWANIA LDA
+\subsection{LSI w zale¿noœci od liczby tematów}
 
-\section{Wyniki badañ}
-
-Do ka¿dej z wymienionych powy¿ej metod stosujê ka¿d¹ z trzech opracowanych przez mnie, opisanych wczeœniej miar : opart¹ na kategoriach [categories], ocenach u¿ytkowników offline [users] i klikniêciach prawdziwych u¿ytkowników serwisu [clicks]. Wyniki zestawiam w tabelce.
+Dokonujê porównania jakoœci modelu LSI w zale¿noœci od wartoœci hiperparametru - liczby tematów.
 
 \begin{center}
-	\begin{tabular}{ | l | l | l | p{5cm} |}
+	\begin{tabular}{lrrrr}
 		\hline
-		Alias metody & clicks & categories & users \\ \hline
-		random & - & 0.145630871396 & \\ \hline
-		w2v\_art\_wmd & 1.29748226281 & 0.542820699708 & \\ \hline
-		wv2\_art\_centr & 1.37170817357 & 0.521784904438 & \\ \hline
-		w2v\_wdnt\_wmd & 1.3817891755  & 0.54587787496 & \\ \hline
-		w2v\_wdnt\_centr & 1.43155208802 & 0.517755911889 & \\ \hline
-		lda & 1.56573051337 & 0.493703433754 & \\ \hline
-		allegro & 1.14732593575 & 0.580296404276 & \\ \hline
+		&       100 &      300 &      500 &      600 \\
+		\hline
+		mut\_cat      & 3.43131   & 3.50634  & 3.52346  & 3.51793  \\
+		mut\_kw       & 1.77666   & 2.20166  & 2.38808  & 2.33861  \\
+		mut\_cat\_ndcg & 0.507238  & 0.516217 & 0.518053 & 0.517515 \\
+		mut\_kw\_ndcg  & 0.0972985 & 0.119504 & 0.129079 & 0.126829 \\
+		clicks       & 0.865496  & 0.868586 & 0.878243 & 0.87366  \\
+		\hline
 	\end{tabular}
 \end{center}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results.png}
-	\caption{Porównanie znormalizowanych wyników.}
+	\includegraphics[width=1\textwidth]{img/results/lsi.png}
+	\caption{Porównanie znormalizowanych wyników dla metody LSI.}
 	%\label{fig:warstwy}
 \end{figure}
 
-%TODO Popatrzeæ w podsumowania innych prac
+Miary oparte na liczbie wspólnych s³ów kluczowych ($mut_kw$) wyraŸnie pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 500.
 
-\subsection{Efektywnoœæ czasowa}
+\subsection{LDA w zale¿noœci od liczby tematów}
 
+%Przed wykonaniem ostatecznych pomiarów nale¿y zbudowaæ model LDA w oparciu o przetwarzane dane. W moim przypadku trwa³o to: CZASY BUDOWANIA LDA
+
+Podobnie, jak w poprzednim punkcie dokonujê porównania jakoœci modelu LDA w zale¿noœci od wartoœci hiperparametru - liczby tematów.
+
+
+\begin{center}
+	\begin{tabular}{lrrrrrr}
+		\hline
+		&       100 &       300 &       500 &       700 &       900 &      1100 \\
+		\hline
+		mut\_cat      & 3.29108   & 3.34755   & 3.35077   & 3.36767   & 3.39972   & 3.3788    \\
+		mut\_cat\_ndcg & 0.48793   & 0.495011  & 0.494236  & 0.497623  & 0.500823  & 0.498854  \\
+		mut\_kw       & 1.31741   & 1.48792   & 1.58854   & 1.69146   & 1.76637   & 1.75904   \\
+		mut\_kw\_ndcg  & 0.0733675 & 0.0815366 & 0.0880742 & 0.0919873 & 0.0961874 & 0.0963659 \\
+		clicks       & 0.880891  & 0.90278   & 0.879733  & 0.906384  & 0.912387  & 0.890913  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/lda.png}
+	\caption{Porównanie znormalizowanych wyników dla metody LDA.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych s³ów kluczowych ($mut_kw$) pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 500.
+
+
+\section{Word2vec w zale¿noœci od korpusu}
+
+Poni¿ej zestawiam wyniki dla modelów word2vec o wektorach d³ugoœci 100 uczonych: na korpusie artyku³ów z Allegro ($w2v100\_art$) oraz na korpusie S³owosieci ($w2v100\_wn$). Dokumenty porównywane s¹ tu metod¹ centroidu.
+
+\begin{center}
+	\begin{tabular}{lrr}
+		\hline
+		&   w2v100\_art &   w2v100\_wn \\
+		\hline
+		mut\_cat      &    3.41328   &   3.38265   \\
+		mut\_cat\_ndcg &    0.504018  &   0.496797  \\
+		mut\_kw       &    1.66191   &   1.67062   \\
+		mut\_kw\_ndcg  &    0.0896029 &   0.0885063 \\
+		clicks       &    0.946487  &   0.946191  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Pozornie na wykresie daje siê zaobserwowaæ du¿¹ rozbierznoœæ miêdzy wskazaniami poszczgólnych miar. Jednak¿e maksymalna ró¿nica miêdzy najlepszym i najgorszym wynikiem nie przekracza 2 punktów proc. St¹d trudno jest stwierdziæ, która metoda daje tu lepsze wyniki. Na korzyœæ modelu word2vec uczonego na korpusie artyku³ów przemawia jego ma³y rozmiar, a co za tym idzie szybkoœæ nauki. Z przyczyn braku wyraŸnych zalet korzystania tu z modelu uczonego na korpusie s³owosieci korzystam dalej jedynie z modeli opartych o korpus artyku³ów.
+
+\section{Word2vec w zale¿noœci od metody porównywania dokumentów}
+
+W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metod¹ word2vec dla wektorów d³ugoœci 100, 1000. Biorê tu pod uwagê metody: centroidu ca³oœci dokumentu, centroidu s³ów kluczowych wyznaczonych metod¹ LDA, Word Mover's Distance.
+
+\subsection{Wymiar wektorów: 100}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&   w2v100\_centroid &   w2v100\_lda100 &   w2v100\_wmd \\
+		\hline
+		mut\_cat      &         3.41763   &       3.25386   &     3.17404  \\
+		mut\_cat\_ndcg &         0.504596  &       0.482482  &     0.54389  \\
+		mut\_kw       &         1.66962   &       1.2749    &     1.14807  \\
+		mut\_kw\_ndcg  &         0.0900018 &       0.0701703 &     0.096873 \\
+		clicks       &         0.938998  &       0.888249  &     0.996717 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+\subsection{Wymiar wektorów: 300}
+
+%TODO wnioski
 Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Z³¿onoœæ czasowa metody wynosi:
 Dla przypadku: [w2v\_art\_wmd] obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
 
+
+\section{Metody word embedding w zale¿noœci od wymiarowoœci wektorów}
+
+W niniejszym punkcie porównujê jakoœæ metod word embedding (word2vec, GloVe i fastText) w zale¿noœci od wymiarowoœci wektorów: 100, 300 i 1000. U¿yta metoda wyznaczania podobieñstwa dokumentów to metoda centroidu.
+
+\subsection{Word2vec}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&       100 &       300 &      1000 \\
+		\hline
+		mut\_cat      & 3.41328   & 3.42132   & 3.41763   \\
+		mut\_cat\_ndcg & 0.504018  & 0.505457  & 0.504596  \\
+		mut\_kw       & 1.66191   & 1.68395   & 1.66962   \\
+		mut\_kw\_ndcg  & 0.0896029 & 0.0906939 & 0.0900018 \\
+		clicks       & 0.946487  & 0.936386  & 0.938998  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v_ctr.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+\subsection{GloVe}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&      100 &      300 &     1000 \\
+		\hline
+		mut\_cat      & 3.4595   & 3.4595   & 3.54532  \\
+		mut\_cat\_ndcg & 0.510077 & 0.510077 & 0.523677 \\
+		mut\_kw       & 1.79875  & 1.79875  & 2.15176  \\
+		mut\_kw\_ndcg  & 0.097138 & 0.097138 & 0.115149 \\
+		clicks       & 0.907997 & 0.907997 & 0.879786 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/gv_ctr.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+
+\subsection{FastText}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&      100 &      300 &     1000 \\
+		\hline
+		mut\_cat      & 3.55494  & 3.57287  & 3.57869  \\
+		mut\_cat\_ndcg & 0.525164 & 0.528378 & 0.528948 \\
+		mut\_kw       & 2.00994  & 2.11828  & 2.16992  \\
+		mut\_kw\_ndcg  & 0.108461 & 0.113908 & 0.116528 \\
+		clicks       & 0.896766 & 0.89745  & 0.885622 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+%TODO podpisy pod wykresami!!!!!!!!!!!!!!!!1
+\section{Ocena jakoœci wybranych metod przez u¿ytkowników}
+%CO TO porównanie najlepszych [lsi|lda|w2v|gv|ft|allegro|random] z u¿ytkownikami
+
+%QAQ Zestawienie wyników miar automatycznych dla najlepszych metod
+\begin{center}
+	\begin{tabular}{lrrrrrrr}
+		\hline
+		&   lsi500 &    lda900 &    w2v300 &   gv1000 &   ft1000 &   allegro &          rnd \\
+		\hline
+		mut\_cat      & 3.52346  & 3.39972   & 3.42132   & 3.54532  & 3.57869  &  3.47138  &   1.23304    \\
+		mut\_cat\_ndcg & 0.518053 & 0.500823  & 0.505457  & 0.523677 & 0.528948 &  0.509112 &   0.18537    \\
+		mut\_kw       & 2.38808  & 1.76637   & 1.68395   & 2.15176  & 2.16992  &  3.70478  &   0.137414   \\
+		mut\_kw\_ndcg  & 0.129079 & 0.0961874 & 0.0906939 & 0.115149 & 0.116528 &  0.202711 &   0.00835187 \\
+		clicks       & 0.913165 & 0.906384  & 0.936386  & 0.879786 & 0.885622 &  0.890424 & nan          \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
 Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody LDA oraz Word2vec potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
 
-\chapter{Podsumowanie}
+\chapter{Wnioski i podsumowanie}
+%TODO Popatrzeæ w podsumowania innych prac
+korelacja miêdzy metodami ewaluacji
+
 Dalsze badania.
 
 Niniejsza praca nie wyczerpuje sposobów wyboru artyku³ów podobnych. 
