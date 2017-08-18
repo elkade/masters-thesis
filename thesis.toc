@@ -57,9 +57,9 @@
 \contentsline {subsection}{\numberline {6.2.1}Wymiar wektor\'ow: 100}{51}{subsection.6.2.1}
 \contentsline {subsection}{\numberline {6.2.2}Wymiar wektor\'ow: 300}{52}{subsection.6.2.2}
 \contentsline {section}{\numberline {6.3}Metody word embedding w zale\.zno\'sci od wymiarowo\'sci wektor\'ow}{53}{section.6.3}
-\contentsline {subsection}{\numberline {6.3.1}Word2vec}{53}{subsection.6.3.1}
-\contentsline {subsection}{\numberline {6.3.2}GloVe}{54}{subsection.6.3.2}
-\contentsline {subsection}{\numberline {6.3.3}FastText}{55}{subsection.6.3.3}
-\contentsline {section}{\numberline {6.4}Ocena jako\'sci wybranych metod przez u\.zytkownik\'ow}{56}{section.6.4}
-\contentsline {chapter}{\numberline {7}Wnioski i podsumowanie}{58}{chapter.7}
-\contentsline {chapter}{\numberline {A}Technologie i narz\k edzia}{59}{appendix.A}
+\contentsline {subsection}{\numberline {6.3.1}Word2vec}{54}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}GloVe}{55}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}FastText}{56}{subsection.6.3.3}
+\contentsline {section}{\numberline {6.4}Ocena jako\'sci wybranych metod przez u\.zytkownik\'ow}{57}{section.6.4}
+\contentsline {chapter}{\numberline {7}Wnioski i podsumowanie}{59}{chapter.7}
+\contentsline {chapter}{\numberline {A}Technologie i narz\k edzia}{60}{appendix.A}

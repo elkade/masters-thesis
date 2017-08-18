@@ -710,6 +710,27 @@ W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa m
 
 \subsection{Wymiar wektorów: 300}
 
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&   w2v300\_ctr &   w2v300\_lda100 &   w2v300\_wmd \\
+		\hline
+		mut\_cat      &    3.42132   &       3.25724   &     3.1182   \\
+		mut\_cat\_ndcg &    0.505457  &       0.482896  &     0.705453 \\
+		mut\_kw       &    1.68395   &       1.27438   &     1.02838  \\
+		mut\_kw\_ndcg  &    0.0906939 &       0.0701459 &     0.120046 \\
+		clicks       &    0.936386  &       0.891596  &     0.940603 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v300_ctr_w2v300_lda100_w2v300_wmd_.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
 %TODO wnioski
 Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Z³¿onoœæ czasowa metody wynosi:
 Dla przypadku: [w2v\_art\_wmd] obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
@@ -810,8 +831,8 @@ W niniejszym punkcie porównujê jakoœæ metod word embedding (word2vec, GloVe i fa
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_.png}
+	\caption{Porównanie znormalizowanych wyników dla wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
 
