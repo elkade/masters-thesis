@@ -192,7 +192,7 @@ Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y p
 
 \section{Silnik Elasticsearch}
 
-Obecnie wykorzystywana przez Allegro metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch wykorzystuj¹ce s³owa kluczowe do³¹czone do artyku³ów. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene\cite{lucene}. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON. Umo¿liwia on efektywne przechowywanie dokumentów tekstowych oraz efektywne ich wyszukiwanie. 
+Obecnie wykorzystywana przez Allegro metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch\cite{elastic} wykorzystuj¹ce s³owa kluczowe do³¹czone do artyku³ów. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene\cite{lucene}. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON. Umo¿liwia on efektywne przechowywanie dokumentów tekstowych oraz efektywne ich wyszukiwanie. 
 
 Apache Lucene jest bibliotek¹ napisan¹ w jêzyku Java s³u¿¹c¹ do wyszukiwania tekstu, która w tym celu wykorzystuje mechanizm odwróconego indeksu. Zasada dzia³ania biblioteki polega na stworzeniu s³ownika ze wszystkich (odpowiednio wstêpnie przetworzonych) s³ów dokumentów przeznaczonych do wyszukiwania. Nastêpnie na bazie ów s³ownika tworzony jest odwrócony indeks: ka¿demu ze s³ów przypisywana jest lista dokumentów, które zawieraj¹ to s³owo. Pozwala to przyspieszyæ proces wyszukiwania, gdy¿ w poszukiwaniu pojedynczego s³owa biblioteka nie przeszukuje ca³ego zbioru dokumentów, a jedynie s³ownik, który na ogó³ jest wielokrotnie krótszy.
 
@@ -246,7 +246,7 @@ LSA (1990) \cite{lsa}, znane równie¿ jako Latent Semantic Indexing (LSI) dokonuj
 
 \subsection{Latent Dirichlet Allocation}
 
-LDA jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach przy u¿yciu uczenia nienadzorowanego. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. Liczba tematów ustalana jest za pomoc¹ hiperparametru. LDA jest modelem statystycznym, który wykorzystuje m.in. rozk³ad Dirichleta. 
+LDA\cite{lda} jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach przy u¿yciu uczenia nienadzorowanego. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. Liczba tematów ustalana jest za pomoc¹ hiperparametru. LDA jest modelem statystycznym, który wykorzystuje m.in. rozk³ad Dirichleta. 
 
 Rozk³ad Dirichleta to ci¹g³y rozk³ad prawdopodobieñstwa parametryzowany przez wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ okreœla wymiar rozk³adu. Gêstoœæ rozk³adu Dirichleta wyra¿a siê wzorem: $ f\left(x_{1},\cdots ,x_{K-1};\alpha _{1},\cdots ,\alpha _{K}\right)={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}$, gdzie $ x_{1},\cdots ,x_{K-1}>0$, $x_{1}+\cdots +x_{K-1}<1$, $x_{K}=1-x_{1}-\cdots -x_{K-1}$, a $B$ to sta³a normalizuj¹ca. Noœnikiem gêstoœci rozk³adu jest $K-1$ wymiarowy sympleks.
 
@@ -266,7 +266,7 @@ Zalet¹ LDA jest jego interpretowalnoœæ: do ka¿dego tematu przypisane s¹ z pewn¹ 
 
 
 \subsection{Word embeddings}
-Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody Word2vec\cite{word2vec} nast¹pi³ gwa³towny rozwój i niew¹tpliwy sukces metod ,,word embeddings''. Okreœlenie ,,word embeddings'' oznacza osadzanie s³ów w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zosta³o po raz pierwszy u¿yte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory s³ów generowane s¹ przez g³êbok¹ sieæ neuronow¹. Ogó³ technik zaliczanych obecnie do ,,word embeddings'' cechuje siê usi³owaniem reprezentacji s³ów wraz z zale¿noœciami pomiêdzy nimi w postaci wektorów o stosunkowo niskiej wymiarowoœci. Dzieje siê to w opozycji do wczeœniejszych podejœæ podobnych do Bag of words - produkuj¹cego ogromne, rzadkie wektory, których wymiary równaj¹ siê rozmiarowi s³ownika, o który oparty jest model (rzêdu setek tysiêcy). Wa¿n¹ w³asnoœci¹ metod osadzania s³ów jest zachowanie przez wektory semantycznych i syntaktycznych w³aœciwoœci s³ów, co pozwala wykonywaæ na nich operacje artymetyczne na wektorach odwzorowuj¹ce cechy tych¿e s³ów np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
+Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody word2vec\cite{word2vec} nast¹pi³ gwa³towny rozwój i niew¹tpliwy sukces metod ,,word embeddings''. Okreœlenie ,,word embeddings'' oznacza osadzanie s³ów w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zosta³o po raz pierwszy u¿yte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory s³ów generowane s¹ przez g³êbok¹ sieæ neuronow¹. Ogó³ technik zaliczanych obecnie do ,,word embeddings'' cechuje siê usi³owaniem reprezentacji s³ów wraz z zale¿noœciami pomiêdzy nimi w postaci wektorów o stosunkowo niskiej wymiarowoœci. Dzieje siê to w opozycji do wczeœniejszych podejœæ podobnych do Bag of words - produkuj¹cego ogromne, rzadkie wektory, których wymiary równaj¹ siê rozmiarowi s³ownika, o który oparty jest model (rzêdu setek tysiêcy). Wa¿n¹ w³asnoœci¹ metod osadzania s³ów jest zachowanie przez wektory semantycznych i syntaktycznych w³aœciwoœci s³ów, co pozwala wykonywaæ na nich operacje artymetyczne na wektorach odwzorowuj¹ce cechy tych¿e s³ów np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
 
 Stosowane obecnie podejœcia generowania wektorowych reprezentacji s³ów mo¿na podzieliæ na dwa typy:
 \begin{enumerate}
@@ -313,9 +313,9 @@ Metoda word2vec wprowadzona w 2013r. m.in. przez T. Mikolova w \cite{word2vec} o
 \end{figure}
 U¿ywaj¹c tej stosunkowo prostej architektury mo¿na wykonaæ proces nauki u¿ywaj¹c milionów s³ów, których powi¹zania miêdzy sob¹ zostan¹ zachowane w systemie wag sieci neuronowej. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}.
 
-W celu dalszego opisu metody word2vec wprowadzam pojêcie funkcji softmax u¿ytej w warstwie wyjœciowej sieci neuronowej. Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$\cite{softmax}. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
+W celu dalszego opisu metody word2vec wprowadzam pojêcie funkcji softmax u¿ytej w warstwie wyjœciowej sieci neuronowej. Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
 
-W metodzie Word2vec nauka polega na trenowaniu sieci neuronowej. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, Word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieci, które faktycznie s¹ wynikowymi wektorami s³ow.
+W metodzie word2vec nauka polega na trenowaniu sieci neuronowej. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, Word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieci, które faktycznie s¹ wynikowymi wektorami s³ow.
 
 W dalszym opisie metody szczegó³owo skupiam siê na podejœciu CBOW, lecz podejœcie skip-gram wygl¹da analogicznie.
 
@@ -375,7 +375,7 @@ EMD jest metod¹ mierzenia odleg³oœci pomiêdzy dwoma rozk³adami, która opiera siê
 $P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przy odpowiednich ogramiczeniach\cite{emd}.
 EMD jest to dobrze zbadanym problemem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
 
-Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\cite{wmd}. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
+Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
 
 \section{Miary oceny wyszukiwania}
 %TODO przeredagowaæ - to jest tekst ze slajdów
@@ -860,132 +860,138 @@ Wykorzystane biblioteki jêzyka Python:
 
 \begin{thebibliography}{11}
 %TODO uporz¹dkowaæ bibliografiê, dodaæ przecinki
-\bibitem[1]{handbook}
-	Francesco Ricci, Lior Rokach, Bracha Shapira,
-	\emph{Introduction to Recommender Systems Handbook},
-	Springer,
-	2011
-\bibitem[2]{slownik}
+\bibitem{all_naj}
+	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
+	(09.08.17)
+\bibitem{allegro}
+	\url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet}
+	(07.05.2017)
+\bibitem{screen_allegro}
+	\url{https://allegro.pl/artykul/jaka-farba-dla-alergika-55917/}
+	(26.06.2017)
+\bibitem{slownik}
 	S³ownik Jêzyka Polskiego PWN
 	\url{http://sjp.pwn.pl/sjp/artykul;2441396.html}
 	(07.05.2017)
-\bibitem[3]{allegro}
-	\url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz
-	-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet}
-	(07.05.2017)
-\bibitem[4]{morfologik}
-	\url{http://morfologik.blogspot.com/}
-	(07.05.2017)
-\bibitem[5]{word2vec}
-	Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean,
-	\emph{Efficient Estimation of Word Representations in Vector Space},
-	International Conference on Machine Learning (ICML),
-	2013
-\bibitem[6]{google_word2vec}
-	\url{https://code.google.com/archive/p/word2vec/}
-	(26.05.2017)
-\bibitem[7]{word2vec_tutorial}
-	\url{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}
-	(26.05.2017)
-\bibitem[9]{emd_method}
-	Ofir Pele, Michael Werman,
-	\emph{Fast and robust earth mover's distances},
-	ICCV,
-	2009
-\bibitem[10]{emd}
-	Yossi Rubner, Carlo Tomasi, and Leonidas J. Guibas,
-	\emph{The Earth Mover's Distance as a Metric for Image Retrieval}
-	str. 1,
-	Computer Science Department, Stanford University,
-	2000
-\bibitem[12]{wmd}
-	Matt J. Kusner, Yu Sun, Nicholas I. Kolkin, Kilian Q. Weinberger,
-	\emph{From Word Embeddings To Document Distances},
-	International Conference on Machine Learning (ICML),
-	2015
-\bibitem[13]{softmax}
-	\url{https://en.wikipedia.org/wiki/Softmax_function/}
-	(11.06.2017)
-\bibitem[14]{screen_allegro}
-	\url{https://allegro.pl/artykul/jaka-farba-dla-alergika-55917/}
-	(26.06.2017)
-\bibitem[15]{stopwords}
-	\url{https://pl.wikipedia.org/wiki/Wikipedia:Stopwords}
-	(15.04.2017)
-\bibitem[16]{pias}
-	Pawe³ Kêdzia, Gabriela Czachor, Maciej Piasecki, Jan Kocoñ
-	\emph{Vector representations of polish words (Word2Vec method)}
-	Wroc³aw University of Technology
-	2016
-	\url{https://clarin-pl.eu/dspace/handle/11321/327}
-	(26.06.2017)
-\bibitem[17]{wordnet}
-	\url{http://plwordnet.pwr.wroc.pl/wordnet/}
-	(28.06.2017)
-\bibitem[18]{glove_cran}
-	\url{https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html}
-	(30.08.2017)
-\bibitem[19]{glove}
-	Jeffrey Pennington, Richard Socher, Christopher D. Manning
-	\emph{GloVe: Global Vectors for Word Representation}
-	Computer Science Department, Stanford University, Stanford, CA 94305
-	2014
-\bibitem[20]{bow}
-	Zellig Harris
-	\emph{Distributional Structure}
-	WORD, tom 10, num. 2-3
-	1954
-\bibitem[21]{firth}
-	J.R. Firth.
-	\emph{A synopsis of linguistic theory 1930-1955}
-	Oxford: Philological Society
-	1957
-\bibitem[22]{lsa}
-	Scott Deerwester, Susan T. Dumais, George W. Furnas, Thomas K. Landauer, Richard Harshman
-	\emph{Indexing by latent semantic analysis}
-	Journal of the American Society for Information Science, tom 41, num. 6
-	1990
-\bibitem[23]{lda}
-	David M. Blei, Andrew Y. Ng, Michael I. Jordan
-	\emph{Latent Dirichlet Allocation}
-	Journal of Machine Learning Research, tom 3 num. 4–5
-	2003
-\bibitem[24]{bengio}
-	Bengio
-\bibitem[25]{aylien}
+\bibitem{aylien}
 	\url{http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/}
-	(30.08.2017)
-\bibitem[26]{all_naj}
-	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
-	(09.08.17)
-\bibitem[25]{elastic_companies}
+	(18.08.2017)
+\bibitem{handbook}
+	F. Ricci, L. Rokach, B. Shapira,
+	\emph{Introduction to Recommender Systems Handbook},
+	Springer,
+	2011
+\bibitem{elastic}
+	\url{https://www.elastic.co/}
+	(18.08.2017)	
+\bibitem{lucene}
+	\url{https://lucene.apache.org/}
+	(18.08.2017)
+\bibitem{elastic_companies}
 	\url{https://www.elastic.co/use-cases}
 	(10.08.17)
-\bibitem[26]{tf_idf}
+\bibitem{bow}
+	Z. S. Harris,
+	\emph{Distributional Structure},
+	WORD, tom 10, num. 2-3,
+	1954
+\bibitem{tf_idf}
 	G. Salton and M. McGill,
 	\emph{Introduction to modern information retrieval},
 	McGraw-Hill,
 	1983
-\bibitem[27]{svd}
+\bibitem{firth}
+	J.R. Firth,
+	\emph{A synopsis of linguistic theory 1930-1955},
+	Oxford: Philological Society,
+	1957
+\bibitem{lsa}
+	S. Deerwester, S. T. Dumais, G. W. Furnas, T. K. Landauer, R. Harshman,
+	\emph{Indexing by latent semantic analysis},
+	Journal of the American Society for Information Science, tom 41, num. 6,
+	1990
+\bibitem{lda}
+	David M. Blei, Andrew Y. Ng, Michael I. Jordan,
+	\emph{Latent Dirichlet Allocation},
+	Journal of Machine Learning Research, tom 3 num. 4–5,
+	2003
+\bibitem{svd}
 	G. H. Golub, W. Kahan,
 	\emph{Calculating the singular values and pseudo-inverse of a matrix},
 	Journal of the Society for Industrial and Applied Mathematics: Series B, Numerical Analysis. 2 (2),
 	1965
-\bibitem[28]{c_w}
+\bibitem{word2vec}
+	T. Mikolov, K. Chen, G. Corrado, J. Dean,
+	\emph{Efficient Estimation of Word Representations in Vector Space},
+	International Conference on Machine Learning (ICML),
+	2013
+\bibitem{bengio}
+	Y. Bengio, R. Ducharme, P. Vincent, C. Jauvin,
+	\emph{A Neural Probabilistic Language Model},
+	Journal of Machine Learning Research 3 1137–1155,
+	2003
+\bibitem{c_w}
 	R. Collobert, J. Weston,
 	\emph{A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
 	NEC Labs America,
 	2008
-\bibitem[29]{fasttext}
+\bibitem{google_word2vec}
+	\url{https://code.google.com/archive/p/word2vec/}
+	(26.05.2017)
+\bibitem{word2vec_tutorial}
+	\url{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}
+	(26.05.2017)
+\bibitem{fasttext}
 	A. Joulin, E. Grave, P. Bojanowski T. Mikolov,
 	\emph{Bag of Tricks for Efficient Text Classification},
 	Facebook AI Research,
 	2016
-\bibitem[30]{ndcg}
+\bibitem{glove}
+	Jeffrey Pennington, Richard Socher, Christopher D. Manning,
+	\emph{GloVe: Global Vectors for Word Representation},
+	Computer Science Department, Stanford University, Stanford, CA 94305,
+	2014
+\bibitem{glove_cran}
+	\url{https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html}
+	(30.08.2017)
+\bibitem{wmd}
+	M. J. Kusner, Y. Sun, N. I. Kolkin, K. Q. Weinberger,
+	\emph{From Word Embeddings To Document Distances},
+	International Conference on Machine Learning (ICML),
+	2015	
+\bibitem{emd}
+	Y. Rubner, C. Tomasi, L. J. Guibas,
+	\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
+	str. 1,
+	Computer Science Department, Stanford University,
+	2000	
+\bibitem{emd_method}
+	O. Pele, M. Werman,
+	\emph{Fast and robust earth mover's distances},
+	ICCV,
+	2009
+\bibitem{ndcg}
 	K. Jarvelin, J. Kekalainen,
 	\emph{Cumulated gain-based evaluation of IR techniques},
 	University of Tampere,
 	2002
+\bibitem{stopwords}
+	\url{https://pl.wikipedia.org/wiki/Wikipedia:Stopwords}
+	(15.04.2017)
+\bibitem{morfologik}
+	\url{http://morfologik.blogspot.com/}
+	(07.05.2017)
+\bibitem{pias}
+	P. Kêdzia, G. Czachor, M. Piasecki, J. Kocoñ
+	\emph{Vector representations of polish words (Word2Vec method)},
+	Wroc³aw University of Technology,
+	2016,
+	\url{https://clarin-pl.eu/dspace/handle/11321/327}
+	(26.06.2017)
+\bibitem{wordnet}
+	\url{http://plwordnet.pwr.wroc.pl/wordnet/}
+	(28.06.2017)
+
 \end{thebibliography}
 
 \appendix
