@@ -477,9 +477,14 @@ Inn¹ praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych syst
 
 Z powodu braku mo¿liwoœci wykorzystania rzeczywistych u¿ytkowników do ewaluacji rozwi¹zañ jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych. Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnych za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ ca³ej miary.
 
-Dzia³anie testowanych metod wyznaczania listy dokumentów podobnych do danego mo¿na sformalizwaæ w postaci pewnej funkcji $S_p: C \to \{a_{i}\}_{i < p}$, gdzie $a_i \in C$, a $p$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze postaci: wyjœcie-wejœcie funkcji $S$ reprezentuj¹cej testowan¹ metodê przypisaæ ocenê jakoœci zwróconego wyjœcia dla danego wejœcia. Oceny dla konkretnej metody, dla ustalonej próby par artyku³ów s¹ nastêpnie wykorzystane do wyznaczenia wartoœci œredniej miary nDCG tej metody.
+Dzia³anie testowanych metod wyznaczania listy dokumentów podobnych do danego mo¿na sformalizwaæ w postaci pewnej funkcji $S_p: C \to \{a_{i}\}_{i < p}$, gdzie $a_i \in C$, a $p$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy (b¹dŸ jego identyfikator) i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze postaci: artyku³ wejœciowy-jeden z wyznaczonych artyku³ów podobnych przypisaæ ocenê tego podobieñstwa - ,,relewantnoœæ''. Np. metoda $S$ dla artyku³u $X$ zwraca ci¹g {$Y_1$, $Y_2$, ...}. Dla ka¿dej z par za pomoc¹ poni¿szych metod ewaluacji mo¿na okreœliæ relewantnoœæ np. $relevance(X, Y_1) = a_1, relevance(X, Y_2) = a_2$ itd. Nastêpnie wyniki dla metody $S$ i wejœcia $X$ nale¿y zagregowaæ. Dokonujê tego na dwa sposoby.
+\begin{itemize}
+	\item Obliczenie œredniej $\frac{1}{p}\sum_{i=1}^{p}relevance(X,Y_1)$.
+	\item U¿ycie metody nDCG, gdzie relewantnoœæ to wynik poszczególnych ewaluacji podobieñstwa artyku³ów.
+\end{itemize}  
 
-%Opisane poni¿ej miary 1 i 2 dokonuj¹ porównania podobieñstwa dla pary artyku³ów. W celu rozszerzenia dzia³ania tych miar do pary wejœcie-wyjœcie metody stosujê œredni¹ wa¿on¹ podobieñstwa kolejnych elementów wyjœcia z wejœciem. Stosowane wagi: $\dfrac{1}{i}$ dla $i=1,\ ...,\ N$, gdzie $N$ to d³ugoœæ ci¹gu wyjœciowego danej metody.
+
+Oceny dla konkretnej metody, dla ustalonej próby par artyku³ów s¹ nastêpnie wykorzystane do wyznaczenia wartoœci œredniej  miary nDCG tej metody.
 
 
 \section{Miara 1: Dystans oparty na metadanych}
@@ -490,6 +495,8 @@ Jak wspomnia³em wczeœniej dane prócz treœci artyku³ów zawieraj¹ równie¿ pewne me
 
 Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych artyku³ów jest ich odleg³oœæ we wczeœniej wspomnianym drzewie kategorii. Formalnie wartoœæ miary to d³ugoœæ czêœci wspólnej œcie¿ek od korzenia drzewa kategorii do wêz³ów reprezentuj¹cych artyku³y. Im wiêcej wspólnych przodków w drzewie, tym bardziej podobe do siebie s¹ artyku³y reprezentowane przez wêz³y drzewa. Zalet¹ miary jest fakt, i¿ przypisanie artyku³u do kategorii zosta³o wykonane przez autora, którego mo¿na okreœliæ ekspertem w dziedzinie tematyki artyku³u. St¹d przynale¿noœæ artyku³u do danej kategorii jest mocno uzasadniona. Kolejn¹ zalet¹ tej miary jest fakt, i¿ mo¿na j¹ zastosowaæ automatycznie - wiedza ekspercka jest ju¿ zapisana w metadanych artyku³ów. Nale¿y zaznaczyæ tu jednak, ¿e miara nie jest idealna - ka¿dy artyku³ nale¿y do tylko jednego liœcia drzewa kategorii. St¹d artyku³ poruszaj¹cy zagadnienia z ró¿nych obszarów, który mo¿na by przypisaæ dwóm stosunkowo odleg³ym kategoriom $A$ i $B$, zostanie przypisany tylko do jednej kategorii, np. $A$. Miara poka¿e wtedy du¿¹ odleg³oœæ od artyku³ów z kategorii $B$, co nie jest prawd¹.
 
+Za przyk³ad mog¹ pos³u¿yæ drzewa na poni¿szych rysunkach. W drzewie 1. artyku³y $X$ i $Y$ maj¹ dwie wspólne kategorie, st¹d $relevance(X, Y) = 2$. Natomiast artyku³y $Y$ i $Z$ z drugiego drzewa maj¹ trzech wspólnych przodków, st¹d $relevance(Y, Z)=3$ Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{img/cat_tree_example_1.png}
@@ -497,17 +504,18 @@ Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych arty
 	%\label{fig:warstwy}
 \end{figure}
 \begin{figure}[H]
-	\centering
+ 	\centering
 	\includegraphics[width=0.5\textwidth]{img/cat_tree_example_2.png}
 	\caption{Drzewo kategorii dla przyk³adu 2.}
-	%\label{fig:warstwy}
+	\label{fig:warstwy}
 \end{figure}
-W powy¿szych przyk³adowych drzewach $w(X, Y) = 1$, $w(Y, Z) = 2$, $D=3$, st¹d $d(X, Y) = \dfrac{1}{3}$, $d(X, Y) = \dfrac{2}{3}$. Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
+
 
 \subsection{S³owa kluczowe}
 
-Kolejna miara oparta na metadanych artyku³ów korzysta ze s³ów kluczowych. Jak wspomnia³em wczeœniej wœród ogó³u s³ow kluczowych wystêpuj¹ niespójnoœci, których wiêkszoœæ zlikwidowa³em poprzez sprowadzenie s³ów od ma³ych liter oraz usuniêciu ,,s³ów stopu''. Po tej unifikacji liczba unikalnych s³ów kluczowych to 58565.
-Niniejsza miara dzia³a podobnie do poprzedniej opartej o kategorie. Dla ka¿dej pary s³ów kluczowych z obu artyku³ów dodaje 1, je¿eli s³owa te s¹ identyczne.
+Kolejna miara oparta na metadanych artyku³ów korzysta ze s³ów kluczowych. Wœród ogó³u s³ow kluczowych wystêpuj¹ niespójnoœci, których wiêkszoœæ zlikwidowa³em poprzez sprowadzenie s³ów od ma³ych liter oraz usuniêciu ,,s³ów stopu''. Po tej unifikacji liczba unikalnych s³ów kluczowych to 58565.
+
+Niniejsza miara dzia³a podobnie do poprzedniej opartej o kategorie. Para artyku³ów otrzymuje 1 punkt za ka¿d¹ wspóln¹ parê posiadanych kategorii. Np. dla artyku³u $X$ o s³owach kluczowych \{,,$kosmetyki$'', ,,$kremy$'', ,,$zmarszczki$''\} oraz $Y$ o s³owach kluczowych \{,,$kosmetyki$'', ,,$zele do wlosow$'', ,,$kremy$'', ,,$szampony$''\} $relevance(X,Y)=2$, poniewa¿ oba artyku³y maj¹ dwa wspólne s³owa kluczowe ($,,kosmetyki''$ i $,,kremy''$).
 
 \section{Miara 2: Ocena przez u¿ytkowników offline}
 \textbf{SEKCJA DO UZUPE£NIENIA}%TODO
@@ -590,10 +598,7 @@ W celu wykonania oceny poszczególnych testowanych metod wykorzystujê wszystkie m
 \end{enumerate}
 
 \chapter{Wyniki badañ}
-
-
-%ILE TRWA£O BUDOWANIE MODELU
-
+Wyniki metody clicks odstaj¹ niekiedy od innych wyników. Mo¿e siê to wi¹zaæ z faktem, i¿ liczba przejœæ dokonanych przez u¿ytkowników miêdzy parami artyku³ów niekoniecznie odzwierciedla podobieñstwo miêdzy nimi. Fakt, i¿ u¿ytkownik przechodzi z artyku³u $A$ do rekomendowanego artyku³u $B$ mo¿e równie¿ wynikaæ z faktu, i¿ artyku³ $B$ porusza inn¹ tematykê ni¿ artyku³ $A$, która to jednak interesuje u¿ytkownika. Wprowadznie do rekomendacji ma³ego odsetka niepowi¹zanych przedmiotów jest znan¹ praktyk¹ przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie u¿ytkownika przedmiotami spoza krêgu jego dotychczasowych zainteresowañ.
 Poni¿ej przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar. Do wyników ka¿dego testu do³¹czam ich interpretacjê oraz wnioski.
 
 \subsection{LSI w zale¿noœci od liczby tematów}
@@ -683,7 +688,7 @@ Pozornie na wykresie daje siê zaobserwowaæ du¿¹ rozbierznoœæ miêdzy wskazaniami 
 
 \section{Word2vec w zale¿noœci od metody porównywania dokumentów}
 
-W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metod¹ word2vec dla wektorów d³ugoœci 100, 1000. Biorê tu pod uwagê metody: centroidu ca³oœci dokumentu, centroidu s³ów kluczowych wyznaczonych metod¹ LDA, Word Mover's Distance.
+W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metod¹ word2vec dla wektorów d³ugoœci 100 oraz 300. Biorê tu pod uwagê metody: centroidu ca³oœci dokumentu, centroidu s³ów kluczowych wyznaczonych metod¹ LDA oraz Word Mover's Distance.
 
 \subsection{Wymiar wektorów: 100}
 
@@ -704,7 +709,7 @@ W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa m
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od sposobu wyznaczania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów.}
 	%\label{fig:warstwy}
 \end{figure}
 
@@ -727,13 +732,15 @@ W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa m
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/w2v300_ctr_w2v300_lda100_w2v300_wmd_.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od sposobu wyznaczania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów.}
 	%\label{fig:warstwy}
 \end{figure}
 
-%TODO wnioski
-Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Z³¿onoœæ czasowa metody wynosi:
-Dla przypadku: [w2v\_art\_wmd] obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
+Wyniki dla metody opartej o tematy LDA s¹ jednoznacznie gorsze od wyników dla metody centroidu.
+
+Dla obu konfiguracji metody word2vec metoda Word Mover's Distance wykazuje siê najwiêksz¹ zdolnoœci¹ do poprawnego szeregowania dokumentów.
+
+Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Dla pierwszego przypadku  obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
 
 
 \section{Metody word embedding w zale¿noœci od wymiarowoœci wektorów}
@@ -763,6 +770,8 @@ W niniejszym punkcie porównujê jakoœæ metod word embedding (word2vec, GloVe i fa
 	%\label{fig:warstwy}
 \end{figure}
 
+Dla ró¿nej wymiarowoœci wektorów wyjœciowych metoda word2vec daje bardzo podobne rezultaty. Ró¿nica miêdzy najlepszym i najgorszym wynikiem wynosi jedynie ok 1,5 pkt. proc. Mimo to najlepsz¹ wartoœci¹ hiperparametru wydaje siê byæ 300.
+
 \subsection{GloVe}
 
 \begin{center}
@@ -782,10 +791,11 @@ W niniejszym punkcie porównujê jakoœæ metod word embedding (word2vec, GloVe i fa
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/gv_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla metody GloVe w zale¿nosci od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
 
+Ewidentnie najlepsze wyniki metoda osi¹ga dla wektorów wyjœciowych d³ugoœci 1000.
 
 \subsection{FastText}
 
@@ -806,25 +816,27 @@ W niniejszym punkcie porównujê jakoœæ metod word embedding (word2vec, GloVe i fa
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla metody fastText w zale¿nosci od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
+
+Równie¿ jak w przypadku metody GloVe metoda fastText osi¹a najlepsze rezultaty dla wektorów d³ugoœci 1000.
 
 %TODO podpisy pod wykresami!!!!!!!!!!!!!!!!1
 \section{Ocena jakoœci wybranych metod przez u¿ytkowników}
 %CO TO porównanie najlepszych [lsi|lda|w2v|gv|ft|allegro|random] z u¿ytkownikami
-
+W niniejszym punkcie dokonujê porównania najlepszych konfiguracji testowanych wczeœniej metod. Zestawiam z nimi wyniki dla metody u¿ywanej dotyczczas w Allegro $allegro$ oraz metodê losow¹ $rnd$.
 %QAQ Zestawienie wyników miar automatycznych dla najlepszych metod
 \begin{center}
 	\begin{tabular}{lrrrrrrr}
 		\hline
 		&   lsi500 &    lda900 &    w2v300 &   gv1000 &   ft1000 &   allegro &          rnd \\
 		\hline
-		mut\_cat      & 3.52346  & 3.39972   & 3.42132   & 3.54532  & 3.57869  &  3.47138  &   1.23304    \\
-		mut\_cat\_ndcg & 0.518053 & 0.500823  & 0.505457  & 0.523677 & 0.528948 &  0.509112 &   0.18537    \\
-		mut\_kw       & 2.38808  & 1.76637   & 1.68395   & 2.15176  & 2.16992  &  3.70478  &   0.137414   \\
-		mut\_kw\_ndcg  & 0.129079 & 0.0961874 & 0.0906939 & 0.115149 & 0.116528 &  0.202711 &   0.00835187 \\
-		clicks       & 0.913165 & 0.906384  & 0.936386  & 0.879786 & 0.885622 &  0.890424 & nan          \\
+		mut\_cat      & 3.523  & 3.400   & 3.421   & 3.545  & 3.579  &  3.471  &   1.233    \\
+		mut\_cat\_ndcg & 0.518 & 0.501  & 0.505  & 0.524 & 0.529 &  0.509 &   0.185    \\
+		mut\_kw       & 2.388  & 1.766   & 1.684   & 2.152  & 2.170  &  3.705  &   0.137   \\
+		mut\_kw\_ndcg  & 0.129 & 0.096 & 0.091 & 0.115 & 0.116 &  0.203 &   0.008 \\
+		clicks       & 0.913 & 0.9064  & 0.936  & 0.880 & 0.886 &  0.890 & ---          \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -865,22 +877,23 @@ Wykorzystane narzêdzia:
 \begin{itemize}
 	\item Elasticsearch - silnik wyszukiwania tekstowego. U¿ywam go do przechowywania bazy artyku³ów oraz ich przetworzonych wersji.
 	\item MongoDB - nierelacyjna baza danych, której u¿ywam do przechowywania wyników generowanych przez testowane algorytmy.
+	\item GloVe - implementacja metody GloVe. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
+	\item fastText - implementacja metody fastText wykonana przez zespó³ Facebook Research. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
 \end{itemize}
 
-Wykorzystane biblioteki jêzyka Python:
+Poni¿sza lista zawiera wykorzystane biblioteki jêzyka Python:
 \begin{itemize}
-	\item Gensim - rozbudowana biblioteka s³u¿¹ca do przetwarzania jêzyka naturalnego. Zawiera implementacjê metod Word2Vec, LDA, TF-IDF i inne.
-	\item Morfologik - tokenizer jêzyka polskiego
-	\item Numpy - pozwala wydajnie wykonywaæ obliczenia numeryczne
-	\item Pyemd - implementacja algorytmu Earth Mover's Distance
-	\item Elasticsearch - u³atwia wykonywanie zapytañ do silnika Elasticsearch wprost z kodu Pythona
-	\item Matplotlib - biblioteka s³u¿¹ca do wykonywania wykresów
-	\item Pymongo - umo¿liwia wykonywanie zapytañ do bazy MongoDB wprost z kodu Pythona
+	\item Gensim\cite{gensim} - rozbudowana biblioteka s³u¿¹ca do przetwarzania jêzyka naturalnego; zawiera implementacjê metod word2Vec, LSI, LDA, TF-IDF i inne.
+	\item Morfologik - tokenizer jêzyka polskiego.
+	\item Numpy - pozwala wydajnie wykonywaæ obliczenia numeryczne.
+	\item Pyemd - implementacja algorytmu Earth Mover's Distance.
+	\item Elasticsearch - u³atwia wykonywanie zapytañ do silnika Elasticsearch wprost z kodu Pythona.
+	\item Matplotlib - biblioteka s³u¿¹ca do wykonywania wykresów.
+	\item Pymongo - umo¿liwia wykonywanie zapytañ do bazy MongoDB wprost z kodu Pythona.
 \end{itemize} 
 
 
 \begin{thebibliography}{11}
-%TODO uporz¹dkowaæ bibliografiê, dodaæ przecinki
 \bibitem{all_naj}
 	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
 	(09.08.17)
