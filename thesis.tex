@@ -552,7 +552,7 @@ W przeprowadzanych testech staram siê dokonaæ porównania pomiêdzy ró¿nymi konfig
 
 \section{Testowane metody generowania rekomendacji}
 
-Wykonujê szereg testów metod w ró¿nych konfiguracjach. St¹d dla czytelnoœci wprowadzam skrócone sygnatury tych metod, które stosujê w dalszej czêœci pracy zamiast pe³nych opisów.
+Wykonujê szereg testów metod w ró¿nych konfiguracjach. St¹d dla czytelnoœci wprowadzam w nawiasach skrócone sygnatury tych metod, które stosujê w dalszej czêœci pracy zamiast pe³nych opisów.
 \subsection{Metody oparte o modelowanie tematu}
 Najwa¿niejszym hiperparametrem metod tej grupy: LSI oraz LDA jest liczba tematów, st¹d dokonujê testu jak zmiana tego parametru wp³ywa na jakoœæ modelu.
 \subsection{Metody oparte o word embedding}
@@ -560,7 +560,7 @@ Wykonujê testy adaptacji metod wektorowej reprezentacji s³ów dla wielu konfigura
 
 \subsubsection{Korpus bazowy}
 
-Pierwszy model word2vec, z jakim mia³em stycznoœæ to model\cite{pias} stworzony m.in. przez dr in¿. M. Piaseckiego z Politechniki Wroc³awskiej dostêpny poprzez stronê internetow¹. Model ten by³ uczony na korpusie S³owosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
+Pierwszy model word2vec (w testach wykorzystujê skrócon¹ sygnaturê $w2v$), z jakim mia³em stycznoœæ to model\cite{pias} stworzony m.in. przez dr in¿. M. Piaseckiego z Politechniki Wroc³awskiej dostêpny poprzez stronê internetow¹. Model ten by³ uczony na korpusie S³owosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
 
 Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów korpusu artyku³ów Allegro oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
 
@@ -569,7 +569,7 @@ W zwi¹zku z powy¿szym stwierdzeniem wykonujê naukê modelu word2vec równie¿ na w³
 Dokonujê porównania jakoœci modelu uczonego na korpusie S³owosieci z modelem uczonym na korpusie artyku³ów Allegro.
 
 \subsubsection{Sposób generowania wektorów i d³ugoœæ wektorów}
-Do wygenerowania wektorów reprezentuj¹cych s³owa u¿ywam metod wektorowej reprezentacji tekstu: word2vec (w2v), GloVe (gv) oraz fastText (ft). Ka¿d¹ z nich testujê pod k¹tem ró¿nej wymiarowoœci generowanych wektorów.
+Do wygenerowania wektorów reprezentuj¹cych s³owa u¿ywam metod wektorowej reprezentacji tekstu: word2vec ($w2v$), GloVe ($gv$) oraz fastText ($ft$). Ka¿d¹ z nich testujê pod k¹tem ró¿nej wymiarowoœci generowanych wektorów.
 
 \subsubsection{Metoda okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów}
 
@@ -577,8 +577,7 @@ W celu okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów u¿y
 \begin{enumerate}
 	\item odleg³oœæ cosinusowa pomiêdzy centroidami wektorowej reprezentacji tekstów (w skrócie metoda centroidu),
 	\item Word Mover's Distance,
-	\item odleg³oœæ cosinusowa pomiêdzy wektorow¹ reprezentacj¹ s³ów kluczowych wyznaczonych metod¹ LDA.
-	W tej metodzie u¿ywam metody LDA do wyznaczenia przynale¿noœci  s³ów nale¿¹cych do tematów  LDA %TODO dokoñczyæ
+	\item autorska metoda wykorzystuj¹ca odleg³oœæ cosinusow¹ pomiêdzy wektorow¹ reprezentacj¹ s³ów kluczowych wyznaczonych metod¹ LDA. Celem metody jest zmniejszenie wymiarowoœci artyku³u oraz u¿ycie tylko znacz¹cych s³ów przy obliczaniu centroidu artyku³u. W tej metodzie za pomoc¹ LDA wyznaczam s³owa kluczowe, które z najwiêksz¹ wag¹ przynale¿¹ do danego artyku³u. Nauczony model LDA ka¿demu dokumentowi $i$ przypisuje zestaw tematów z okreœlonymi wagami przynale¿noœci $t_{ij}$ oraz ka¿demu tematowi $j$ przypisuje zestaw s³ów wraz z wagami $w_{jk}$. Na tej podstawie dla ka¿dego artyku³u $i$ mo¿na wybraæ $p$ s³ów, które posiadaj¹ najwy¿sz¹ wagê przynale¿noœci do artyku³u liczon¹ wg. wzoru $x(i,k)=\sum{j}t{ij}*w{jk}$, gdzie $k$ to dane s³owo. Ostatecznie artyku³ reprezentujê jako centroid $p$ s³ów o najwy¿szym $x$ dla danego s³owa. W alszych testach przyjmujê $p$ jako 10.
 \end{enumerate}
 
 \subsection{Elasticsearch}
@@ -598,7 +597,6 @@ W celu wykonania oceny poszczególnych testowanych metod wykorzystujê wszystkie m
 \end{enumerate}
 
 \chapter{Wyniki badañ}
-Wyniki metody clicks odstaj¹ niekiedy od innych wyników. Mo¿e siê to wi¹zaæ z faktem, i¿ liczba przejœæ dokonanych przez u¿ytkowników miêdzy parami artyku³ów niekoniecznie odzwierciedla podobieñstwo miêdzy nimi. Fakt, i¿ u¿ytkownik przechodzi z artyku³u $A$ do rekomendowanego artyku³u $B$ mo¿e równie¿ wynikaæ z faktu, i¿ artyku³ $B$ porusza inn¹ tematykê ni¿ artyku³ $A$, która to jednak interesuje u¿ytkownika. Wprowadznie do rekomendacji ma³ego odsetka niepowi¹zanych przedmiotów jest znan¹ praktyk¹ przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie u¿ytkownika przedmiotami spoza krêgu jego dotychczasowych zainteresowañ.
 Poni¿ej przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar. Do wyników ka¿dego testu do³¹czam ich interpretacjê oraz wnioski.
 
 \subsection{LSI w zale¿noœci od liczby tematów}
@@ -851,6 +849,9 @@ W niniejszym punkcie dokonujê porównania najlepszych konfiguracji testowanych wc
 Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody LDA oraz Word2vec potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
 
 \chapter{Wnioski i podsumowanie}
+
+Wyniki metody $clicks$ odstaj¹ niekiedy od innych wyników. Mo¿e siê to wi¹zaæ z faktem, i¿ liczba przejœæ dokonanych przez u¿ytkowników miêdzy parami artyku³ów niekoniecznie odzwierciedla podobieñstwo miêdzy nimi. Fakt, i¿ u¿ytkownik przechodzi z artyku³u $A$ do rekomendowanego artyku³u $B$ mo¿e równie¿ wynikaæ z faktu, i¿ artyku³ $B$ porusza inn¹ tematykê ni¿ artyku³ $A$, która to jednak interesuje u¿ytkownika. Wprowadznie do rekomendacji ma³ego odsetka niepowi¹zanych przedmiotów jest znan¹ praktyk¹ przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie u¿ytkownika przedmiotami spoza krêgu jego dotychczasowych zainteresowañ.
+
 %TODO Popatrzeæ w podsumowania innych prac
 korelacja miêdzy metodami ewaluacji
 
