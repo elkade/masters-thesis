@@ -599,11 +599,15 @@ W celu wykonania oceny testowanych metod wykorzystujê wszystkie metody ewaluacji
 	\item $clicks$ - ocena na podstawie historycznej aktywnoœci u¿ytkowników mierzona na podstawie liczby klikniêæ w odnoœniki.
 	\item $mut\_cat[\_ndcg]$ - relewantnoœæ wyszukanych artyku³ów liczona na podstawie liczby wspólnych kategorii z artyku³m bazowym. Stosujê dwa warianty: œrednia relewantnoœæ wyszukanych artyku³ów oraz miara nDCG.
 	\item $mut\_kw[\_ndcg]$ - relewantnoœæ wyszukanych artyku³ów liczona na podstawie liczby wspólnych s³ów kluczowych z artyku³m bazowym. Równie¿ stosujê dwa warianty: œrednia relewantnoœæ wyszukanych artyku³ów oraz miara nDCG.
-	\item $users$ - ocena na podstawie eksperckiej oceny u¿ytkowników.
+	\item $users$ - ocena na podstawie eksperckiej oceny u¿ytkowników. W badaniu wykorzysta³em 5 u¿ytkowników operuj¹cych ka¿dy na tym samym zbiorze par testowych. Pary zosta³y wygenerowane (zgodnie z wczeœniejszym opisem metody) na podstawie 50 artyku³ów bazowych wylosowanych spoœród wszystkich artyku³ów udostêpnionych mi przez Allegro.
 \end{enumerate}
 
+
+
+
+
 \chapter{Wyniki badañ}
-Poni¿ej przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar. Do wyników ka¿dego testu do³¹czam ich interpretacjê oraz wnioski.
+W rozdziale tym przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar. Do wyników ka¿dego testu do³¹czam ich interpretacjê oraz wnioski.
 
 \subsection{LSI w zale¿noœci od liczby tematów}
 
@@ -630,11 +634,9 @@ Dokonujê porównania jakoœci modelu LSI w zale¿noœci od wartoœci hiperparametru -
 	%\label{fig:warstwy}
 \end{figure}
 
-Miary oparte na liczbie wspólnych s³ów kluczowych ($mut_kw$) wyraŸnie pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 500.
+Miary oparte na liczbie wspólnych s³ów kluczowych ($mut\_kw...$) wyraŸnie pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 500.
 
 \subsection{LDA w zale¿noœci od liczby tematów}
-
-%Przed wykonaniem ostatecznych pomiarów nale¿y zbudowaæ model LDA w oparciu o przetwarzane dane. W moim przypadku trwa³o to: CZASY BUDOWANIA LDA
 
 Podobnie, jak w poprzednim punkcie dokonujê porównania jakoœci modelu LDA w zale¿noœci od wartoœci hiperparametru - liczby tematów.
 
@@ -660,7 +662,7 @@ Podobnie, jak w poprzednim punkcie dokonujê porównania jakoœci modelu LDA w zale
 	%\label{fig:warstwy}
 \end{figure}
 
-Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych s³ów kluczowych ($mut_kw$) pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 500.
+Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych s³ów kluczowych ($mut_kw$) pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 900.
 
 
 \section{Word2vec w zale¿noœci od korpusu}
@@ -688,11 +690,11 @@ Poni¿ej zestawiam wyniki dla modelów word2vec o wektorach d³ugoœci 100 uczonych:
 	%\label{fig:warstwy}
 \end{figure}
 
-Pozornie na wykresie daje siê zaobserwowaæ du¿¹ rozbierznoœæ miêdzy wskazaniami poszczgólnych miar. Jednak¿e maksymalna ró¿nica miêdzy najlepszym i najgorszym wynikiem nie przekracza 2 punktów proc. St¹d trudno jest stwierdziæ, która metoda daje tu lepsze wyniki. Na korzyœæ modelu word2vec uczonego na korpusie artyku³ów przemawia jego ma³y rozmiar, a co za tym idzie szybkoœæ nauki. Z przyczyn braku wyraŸnych zalet korzystania tu z modelu uczonego na korpusie s³owosieci korzystam dalej jedynie z modeli opartych o korpus artyku³ów.
+Maksymalna ró¿nica miêdzy najlepszym i najgorszym wynikiem nie przekracza 2\%. St¹d trudno jest stwierdziæ, która metoda daje tu lepsze wyniki. Na korzyœæ modelu word2vec uczonego na korpusie artyku³ów przemawia jego ma³y rozmiar, a co za tym idzie szybkoœæ nauki. Z przyczyn braku wyraŸnych zalet korzystania tu z modelu uczonego na korpusie s³owosieci korzystam dalej jedynie z modeli opartych o korpus artyku³ów Allegro.
 
 \section{Word2vec w zale¿noœci od metody porównywania dokumentów}
 
-W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metod¹ word2vec dla wektorów d³ugoœci 100 oraz 300. Biorê tu pod uwagê metody: centroidu ca³oœci dokumentu, centroidu s³ów kluczowych wyznaczonych metod¹ LDA oraz Word Mover's Distance.
+W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metod¹ word2vec dla wektorów d³ugoœci 100 oraz 300. Biorê tu pod uwagê metody: centroidu ca³oœci dokumentu ($w2v100_centroid$), centroidu s³ów kluczowych wyznaczonych metod¹ LDA dla 100 tematów ($w2v100_lda100$) oraz Word Mover's Distance ($w2v100_wnd$).
 
 \subsection{Wymiar wektorów: 100}
 
@@ -742,7 +744,7 @@ W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa m
 
 Wyniki dla metody opartej o tematy LDA s¹ jednoznacznie gorsze od wyników dla metody centroidu.
 
-Dla obu konfiguracji metody word2vec metoda Word Mover's Distance wykazuje siê najwiêksz¹ zdolnoœci¹ do poprawnego szeregowania dokumentów.
+Dla obu konfiguracji metody word2vec metoda Word Mover's Distance wykazuje siê najwiêksz¹ zdolnoœci¹ do poprawnego szeregowania dokumentów (wysoki wskaŸnik metod nDCG w porównaniu z metodami wykorzystuj¹cymi œredni¹).
 
 Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Dla pierwszego przypadku  obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
 
@@ -826,11 +828,21 @@ Ewidentnie najlepsze wyniki metoda osi¹ga dla wektorów wyjœciowych d³ugoœci 1000
 
 Równie¿ jak w przypadku metody GloVe metoda fastText osi¹a najlepsze rezultaty dla wektorów d³ugoœci 1000.
 
-%TODO podpisy pod wykresami!!!!!!!!!!!!!!!!1
 \section{Ocena jakoœci wybranych metod przez u¿ytkowników}
-%CO TO porównanie najlepszych [lsi|lda|w2v|gv|ft|allegro|random] z u¿ytkownikami
-W niniejszym punkcie dokonujê porównania najlepszych konfiguracji testowanych wczeœniej metod. Zestawiam z nimi wyniki dla metody u¿ywanej dotyczczas w Allegro $allegro$ oraz metodê losow¹ $rnd$.
-%QAQ Zestawienie wyników miar automatycznych dla najlepszych metod
+
+W niniejszym punkcie dokonujê porównania najlepszych konfiguracji testowanych wczeœniej metod. Zestawiam z nimi wyniki dla metody u¿ywanej dotyczczas w Allegro oraz metodê losow¹.
+Testowane warianty:
+\begin{itemize}
+	\item $lsi500$ --- Latent Semantic Indexing dla 500 tematów,
+	\item $lda900$ --- Latent Dirichlet Allocation dla 900 tematów,
+	\item $w2v300$ --- word2vec dla wektorów d³. 300 i przy u¿ytej metodzie centroidu,
+	\item $w2v300$ --- GloVe dla wektorów d³. 1000 i przy u¿ytej metodzie centroidu,
+	\item $w2v300$ --- fastText dla wektorów d³. 1000 i przy u¿ytej metodzie centroidu,
+	\item $allegro$ --- u¿ywane dotychczas w Allegro zapytanie do silnika elasticsearch,
+	\item $rnd$ --- metoda losowa.
+\end{itemize}
+\subsection{Zestawienie wyników testów automatycznych}
+Poni¿ej zestawienie wyników miar automatycznych dla najlepszych wariantów testowanych wczeœniej metod.
 \begin{center}
 	\begin{tabular}{lrrrrrrr}
 		\hline
@@ -852,7 +864,11 @@ W niniejszym punkcie dokonujê porównania najlepszych konfiguracji testowanych wc
 	%\label{fig:warstwy}
 \end{figure}
 
-Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody semantycznej analizy tekstu potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
+Wszystkie testowane metody daj¹ du¿o lepsze rezultaty od metody losowej. Stasunkowo wysokie wskaŸniki $mut\_cat$ dla metody losowej wynikaj¹ z du¿o wiêkszej szansy, ¿e dwa artyku³y maj¹ wspólnych przodków w drzewie kategorii ni¿, ¿e maj¹ wspólne s³owa kluczowe.
+
+Najwy¿sze wyniki wszystkich miar uzyska³a metoda $allegro$. Jej wysokie wskaŸniki dla metody $mut_kw$ wynikaj¹ wprost ze struktury zapytania do silnika elasticsearch, które to jest oparte w³aœnie o s³owa kluczowe do³¹czone do artyku³u.
+
+\subsection{Wyniki oceny eksperckiej}
 
 \begin{center}
 	\begin{tabular}{lrrrrrrr}
@@ -871,7 +887,11 @@ Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersal
 	%\label{fig:warstwy}
 \end{figure}
 
+%TODO dodatkowe statystyki userskie
+
 \chapter{Wnioski i podsumowanie}
+
+Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody semantycznej analizy tekstu potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
 
 Wyniki metody $clicks$ odstaj¹ niekiedy od innych wyników. Mo¿e siê to wi¹zaæ z faktem, i¿ liczba przejœæ dokonanych przez u¿ytkowników miêdzy parami artyku³ów niekoniecznie odzwierciedla podobieñstwo miêdzy nimi. Fakt, i¿ u¿ytkownik przechodzi z artyku³u $A$ do rekomendowanego artyku³u $B$ mo¿e równie¿ wynikaæ z faktu, i¿ artyku³ $B$ porusza inn¹ tematykê ni¿ artyku³ $A$, która to jednak interesuje u¿ytkownika. Wprowadznie do rekomendacji ma³ego odsetka niepowi¹zanych przedmiotów jest znan¹ praktyk¹ przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie u¿ytkownika przedmiotami spoza krêgu jego dotychczasowych zainteresowañ.
 
@@ -899,21 +919,21 @@ Analizê danych, ich wstêpne przetworzenie a nastêpnie przeprowadzenie docelowych
 
 Wykorzystane narzêdzia:
 \begin{itemize}
-	\item Elasticsearch - silnik wyszukiwania tekstowego. U¿ywam go do przechowywania bazy artyku³ów oraz ich przetworzonych wersji.
-	\item MongoDB - nierelacyjna baza danych, której u¿ywam do przechowywania wyników generowanych przez testowane algorytmy.
-	\item GloVe - implementacja metody GloVe. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
-	\item fastText - implementacja metody fastText wykonana przez zespó³ Facebook Research. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
+	\item Elasticsearch --- silnik wyszukiwania tekstowego. U¿ywam go do przechowywania bazy artyku³ów oraz ich przetworzonych wersji.
+	\item MongoDB --- nierelacyjna baza danych, której u¿ywam do przechowywania wyników generowanych przez testowane algorytmy.
+	\item GloVe --- implementacja metody GloVe. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
+	\item fastText --- implementacja metody fastText wykonana przez zespó³ Facebook Research. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
 \end{itemize}
 
 Poni¿sza lista zawiera wykorzystane biblioteki jêzyka Python:
 \begin{itemize}
-	\item Gensim\cite{gensim} - rozbudowana biblioteka s³u¿¹ca do przetwarzania jêzyka naturalnego; zawiera implementacjê metod word2Vec, LSI, LDA, TF-IDF i inne.
-	\item Morfologik - tokenizer jêzyka polskiego.
-	\item Numpy - pozwala wydajnie wykonywaæ obliczenia numeryczne.
-	\item Pyemd - implementacja algorytmu Earth Mover's Distance.
-	\item Elasticsearch - u³atwia wykonywanie zapytañ do silnika Elasticsearch wprost z kodu Pythona.
-	\item Matplotlib - biblioteka s³u¿¹ca do wykonywania wykresów.
-	\item Pymongo - umo¿liwia wykonywanie zapytañ do bazy MongoDB wprost z kodu Pythona.
+	\item Gensim --- rozbudowana biblioteka s³u¿¹ca do przetwarzania jêzyka naturalnego; zawiera implementacjê metod word2Vec, LSI, LDA, TF-IDF i inne.
+	\item Morfologik --- tokenizer jêzyka polskiego.
+	\item Numpy --- pozwala wydajnie wykonywaæ obliczenia numeryczne.
+	\item Pyemd --- implementacja algorytmu Earth Mover's Distance.
+	\item Elasticsearch --- u³atwia wykonywanie zapytañ do silnika Elasticsearch wprost z kodu Pythona.
+	\item Matplotlib --- biblioteka s³u¿¹ca do wykonywania wykresów.
+	\item Pymongo --- umo¿liwia wykonywanie zapytañ do bazy MongoDB wprost z kodu Pythona.
 \end{itemize} 
 
 

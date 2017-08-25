@@ -61,5 +61,7 @@
 \contentsline {subsection}{\numberline {6.3.2}GloVe}{58}{subsection.6.3.2}
 \contentsline {subsection}{\numberline {6.3.3}FastText}{59}{subsection.6.3.3}
 \contentsline {section}{\numberline {6.4}Ocena jako\'sci wybranych metod przez u\.zytkownik\'ow}{60}{section.6.4}
-\contentsline {chapter}{\numberline {7}Wnioski i podsumowanie}{62}{chapter.7}
-\contentsline {chapter}{\numberline {A}Technologie i narz\k edzia}{64}{appendix.A}
+\contentsline {subsection}{\numberline {6.4.1}Zestawienie wynik\'ow test\'ow automatycznych}{60}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Wyniki oceny eksperckiej}{61}{subsection.6.4.2}
+\contentsline {chapter}{\numberline {7}Wnioski i podsumowanie}{63}{chapter.7}
+\contentsline {chapter}{\numberline {A}Technologie i narz\k edzia}{65}{appendix.A}
