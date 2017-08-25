@@ -37,8 +37,8 @@
 \contentsline {section}{\numberline {4.1}Miara 1: Dystans oparty na metadanych}{38}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Kategorie}{39}{subsection.4.1.1}
 \contentsline {subsection}{\numberline {4.1.2}S\IeC {\l }owa kluczowe}{40}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Miara 2: Ocena przez u\.zytkownik\'ow offline}{41}{section.4.2}
-\contentsline {section}{\numberline {4.3}Miara 3: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{42}{section.4.3}
+\contentsline {section}{\numberline {4.2}Miara 2: Historyczna aktywno\'s\'c u\.zytkownik\'ow serwisu}{41}{section.4.2}
+\contentsline {section}{\numberline {4.3}Miara 3: Ocena przez u\.zytkownik\'ow offline}{42}{section.4.3}
 \contentsline {chapter}{\numberline {5}Opis test\'ow}{44}{chapter.5}
 \contentsline {section}{\numberline {5.1}Testowane metody generowania rekomendacji}{44}{section.5.1}
 \contentsline {subsection}{\numberline {5.1.1}Metody oparte o modelowanie tematu}{45}{subsection.5.1.1}

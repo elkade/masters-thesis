@@ -517,22 +517,7 @@ Kolejna miara oparta na metadanych artyku³ów korzysta ze s³ów kluczowych. Wœród 
 
 Niniejsza miara dzia³a podobnie do poprzedniej opartej o kategorie. Para artyku³ów otrzymuje 1 punkt za ka¿d¹ wspóln¹ parê posiadanych kategorii. Np. dla artyku³u $X$ o s³owach kluczowych \{,,$kosmetyki$'', ,,$kremy$'', ,,$zmarszczki$''\} oraz $Y$ o s³owach kluczowych \{,,$kosmetyki$'', ,,$zele do wlosow$'', ,,$kremy$'', ,,$szampony$''\} $relevance(X,Y)=2$, poniewa¿ oba artyku³y maj¹ dwa wspólne s³owa kluczowe ($,,kosmetyki''$ i $,,kremy''$).
 
-\section{Miara 2: Ocena przez u¿ytkowników offline}
-\textbf{SEKCJA DO UZUPE£NIENIA}%TODO
-
-%TODO opisaæ szczegó³owo i ¿e zrobi³m interfejs itp
-Kolejn¹ wypracowan¹ miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny, ewaluacja powinna byæ dokonana przez grupê osób operuj¹cych na na tych samych danych. Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa. Skala ocen to 1-10: 1, gdy artyku³y nie s¹ do siebie podobne, 10, gdy podobieñstwo jest ca³kowite.
-
-%TODO jaka jest bazowa grupa artyku³ów
-
-Za pomoc¹ ka¿dej z testowanych metod generujê 6 najbardziej podobnych do danego artyku³ów spoœród wszystkich artyku³ów ze zbioru. Nastêpnie ³¹czê je w pary: artyku³ bazowy-artyku³ podobny. Nastêpnym krokiem jest ocena owych par pod wzglêdem podobieñswta miêdzy artyku³ami przez grupê u¿ytkowników testowych. %TODO ilu
-
-W celu wykonania ewaluacji stworzy³em interfejs uruchamiany w przegl¹darce internetowej, za pomoc¹ którego u¿ytkownik mo¿e wyœwietliæ dwa artyku³y za poœrednictwem serwisu Allegro, a nastêpnie okreœliæ podobieñstwo miêdzy nimi w skali 1-10: 1, gdy artyku³y nie s¹ do siebie podobne, 10, gdy podobieñstwo jest ca³kowite.
-
-Po zakoñczeniu etapu ocen u¿ytkowników nastêpuje agregacja uzyskanych danych poprzez obliczenie œredniej ocen dla ka¿dej metody (z uwzglêdnieniem wag).%TODOopisaæ wagi
-
-
-\section{Miara 3: Historyczna aktywnoœæ u¿ytkowników serwisu}
+\section{Miara 2: Historyczna aktywnoœæ u¿ytkowników serwisu}
 
 Zbieranie a nastêpnie przechowywanie informacji o aktywnoœci u¿ytkownika w ramach serwisu internetowego jest powszechn¹ praktyk¹. Proces ten pozwala na analizê zachowania u¿ytkowników co mo¿e doprowadziæ do wniosków, jakie usprawnienia nale¿y przedsiêwzi¹æ, aby spe³niæ cele biznesowe. Jednym z przyk³adów aktywnoœci u¿ytkownika zapisywanej przez serwis Allegro s¹ klikniêcia w linki znajduj¹ce siê na stronie internetowej. Informacja ta pozwala sporz¹dziæ jeszcze jedn¹ miarê jakoœci dopasowania podobnych do siebie artyku³ów. Postaæ danych, jakie uda³o mi siê uzyskaæ z serwisu to tabela o polach: adres strony, na której nast¹pi³o klikniêcie, adres strony, na któr¹ prowadzi link, data klikniêcia.
 
@@ -546,6 +531,24 @@ Za miarê relewantnoœci u¿ywan¹ przez nDCG przyjmujê liczby rzeczywistych przejœæ
 
 Zalet¹ metody jest, i¿ mo¿na j¹ zastosowaæ automatycznie, lecz jest zale¿na od danych analitycznych pochodz¹cych z serwisu, które s¹ niedoskona³e.
 
+\section{Miara 3: Ocena przez u¿ytkowników offline}
+\textbf{SEKCJA DO UZUPE£NIENIA}%TODO
+
+Ostatni¹ opracowan¹ przez mnie miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny, ewaluacja powinna byæ dokonana przez reprezentatywn¹ grupê $T$ osób operuj¹cych na na tych samych danych. W metodzie tej grupa u¿ytkowników dokonuje oceny podobieñstwa par artyku³ów generowanych przez poszczególne testowane metody genreowania rekomendacji.
+
+\begin{enumerate}
+	\item Wybieram $n$ losowych artyku³ów bazowych $b_j, j=1,...,n$.
+	\item  Testowan¹ metod¹ $M$ generujê $p$ artyku³ów $s_{jk}, k=1,...,p$ podobnych do ka¿dego $b_j$ z $n$ wczeœniej wylosowanych.
+	\item Grupujê artyku³y w pary: artyku³ bazowy $b_j$ --- artyku³ podobny $s_{jk}$.
+	\item Za pomoc¹ stworzonego interfejsu prezentujê ka¿demu z u¿ytkowników kolejno wygerenowane pary w postaci rzeczywistych stron z artyku³ami dostêpnych przez przegl¹darkê internetow¹. Co wa¿ne ka¿dy u¿ytkownik otrzymuje ten sam zestaw par. Podczas prezentacji pary u¿ytkownik za pomoc¹ interfejsu webowego ocenia podobieñstwo pomiêdzy artyku³ami $rel(b_j, s_{jk})$ w skali 1-10.
+	\item Dla ka¿dej pary obliczam œredni¹ ocen wszystkich $T$ u¿ytkowników $avg(j,k)=\frac{1}{T}\sum_{t}^{T}rel_t(b_j, s_{jk})$, gdzie $rel_t$ to ocena $t$-go u¿ytkownika.
+	\item Dla ka¿dego artyku³u bazowego $b_j$ obliczam $m(j) = \frac{1}{\sum_{i=1}^{p}i}\sum_{i=0}^{k} avg(j,k)*(p-i)$ bêd¹ce œredni¹ wa¿on¹ ocen, gdzie ka¿dy kolejny artyku³ podobny otrzymuje coraz mniejsz¹ wagê.
+	\item Ocen¹ testowanej metody jest œrednia $\frac{1}{n}\sum_{j}m(j)$.
+\end{enumerate}
+
+Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa.
+
+
 \chapter{Opis testów}
 
 W przeprowadzanych testech staram siê dokonaæ porównania pomiêdzy ró¿nymi konfiguracjami tej samej metody oraz pomiêdzy najlepszymi wariantami ró¿nych metod. W tym celu wykorzystujê wprowadzone miary ewaluacji. W wiêkszoœci przypadków u¿ywam miar automatycznych bazuj¹cych na metadanych artyku³ów oraz historycznej aktywnoœci u¿ytkowników serwisu. Do ostatecznego porównania pomiêdzy najlepszymi wariantami testowanych metod stosujê równie¿ miarê opart¹ na ocenie realnych u¿ytkowników. Miara ta daje najbardziej rzetelne wyniki, jednak¿e jej u¿ycie jest wyj¹tkowo kosztowne - wymaga zaanga¿owania osób testuj¹cych oraz sporych nak³adów czasowych. St¹d zdecydowa³em na u¿ycie jej tylko w jednym przypadku.
@@ -554,6 +557,7 @@ W przeprowadzanych testech staram siê dokonaæ porównania pomiêdzy ró¿nymi konfig
 
 Wykonujê szereg testów metod w ró¿nych konfiguracjach. St¹d dla czytelnoœci wprowadzam w nawiasach skrócone sygnatury tych metod, które stosujê w dalszej czêœci pracy zamiast pe³nych opisów.
 \subsection{Metody oparte o modelowanie tematu}
+%TODO napisaæ, ¿e Za pomoc¹ modelu LDA wybieram $p$ najbrdziej podobnych artyku³ów
 Najwa¿niejszym hiperparametrem metod tej grupy: LSI oraz LDA jest liczba tematów, st¹d dokonujê testu jak zmiana tego parametru wp³ywa na jakoœæ modelu.
 \subsection{Metody oparte o word embedding}
 Wykonujê testy adaptacji metod wektorowej reprezentacji s³ów dla wielu konfiguracji. Poni¿ej obszary, na krórych dokonujê zmian konfiguracji.
@@ -841,12 +845,29 @@ W niniejszym punkcie dokonujê porównania najlepszych konfiguracji testowanych wc
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_.png}
+	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_.png}
 	\caption{Porównanie znormalizowanych wyników dla wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody LDA oraz Word2vec potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
+Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody semantycznej analizy tekstu potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
+
+\begin{center}
+	\begin{tabular}{lrrrrrrr}
+		\hline
+		&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &   rnd \\
+		\hline
+		users &    8.415 &    7.895 &    8.185 &     8.61 &     8.68 &      8.47 & 1.345 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
+	\caption{Porównanie znormalizowanych wyników dla wybranych metod.}
+	%\label{fig:warstwy}
+\end{figure}
 
 \chapter{Wnioski i podsumowanie}
 
