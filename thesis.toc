@@ -50,22 +50,22 @@
 \contentsline {chapter}{\numberline {5}Wyniki bada\IeC {\'n}}{45}{chapter.5}
 \contentsline {subsection}{\numberline {5.0.1}LSI w zale\IeC {\.z}no\IeC {\'s}ci od liczby temat\IeC {\'o}w}{45}{subsection.5.0.1}
 \contentsline {subsection}{\numberline {5.0.2}LDA w zale\IeC {\.z}no\IeC {\'s}ci od liczby temat\IeC {\'o}w}{46}{subsection.5.0.2}
-\contentsline {section}{\numberline {5.1}Word2vec w zale\IeC {\.z}no\IeC {\'s}ci od korpusu}{47}{section.5.1}
+\contentsline {section}{\numberline {5.1}Word2vec w zale\IeC {\.z}no\IeC {\'s}ci od korpusu}{48}{section.5.1}
 \contentsline {section}{\numberline {5.2}Word2vec w zale\IeC {\.z}no\IeC {\'s}ci od metody por\IeC {\'o}wnywania dokument\IeC {\'o}w}{49}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Wymiar wektor\IeC {\'o}w: 100}{49}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Wymiar wektor\IeC {\'o}w: 300}{50}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.1}Wymiar wektor\IeC {\'o}w: 100}{50}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Wymiar wektor\IeC {\'o}w: 300}{51}{subsection.5.2.2}
 \contentsline {section}{\numberline {5.3}Metody word embedding w zale\IeC {\.z}no\IeC {\'s}ci od wymiarowo\IeC {\'s}ci wektor\IeC {\'o}w}{52}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Word2vec}{52}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}GloVe}{53}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}FastText}{54}{subsection.5.3.3}
-\contentsline {section}{\numberline {5.4}Ocena jako\IeC {\'s}ci wybranych metod przez u\IeC {\.z}ytkownik\IeC {\'o}w}{55}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Zestawienie wynik\IeC {\'o}w test\IeC {\'o}w automatycznych}{55}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Wyniki oceny eksperckiej}{56}{subsection.5.4.2}
-\contentsline {chapter}{\numberline {6}Wnioski i podsumowanie}{58}{chapter.6}
-\contentsline {chapter}{Bibliografia}{59}{section*.7}
-\contentsline {chapter}{Wykaz symboli i skr\IeC {\'o}t\IeC {\'o}w}{62}{section*.8}
-\contentsline {chapter}{Spis rysunk\'ow}{63}{section*.9}
-\contentsline {chapter}{Spis tabel}{64}{section*.10}
-\contentsline {chapter}{Spis za\IeC {\l }\IeC {\k a}cznik\IeC {\'o}w}{65}{section*.11}
-\contentsline {chapter}{\numberline {A}Technologie i narz\IeC {\k e}dzia}{66}{appendix.A}
+\contentsline {subsection}{\numberline {5.3.1}Word2vec}{53}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}GloVe}{54}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}FastText}{55}{subsection.5.3.3}
+\contentsline {section}{\numberline {5.4}Ocena jako\IeC {\'s}ci wybranych metod przez u\IeC {\.z}ytkownik\IeC {\'o}w}{56}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Zestawienie wynik\IeC {\'o}w test\IeC {\'o}w automatycznych}{56}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Wyniki oceny eksperckiej}{58}{subsection.5.4.2}
+\contentsline {chapter}{\numberline {6}Wnioski i podsumowanie}{61}{chapter.6}
+\contentsline {chapter}{Bibliografia}{63}{section*.7}
+\contentsline {chapter}{Spis rysunk\'ow}{66}{section*.8}
+\contentsline {chapter}{Spis tabel}{68}{section*.9}
+\contentsline {chapter}{Spis za\IeC {\l }\IeC {\k a}cznik\IeC {\'o}w}{69}{section*.10}
+\contentsline {chapter}{\numberline {A}Wykorzystane technologie i narz\IeC {\k e}dzia}{70}{appendix.A}
+\contentsline {chapter}{\numberline {B}Zawarto\IeC {\'s}\IeC {\'c} do\IeC {\l }\IeC {\k a}czonej p\IeC {\l }yty CD}{71}{appendix.B}
 \contentsfinish 

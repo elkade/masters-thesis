@@ -559,7 +559,8 @@ W rozdziale tym przedstawiam wyniki oceny jakości poszczególnych metod w zale�
 
 Dokonuję porównania jakości modelu LSI w zależności od wartości hiperparametru - liczby tematów.
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrrr}
 		\hline
 		&       100 &      300 &      500 &      600 \\
@@ -571,7 +572,8 @@ Dokonuję porównania jakości modelu LSI w zależności od wartości hiperpara
 		clicks       & 0.865496  & 0.868586 & 0.878243 & 0.87366  \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -587,7 +589,8 @@ Miary oparte na liczbie wspólnych słów kluczowych ($mut\_kw...$) wyraźnie po
 Podobnie, jak w poprzednim punkcie dokonuję porównania jakości modelu LDA w zależności od wartości hiperparametru - liczby tematów.
 
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrrrrr}
 		\hline
 		&       100 &       300 &       500 &       700 &       900 &      1100 \\
@@ -599,7 +602,8 @@ Podobnie, jak w poprzednim punkcie dokonuję porównania jakości modelu LDA w 
 		clicks       & 0.880891  & 0.90278   & 0.879733  & 0.906384  & 0.912387  & 0.890913  \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -615,7 +619,8 @@ Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych słów kl
 
 Poniżej zestawiam wyniki dla modelów word2vec o wektorach długości 100 uczonych: na korpusie artykułów z Allegro ($w2v100\_art$) oraz na korpusie Słowosieci ($w2v100\_wn$). Dokumenty porównywane są tu metodą centroidu.
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrr}
 		\hline
 		&   w2v100\_art &   w2v100\_wn \\
@@ -627,7 +632,8 @@ Poniżej zestawiam wyniki dla modelów word2vec o wektorach długości 100 uczon
 		clicks       &    0.946487  &   0.946191  \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -640,11 +646,12 @@ Maksymalna różnica między najlepszym i najgorszym wynikiem nie przekracza 2\%
 
 \section{Word2vec w zależności od metody porównywania dokumentów}
 
-W niniejszym punkcie dokonuję porównania jakości metod określania podobieństwa między wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metodą word2vec dla wektorów długości 100 oraz 300. Biorę tu pod uwagę metody: centroidu całości dokumentu ($w2v100_centroid$), centroidu słów kluczowych wyznaczonych metodą LDA dla 100 tematów ($w2v100_lda100$) oraz Word Mover's Distance ($w2v100_wnd$).
+W niniejszym punkcie dokonuję porównania jakości metod określania podobieństwa między wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metodą word2vec dla wektorów długości 100 oraz 300. Biorę tu pod uwagę metody: centroidu całości dokumentu ($w2v100_centroid$), centroidu słów kluczowych wyznaczonych metodą LDA dla 100 tematów ($w2v100_lda100$) oraz Word Mover's Distance ($w2v100_wnd$). Z powodu powolności metody WMD stosuję ją do wyznaczenia dokumentów najbliższych danemu jedynie spośród 20 dokumentów najbardziej podobnych do danego wyznaczonych metodą centroidu.
 
 \subsection{Wymiar wektorów: 100}
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrr}
 		\hline
 		&   w2v100\_centroid &   w2v100\_lda100 &   w2v100\_wmd \\
@@ -656,7 +663,8 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		clicks       &         0.938998  &       0.888249  &     0.996717 \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -667,7 +675,9 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 
 \subsection{Wymiar wektorów: 300}
 
-\begin{center}
+
+\begin{table}
+	\centering
 	\begin{tabular}{lrrr}
 		\hline
 		&   w2v300\_ctr &   w2v300\_lda100 &   w2v300\_wmd \\
@@ -679,7 +689,8 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		clicks       &    0.936386  &       0.891596  &     0.940603 \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -701,7 +712,8 @@ W niniejszym punkcie porównuję jakość metod word embedding (word2vec, GloVe 
 
 \subsection{Word2vec}
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrr}
 		\hline
 		&       100 &       300 &      1000 \\
@@ -713,7 +725,8 @@ W niniejszym punkcie porównuję jakość metod word embedding (word2vec, GloVe 
 		clicks       & 0.946487  & 0.936386  & 0.938998  \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -726,7 +739,8 @@ Dla różnej wymiarowości wektorów wyjściowych metoda word2vec daje bardzo po
 
 \subsection{GloVe}
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrr}
 		\hline
 		&      100 &      300 &     1000 \\
@@ -738,7 +752,8 @@ Dla różnej wymiarowości wektorów wyjściowych metoda word2vec daje bardzo po
 		clicks       & 0.907997 & 0.907997 & 0.879786 \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -751,7 +766,8 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 
 \subsection{FastText}
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrr}
 		\hline
 		&      100 &      300 &     1000 \\
@@ -763,7 +779,8 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 		clicks       & 0.896766 & 0.89745  & 0.885622 \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -789,7 +806,8 @@ Testowane warianty:
 \end{itemize}
 \subsection{Zestawienie wyników testów automatycznych}
 Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów testowanych wcześniej metod.
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
 		&   lsi500 &    lda900 &    w2v300 &   gv1000 &   ft1000 &   allegro &          rnd \\
@@ -801,7 +819,8 @@ Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów tes
 		clicks       & 0.913 & 0.9064  & 0.936  & 0.880 & 0.886 &  0.890 & ---          \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -816,7 +835,8 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 
 \subsection{Wyniki oceny eksperckiej}
 
-\begin{center}
+\begin{table}
+	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
 		&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &   rnd \\
@@ -824,18 +844,63 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 		users &    8.415 &    7.895 &    8.185 &     8.61 &     8.68 &      8.47 & 1.345 \\
 		\hline
 	\end{tabular}
-\end{center}
+	\caption{This is my one big table}
+\end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
-	\caption{Porównanie znormalizowanych wyników dla wybranych metod.}
+	\caption{Porównanie wyników ewaluacji eksperckiej dla wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
+
+
+
+
+\begin{table}
+	\centering
+	\begin{tabular}{lrrrrrrr}
+		\hline
+		&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &     rnd \\
+		\hline
+		users\_std &   2.6931 &  2.71551 &  2.59823 &  2.18813 &  2.06097 &    2.4019 & 1.34014 \\
+		\hline
+	\end{tabular}
+	\caption{This is my one big table}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users_std.png}
+	\caption{Porównanie odchyleń standardowych ocen eksperckich dla wybranych metod.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Pożądaną cechą dla metody jest, aby możliwie rzadko generowała ona wyniki odstające --- w żaden sposób niezwiązane z artykułem bazowym. Stąd niska wartość odchylenia standardowego działa na korzyść metody.
+
+W świetle powyższych wyników najlepsze rezultaty zdaje się osiągać fastText. Zakładam, iż jest to związane z wewnętrzną analizą słów, jaką wykonuje ta metoda. Może się to sprawdzać szczegónie dobrze w przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
+
+Zadna z testowanych metod nie odbiega znacząco od innych.
+
+Wadą metod semantycznej analizy tekstu w porównaniu do silnika wyszukiwania niest konieczność przebudowy modelu przy każdej edycji bazy artykułów.
+
+Użycie metod semantycznej analizy tekstu pozwala wychwycić ukryte podobieństwa między dokumentami, gdzie dokumenty łączą nie te same słowa, czy synonimy, ale złóżone abstrakcyjne koncepty powiązane ze sobą.
+
+Użycie metod semantycznej analizy tekstu zwalnia autorów artykułów z samodzielnego opatrywania ich dodatkowymi słowami kluczowymi, gdyż metody te opierają się jedynie o treść dokumentu.
+
+Analiza zawarta w tej pracy nei wyczerpuje całkowicie tematu. 
+
+Na uwadze należy mieć niedoskonałość wprowadzonych metod ewaluacji
+
+Artykuły najbardziej podobne wcale nie muszą wyć tymi, które najlepiej nadają się na rekomendacje. Istotnym problemem jest trudnośc zadania ewaluacji systemu rekomendacyjnego. Celem użycia systemu rekoemdacji jest w dłuższej perspektywie maksymalizacja zysku serwisu przez kierowanie użytkowników na strony ofert, co zwiększa szansę a dokonanie przez nich transakcji. Otwartym pytaniem pozostaje, czy rekomendowanie użytkownikowi podobnych artykułów wprost przekłada się na zwiększenie liczby transakci zawartych przez niego. Trudnośc oceny wiąże się z mnogością czynników, które kierują zachowaniami użytkowników.
+
+
 
 %TODO dodatkowe statystyki userskie
 
 \chapter{Wnioski i podsumowanie}
+
+%TODO o czym byłe ta praca
 
 Istotną zaletą dotychczasowego rozwiązainia stosowanego w Allegro jest uniwersalność silnika elasticsearch oraz to, że pozwala edytować inteksowane dane w locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy każdej zmianie korpusu, na którym się opierają. 
 
@@ -855,9 +920,24 @@ Przed zastosowaniem metod wyznaczania podobieństwa wykonałem przetwarzanie wst
 Zdaję sobie sprawę z niedoskonałości zastosowanych miar.
 
 Tematem niniejszej pracy jest przypisanie danemu artykułowi artykułów najbardziej podobnych. Warto tutaj zaznaczyć różnicę pomiędzy tematyką pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artykuły, które można uznać za dobre rekomandacje, tj. takie, które przynoszą przedsiębiorstwu największy zysk, wcale nie musż być podobne do danego. Powszechnym zjawiskiem jest wzbogacanie rekomandacji o przedmioty niepodobne do danego, a pozwalające użytkownikowi na poznanie osobnej kategorii przedmiotów, która może go zainteresować a tym samym przyciągnąć do serwisu.
+%TODO podpisać tabele
+%TOTO na początku pracy zaać pytania i w podsumowaniu na nie odpowiedzieć
 
+Przeprowadzone w pracy badania dają jedynie ogólny pogląd
 
+CElem pracy nie było wyznaczenie najlepszej metody i stworzenie nowego lepszego systemu rekomendacyjnego a przeprowadzenie analizy możliwości wykorzystania semantycznych metod analizy języka naturalnego jako rozwiązania alternatywnego do obecnego. Analiza wykazała, że jak najbardziej jest ku temu potencjał, gdyż wyniki metod semantycnej analizy języka naturalnego nie odbiegają, a nawet w niektórych przypadkach przewyższają jakością dotychczasową metodę wykorzystywaną w serwisie.
 
+Otrzymane wyniki nie wskazują jednoznacznej przewagi jednej metody nad innymi.
+
+Wstępne przetwarzaie danych można wykonać na wiele sposobów. Użytyt przez mnie nie musiłąby okazać się wcale najlepszy.
+
+Innym aspektem jest założenie braku dynakimi systemu. Koniecznośc przebudowywani moelu przy każdej zmianie w bazie artykułów jest sporą waą metod semantycznej analizy tekstu.
+
+Inne ciekawe badania w tym temacie
+Kwestie, które wykraczają poza zakres niniejszej pracy, a są związane z jej tematyką
+Można by zastosować inne metody wyznaczania odległości między wektorowymi reprezentacjami dokumentów. Metoda centroidu jest szybka i prosta, ale dokonuje sporego uproszczenia struktury dokumentu. Metoda WMD daje natomiast lepsze uszeregowanie, ale kosztem dużej złożoności obliczeniowej.
+%TODO w dodaktu opisać zawartość dołączonej płyty
+%TODO posortować bibliografię, pisać ,,dostęp''
 \begin{thebibliography}{30}
 	\bibitem{all_naj}
 	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
@@ -996,13 +1076,13 @@ Tematem niniejszej pracy jest przypisanie danemu artykułowi artykułów najbard
 
 
 % 7. Wykaz symboli i skrótów - jeśli nie ma, zakomentować
-\chapter*{Wykaz symboli i skrótów}
+%\chapter*{Wykaz symboli i skrótów}
 
-\begin{tabular}{cl}
-nzw. & nadzwyczajny \\
-* & operator gwiazdka \\
-$\widetilde{}$ & tylda
-\end{tabular}
+%\begin{tabular}{cl}
+%nzw. & nadzwyczajny \\
+%* & operator gwiazdka \\
+%$\widetilde{}$ & tylda
+%\end{tabular}
 
 
 % 8. Spis rysunków - jeśli nie ma, zakomentować (ale być może po prostu się nie zrobi)
@@ -1017,15 +1097,15 @@ $\widetilde{}$ & tylda
 % 10. Spis załączników - jak nie ma załączników, to zakomentować lub usunąć
 \chapter*{Spis załączników}
 \begin{enumerate}
-\item[1.] Załącznik 1
-\item[2.] Załącznik 2
+\item[1.] Wykorzystane technologie i narzędzia
+\item[2.] Zawartość dołączonej płyty CD
 \end{enumerate}
 
 % 11. Załączniki
 \newpage
 \pagestyle{empty}
 \appendix
-\chapter{Technologie i narzędzia}
+\chapter{Wykorzystane technologie i narzędzia}
 %TODO przypisy
 Analizę danych, ich wstępne przetworzenie a następnie przeprowadzenie docelowych eksperymentów wykonałem korzystając głównie z języka Python i szeregu skrytpów napisanych w nim własnoręcznie, wykorzystujących istniejące specjalistyczne biblioteki posiadające interfejs w tymże języku.
 
@@ -1047,4 +1127,6 @@ Poniższa lista zawiera wykorzystane biblioteki języka Python:
 	\item Matplotlib --- biblioteka służąca do wykonywania wykresów.
 	\item Pymongo --- umożliwia wykonywanie zapytań do bazy MongoDB wprost z kodu Pythona.
 \end{itemize}
+
+\chapter{Zawartość dołączonej płyty CD}
 \end{document}
