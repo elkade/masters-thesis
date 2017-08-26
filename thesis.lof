@@ -1,0 +1,28 @@
+\select@language {polish}
+\contentsline {figure}{\numberline {0.1}{\ignorespaces Widok strony internetowej zawieraj\IeC {\k a}cej jeden z artyku\IeC {\l }\IeC {\'o}w serwisu Allegro. \cite {screen_allegro}}}{12}{figure.0.1}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Neuronowy model j\IeC {\k e}zyka. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: \cite {bengio}.}}{22}{figure.1.1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Schemat sieci wykorzystuj\IeC {\k a}cej podej\IeC {\'s}cie skip-gram i CBOW. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: \cite {word2vec}.}}{24}{figure.1.2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Liczba kategorii na poszczeg\IeC {\'o}lnych poziomach drzewa.}}{31}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Liczba artyku\IeC {\l }\IeC {\'o}w, dla kt\IeC {\'o}rych kategoria na danym poziome drzewa jest t\IeC {\k a} najbardziej szczeg\IeC {\'o}\IeC {\l }ow\IeC {\k a}.}}{32}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Histogram liczby wyst\IeC {\k a}pie\IeC {\'n} s\IeC {\l }\IeC {\'o}w w korpusie w skali logarytmicznej.}}{34}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Histogram d\IeC {\l }ugo\IeC {\'s}ci artyku\IeC {\l }\IeC {\'o}w.}}{35}{figure.2.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Drzewo kategorii dla przyk\IeC {\l }adu 1.}}{38}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Drzewo kategorii dla przyk\IeC {\l }adu 2.}}{38}{figure.3.2}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody LSI.}}{46}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody LDA.}}{47}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody word2vec w zale\IeC {\.z}nosci od bazowego korpusu.}}{48}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody word2vec w zale\IeC {\.z}nosci od sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{50}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody word2vec w zale\IeC {\.z}nosci od sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{51}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody word2vec w zale\IeC {\.z}nosci od bazowego korpusu.}}{52}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody GloVe w zale\IeC {\.z}nosci od bazowego korpusu.}}{53}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody fastText w zale\IeC {\.z}nosci od bazowego korpusu.}}{54}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla wybranych metod.}}{56}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla wybranych metod.}}{57}{figure.5.10}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 

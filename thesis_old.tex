@@ -1,0 +1,1086 @@
+\documentclass[12pt, twoside, openany]{report}
+\usepackage[dvips]{graphicx,color,rotating}
+\usepackage[cp1250]{inputenc}
+\usepackage{t1enc}
+\usepackage{a4wide}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{verbatim}
+%\usepackage[MeX]{polski}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{left=25mm,right=25mm,bindingoffset=10mm, top=25mm, bottom=25mm}
+\usepackage{amssymb, latexsym}
+\usepackage{amsthm}
+\usepackage{palatino}
+\usepackage{array}
+\usepackage{pstricks}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage[none]{hyphenat}
+\usepackage[english, polish]{babel}
+\usepackage{hyperref}
+\theoremstyle{definition}
+\newtheorem{theorem}{Twierdzenie}[section]
+\newtheorem{remark}{Uwaga}[section]
+\newtheorem{definition}{Definicja}[section]
+\newtheorem{alg}{Algorytm}[chapter]
+\newtheorem{prz}{Przypadek}[section]
+\newtheorem{np}{Przyk³ad}[section]
+\newtheorem{lemma}[theorem]{Lemat}
+\linespread{1.5}
+\usepackage{indentfirst}
+\newcommand*{\norm}[1]{\left\Vert{#1}\right\Vert}
+\newcommand*{\abs}[1]{\left\vert{#1}\right\vert}
+\newcommand*{\om}{\omega}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+%\renewcommand{\floatpagefraction}{.99}%
+\author{£ukasz Dragan}
+\title{Rekomendacje artyku³ów opisuj¹cych produkty w serwisach e-commerce}
+
+\begin{document}
+\sloppy
+\hyphenpenalty 10000
+\exhyphenpenalty 10000
+\righthyphenmin 10000
+\lefthyphenmin 10000
+\hyphenchar\font=-1
+% Za³ó³æ gêœl¹ jaŸñ.
+\begin{titlepage}
+\pagestyle{empty}
+
+\noindent
+\begin{Large}
+\begin{table}[t]
+\centering
+\begin{tabular}[t]{lcr}
+ \includegraphics[width=70pt,height=70pt]{PW} & POLITECHNIKA WARSZAWSKA & \includegraphics[width=70pt,height=70pt]{MiNI}\\
+& WYDZIA£ MATEMATYKI & \\
+& I NAUK INFORMACYJNYCH &
+\end{tabular}
+\end{table}
+
+\begin{center}PRACA DYPLOMOWA MAGISTERSKA\end{center}
+\begin{center}INFORMATYKA\end{center}\end{Large}
+\begin{center}
+\Large
+\textbf{Rekomendacje artyku³ów opisuj¹cych produkty w serwisach e-commerce}
+\vfill
+\large
+\textbf{Content-based recommendations in e-commerce services}
+\vfill
+\normalsize
+Autor:\\
+\LARGE
+£ukasz Dragan
+\vfill
+\normalsize
+Promotor: 
+\large
+dr in¿. Anna Wróblewska
+\vfill
+\large
+Warszawa, wrzesieñ 2017
+\end{center}
+\newpage
+\hfill
+\begin{table}[b]
+\centering
+\begin{tabular}[t]{ccc}
+............................................. & \hspace*{100pt} & .............................................\\
+podpis promotora & \hspace*{100pt} & podpis autora
+\end{tabular}
+\end{table}
+
+
+% \maketitle
+\end{titlepage}
+\thispagestyle{empty}
+\newpage
+\pagestyle{headings}
+\setcounter{page}{1}
+\hyphenation{Syl-ves-tra}
+\hyphenation{Syl-ves-ter-a}
+
+\begin{abstract}%DONE
+	
+
+\end{abstract}
+\begin{otherlanguage}{english}
+	\begin{abstract}
+
+	\end{abstract}
+\end{otherlanguage}
+
+\tableofcontents
+\clearpage
+%-----------Pocz¹tek czêœci zasadniczej-----------
+
+\chapter{Wstêp}%DONE
+%TODO JAkie pytanie stawiam w pracy: czy semantyczne metody analizy jêzyka naturalnego s¹ w stanie daæ lepsze efekty w zadaniu generowania rakomandacji od dotychczasowej metody stosowanej w Allegro opartej o silnik wyszukiwania Elasticearch i s³owa kluczowe dobierane do artyku³ów przez ich autorów.
+Systemy rekomendacji s¹ powszechnym elementem wielu serwisów internetowych. Sprawdzaj¹ siê na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Daj¹ u¿ytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowuj¹cy niejako zawartoœæ swoich stron do konkretnego u¿ytkownika. Pozwala to u¿ytkownikowi na bardziej efektywne korzystanie z serwisu oraz mo¿e prowadziæ do wiêkszego zaanga¿owania ze strony u¿ytkownika i przywi¹zania do serwisu. Systemy rekomendacji daj¹ obopuln¹ korzyœæ zarówno u¿ytkownikowi jak i w³aœcicielowi serwisu internetowego.
+
+Celem niniejszej pracy magisterskiej jest analiza mo¿liwoœci usprawnienia istniejacego systemu rekomendacji o oparciu o adaptacjê istniej¹cych metod wyszukiwania semantycznego podobieñstwa pomiêdzy dokumentami tekstowymi. Rzeczony system rekomendacji istnieje w internetowym serwisie e-commerce Allegro w dziale artyku³ów tekstowych o tematyce zwi¹zanej z produktami dostêpnymi za poœrednictwem serwisu. System ma na celu zarekomendowanie u¿ytkownikowi artyku³ów o tematyce podobnej do tego, który znajduje siê na stornie aktualnie odwiedzanej przez uzytkownika.
+
+W swojej pracy badam mo¿liwoœæ u¿ycia istniej¹cych metod semantycznej analizy tekstu w odniesieniu do opisanego problemu. Badane metody to: Latent Semantic Analysis, Latent Dirichlet Allocation, Word2vec, GloVe oraz FastText. Jakoœæ dzia³ania tych metod porównujê poprzez samodzielnie opracowane metody ewaluacji.
+
+Podczas prowadzenia badañ stworzy³em szereg skryptów przetwarzaj¹cych dane i wykorzystuj¹cych implementacje opisywanych w tej pracy metod. Opis u¿ytych narzêdzi programistycznych i bibliotek zawar³em w dodatku A do niniejszej pracy.
+
+\section{Rekomendacje artyku³ów tekstowych w Allegro}%DONE
+Allegro jest najwiêksz¹\cite{all_naj} dzia³aj¹c¹ na rynku polskim platform¹ aukcyjn¹ on-line. Posiada ponad 20 mln zarejestrowanych klientów. Ka¿dego dnia na Allegro sprzedaje siê ponad 870 tysiêcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umo¿liwia u¿ytkownikom wystawianie na sprzeda¿ oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu.
+
+Oprócz g³ównej czêœci serwisu odpowiedzialnej za transakcje Allegro posiada dzia³ zajmuj¹cy siê publikacj¹ artyku³ów opisuj¹cych produkty wystawiane za poœrednictwem serwisu. Ma to na celu pomoc u¿ytkownikom przy wyborze interesuj¹cego ich produktu.
+
+Po to, aby zachêciæ u¿ytkowników do zapoznania siê z treœci¹ kolejnych artyku³ów, zastosowany zosta³ tu system rekomendacji przyporz¹dkowuj¹cy danemu artyku³owi listê powi¹zanych artyku³ów. Kryterium mówi¹cym, czy artyku³y s¹ powi¹zane jest tutaj jedynie treœæ samych artyku³ów, a nie wczeœciejsze zachowanie u¿ytkownika.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/screen_allegro.png}
+	\caption{Widok strony internetowej zawieraj¹cej jeden z artyku³ów serwisu Allegro. \cite{screen_allegro}}
+\end{figure}
+
+Od serwisu Allegro otrzyma³em zserializowan¹ kopiê 20000 artyku³ów dostêpnych na stronach serwisu. Pojedynczy artyku³ sk³ada siê z g³ównej zawartoœci tekstowej oraz metadanych. W celu otrzymania wszelkich danych od firmy Allegro wynagane by³o, abym podpisa³ umowê, w której zobowi¹zujê siê do nieujawniania ¿adnych danych, które otrzyma³em. St¹d opisy danych, na których pracujê, zawarte w tej pracy nie wnikaj¹ w ich szczegó³y i nieodbiegaj¹ od informacji publicznie dostêpnych za poœrednictwem strony pod adresem \url{https://allegro.pl/artykuly}.
+
+Aktualnie w rzeczonym dziale serwisu Allegro istnieje system rekomendacyjny, który opiera siê o wyszukiwanie podobnych artyku³ów tekstowych za pomoc¹ silnika Elasticsearch\cite{elastic}. Metoda ta wykorzystuje s³owa kluczowe przypisane do ka¿dego artyku³u przez autora. W swojej pracy staram siê porównaæ wyniki dzia³ania dotychczasowej metody z metodami semantycznej analizy tekstu, które potrafi¹ wykryæ podobieñstwo pomiêdzy artyku³ami bazuj¹c jedynie na ich treœci, bez potrzeby do³¹czania ¿adnych metadanych. Pomyœlna próba zastosowania metod semantycznych pozwoli³aby na dok³adniejsze dopasowanie podobnych artyku³ów w oparciu byæ mo¿e o pewne ukryte cechy semantyczne nieosi¹galne dla silnika wyszukiwania tekstowego, jakim jest Elasticsearch. Bardziej szczegó³owego opisu silnika Elasticsearch dokonujê w kolejnym rozdziale.
+
+\section{Struktura pracy}
+W rozdziale 2 wprowadzam do zagadnienia rekomendacji oraz dokonujê przegl¹du metod semantycznej analizy tekstu, które mog¹ zostaæ zastosowane w celu okreœlenia podobieñstwa pomiêdzy dokumentami tekstowymi.
+
+Nastêpnie w rozdziale 3 dokonujê opisu konkretnego problemu, jakim jest generacja rekomendacji artyku³ów tekstowych w serwisie Allegro. Opisujê dane otrzymane z serwisu oraz kolejne etapy ich wstêpnego przetwarzania, aby nadawa³y siê do zaaplikowania do nich wybranych metod.
+
+Dalej, w rozdziale 4 opisujê stworzone i zastosowane póŸniej metody ewaluacji wyników.
+
+Nastêpnie w rozdziale 5 dokonujê opisu testów: jakie metody i w jako sposób testujê.
+
+W rozdziale 6 opisujê wyniki przeprowadzonych eksperymentów.
+
+Ostatecznie w rozdziale 7 dokonujê podsumowania przeprowadzonych badañ i rozwa¿am kierunki dalszych prac w tej dziedzinie.
+
+Za³¹cznik A zawiera opis narzêdzi programistycznych i bibliotek wykorzystanych przeze mnie podczas prowadzenia badañ.
+
+\section{Uwagi}
+W celu unikniêcia nieporozumieñ nale¿y podkreœliæ ró¿nicê pomiêdzy znaczeniami s³owa ,,artyku³'', które mo¿e oznaczaæ zarówno tekst publicystyczny, literacki lub naukowy jak i rzecz, która jest przedmiotem handlu.\cite{slownik} W niniejszej pracy skupiam siê na rekomendacjach artyku³ów tekstowych, st¹d u¿ywam pierwszego znaczenia (chyba, ¿e inne znaczenie jest wyraŸnie zaznaczone).
+
+\chapter{Przegl¹d wiedzy z zakresu tematyki pracy}
+W swojej pracy dokonujê adaptacji metod przetwarzania jêzyka naturalnego na potrzeby generowania rekomendacji artyku³ów tekstowych w oparciu o ich treœæ. W niniejszym rozdziale dokonujê przegl¹du znanych metod z obszaru tematyki pracy dyplomowej, skupiaj¹c siê szczególnie na nowo powsta³ych metodach wektorowej reprezentacji s³ów, które ciesz¹ siê obecnie du¿ym zainteresowaniem œrodowisk naukowych oraz firm komercyjnych. 
+
+Dokonujê krótkiego wprowadzenia do zagadnienia generowania rekomendacji, którego g³êboka analiza nie jest konieczna z punktu widzenia niniejszej pracy. Nastêpnie wykonujê chronologiczny przegl¹d metod ci¹g³ej reprezentacji s³ów zaczynaj¹c od trywialnych metod zliczania s³ów (bag-of-words, tf-idf), przechodz¹c przez metody wykorzystuj¹ce koncepcjê tematów (Latent Semantic Analysis, Latent Dirichlet Allocation) i koñcz¹c na g³oœnych ostatnio metodach osadzania s³ów w przestrzeni wektorowej (Word2vec, GloVe, FastText). Przy zarysie historycznym opieram siê w du¿ej mierze na artykule\cite{aylien}.
+
+%Czêœæ z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch oparty na indeksie Lucene\cite{lucene}) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystaj¹ce z semantycznej analizy tekstu - nie s¹ tak popularne z powodu swojej nowoœci, b¹dŸ trudnoœci w zaaplikowaniu. Daje to pole do badañ i ewentualnych usprawnieñ istniej¹cych systemów opieraj¹cych siê o klasyczne metody. Wybrane metody stosujê, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, st¹d przegl¹d metod zaczynam w³aœnie od wprowadzenia do tego zagadnienia.
+
+\section{Systemy rekomendacji}
+
+Systemy rekomendacji to narzêdzia i techniki maj¹ce na celu zasugerowaæ u¿ytkownikowi przedmioty. Sugestie te odnosz¹ siê do ró¿nych procesów podejmowania decyzji takich jak np. które artyku³y kupiæ, jakiej muzyki s³uchaæ czy te¿ które wiadomoœci czytaæ. ,,Przedmiot'' jest tutaj ogólnym pojêciem oznaczaj¹cym coœ, co system poleca u¿ytkownikowi. \cite{handbook} 
+
+Przy wci¹¿ wzrastaj¹cej iloœci danych u¿ytkownicy serwisów internetowych czêsto nie s¹ w stanie dotrzeæ do informacji, która ich interesuje. Jest to pole do rozwoju zautomatyzowanych systemów rekomendacyjnych polecaj¹cych u¿ytkownikom treœci, które mog¹ ich zainteresowaæ. Dzia³alnoœæ tekiego systemu daje zysk zarówno u¿ytkownikowi, pozwalaj¹c mu dotrzeæ do informacji, której móg³by samodzielnie nie odszukaæ, albo wrêcz nie wiedzieæ, i¿ taka informacja istnieje, jak i w³aœcicielowi serwisu internetowego, któremu zale¿y, by przyci¹gn¹æ do siebie u¿ytkowników, aby ci w jak najwiêkszym stopniu korzystali z ich us³ug.
+
+Sposoby dzia³ania systemów rekomendacji mo¿na podzieliæ na ró¿ne warianty, spoœród których wyodrêbniæ mo¿na dwa najszerzej u¿ywane. S¹ to: filtrowanie kolaboratywne (collaborative filtering) i filtrowanie oparte na treœci (content-based filtering).
+
+\subsection{Filtrowanie kolaboratywne (collaborative filtering)}
+Technika ta opiera siê na spostrze¿eniu, i¿ u¿ytkownicy o podobnych preferencjach zachowuj¹ siê podobnie. St¹d je¿eli u¿ytkownik zachowuje siê podobnie do zaobserwowanej wczeœniej grupy u¿ytkowników, mo¿na przewidzieæ jego preferencje na podstawie zachowañ ów grupy. Istotn¹ zalet¹ tej metody jest fakt, i¿ nie zale¿y ona od dziedziny, w której ulokowany jest system rekomendacji (w przeciwieñstwie do rekomendacji opartych na treœci), a jedynie od zachowañ u¿ytkowników.
+\subsection{Filtrowanie oparte na treœci (content-based filtering)}
+W technice tej przedmioty polecane u¿ytkownikowi zale¿¹ od innych przedmiotów, na temat których stwierdzono, ¿e u¿ytkownik siê nimi interesuje. Mog¹ siê one opieraæ np. na podobieñstwie przedmiotów: je¿eli u¿ytkownik ,,lubi'' przedmiot A, który jest podobny do przedmiotu ,,B'' to mo¿na spodziewaæ siê, ¿e równie¿ przedmiot B zainteresuje u¿ytkownika. Technika ta jest mocno zale¿na od dziedziny rekomendowanych przedmiotów, gdy¿ wymaga wprowadzenia pewnej miary podobieñstwa miêdzy nimi. St¹d jest trudniejsza do zastosowania, ale daje te¿ mo¿liwoœci nieosi¹galne dla filtrowania kolaboratywnego.
+
+Celem niniejszej pracy jest zbadanie metod sugeruj¹cych u¿ytkownikowi artyku³y podobne do aktualnie odwiedzanego, co wprost wi¹¿e siê z metodami u¿ywanymi w technice filtrowania opartego na treœci.
+
+\section{Silnik Elasticsearch}
+
+Obecnie wykorzystywana przez Allegro metoda generowania rekomendacji artyku³ów opiera siê o zapytanie do us³ugi Elasticsearch\cite{elastic} wykorzystuj¹ce s³owa kluczowe do³¹czone do artyku³ów. Elasticsearch jest popularnym silnikiem wyszukiwania tekstu opartym o indeks Lucene\cite{lucene}. Dzia³a w architekturze rozproszonej a komunikacja z nim nastêpuje poprzez protokó³ HTTP i format JSON. Umo¿liwia on efektywne przechowywanie dokumentów tekstowych oraz efektywne ich wyszukiwanie. 
+
+Apache Lucene jest bibliotek¹ napisan¹ w jêzyku Java s³u¿¹c¹ do wyszukiwania tekstu, która w tym celu wykorzystuje mechanizm odwróconego indeksu. Zasada dzia³ania biblioteki polega na stworzeniu s³ownika ze wszystkich (odpowiednio wstêpnie przetworzonych) s³ów dokumentów przeznaczonych do wyszukiwania. Nastêpnie na bazie ów s³ownika tworzony jest odwrócony indeks: ka¿demu ze s³ów przypisywana jest lista dokumentów, które zawieraj¹ to s³owo. Pozwala to przyspieszyæ proces wyszukiwania, gdy¿ w poszukiwaniu pojedynczego s³owa biblioteka nie przeszukuje ca³ego zbioru dokumentów, a jedynie s³ownik, który na ogó³ jest wielokrotnie krótszy.
+
+Zalet¹ silnika Elasticsearch s¹ jego wydajnoœæ, skalowalnoœæ, niezawodnoœæ i prostota u¿ytkowania, co przek³ada siê na jego du¿¹ popularnoœæ wœród np. serwisów internetowych\cite{elastic_companies}.
+
+Wad¹ metody jest to, ¿e ogranicza siê ona do wyszukiwania tekstowego pomijaj¹c aspekt semantyczny. Stwarza to trudnoœci przy wyszukiwaniu synonimów lub homonimów.%Znaczy to, ¿e je¿eli dwa teksty opisuj¹ ten sam temat, ale u¿ywaj¹ to tego ró¿nych s³ów, np. synonimów, to systemowi opartemu jedynie o wyszukiwanie tekstowe nie uda siê stwierdziæ podobieñstwa miêdzy tymi tekstami, mimo, i¿ takowe istnieje. Inn¹ trudnoœci¹ jest problem polisemii - sytuacji, gdy jedno s³owo posiada dwa znaczenia (homonimy). Metoda  wyszuka wszystkie dokumenty je zawieraj¹ce niezale¿nie od kontekstu, w jakim szuka ich u¿ytkownik.
+
+
+\section{Techniki przetwarzania jêzyka naturalnego}
+%TODO na koñcu zreformatowaæ ca³y rozdzia³, ¿eby zachowaæ spójnoœæ formy opisu metod
+Oparcie rekomendacji jedynie na treœci artyku³u wymaga zag³êbienia siê w tematykê analizy i przetwarzania jêzyka naturalnego, wszak w³aœnie w jêzyku naturalnym, zrozumia³ym dla cz³owieka (polskim) pisane s¹ owe artyku³y. Jêzyk naturalny z powodu swojego niskiego stopnia sformalizowania nie jest niestety wprost zrozumia³y dla maszyn. W zwi¹zku z tym koniecznym staje siê tu u¿ycie technik przetwarzania jêzyka naturalnego (natural language processing), które to pozwalaj¹ wyodrêbniæ z tekstu pewne cechy, na bazie których maszyna obliczeniowa przy pomocy pewnych algorytmów jest w stanie okreœliæ podobiêñstwo pomiêdzy dokumentami. W poni¿szych paragrafach dokonujê przegl¹du technik matematycznej reprezentacji dokumentów pisanych w jêzyku naturalnym. Warto wspomnieæ, i¿ dziedzina ta bardzo dynamicznie siê rozwija a czêœæ z opisywanych metod zosta³o stworzonych na przestrzeni ostatnich kilku lat, czy wrêcz miesiêcy.
+
+W celu formalizacji w dalszych opisach stosowanych metod stosujê nastêpuj¹ce oznaczenia:
+\begin{itemize}
+	\item Korpus $C$: zbiór dokumentów $d_i$,
+	\item Dokument $d$: skoñczony ci¹g zdañ $s_i$,
+	\item S³owo $w$: skoñczony ci¹g znaków $c_i$,
+	\item S³ownik zbudowany na korpusie $C$: $V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
+\end{itemize}
+
+\subsection{Bag-of-words}
+Bag-of-words (worek s³ów)\cite{bow} jest jedn¹ z pierwszych koncepcji reprezentacji tekstu jako zbioru zawartych w nim s³ów w postaci wektorów. Metoda nie zachowuje kolejnoœci s³ów w tekœcie, lecz liczbê ich wyst¹pieñ. Istotn¹ zalet¹ reprezentacji wektorowej dokumentów jest mo¿liwoœæ zdefiniowania miary odleg³oœci pomiêdzy dokumentami (np. miara kosunusowa opisana póŸniej) odzwierciedlaj¹cej ich podobieñstwo. Technikê tê mo¿na opisaæ jako przekszta³cenie z korpusu w przestrzeñ wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
+$C$: korpus\\
+$m = |C|$: liczba dokumentów w korpusie $C$\\
+$V$: s³ownik zbudowany na $C$\\
+$n = |V|$: liczba s³ów w $V$\\
+$v_i \in \mathbb{R}^n$, gdzie $i \in 1, 2, ..., n$ wektor reprezentuj¹cy dokument $d_i \in C$\\
+$v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wyst¹pieñ w dokumencie  $d_i \in C$ s³owa $w_j \in V$\\
+
+Technika ta jest stosunkowo prosta, lecz jej wad¹ jest traktowanie ka¿dego s³owa z jednakow¹ wag¹. Pewne s³owa (np. ,,i'', ,,lub'', ,,o'') wystêpuj¹ bardzo czêsto, lecz ich wk³ad w znaczenie ca³ego dokumentu jest marginalny. St¹d powsta³y bardziej zaawansowane techniki uwzglêdniaj¹ce istotnoœæ s³ów dla znaczenia ca³ego dokumentu. Mimo to metoda BOW jest czêsto wykorzystywana w bardziej zawansowanych technikach NLP.
+\subsection{Term frequency - inverted document frequency}
+
+TF-IDF\cite{tf_idf} (wa¿enie czêstoœci¹ termów - odwrotna czêstoœæ w dokumentach) jest metod¹ reprezentacji tekstu jako zbioru s³ów przy jednoczesnym uwzglêdnieniu wagi s³ów, która zale¿y od czêstoœci wystêpowania s³owa w korpusie.  Oznaczenia formalne takie same tak w przypdku BOW.
+$v_{ij} = tfidf_{ij} = tf_{ij} * idf_i$, gdzie:\\
+$tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}}$, ,,term frequency'' to liczba wyst¹pieñ s³owa $w_i$ w dokumencie $d_j$ podzielona przez liczbê s³ów dokumentu $d_j$,\\
+$idf_i = log\frac{|D|}{|{d:w_i \in d}|}$, ,,inversed document frequecy'' to liczba dokumentów w korpusie podzielona przez liczbê dokumentów zawieraj¹cych przynajmniej jedno wyst¹pienie s³owa $w_i$,
+
+Dokumenty reprezentowane s¹ tu jako wektory, sk³adaj¹ce siê z wag s³ów wystêpuj¹cych w ka¿dym z nich. TF-IDF przechowuje informacjê o czêstotliwoœci wystêpowania s³ów bior¹c przy tym pod uwagê istotnoœæ znaczenia s³owa lokalnego w stosunku do jego znaczenia w kontekœcie ca³ego zbioru dokumentów. W tej technice s³owa wystêpuj¹ce rzadko s¹ premiowane wzglêdem s³ów pospolitych. Wad¹ metody tej i poprzedniej jest postaæ wektorów reprezentuj¹cych s³owa: s¹ to na ogó³ rzadkie wektory du¿ej wymiarowoœci.
+
+\subsection{Distributional semantics}
+Kolejne, bardziej zaawansowane, omawiane tu metody opieraj¹ siê na tzw. ,,distributional hypothesis'' - hipotezie zak³adaj¹cej, ¿e s³owa wystêpuj¹ce w tym samym kontekœcie nios¹ ze sob¹ podobne znaczenie\cite{bow}\cite{firth}. Sprzyja to zastosowaniu metod algebry liniowej jako narzêdzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejœcie polega na zgromadzeniu informacji o rozk³adzie s³ów w dokumentach w postaci wielowymiarowych wektorów a nastêpnie wyodrêbnieniu podobieñstw pomiêdzy tymi wektorami, które œwiadczy³yby o pewnych powi¹zaniach miêdzy reprezentowanymi s³owami. 
+
+\subsection{Latent Semantic Analysis}
+%TODO przeczytaæ waziaka jeszcze raz
+Analiza rozk³adu s³ów w dokumentach tekstowych pozwala na wyodrêbnienie podobieñstw miêdzy s³owami pod k¹tem: ich znaczenia (podobieñstwo tematu s³owa), ich osadzenia w stosunku do innych typów s³ów czy te¿ ich struktury wewnêtrznej. Dwie istotne metody: Latent Semantic Analysis\cite{lsa} oraz Latent Dirichlet Allocation\cite{lda} zak³adaj¹ istnienie abstrakcyjnych niejawnych (latent) tematów, do których mo¿na przydzieliæ s³owa wchodz¹ce w sk³ad korpusu.
+
+LSA (1990) \cite{lsa}, znane równie¿ jako Latent Semantic Indexing (LSI) dokonuje transformacji ka¿dego dokumentu w wektor d³. $|V|$ posiadaj¹cy na $i$-tym miejscu wagê TF-IDF $i$-tego s³owa ze s³ownika. W ten sposób tworzona jest rzadka macierz: kolumny reprezentuj¹ dokumenty a wiersze reprezentuj¹ unikalne s³owa. W celu identyfikacji istotnych cech tej macierzy dokonuje siê rozk³adu wed³ug wartoœci osobliwych (Singular Value Decomposition\cite{svd}, SVD), który jest technik¹ redukcji wymiarowoœci. Celem u¿ycia SVD jest redukcja liczby wierszy macierzy dla wydajniejszych dalszych obliczeñ numerycznych oraz pozbycie siê szumów, utrzymuj¹c jednoczeœnie podobieñstwa pomiêdzy kolumnami. Ostatecznie uzyskuje siê macierz przynale¿noœci tematów do dokumentów, gdzie wiersze odpowiadaj¹ce tematom mo¿na interpretowaæ jako kombinacje pierwotnych wierszy-s³ów o podobnym znaczeniu. Np. $\{(samochod), (ciagnik), (jezdnia)\} \to \{(1.3452 * samochod + 0.2828 * ciagnik + 0.3 * jezdnia)\}$. Wymiar uzyskiwanej macierzy jest ustalany za pomoc¹ hiperparamtru, który oznacza liczbê tematów. U¿ywaj¹c uzyskanej macierzy, podobieñstwo pomiêdzy kolumnami-dokumentami obliczane jest wykorzystuj¹c odleg³oœæ kosinusow¹ (opisan¹ póŸniej w tym rodziale). Metoda LSA ³agodzi problem synonimów poprzez scalanie podobnych s³ów w jeden temat. Niweluje równie¿ problem homonimów, w³¹czaj¹c je czêœciowo w sk³ad ró¿nych tematów. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za liczbê tematów czêœæ semantycznie odrêbnych tematów mo¿e zostaæ wch³oniêta przez inne lub te¿ rozbicie na tematy mo¿e byæ zbyt ,,drobne'' nie wykorzystuj¹c w pe³ni semantycznych powi¹zañ.
+
+%(2003)
+%This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
+
+\subsection{Latent Dirichlet Allocation}
+
+LDA\cite{lda} jest technik¹ automatycznego wykrywania niejawnych (latent) tematów zawartych w dokumentach przy u¿yciu uczenia nienadzorowanego. LDA reprezentuje dokumenty jako mieszanki tematów, które z kolei reprezentowane s¹ jako rozk³ady prawdopodobieñstwa na zbiorze s³ów. Liczba tematów ustalana jest za pomoc¹ hiperparametru. LDA jest modelem statystycznym, który wykorzystuje m.in. rozk³ad Dirichleta. 
+
+Rozk³ad Dirichleta to ci¹g³y rozk³ad prawdopodobieñstwa parametryzowany przez wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ okreœla wymiar rozk³adu. Gêstoœæ rozk³adu Dirichleta wyra¿a siê wzorem: $ f\left(x_{1},\cdots ,x_{K-1};\alpha _{1},\cdots ,\alpha _{K}\right)={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}$, gdzie $ x_{1},\cdots ,x_{K-1}>0$, $x_{1}+\cdots +x_{K-1}<1$, $x_{K}=1-x_{1}-\cdots -x_{K-1}$, a $B$ to sta³a normalizuj¹ca. Noœnikiem gêstoœci rozk³adu jest $K-1$ wymiarowy sympleks.
+
+W LDA rozk³ad Dirichleta jest wykorzystany w celu nadania pocz¹tkowych wartoœci przynale¿noœci tematów do dokumentów oraz s³ów do tematów. Cechy rozk³adu sprawiaj¹, ¿e tak dobrane pocz¹tkowe wartoœci paramentrów modelu s¹ zgodne z intuicj¹, ¿e dokument pokrywa jedynie ma³y zestaw tematów, a temat zawiera najczêœciej tylko ma³y zestaw s³ów. Wykorzystanie rozk³adu Dirichleta do okreœlenia wartoœci pocz¹tkowych skutkuje w rezultacie lepszym dopasowaniem dokumentów i tematów.
+
+%TODO sprawdziæ, czy nazwy zmiennych siê nie pokrywaj¹
+Przypuœæmy, ¿e mamy zestaw dokumentów. Wybieramy ustalon¹ liczbê $T$ tematów, które zamierzamy wykryæ. Chcemy u¿yæ LDA w celu wyznaczenia reprezentacji ka¿dego dokumentu jako mieszanki tematów oraz s³ów powi¹zanych z ka¿dym tematem. Jednym ze sposobów, aby osi¹gn¹æ ten cel jest wnioskowanie oparte na próbkowaniu Gibbsa. Metoda ta dzia³a zgodnie z nastêpuj¹cymi krokami.
+
+\begin{enumerate}
+	\item PrzejdŸ przez ka¿dy dokument i losowo (zgodnie z rozk³adem Dirichleta) przypisz ka¿de s³owo dokumentu do jednego z $T$ tematów.
+	Warto zauwa¿yæ, i¿ etap ten daje pierwsze przybli¿enie docelowej reprezentacji. W kolejnych krokach nale¿y poprawiaæ to przybli¿enie.
+	\item Dla ka¿dego dokumentu $d$, dla ka¿dego s³owa $w$ nale¿¹cego do $d$, dla ka¿dego tematu $t$ oblicz: $p(t | d)$, czyli odsetek liczby s³ów w $d$, które s¹ aktualnie przypisane do tematu $t$ oraz oblicz $p(w | t)$, czyli odsetek liczby wyst¹pieñ s³owa $w$, które s¹ przypisane do tematu $t$ w skali ca³ego korpusu. Przypisz s³owu $w$ nowy temat poprzez losowanie z prawdopodobienstwem $p(t_i|d)*p(w|t)$ dla ka¿dego tematu $t_i$.
+\end{enumerate}
+Ci¹g³e wykonywanie powy¿szych kroków doprowadzi do stabilnej sytuacji, w której przestan¹ nastêpowaæ zmiany przypisañ s³ów do tematów. Wtedy nale¿y zakoñczyæ dzia³anie algorytmu.
+
+Zalet¹ LDA jest jego interpretowalnoœæ: do ka¿dego tematu przypisane s¹ z pewn¹ wag¹ przwdziwe s³owa pochodz¹ce z przetwarzanego korpusu. Metoda ta mo¿e byæ traktowana jako technika redukcji wymiarowoœci, gdy¿ dopasowuje dokumentowi sk³adaj¹cemu siê z wielu s³ów reprezentacjê z³o¿on¹ z ma³ej liczby tematów.
+
+
+\subsection{Word embeddings}
+Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody word2vec\cite{word2vec} nast¹pi³ gwa³towny rozwój i niew¹tpliwy sukces metod ,,word embeddings''. Okreœlenie ,,word embeddings'' oznacza osadzanie s³ów w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zosta³o po raz pierwszy u¿yte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory s³ów generowane s¹ przez g³êbok¹ sieæ neuronow¹. Ogó³ technik zaliczanych obecnie do ,,word embeddings'' cechuje siê usi³owaniem reprezentacji s³ów wraz z zale¿noœciami pomiêdzy nimi w postaci wektorów o stosunkowo niskiej wymiarowoœci. Dzieje siê to w opozycji do wczeœniejszych podejœæ podobnych do Bag of words - produkuj¹cego ogromne, rzadkie wektory, których wymiary równaj¹ siê rozmiarowi s³ownika, o który oparty jest model (rzêdu setek tysiêcy). Wa¿n¹ w³asnoœci¹ metod osadzania s³ów jest zachowanie przez wektory semantycznych i syntaktycznych w³aœciwoœci s³ów, co pozwala wykonywaæ na nich operacje artymetyczne na wektorach odwzorowuj¹ce cechy tych¿e s³ów np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
+
+Stosowane obecnie podejœcia generowania wektorowych reprezentacji s³ów mo¿na podzieliæ na dwa typy:
+\begin{enumerate}
+	\item Modele predykcyjne: ucz¹ siê wektorowych reprezentacji s³ów poprzez zmniejszenie b³êdu predykcji s³ów nale¿¹cych do lokalnego kontekstu s³owa $i$. Poni¿ej opisujê sztandarowy przyk³ad takiego modelu - word2vec, gdzie sposobem na optymalizacjê funkcji celu jest zastosowanie p³ytkiej sieci neuronowej typu feed-forward optymalizowanej za pomoc¹ metody stochastic gradient descent.
+	\item Metody oparte o zliczanie: generuj¹ wektory s³ów poprzez redukcjê wymiarowoœci w globalnej macierzy wspó³wyst¹pieñ s³ów.
+	Jako pierwszy etap konstruuj¹ one ogromn¹ (wymiar równa siê liczbie s³ów w s³owniku korpusu) macierz, która (podobnie, jak  metodzie LSI) nastêpnie ulega faktoryzacji, aby uzyskaæ macierz o mniejszym wymiarze, lecz nadal zachowuj¹c¹ powi¹zania pomiêdzy s³owami. Przyk³adem jest tu opisana poni¿ej metoda Global Vectors - GloVe.
+\end{enumerate}
+
+Jedn¹ z szerokiego wachlarza mo¿liwoœci, jakie daj¹ tego typu techniki jest okreœlanie podobieñstwa pomiêdzy ca³ymi dokumentami, wykorzystuj¹c dodatkowe metody pozwalaj¹ce przenieœæ zale¿noœci miêdzy poszczególnymi s³owami dokumentu na zale¿noœci miêdzy ca³ymi zbiorami s³ów, co jest istotne z punktu widzenia tematu niniejszej pracy. Dwie z nich: metodê centroidu oraz Word Mover's Distance opisujê póŸniej w tym rozdziale. Warto zauwa¿yæ, i¿ posiadaj¹c wektorow¹ reprezentacjê s³ów mo¿na wyznaczyæ ,,odleg³oœæ'' pomiêdzy dwoma dokumentami nawet, je¿eli nie posiadaj¹ one wspólnych s³ów.
+
+
+\subsection{Podejœcia deep learningowe}
+
+Wspomniane podejœcie Bengio oparte jest o sieæ neuronow¹ typu feed-forward o jednej warstwie ukrytej zgodnie z architektur¹ z poni¿szego rysunku.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/bengio_language_model.png}
+	\caption{Neuronowy model jêzyka. ród³o: \cite{bengio}.}
+\end{figure}
+
+Celem dzia³ania sieci jest maksymalizacja funkcji celu $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space f(w_t , w_{t-1} , \cdots , w_{t-n+1})$, gdzie $f(w_t , w_{t-1} , \cdots , w_{t-n+1})$ odpowiada prawdopodobieñstwu $p(w_t \: | \: w_{t-1} , \cdots , w_{t-n+1})$ wyst¹pienia s³owa $w_t$ bezpoœrednio po sekwencji s³ów $w_{t-1} , \cdots , w_{t-n+1}$. Wektorowa reprezentacja s³owa uzyskiwana jest tu przez przemno¿enie wejœciowego wektora (wektor zer z jedynk¹ na $i$-tym miejscu reprezentuj¹cy $i$-te s³owo, ,,one-hot-vector'') z macierz¹ wag pierwszej warstwy sieci.
+
+
+Podejœcie to jak i kolejne (\cite{c_w}) wykorzystuj¹ce g³êbokie sieci neuronowe nie znalaz³y zastosowañ komercyjnych, poniewa¿ ich wydajnoœæ nauki jest na tyle  niska, ¿e niemo¿liwe jest u¿ycie przy ogromnych zbiorach danych wykorzystywanych w œrodowiskach produkcyjnych.
+
+
+Rozwi¹zaniem tego problemu wydaj¹ siê byæ nowe metody wektorowej reprezentacji s³ów powsta³e na przestrzeni ostatnich lat. W odró¿nieniu do metod deep learningowych opieraj¹ siê one o metody szybkiej nauki, np. o p³ytkie sieci neuronowe, które ucz¹ siê na tyle krótko, ¿e sprawdzaj¹ siê one w zastosowaniach komercyjnych.
+
+
+\subsection{Word2vec}%TODO przepisaæ rozdzia³ tak, by by³ spójny z poprzednimi
+
+Metoda word2vec wprowadzona w 2013r. m.in. przez T. Mikolova w \cite{word2vec} odnios³a niew¹tpliwy sukces w porównaniu z wczeœniejszymi metodami osadzania s³ów w przestrzeni wektorowej. Autorzy metody proponuj¹ sieæ neuronow¹, która podobnie jak wczeœniejsze podejœcia ma za zadanie odtworzyæ kontekst danego s³owa i na tej podstawie dokonaæ reprezentacji s³owa jako wektora liczb rzeczywistych. Ró¿nica jest taka, i¿ sieæ ta ani nie jest g³êboka, ani te¿ nie zawiera nieliniowych funkcji aktywacji wykorzystywanej orzy warstwie we wczeœniejsych modelach. Wyró¿nia siê dwie odwrotne architektury sieci:
+\begin{itemize}
+	\item CBOW (continuous bag of words): na postawie okna $N$ s¹siednich s³ów sieæ przewiduje s³owo, którego z najwiêkszym prawdopodobieñstwem te $N$ s³ów jest s¹siedztwem. W tym modelu funkcja celu przyjmuje postaæ $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \sum\limits_{-n \leq j \leq n , \neq 0} \text{log} \space p(w_{t+j} \: | \: w_t)$.
+	\item skip-gram: na podstawie s³owa sieæ dokonuje predykcji $N$ s¹siednich s³ów. Zadaniem sieci neuronowej jest wtedy optymalizacja funkcji celu postaci $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space p(w_t \: | \: w_{t-n} , \cdots , w_{t-1}, w_{t+1}, \cdots , w_{t+n})$.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
+	\caption{Schemat sieci wykorzystuj¹cej podejœcie skip-gram i CBOW. ród³o: \cite{word2vec}.}
+	%\label{fig:warstwy}
+\end{figure}
+U¿ywaj¹c tej stosunkowo prostej architektury mo¿na wykonaæ proces nauki u¿ywaj¹c milionów s³ów, których powi¹zania miêdzy sob¹ zostan¹ zachowane w systemie wag sieci neuronowej. Wady i zalety obu podejœæ s¹ wymienione w \cite{google_word2vec}.
+
+W celu dalszego opisu metody word2vec wprowadzam pojêcie funkcji softmax u¿ytej w warstwie wyjœciowej sieci neuronowej. Softmax jest generalizacj¹ funkcji logistycznej, zamieniaj¹c¹ $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumuj¹ siê do $1$. Funkcja wyra¿a siê wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjœcie funkcji mo¿na traktowaæ jako pewien rozk³ad prawdopodobieñstwa.
+
+W metodzie word2vec nauka polega na trenowaniu sieci neuronowej. Jednak¿e w odró¿nieniu od innych metod wykorzystuj¹cych sieci neuronowe, Word2vec nie u¿ywa póŸniej wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieci, które faktycznie s¹ wynikowymi wektorami s³ow.
+
+W dalszym opisie metody szczegó³owo skupiam siê na podejœciu CBOW, lecz podejœcie skip-gram wygl¹da analogicznie.
+
+Sieæ neuronowa bêd¹ca wynikiem nauki przyjmuje na wejœciu wektor binarny d³ugoœci odpowiadaj¹cej liczbie s³ów w s³owniku V zbudowanym na korpusie treningowym. Wektor ten wype³niony jest wartoœciami 0 oraz jedn¹ wartoœci¹ 1 na i-tej pozycji. Taki wektor odpowiada i-temu s³owu ze s³ownika V. Wejœciem sieci s¹ kolejne s³owa z korpusu w tej w³¹œnie reprezentacji. Wyjœciem sieci jest wektor tej samej d³ugoœci o wartoœciach rzeczywistych z zakresu [0,1], w którym wartoœæ na i-tej pozycji odpowiada prawdopodobieñstwu, ¿e i-te s³owo ze s³ownika znajduje siê w s¹siedztwie s³owa wejœciowego. Za ,,s¹siedztwo'' wielkoœci x nale¿y tu rozumieæ zbiór z³o¿ony z x s³ów wystêpuj¹cych przed danym s³owem w korpusie i x s³ow po³o¿onych za danym s³owem. Wartoœæ x mo¿e byæ tu ograniczona przez pocz¹tek/koniec zdania, które ograniczaj¹ kontekst danego s³owa.
+
+Jako efekt nale¿y siê spodziewaæ, ¿e dla s³owa wejœciowego ,,Brytania'' otrzymamy na wyjœciu wysok¹ wartoœæ prawdopodobieñstwa dla s³owa ,,Wielka'', a nisk¹ np. dla s³owa ,,skoroszyt''.
+
+Jednym z parametrów metody Word2vec jest wymiarowoœæ przestrzeni, w której znajduj¹ siê otrzymane wektory odpowiadaj¹ce s³owom z korpusu. Liczba ta ma swoje Ÿród³o z wielkoœci warstwy ukrytej sieci neuronowej. Wagi warstwy ukrytej mo¿na interpretowaæ jako macierz $M$x$N$, gdzie $M$ to liczba s³ów s³ownika $V$ - wielkoœæ wektowa wejœciowego, a $N$ to liczba neuronów w warstwie ukrytej. Po przeprowadzeniu nauki $i$-ty wiersz tej macierzy odpowiada wektorowi d³ugoœci $N$, który reprezentuje $i$-te s³owo ze s³ownika $V$.
+
+W sieci nie jest u¿ywa funkcja akywacji, ale prawdopodobieñstwa na wyjœciu s¹ efektem dzi³ania funkcji softmax. Funkcja ta ma za zadanie sprowadziæ wyjœciowe wartoœci warstwy ukrytej do postaci rozk³adu prawdopodobieñstwa. 
+
+
+%TODO word2vec ma³¹ liter¹
+\subsection{FastText}
+
+FastText\cite{fasttext} to biblioteka stworzona w 2016 w celu wydajnego uczenia wektorowej reprezentacji s³ów oraz klasyfikacji zdañ. Od ,,klasycznego'' word2vec ró¿ni siê stopniem szczegó³owoœci analizy s³ów. Word2vec traktuje s³owo jak¹ najmniejsz¹, niepodzieln¹ jednostkê, której wektorow¹ reprezentacjê usi³uje wyznaczyæ. FastText natomiast dokonuje analizy równie¿ wewnêtrznej analizy s³ów. Wykorzystuje w tym celu rozbicie s³owa na pods³owa - ci¹gi znaków o okreœlonej d³ugoœci $n$, ,,character n-grams''. Np. s³owo ,,pokój'' sk³ada siê nastêpuj¹cych 3-gramów: [pok], [okó], [kój]. Podejœcie takie daje szereg nowych mo¿liwoœci. Pomaga wyznaczyæ reprezentacjê wektorow¹ rzadkich s³ów, które byæ mo¿e maj¹ wspólny rdzeñ (i znaczenie) z innymi, czêœciej wystêpuj¹cymi s³owami. Metoda pozwala równie¿ nadaæ wektorow¹ reprezentacjê s³owom, których w ogóle nie ma w s³owniku, jako ¿e ich pods³owa mog¹ nale¿eæ do s³ów w s³owniku siê znajduj¹cych. Zalety te wydaj¹ siê byæ szczególnie obiecuj¹ce w przypadku bogatych morfologicznie jêzyków, np. jêzyka polskiego, tureskiego, czy fiñskiego.
+
+Zasada dzia³ania metody bazuje na word2vec. Jednak¿e oprócz predykcji tylko ca³ych s³ów nastêpuje tu równie¿ predykcja n-gramów s³owa $a$ w otoczeniu s³owa $a$. Ostatecznie s³owu $a$ zostaje przypisany wektor sk³adaj¹cy siê ze œredniej oryginalnej reprezentacji wektorowej s³owa oraz reprezentacji jego n-gramów.
+
+Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza siê lepiej od word2vec w wykrywaniu syntaktycznych podobieñstw pomiêdzy s³owami. 
+
+\subsection{GloVe}
+
+GloVe\cite{glove} (GLObal VEctors) jest kolejn¹ wart¹ uwagi metod¹ word embedding powsta³¹ na przestrzeni ostatnich lat. Algorytm GloVe ró¿ni siê od word2vec w sposobie uzyskania wektorowej reprezentacji s³ów. Word2vec jest modelem predykcyjnym, natomiast trening w GloVe opiera siê na globalnej macierzy wspó³wyst¹pieñ s³ów. Ponadto w porównaniu do word2vec GloVe stara siê wyznaczyæ reprezentacje wektorowe wprost, podczas gdy w word2vec dzieje siê ,,przy okazji'' - szkoli siê sieæ neuronow¹ nie w celu jej dalszego wykorzystania w celu predykcji, a jedynie dla jej macierzy wag. 
+
+Algorytm GloVe sk³ada siê z nastêpuj¹cych kroków\cite{glove_cran}:
+\begin{enumerate}
+	\item ZgromadŸ wspó³wyst¹pienia s³ów w formie macierzy $X$. Ka¿dy element $X_{ij}$ takiej macierzy reprezentuje jak czêsto s³owo $i$ wystêpuje w pobli¿u s³owa $j$. Zazwyczaj macierz buduje siê poprzez skanowanie bazowego korpusu oknem o ustalonej szerokoœci, w obrêbie którego centralne s³owo le¿y w kontekœcie s³ów je otaczaj¹cych. Dodatkowo mo¿na tu wprowadziæ wagi dla s³ów malej¹ce wraz ze wzrostem dystansu od s³owa centralnego.
+	\item Zdefiniuj ograniczenie dla ka¿dej pary s³ów: $w_i^Tw_j + b_i + b_j = log(X_{ij})$, gdzie $w_i$ oznacza wektor g³ównego s³owa, $w_j$ s³owa le¿¹cego w pobli¿u $i$, $b_i$ i $b_j$ to skalary.
+	\item Zdefiniuj funkcjê kosztu $J = \sum_{i=1}^V \sum_{j=1}^V \; f(X_{ij}) ( w_i^T w_j + b_i + b_j - \log X_{ij})^2$, gdzie f jest funkcj¹ wa¿¹c¹, która pomaga zapobiec uczeniu tylko na podstawie najbardziej popularnych par s³ów. Autorzy proponuj¹ funkcjê postaci:
+	$f(X_{ij}) = 
+	\begin{cases}
+	(\frac{X_{ij}}{x_{max}})^\alpha & \text{if } X_{ij} < XMAX \\
+	1 & \text{otherwise}
+	\end{cases}$
+	Celem funkcji optymalizacji funkcji	 kosztu jest minimalizacja ró¿nicy pomiêdzy iloczynami skalarnymi wektorów wspó³wystêpuj¹cych s³ów.
+	\item Dokonaj minimalizacji funkcji kosztu poprzez stopniow¹ aktualizacjê wektorów $w_i$ i $w_j$.
+\end{enumerate}
+
+\subsection{Odleg³oœæ miêdzy dokumentami}
+W celu wykorzystania omówionych metod osadzania s³ów nale¿y wybraæ metodê obliczania odleg³oœci miêdzy ca³ymi dokumentami, których s³owa potrafimy reprezentowaæ jako wektory. Zak³adamy, ¿e je¿eli dystans pomiêdzy dokumentami jest ma³y, to ich tematyka jest podobna.
+\subsubsection{Centroid}
+Najprostsz¹ i najbardziej intuicyjn¹ metod¹ obliczenia odleg³oœci pomiêdzy wektorow¹ reprezentacj¹ dokumentów jest wykonanie dwóch prostych kroków:
+\begin{enumerate}
+	\item Uœrednienie wektorów wchodz¹cych w sk³ad ka¿dego z dokumentów. Powsta³y w ten sposób wektor jest centroidem reprezentuj¹cym dokument w przestrzeni wektorowej.
+	\item Obliczenie dystansu miêdzy wektorami. Powszechnie przyjêt¹ praktyk¹ jest stosowanie tzw. odleg³oœci kosinusowej - znormalizowanego iloczynu skalarnego wektorów $A$ i $B$. Jest to kosinus k¹ta pomiêdzy dwoma wektorami reprezentuj¹cymi dokumenty. Zalet¹ tej metody jest natychmiastowa normalizacja wyniku do zakresu $(0, 1)$. Odleg³oœæ $sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}}$,
+	gdzie $A_i$ i $B_i$ s¹ sk³adowymi wektorów odpowiednio $A$ i $B$
+\end{enumerate}
+Wad¹ opisanej powy¿ej metody jest utrata potencjalnie u¿ytecznych zale¿noœci pomiêdzy poszczególnymi wektorami wchodz¹cymi w sk³ad dokumentu.
+
+W kontrze to tego prezentujê metodê obliczania dystansu miêdzy dokumentami uwzglêdniaj¹c¹ rozk³ad wektorów wewn¹tz dokumentu.
+
+\subsubsection{Word Mover's Distance}
+Word Mover's Distance\cite{wmd} to rozwi¹zanie zwracaj¹ce odleg³oœæ miêdzy dokumentami tekstowymi. W tym celu adaptuje algorytm Earth Mover's Distance\cite{emd} oraz wektorow¹ reprezentacjê s³ów dokumentu. WMD mierzy odleg³oœæ miêdzy dokumentami jako minimalny dystans jaki wektory s³ów pierwszego dokumentu musz¹ ,,pokonaæ'' aby osi¹gn¹æ wartoœci wektorów z drugiego dokumentu.
+
+EMD jest metod¹ mierzenia odleg³oœci pomiêdzy dwoma rozk³adami, która opiera siê na minimalnym koszcie, jaki musi zostaæ poniesiony, aby dokonaæ transformacji jednego rozk³adu w drugi. Problem mo¿na sformalizowaæ jako problem programowania liniowego, gdzie:
+$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s¹ danymi rozk³adami o $m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest mas¹ klastra. $D=[d_{ij}]$ jest macierz¹ odleg³oœci, w której $d_{ij}$ reprezentuje odleg³oœæ pomiêdzy klastrami $p_i$ i $q_j$. Celem jest znaleŸæ taki przep³yw $F = [f_{ij}]$, gdzie $f_{ij}$ to przep³yw pomiêdzy $p_i$ i $q_j$, który minimalizuje ca³oœciowy koszt $Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}$ przy odpowiednich ogramiczeniach\cite{emd}.
+EMD jest to dobrze zbadanym problemem transportowym\cite{emd}, dla którego powsta³y efektywne metody rozwi¹zania\cite{emd_method}. 
+
+Przypuœæmy, ¿e dziêki metodzie Word2vec dla s³ownika $V$ o $n$ s³owach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te s³owo ze s³ownika $V$. Odleg³oœci pomiêdzy wektorami reprezentuj¹cymi semantycznie zbli¿one s³owa s¹ relatywnie mniejsze od odleg³oœci dla s³ów niezwi¹zanych ze sob¹. Celem WMD jest zawrzeæ semantyczne podobieñstwo pomiêdzy poszczególnymi parami s³ów w dystans pomiêdzy ca³ymi dokumentami. Aby to osi¹gn¹æ metoda traktuje dokument jako rozk³ad, którego $i$-tym elementem jest liczba wyst¹pieñ $i$-tego s³owa w tym dokumencie, a nastêpnie stosuje metodê EMD do obliczenia dystansu miêdzy tymi rozk³adami. Macierz odleg³oœci $D$ u¿ywana w metodzie EMD jest zbudowana na bazie odleg³oœci miêdzy wektorami Word2vec reprezentuj¹cymi s³owa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy s³ów ze s³ownika $V$ a $x_{ij}$ to element macierzy $X$\. Autorzy metody okreœlaj¹ z³o¿onoœæ metody jako $O(p^3\log p)$, gdzie $p$ to wielkoœæ s³ownika $V$.
+
+\section{Miary oceny wyszukiwania}
+%TODO przeredagowaæ - to jest tekst ze slajdów
+
+Razem z rozwojem systemów wyszukiwania informacji powsta³y miary pozwalaj¹ce oceniæ wyniki dzdia³ania tych systemów. Do najbardziej popularnych nale¿¹ ,,precyzja'' i ,,zwrot''.
+
+Precyzja to odsetek wyszukanych dokumentów, które s¹ relewantne do zapytania; $precision=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{retrieved\}|}$.
+
+Zwrot natomiast jest liczb¹ wyszukanych relewantnych dokumentów w stosunku do wszystkich relewantnych dokumentów (równie¿ tych niewyszukanych); $recall=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{relevant\}|}$.
+
+Bardziej z³o¿on¹ miar¹ lepiej charakteryzuj¹c¹ jakoœæ procesu wyszukiwania jest F-miara. W celu obliczenia wyniku uwzglêdnia ona zarówno precyzjê jak i zwrot. Miara wyra¿a siê wzorem: $F_\beta = (1 + \beta^2) \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{(\beta^2 \cdot \mathrm{precision}) + \mathrm{recall}}$ Rezultat miary mo¿na interpretowaæ jako wa¿on¹ œredni¹ precyzji i zwrotu. 
+
+
+\subsection{nDCG}
+Powy¿sze miary dokonuj¹ binarnego podzia³y wyników wyszukiwania: na relewantne i nierelewantne. Jednak¿e czêœæ rekomendowanych przedmiotów mo¿e byæ mniej lub bardziej od innych istotnych dla u¿ytkownika. W tym œwietle listê rekomendacji mo¿na uznaæ za pewien ranking, którego elementy mog¹ byæ uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z punktu widzenia ewaluacji metod generuj¹cych elementy rankingu. St¹d zachodzi potrzeba wprowadzenia formalnej miary jakoœci uszeregowania elementów rankingu Mo¿na osi¹gn¹æ poprzez rozszerzenie podstawowych metod ewaluacji opartych na binarnej ocenie relewantnoœci, jak recall i precision.
+
+Miara nDCG\cite{ndcg} (Normalized Discounted Cumulative Gain) jest miar¹ jakoœci rankingu, która opiera siê na za³o¿eniu, ¿e im bardziej relewantne wyniki, tym wy¿ej powinny byæ w rankingu, aby ranking by³ najbardziej wartoœciowy. Miara ta mierzy skumulowany ,,zysk'' powsta³y poprzez umieszczenie poszczególnych przedmiotów na okreœlonych pozycjach rankingu. Miara nDCG jest znormalizowan¹ wersj¹ miary DCG (Discounted Cumulative Gain), która wyra¿a siê wzorem: ${\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {2^{{rel_{{i}}}}-1}{\log _{{2}}(i+1)}}$, gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w rankingu, a $rel$ to poziom relewantnoœci elementu. DCG premiuje relewantne przedmioty, które s¹ wysoko w rankingu oraz karze za relewantlne przedmioty w dole rankingu. W wariancie nDCG nastêpuje jeszcze normalizacja przez podzielenie wartoœci DCG rzeczywistego rankingu przez DCG idealnego rankingu zbudowanego na elementach korpusu u³o¿onych malej¹co pod k¹tem relewantnoœci: ${\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}}$, $\mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}}$, gdzie $|REL|$ oznacza listê relewantnych przedmiotów z ca³ego zbioru podlegaj¹cego szeregowaniu.
+
+\chapter{Dane}
+
+Dane, na których testowane by³y opisywane w niniejszej pracy metody otrzyma³em dziêki ¿yczliwoœci serwisu Allegro. Jednak, by dane te otrzymaæ, zobowi¹zany zosta³em po podpisania umowy o poufnoœci. St¹d, w niniejszej pracy brak jakichkolwiek przyk³adów danych poza tymi dostêpnymi za poœrednictwem strony internetowej Allegro. W niniejszym rozdziale opisujê strukturê i stan pozyskanych danych oraz proces ich wstêpnego przetwarzania i nanalizy w celu zastosowania na nich zaadaprowanych metod opisanych w rozdziale poprzednim. 
+
+\section{Opis danych}
+
+Otrzymane dane to baza ok. 20000 artyku³ów tekstowych w formacie JSON. S¹ to te same artyku³y, które s¹ dostêpne dla u¿ytkowników poprzez serwis internetowy (stan na styczeñ 2017). Pojedynczy rekord danych sk³ada siê z g³ównej treœci artyku³u oraz z metadanych, z których za istotne z punktu widzenia tematu pracy uzna³em pola: id, kategoria i s³owa kluczowe.
+
+\subsection{Treœæ artyku³u}
+
+Treœæ ka¿dego artyku³u sk³ada siê z trzech pól: ,,zawartoœæ'', ,,nag³ówek'' i ,,tytu³''. Œrednia d³ugoœæ artyku³u to 821 s³ów, w tym nag³ówek to jednozdaniowy wstêp. Œredni¹ tê estymujê na podstawie œredniej liczby znaków artyku³u i œredniej d³ugoœci s³owa w jêzyku polskim. Dok³adne statystyki tekstu bêd¹ dostêpne dopiero po wstêpnym przetwarzaniu.
+
+Wszystkie artyku³y napisane s¹ w jêzyku polskim, w nielicznych przypadkach wykry³em b³êdy, tzw. ,,literówki''. Jako, ¿e artyku³y ze zbioru dotycz¹ produktów sprzedawanych za poœrednictwem serwisu Allegro, w sk³ad s³ownika zbudowanego na ich bazie wchodzi wiele s³ów specyficznych dla ró¿nych bran¿. S¹ to m.in. nazwy modeli aparatów (np. ,,Sony Alpha 77 II''), samochodów, gier komputerowych, a tak¿e nazwy techniczne: ,,sprê¿arka'', ,,hipertoniczny'', ,,autofocus''.
+
+Artyku³y posiadaj¹ w swej treœci wiele znaczników interpretowanych przez system, na podstawie których wzbogacana jest warstwa wizualna strony internetowej zawieraj¹cej artyku³, np. obrazki czy ³¹cza do ofert zwi¹zanych z tematem artyku³u.
+
+Spójnoœæ danych oceniam na wysok¹, tj. ka¿de pole zawarte w strukturze dokumentu jest zawsze wype³nione - brak jest wartoœci typu NULL.
+
+\subsection{Kategoria}
+
+Ka¿dy artyku³ zosta³ przez autora przydzielony do pewnej kategorii, która odpowiada tematyce artyku³u, np. ,,Aparaty cyfrowe'' czy ,,Przyprawy i zio³a''. W sk³ad pola ,,kategoria'' wchodzi równie¿ lista kategorii nadrzêdnych, a ca³a hierarcha kategorii ma strukturê drzewiast¹. Np. kategoria nadrzêdna dla kat. ,,Przyprawy i zio³a'' to ,,Delikatesy'', a dla kat. ,,Delikatesy'' to  ,,Dom i zdrowie''. Ka¿dy artyku³ nale¿y do tylko jednej kategorii bêd¹cej dowolnym wêz³em w drzewie (nie tylko liœciem). Drzewo kategorii posiada 8 poziomów, a najwiêcej wêz³ów znajduje siê na poziomach 5 i 6. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/categories_levels.png}
+	\caption{Liczba kategorii na poszczególnych poziomach drzewa.}
+	%\label{fig:warstwy}
+\end{figure}
+Najwiêcej artyku³ów z kolei jest przypisanych do kategorii z poziomów 4 i 5, œrednio artyku³ jest przypisany do kategorii z poziomu 4,63. Œrednio na kategoriê bêd¹c¹ liœciem w drzewie przypada 7,71 artyku³u.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/cat_art_levels.png}
+	\caption{Liczba artyku³ów, dla których kategoria na danym poziome drzewa jest t¹ najbardziej szczegó³ow¹.}
+	%\label{fig:warstwy}
+\end{figure}
+Po wstêpnej analizie system kategorii oceniam jako spójny i rzetelny. Uwa¿am, ¿e mo¿na u¿yæ go jako punkt odniesienia przy konstrukcji metod ewaluacji testowanych technik okreœlania podobieñstwa miêdzy artyku³ami.
+\subsection{S³owa kluczowe}
+Do ka¿dego artyku³u do³¹czona jest lista s³ów kluczowych. S¹ to wyra¿enia z³o¿one z jednego lub kilku s³ów, które maj¹ za zadanie scharakteryzowaæ w skrócie jego zawartoœæ, np. ,,aparaty'', ,,aparaty cyfrowe'', ,,lustrzanki'', ,,Sony''. Pole to jest wykorzystywane w dotychczasowym mechaniŸmie generowania rekomendacji - artyku³y podobne do danego s¹ wyszukiwane na podstawie jego s³ów kluczowych. Przygl¹daj¹c siê wszystkim s³owom kluczowym zestawionym razem zauwa¿y³em pewne niespójnoœci: czêœæ s³ów kluczowych o tej samej treœci pisana jest w inny sposób, np. ró¿n¹ wielkoœci¹ liter, czy u¿ywaj¹c myœlnika zamiast spacji. Wynika to zapewne z faktu przypisawania s³ów kluczowych samodzielnie przez autorów w oderwaniu od s³ow przypisanych do reszty artyku³ów. Œrednio ka¿dy artyku³ ma przypisane 5,8 s³ów kluczowych, natomiast unikalnych s³ów kluczowych w skali ca³ego korpusu jest 60403.
+
+\section{Wstêpne przetwarzanie danych}
+
+W celu zwiêkszenia skutecznoœci metod analizy tekstu stosuje siê wstêpne przetwarzanie danych. Ma ono na celu takie przygotowanie tekstu, aby zmaksymalizowaæ jakoœæ wyników operuj¹cych na nim póŸniej algorytmów. Techniki wstêpnego przetwarzania tekstu nie wchodz¹ w sk³¹d ¿adnego standardu - dobieram je indywidualnie do konkrtenego przypadku, zgodnie z intuicj¹.
+
+Ni¿ej opisujê kolejne kroki wstêpnego przetwarzania tekstu, które wykonujê na posiadanym zbiorze artyku³ów.
+\begin{enumerate}
+	\item Oczyszczanie tekstu ze zbêdnych, wspomnianych wczeœniej znaczników. Z punktu widzenia semantycznej analizy tekstu s¹ one bezu¿yteczne, czy wrêcz szkodliwe (powoduj¹ pewne ,,zanieczyszczenie'' tekstu). St¹d usuwam je wykorzystuj¹c odpowiednio skonstruowane wyra¿enia regularne.
+	\item Usuniêcie ,,s³ów stopu''(ang. stopwords) - na ogó³ krótkich s³ów nie wnosz¹cych nic do znaczenia ca³oœci artyku³u. S¹ to np. ,,w'', ,,z'', ,,poniewa¿''. Ich usuniêcie zmniejsza liczbê s³ów dokumentu skracaj¹c tym samym czas jego przetwarzania. Jako ¿e s³owa te wystêpuj¹ czêsto, usuniêcie ich daje mo¿liwoœæ uwypuklenia znaczenia innych s³ów maj¹cych wp³yw na rzeczywiste znaczenie ca³ego artyku³u. Zbiór s³ów stopu czerpiê z \cite{stopwords}.
+	\item Sprowadzenie wszystkich s³ów dokumentu do ma³ych liter. Pomaga to ujednoliciæ postaæ czêœci s³ów o tym samym znaczeniu, wœród których jedno wystêpuje na pocz¹tku zdania a inne w œrodku.
+	\item Rozbicie s³ów po³¹czonych myœlnikiem. Doœwiadczenie w póŸniejszym etapie (tokenizacji) pokazuje, ¿e narzêdzie jej dokonuj¹ce (Morfologik\cite{morfologik}) nie radzi sobie z tego typu s³owami (np. ,,bia³o-czerwony'') i zostania je w niezmienionej postaci gramatycznej (np. ,,bia³o-czerwonego''). St¹d koniecznoœæ rêcznego wykoania przeze mnie mechanizmu rozbijaj¹cego takie s³owa do postaci kompatybilnej z tokenizerem. Do wykonania odpowiedniej funkcji potrzebna by³a wczeœniejsza analiza tego typu s³ów pod k¹tem zachowania obu cz³onów w zale¿noœci od ich rodzaju, przypadku i wystêpowania konkretnych liter w sufiksach s³ów sk³adowych. Zale¿a³o mi tak¿e, aby nie rozbijaæ s³ów bêd¹cych nazwami w³asnymi, czy symbolami urz¹dzeñ.
+	\item Tokenizacja. Jest to najistotniejszy element ca³ego procesu. Polega na sprowadzaniu s³ów o tym samym znaczeniu, a ró¿nej formie gramatycznej do tej samej postaci. Sporym utrudnieniem jest tutaj stopieñ skomplikowania jêzyka polskiego oraz liczba wyj¹tków, jak¹ ten jêzyk posiada. Za przyk³ad mo¿e pos³u¿yæ s³owo ,,mieæ'', którego jedna z form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie ka¿dego z tych wyrazów do formy podstawowej ,,mieæ''. Do przeprowadzenia tej operacji stosujê narzêdzie Morfologik\cite{morfologik}.
+\end{enumerate}
+
+U¿ycie wymienionych technik nie jest jedynym standardem a wynikiem analizy przetwarzanych danych i techniki te zosta³y dobrane dla tego konkretnego przypadku
+
+\section{Opis danych po wstêpnym przetwarzaniu}
+
+Powy¿sze kroki doprowadzaj¹ dane do stanu, w którym mo¿na zastosowaæ techniki semantycznej analizy tekstu. S³ownik zbudowany na wstêpnie przetworzonym korpusie zawiera 98174 unikalnych s³ów, oraz 7409145 wszystkich s³ów (z powtórzeniami).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/words_hist_log.png}
+	\caption{Histogram liczby wyst¹pieñ s³ów w korpusie w skali logarytmicznej.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Wiêkszoœæ artyku³ów okaza³a siê byæ podobnej d³ugoœci, œrednia d³ugoœæ artyku³u to 370 s³ów.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/articles_length_hist.png}
+	\caption{Histogram d³ugoœci artyku³ów.}
+	%\label{fig:warstwy}
+\end{figure}
+
+\chapter{Metody ewaluacji}
+
+W celu porównania stosowanych metod wyznaczania podobieñstwa miêdzy artyku³ami konieczna jest formalizacja pewnych miar tego podobieñstwa. W opisie znanych ogólnych miar pos³u¿y³em siê pojêciem ,,relewantnoœci'' --- formaln¹ wartoœci¹ wyra¿on¹ za pomoc¹ liczb rzeczywistych. Jednak¿e w praktyce rzadko dysponuje siê wartoœci¹, na ile dany element rankingu jest adekwatny do zapytania, generuj¹cego ów ranking.  
+
+Ewaluacja rankingu, w którym trafnoœæ wyników zale¿y od zachowania realnych u¿ytkowników jest zadaniem nietrywialnym. Podobieñstwo artyku³ów napisanych w jêzyku naturalnym jest rzecz¹ subiektywn¹. W sytuacji idealnej dysponowa³bym obiektywn¹ miar¹ podobieñstwa pomiêdzy parami $N$ artyku³ów (np. wyznaczon¹ wczeœniej przez miarodajn¹ grupê u¿ytkowników), które to $N$ artyku³ów stanowi³oby zbiór testowy. Uzyskanie takich danych wi¹¿e siê jednak z du¿ymi kosztami i le¿y poza moimi mo¿liwoœciami.
+
+Inn¹ praktyk¹ umo¿liwiaj¹c¹ obiektywn¹ ocenê, wykorzystywan¹ w dzia³aj¹cych systemach s¹ tzw. testy A/B polegaj¹ce na podziale u¿ytkowników na grupy i zaaplikowaniu ka¿dej grupie innego rozwi¹zania. Nastêpnie mierzone s¹ pewne wskaŸniki wœród ka¿dej grupy (w naszym przypadku np. liczba ,,klikniêæ'' prawdziwych u¿ytkowników w artyku³y rekomendowane) i spoœród zgromadzonych wyników wybierane jest rozwi¹zanie najlepsze.
+
+Z powodu braku mo¿liwoœci wykorzystania do ewaluacji rozwi¹zañ rzeczywistych u¿ytkowników serwisu internetowego jestem zmuszony wprowadziæ w³asne miary oparte na dostêpnych danych. Nale¿y tu zaznaczyæ niedoskona³oœæ wprowadzanych miar, poniewa¿ ka¿da z nich opiera siê na pewnych za³o¿eniach, od których prawdziwoœci zlae¿y jakoœæ ca³ej miary.
+
+Testowane metody adaptujê tak, aby na podstawie pewnego artyku³u bazowego otrzymywaæ listê artyku³ów podobnych do niego uszeregowanych pod k¹tem relewantnoœci malej¹co. Takie dzia³anie mo¿na sformalizowaæ w postaci funkcji $S_p: a_j \to \{a_{i}\}_{i < p}$, gdzie $a$ to artyku³, a $p$ to liczba elementów zwracanego ci¹gu. Funkcja $S$ przyjmuje artyku³ tekstowy i zwraca skoñczony ci¹g artyk³ów do niego podobnych zgodnie ze stopniem dopasowania (najlepsze na pocz¹tku). Celem dzia³ania ni¿ej opisanych miar jest ka¿dej parze postaci: artyku³ wejœciowy-jeden z wyznaczonych artyku³ów podobnych przypisaæ ocenê tego podobieñstwa --- relewantnoœæ. Np. metoda $S$ dla artyku³u $X$ zwraca ci¹g {$Y_1$, $Y_2$, ...}. Dla ka¿dej z par za pomoc¹ poni¿szych metod ewaluacji mo¿na okreœliæ relewantnoœæ np. $rel(X, Y_1) = a_1, rel(X, Y_2) = a_2$ itd. Nastêpnie wyniki dla metody $S$ i wejœcia $X$ nale¿y zagregowaæ. Dokonujê tego na dwa sposoby.
+\begin{itemize}
+	\item Obliczenie œredniej $\frac{1}{p}\sum_{i=1}^{p}relevance(X,Y_1)$.
+	\item U¿ycie metody nDCG, gdzie relewantnoœæ to wynik poszczególnych ewaluacji podobieñstwa artyku³ów.
+\end{itemize}  
+
+
+Oceny dla konkretnej metody, dla ustalonej próby par artyku³ów s¹ nastêpnie wykorzystane do wyznaczenia wartoœci œredniej  miary nDCG tej metody.
+
+
+\section{Miara 1: Dystans oparty na metadanych}
+
+Jak wspomnia³em wczeœniej dane prócz treœci artyku³ów zawieraj¹ równie¿ pewne metadane, a wœród nich umo¿liwiaj¹ce tworzenie powi¹zañ miêdzy artyku³ami. Skupiam siê tu na polach: ,,s³owa kluczowe'' i ,,kategoria''.
+
+\subsection{Kategorie} 
+
+Pierwsz¹ zastosowan¹ miar¹, pozwalaj¹c¹ oceniæ jakoœæ dopasowania podobnych artyku³ów jest ich odleg³oœæ we wczeœniej wspomnianym drzewie kategorii. Formalnie wartoœæ miary to d³ugoœæ czêœci wspólnej œcie¿ek od korzenia drzewa kategorii do wêz³ów reprezentuj¹cych artyku³y. Im wiêcej wspólnych przodków w drzewie, tym bardziej podobe do siebie s¹ artyku³y reprezentowane przez wêz³y drzewa. Zalet¹ miary jest fakt, i¿ przypisanie artyku³u do kategorii zosta³o wykonane przez autora, którego mo¿na okreœliæ ekspertem w dziedzinie tematyki artyku³u. St¹d przynale¿noœæ artyku³u do danej kategorii jest mocno uzasadniona. Kolejn¹ zalet¹ tej miary jest fakt, i¿ mo¿na j¹ zastosowaæ automatycznie - wiedza ekspercka jest ju¿ zapisana w metadanych artyku³ów. Nale¿y zaznaczyæ tu jednak, ¿e miara nie jest idealna - ka¿dy artyku³ nale¿y do tylko jednego liœcia drzewa kategorii. St¹d artyku³ poruszaj¹cy zagadnienia z ró¿nych obszarów, który mo¿na by przypisaæ dwóm stosunkowo odleg³ym kategoriom $A$ i $B$, zostanie przypisany tylko do jednej kategorii, np. $A$. Miara poka¿e wtedy du¿¹ odleg³oœæ od artyku³ów z kategorii $B$, co nie jest prawd¹.
+
+Za przyk³ad mog¹ pos³u¿yæ drzewa na poni¿szych rysunkach. W drzewie 1. artyku³y $X$ i $Y$ maj¹ dwie wspólne kategorie, st¹d $relevance(X, Y) = 2$. Natomiast artyku³y $Y$ i $Z$ z drugiego drzewa maj¹ trzech wspólnych przodków, st¹d $relevance(Y, Z)=3$ Miara wskazuje, ¿e artyku³y $X$ i $Y$ s¹ do siebie mniej podobne, ni¿ artyku³y $Y$ i $Z$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/cat_tree_example_1.png}
+	\caption{Drzewo kategorii dla przyk³adu 1.}
+	%\label{fig:warstwy}
+\end{figure}
+\begin{figure}[H]
+ 	\centering
+	\includegraphics[width=0.5\textwidth]{img/cat_tree_example_2.png}
+	\caption{Drzewo kategorii dla przyk³adu 2.}
+	\label{fig:warstwy}
+\end{figure}
+
+
+\subsection{S³owa kluczowe}
+
+Kolejna miara oparta na metadanych artyku³ów korzysta ze s³ów kluczowych. Wœród ogó³u s³ow kluczowych wystêpuj¹ niespójnoœci, których wiêkszoœæ zlikwidowa³em poprzez sprowadzenie s³ów od ma³ych liter oraz usuniêciu ,,s³ów stopu''. Po tej unifikacji liczba unikalnych s³ów kluczowych to 58565.
+
+Niniejsza miara dzia³a podobnie do poprzedniej opartej o kategorie. Para artyku³ów otrzymuje 1 punkt za ka¿d¹ wspóln¹ parê posiadanych kategorii. Np. dla artyku³u $X$ o s³owach kluczowych \{,,$kosmetyki$'', ,,$kremy$'', ,,$zmarszczki$''\} oraz $Y$ o s³owach kluczowych \{,,$kosmetyki$'', ,,$zele do wlosow$'', ,,$kremy$'', ,,$szampony$''\} $relevance(X,Y)=2$, poniewa¿ oba artyku³y maj¹ dwa wspólne s³owa kluczowe ($,,kosmetyki''$ i $,,kremy''$).
+
+\section{Miara 2: Historyczna aktywnoœæ u¿ytkowników serwisu}
+
+Zbieranie a nastêpnie przechowywanie informacji o aktywnoœci u¿ytkownika w ramach serwisu internetowego jest powszechn¹ praktyk¹. Proces ten pozwala na analizê zachowania u¿ytkowników co mo¿e doprowadziæ do wniosków, jakie usprawnienia nale¿y przedsiêwzi¹æ, aby spe³niæ cele biznesowe. Jednym z przyk³adów aktywnoœci u¿ytkownika zapisywanej przez serwis Allegro s¹ klikniêcia w linki znajduj¹ce siê na stronie internetowej. Informacja ta pozwala sporz¹dziæ jeszcze jedn¹ miarê jakoœci dopasowania podobnych do siebie artyku³ów. Postaæ danych, jakie uda³o mi siê uzyskaæ z serwisu to tabela o polach: adres strony, na której nast¹pi³o klikniêcie, adres strony, na któr¹ prowadzi link, data klikniêcia.
+
+Jak ju¿ zosta³o opisane powy¿ej strona z artyku³em tekstowym zawiera odnoœiki do innych artyku³ów poruszaj¹cych tematykê podobn¹ do danego. Skoro zapisywana jest informacja o przejœciach pomiêdzy podstronami serwisu, to mo¿na obliczyæ ile razy z artyku³u $X$ dokonano przejœcia na rekomendowany do niego artyku³ $Y_1$, a ile razy na rekomendowany artyku³ $Y_2$. Je¿eli liczba przejœæ na artyku³ $Y_1$ jest wiêksza ni¿ na $Y_2$, mo¿na wnioskowaæ, i¿ $Y_1$ wydaje siê byæ bardziej relewantn¹ rekomendacj¹ dla artyku³u $X$.
+
+Pos³uguj¹c siê powy¿szym za³o¿eniem, mo¿na zaproponowaæ miarê jakoœci rekomendacji generowanych przez testowane metody w odniesieniu do popularnoœci rzeczywistych rekomendacji wyekstrahowanej z danych serwisu o aktywnoœci u¿ytkowników.
+
+W tym celu dokonujê adaptacji miary nDCG. Za³ó¿my, ¿e testowana metoda $A$ zwraca pewien ci¹g $p$ artyku³ów $c_A=a_1,\ a_2,\ ...,\ a_p$ podobnych do danego artyku³u $x$, w kolejnoœci od najbardziej relewantnego. Za³ó¿my równie¿, czêœæ elementów ci¹gu $c_B$ artyku³ów rekomandowanych w serwisie dla $x$ (u¿ywan¹ dotychczas w serwisie metod¹ $B$) znajduje siê równie¿ w ci¹gu $c_A$, tj. $(\exists{a_i, a_j\in c_A})a_i \in c_B \land a_j \in c_B$, gdzie $i$, $j$ to indeksy w ci¹gu $c_A$. Za³ó¿my ponadto, ¿e z danych o klikniêciach u¿ytkowników w linki w ramach serwisu wiadomo, ¿e przejœcie z $x$ na $a_i$ jest bardziej popularne ni¿ przejœcie z $x$ na $a_j$. St¹d je¿eli $i<j$ ($i>j$), to jakoœæ dzia³ania metody $A$ jest dobra (z³a), bo metoda ta generuje podobne artyku³y w kolejnoœci zgodnej ze stopniem podobieñstwa z artyku³em bazowym, opartym o czêstoœc przejœæ u¿ytkowników miêdzy artyku³ami.
+
+Za miarê relewantnoœci u¿ywan¹ przez nDCG przyjmujê liczby rzeczywistych przejœæ pomiêdzy artyku³ami, a sam¹ metodê stosujê tylko do przeciêcia zbioru artyku³ów podobnych do danego generowanych przez dan¹ metodê ze zborem artyku³ów rekomendowanych do danego przez dotychczasow¹ metodê dzia³aj¹c¹ w serwisie.
+
+Zalet¹ metody jest, i¿ mo¿na j¹ zastosowaæ automatycznie, lecz jest zale¿na od danych analitycznych pochodz¹cych z serwisu, które s¹ niedoskona³e.
+
+\section{Miara 3: Ocena przez u¿ytkowników offline}
+
+Ostatni¹ opracowan¹ przez mnie miar¹ jest subiektywna ocena ekspercka. W celu obiektywizacji oceny, ewaluacja powinna byæ dokonana przez reprezentatywn¹ grupê $T$ osób operuj¹cych na na tych samych danych. W metodzie tej grupa u¿ytkowników dokonuje oceny podobieñstwa par artyku³ów generowanych przez poszczególne testowane metody genreowania rekomendacji.
+
+\begin{enumerate}
+	\item Wybieram $n$ losowych artyku³ów bazowych $b_j, j=1,...,n$.
+	\item  Testowan¹ metod¹ $M$ generujê $p$ artyku³ów $s_{jk}, k=1,...,p$ podobnych do ka¿dego $b_j$ z $n$ wczeœniej wylosowanych.
+	\item Grupujê artyku³y w pary: artyku³ bazowy $b_j$ --- artyku³ podobny $s_{jk}$.
+	\item Za pomoc¹ stworzonego interfejsu prezentujê ka¿demu z u¿ytkowników kolejno wygerenowane pary w postaci rzeczywistych stron z artyku³ami dostêpnych przez przegl¹darkê internetow¹. Co wa¿ne ka¿dy u¿ytkownik otrzymuje ten sam zestaw par. Podczas prezentacji pary u¿ytkownik za pomoc¹ interfejsu webowego ocenia podobieñstwo pomiêdzy artyku³ami $rel(b_j, s_{jk})$ w skali 1-10.
+	\item Dla ka¿dej pary obliczam œredni¹ ocen wszystkich $T$ u¿ytkowników $avg(j,k)=\frac{1}{T}\sum_{t}^{T}rel_t(b_j, s_{jk})$, gdzie $rel_t$ to ocena $t$-go u¿ytkownika.
+	\item Dla ka¿dego artyku³u bazowego $b_j$ obliczam $m(j) = \frac{1}{\sum_{i=1}^{p}i}\sum_{i=0}^{k} avg(j,k)*(p-i)$ bêd¹ce œredni¹ wa¿on¹ ocen, gdzie ka¿dy kolejny artyku³ podobny otrzymuje coraz mniejsz¹ wagê.
+	\item Ocen¹ testowanej metody jest œrednia $\frac{1}{n}\sum_{j}m(j)$.
+\end{enumerate}
+
+Wad¹ tej metody jest jej powolnoœæ i potrzeba zaanga¿owania dodatkowych osób dokonuj¹cych ewaluacji. Niemo¿liwym wydaje siê przeprowadzenie badania dla wszystkich artyku³ów, st¹d konieczny jest wybór losowej próby artyku³ów, które parami poddane zostan¹ ocenie pod k¹tem podobieñstwa.
+
+
+\chapter{Opis testów}
+
+W przeprowadzanych testach staram siê dokonaæ porównania pomiêdzy ró¿nymi konfiguracjami tej samej metody oraz pomiêdzy najlepszymi wariantami ró¿nych metod. W tym celu wykorzystujê wprowadzone miary ewaluacji. W wiêkszoœci przypadków u¿ywam miar automatycznych bazuj¹cych na metadanych artyku³ów oraz historycznej aktywnoœci u¿ytkowników serwisu. Do ostatecznego porównania pomiêdzy najlepszymi wariantami testowanych metod stosujê równie¿ miarê opart¹ na ocenie eksperckiej. Miara ta daje najbardziej rzetelne wyniki, jednak¿e jej u¿ycie jest wyj¹tkowo kosztowne - wymaga zaanga¿owania osób testuj¹cych oraz sporych nak³adów czasowych. St¹d zdecydowa³em na u¿ycie jej tylko w jednym przypadku.
+
+\section{Testowane metody generowania rekomendacji}
+
+Wykonujê szereg testów adaptacji metod semantycznej analizy jêzyka naturalnego o ró¿nych nazwach, w ró¿nych konfiguracjach. St¹d dla czytelnoœci wprowadzam niekiedy w nawiasach skrócone sygnatury tych metod, które stosujê w dalszej czêœci pracy zamiast pe³nych opisów.
+
+\subsection{Metody oparte o modelowanie tematu}
+
+Najwa¿niejszym hiperparametrem metod tej grupy: LSI oraz LDA jest liczba tematów, st¹d dokonujê testu jak zmiana tego parametru wp³ywa na jakoœæ modelu.
+
+\subsection{Metody oparte o word embedding}
+Wykonujê testy adaptacji metod wektorowej reprezentacji s³ów dla wielu konfiguracji. Poni¿ej obszary, na których dokonujê zmian konfiguracji.
+
+\subsubsection{Korpus bazowy}
+
+Pierwszy model word2vec, z jakim mia³em stycznoœæ to model\cite{pias} stworzony m.in. przez dr in¿. M. Piaseckiego z Politechniki Wroc³awskiej dostêpny poprzez stronê internetow¹. Model ten by³ uczony na korpusie S³owosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przesz³y segmentacjê, lematyzacjê i ujednoznacznianie morfosyntaktyczne. U¿yte parametry uczenia word2Vec: metoda skip gram, wekroty d³ugoœci 100, okno kontekstu wielkoœci 5.
+
+Model ten zawiera 73875 spoœród 98174 (75\%) unikalnych s³ów korpusu artyku³ów Allegro oraz 7313915 z 7409145 (99\%) wszystkich s³ów korpusu artyku³ów. Wskazuje to, i¿ s³owa nieobecne w modelu s¹ bardzo ma³o popularne w korpusie artyku³ów (stanowi¹ ok 1\% ca³oœci). Po samodzielnym sprawdzeniu stwierdzam, ¿e s³owa nieobecne w modelu to: ,,literówki'' lub s³owa niepoprawnie stokenizowane (np. ,,urz¹dzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), ¿argon bran¿owy (np. ,,bootsów''), z³o¿enia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uwa¿am, i¿ mimo niewielkiej liczby tych s³ów w stosuku mog¹ mieæ one znacz¹cy wp³yw na semantykê artyku³ów.
+
+W zwi¹zku z powy¿szym stwierdzeniem wykonujê naukê modelu word2vec równie¿ na w³asnym korpusie artyku³ów w celu zawarcia brakuj¹cych w poprzednim modelu s³ów. Najrozs¹dniejszym postêpowaniem by³oby tutaj rozszerzenie modelu opartego na korpusie S³owosieci równie¿ o brakuj¹ce s³owa, jednak metoda word2vec nie pozwala na dodanie nowych s³ów do s³ownika istniej¹cego modelu, a jedynie na dalsz¹ naukê w oparciu o s³owa ju¿ istniej¹ce w s³owniku. Si³¹ rzeczy model zbudowany na zbiorze artyku³ów zawiera wszystkie s³owa wystêpuj¹ce w artyku³ach s³owa. Korpusu tego u¿ywam do tworzenia modelów w oparciu o wszystkie pozosta³e sposoby.
+
+Dokonujê porównania jakoœci modelu uczonego na korpusie S³owosieci z modelem uczonym na korpusie artyku³ów Allegro.
+
+\subsubsection{Sposób generowania wektorów i d³ugoœæ wektorów}
+Do wygenerowania wektorów reprezentuj¹cych s³owa u¿ywam metod wektorowej reprezentacji tekstu: word2vec, GloVe oraz fastText. Ka¿d¹ z nich testujê pod k¹tem ró¿nej wymiarowoœci generowanych wektorów.
+
+\subsubsection{Metoda okreœlenia podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów}
+Zadaiem metod ,,word embedding'' jest wygenerowanie wektorowej reprezentacji s³owa. W celu porównania ca³ych dokumentów i wyznaczenia podobieñstw miêdzy nimi nale¿y u¿yæ dodatkowych œrodków. W tym celu korzystam z poni¿szych metod:
+\begin{enumerate}
+	\item odleg³oœæ cosinusowa pomiêdzy centroidami wektorowej reprezentacji tekstów (w skrócie metoda centroidu),
+	\item Word Mover's Distance,
+	\item autorska metoda wykorzystuj¹ca odleg³oœæ cosinusow¹ pomiêdzy wektorow¹ reprezentacj¹ s³ów kluczowych wyznaczonych metod¹ LDA. Celem metody jest zmniejszenie wymiarowoœci artyku³u oraz u¿ycie tylko znacz¹cych s³ów przy obliczaniu centroidu artyku³u. W tej metodzie za pomoc¹ LDA wyznaczam s³owa kluczowe, które z najwiêksz¹ wag¹ przynale¿¹ do danego artyku³u. Nauczony model LDA ka¿demu dokumentowi $i$ przypisuje zestaw tematów z okreœlonymi wagami przynale¿noœci $t_{ij}$ oraz ka¿demu tematowi $j$ przypisuje zestaw s³ów wraz z wagami $w_{jk}$. Na tej podstawie dla ka¿dego artyku³u $i$ mogê wybraæ $p$ s³ów, które posiadaj¹ najwy¿sz¹ wagê przynale¿noœci do artyku³u liczon¹ wg. wzoru $x(i,k)=\sum{j}t{ij}*w{jk}$, gdzie $k$ to dane s³owo. Ostatecznie artyku³ reprezentujê jako centroid $n$ s³ów o najwy¿szym $x$ dla danego s³owa. W dalszych testach przyjmujê $n$ jako 10.
+\end{enumerate}
+
+Powy¿sze metody stosujê w celu wyznaczenia dla danego artyku³u $a$ $p$ artyku³ów najbardziej do niego podobnych uszeregowanych majel¹co pod wzglêdem relewantnoœci do artyku³u bazowego $a$.
+
+\subsection{Elasticsearch}
+W celu porównania z metodami semantycznymi testujê równie¿ dotychczasowe zapytanie do silnika Elasticsearch u¿ywane dotychczas w Allegro. Zapytanie to odpowiada list¹ $p$ artyku³ów najbardziej zbli¿onych do artyku³u wejœciowego w kolejnoœci od najbardziej podobnego
+
+\subsection{Metoda losowa}
+W celu posiadania punktu odniesienia dokonujê testów dla metody losowo wybieraj¹cej $p$ podobnych do danego artyku³ów. Wybór nastêpuje zgodnie z rozk³adem jednostajnym ze zbioru wszystkich artyku³ów.
+
+\section{Metody ewaluacji}
+
+W celu wykonania oceny testowanych metod wykorzystujê wszystkie metody ewaluacji opisane w rozdziale 4, które opatrujê skróconymi sygnaturami.
+\begin{enumerate}
+	\item $clicks$ - ocena na podstawie historycznej aktywnoœci u¿ytkowników mierzona na podstawie liczby klikniêæ w odnoœniki.
+	\item $mut\_cat[\_ndcg]$ - relewantnoœæ wyszukanych artyku³ów liczona na podstawie liczby wspólnych kategorii z artyku³m bazowym. Stosujê dwa warianty: œrednia relewantnoœæ wyszukanych artyku³ów oraz miara nDCG.
+	\item $mut\_kw[\_ndcg]$ - relewantnoœæ wyszukanych artyku³ów liczona na podstawie liczby wspólnych s³ów kluczowych z artyku³m bazowym. Równie¿ stosujê dwa warianty: œrednia relewantnoœæ wyszukanych artyku³ów oraz miara nDCG.
+	\item $users$ - ocena na podstawie eksperckiej oceny u¿ytkowników. W badaniu wykorzysta³em 5 u¿ytkowników operuj¹cych ka¿dy na tym samym zbiorze par testowych. Pary zosta³y wygenerowane (zgodnie z wczeœniejszym opisem metody) na podstawie 50 artyku³ów bazowych wylosowanych spoœród wszystkich artyku³ów udostêpnionych mi przez Allegro.
+\end{enumerate}
+
+
+
+
+
+\chapter{Wyniki badañ}
+W rozdziale tym przedstawiam wyniki oceny jakoœci poszczególnych metod w zale¿noœci od ich hiperparametrów. Oceny dokonujê na podstawie opisanych uprzednio miar. Do wyników ka¿dego testu do³¹czam ich interpretacjê oraz wnioski.
+
+\subsection{LSI w zale¿noœci od liczby tematów}
+
+Dokonujê porównania jakoœci modelu LSI w zale¿noœci od wartoœci hiperparametru - liczby tematów.
+
+\begin{center}
+	\begin{tabular}{lrrrr}
+		\hline
+		&       100 &      300 &      500 &      600 \\
+		\hline
+		mut\_cat      & 3.43131   & 3.50634  & 3.52346  & 3.51793  \\
+		mut\_kw       & 1.77666   & 2.20166  & 2.38808  & 2.33861  \\
+		mut\_cat\_ndcg & 0.507238  & 0.516217 & 0.518053 & 0.517515 \\
+		mut\_kw\_ndcg  & 0.0972985 & 0.119504 & 0.129079 & 0.126829 \\
+		clicks       & 0.865496  & 0.868586 & 0.878243 & 0.87366  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/lsi.png}
+	\caption{Porównanie znormalizowanych wyników dla metody LSI.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Miary oparte na liczbie wspólnych s³ów kluczowych ($mut\_kw...$) wyraŸnie pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 500.
+
+\subsection{LDA w zale¿noœci od liczby tematów}
+
+Podobnie, jak w poprzednim punkcie dokonujê porównania jakoœci modelu LDA w zale¿noœci od wartoœci hiperparametru - liczby tematów.
+
+
+\begin{center}
+	\begin{tabular}{lrrrrrr}
+		\hline
+		&       100 &       300 &       500 &       700 &       900 &      1100 \\
+		\hline
+		mut\_cat      & 3.29108   & 3.34755   & 3.35077   & 3.36767   & 3.39972   & 3.3788    \\
+		mut\_cat\_ndcg & 0.48793   & 0.495011  & 0.494236  & 0.497623  & 0.500823  & 0.498854  \\
+		mut\_kw       & 1.31741   & 1.48792   & 1.58854   & 1.69146   & 1.76637   & 1.75904   \\
+		mut\_kw\_ndcg  & 0.0733675 & 0.0815366 & 0.0880742 & 0.0919873 & 0.0961874 & 0.0963659 \\
+		clicks       & 0.880891  & 0.90278   & 0.879733  & 0.906384  & 0.912387  & 0.890913  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/lda.png}
+	\caption{Porównanie znormalizowanych wyników dla metody LDA.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych s³ów kluczowych ($mut_kw$) pokazuj¹ wzrost jakoœci modelu przy wzroœcie liczby tematów. Œrednia ze wszystkich miar pokazuje, ¿e najwy¿sz¹ jakoœæ model osi¹ga dla liczby tematów 900.
+
+
+\section{Word2vec w zale¿noœci od korpusu}
+
+Poni¿ej zestawiam wyniki dla modelów word2vec o wektorach d³ugoœci 100 uczonych: na korpusie artyku³ów z Allegro ($w2v100\_art$) oraz na korpusie S³owosieci ($w2v100\_wn$). Dokumenty porównywane s¹ tu metod¹ centroidu.
+
+\begin{center}
+	\begin{tabular}{lrr}
+		\hline
+		&   w2v100\_art &   w2v100\_wn \\
+		\hline
+		mut\_cat      &    3.41328   &   3.38265   \\
+		mut\_cat\_ndcg &    0.504018  &   0.496797  \\
+		mut\_kw       &    1.66191   &   1.67062   \\
+		mut\_kw\_ndcg  &    0.0896029 &   0.0885063 \\
+		clicks       &    0.946487  &   0.946191  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Maksymalna ró¿nica miêdzy najlepszym i najgorszym wynikiem nie przekracza 2\%. St¹d trudno jest stwierdziæ, która metoda daje tu lepsze wyniki. Na korzyœæ modelu word2vec uczonego na korpusie artyku³ów przemawia jego ma³y rozmiar, a co za tym idzie szybkoœæ nauki. Z przyczyn braku wyraŸnych zalet korzystania tu z modelu uczonego na korpusie s³owosieci korzystam dalej jedynie z modeli opartych o korpus artyku³ów Allegro.
+
+\section{Word2vec w zale¿noœci od metody porównywania dokumentów}
+
+W niniejszym punkcie dokonujê porównania jakoœci metod okreœlania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metod¹ word2vec dla wektorów d³ugoœci 100 oraz 300. Biorê tu pod uwagê metody: centroidu ca³oœci dokumentu ($w2v100_centroid$), centroidu s³ów kluczowych wyznaczonych metod¹ LDA dla 100 tematów ($w2v100_lda100$) oraz Word Mover's Distance ($w2v100_wnd$).
+
+\subsection{Wymiar wektorów: 100}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&   w2v100\_centroid &   w2v100\_lda100 &   w2v100\_wmd \\
+		\hline
+		mut\_cat      &         3.41763   &       3.25386   &     3.17404  \\
+		mut\_cat\_ndcg &         0.504596  &       0.482482  &     0.54389  \\
+		mut\_kw       &         1.66962   &       1.2749    &     1.14807  \\
+		mut\_kw\_ndcg  &         0.0900018 &       0.0701703 &     0.096873 \\
+		clicks       &         0.938998  &       0.888249  &     0.996717 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od sposobu wyznaczania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów.}
+	%\label{fig:warstwy}
+\end{figure}
+
+\subsection{Wymiar wektorów: 300}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&   w2v300\_ctr &   w2v300\_lda100 &   w2v300\_wmd \\
+		\hline
+		mut\_cat      &    3.42132   &       3.25724   &     3.1182   \\
+		mut\_cat\_ndcg &    0.505457  &       0.482896  &     0.705453 \\
+		mut\_kw       &    1.68395   &       1.27438   &     1.02838  \\
+		mut\_kw\_ndcg  &    0.0906939 &       0.0701459 &     0.120046 \\
+		clicks       &    0.936386  &       0.891596  &     0.940603 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v300_ctr_w2v300_lda100_w2v300_wmd_.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od sposobu wyznaczania podobieñstwa miêdzy wektorowymi reprezentacjami dokumentów.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Wyniki dla metody opartej o tematy LDA s¹ jednoznacznie gorsze od wyników dla metody centroidu.
+
+Dla obu konfiguracji metody word2vec metoda Word Mover's Distance wykazuje siê najwiêksz¹ zdolnoœci¹ do poprawnego szeregowania dokumentów (wysoki wskaŸnik metod nDCG w porównaniu z metodami wykorzystuj¹cymi œredni¹).
+
+Wad¹ metody WMD wykluczaj¹c¹ j¹ z u¿ycia w tym przypadku jest jej powolnoœæ. Dla pierwszego przypadku  obliczenia trwa³y 55 minut, co przy czasie <1sek dla centroidu jest wartoœcia niedopuszczaln¹. Proporcjonalnie u¿ycie tej metody dla ca³ego korpusu trwa³oby ok. 183 godzin.
+
+
+\section{Metody word embedding w zale¿noœci od wymiarowoœci wektorów}
+
+W niniejszym punkcie porównujê jakoœæ metod word embedding (word2vec, GloVe i fastText) w zale¿noœci od wymiarowoœci wektorów: 100, 300 i 1000. U¿yta metoda wyznaczania podobieñstwa dokumentów to metoda centroidu.
+
+\subsection{Word2vec}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&       100 &       300 &      1000 \\
+		\hline
+		mut\_cat      & 3.41328   & 3.42132   & 3.41763   \\
+		mut\_cat\_ndcg & 0.504018  & 0.505457  & 0.504596  \\
+		mut\_kw       & 1.66191   & 1.68395   & 1.66962   \\
+		mut\_kw\_ndcg  & 0.0896029 & 0.0906939 & 0.0900018 \\
+		clicks       & 0.946487  & 0.936386  & 0.938998  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/w2v_ctr.png}
+	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Dla ró¿nej wymiarowoœci wektorów wyjœciowych metoda word2vec daje bardzo podobne rezultaty. Ró¿nica miêdzy najlepszym i najgorszym wynikiem wynosi jedynie ok 1,5 pkt. proc. Mimo to najlepsz¹ wartoœci¹ hiperparametru wydaje siê byæ 300.
+
+\subsection{GloVe}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&      100 &      300 &     1000 \\
+		\hline
+		mut\_cat      & 3.4595   & 3.4595   & 3.54532  \\
+		mut\_cat\_ndcg & 0.510077 & 0.510077 & 0.523677 \\
+		mut\_kw       & 1.79875  & 1.79875  & 2.15176  \\
+		mut\_kw\_ndcg  & 0.097138 & 0.097138 & 0.115149 \\
+		clicks       & 0.907997 & 0.907997 & 0.879786 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/gv_ctr.png}
+	\caption{Porównanie znormalizowanych wyników dla metody GloVe w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Ewidentnie najlepsze wyniki metoda osi¹ga dla wektorów wyjœciowych d³ugoœci 1000.
+
+\subsection{FastText}
+
+\begin{center}
+	\begin{tabular}{lrrr}
+		\hline
+		&      100 &      300 &     1000 \\
+		\hline
+		mut\_cat      & 3.55494  & 3.57287  & 3.57869  \\
+		mut\_cat\_ndcg & 0.525164 & 0.528378 & 0.528948 \\
+		mut\_kw       & 2.00994  & 2.11828  & 2.16992  \\
+		mut\_kw\_ndcg  & 0.108461 & 0.113908 & 0.116528 \\
+		clicks       & 0.896766 & 0.89745  & 0.885622 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
+	\caption{Porównanie znormalizowanych wyników dla metody fastText w zale¿nosci od bazowego korpusu.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Równie¿ jak w przypadku metody GloVe metoda fastText osi¹a najlepsze rezultaty dla wektorów d³ugoœci 1000.
+
+\section{Ocena jakoœci wybranych metod przez u¿ytkowników}
+
+W niniejszym punkcie dokonujê porównania najlepszych konfiguracji testowanych wczeœniej metod. Zestawiam z nimi wyniki dla metody u¿ywanej dotyczczas w Allegro oraz metodê losow¹.
+Testowane warianty:
+\begin{itemize}
+	\item $lsi500$ --- Latent Semantic Indexing dla 500 tematów,
+	\item $lda900$ --- Latent Dirichlet Allocation dla 900 tematów,
+	\item $w2v300$ --- word2vec dla wektorów d³. 300 i przy u¿ytej metodzie centroidu,
+	\item $w2v300$ --- GloVe dla wektorów d³. 1000 i przy u¿ytej metodzie centroidu,
+	\item $w2v300$ --- fastText dla wektorów d³. 1000 i przy u¿ytej metodzie centroidu,
+	\item $allegro$ --- u¿ywane dotychczas w Allegro zapytanie do silnika elasticsearch,
+	\item $rnd$ --- metoda losowa.
+\end{itemize}
+\subsection{Zestawienie wyników testów automatycznych}
+Poni¿ej zestawienie wyników miar automatycznych dla najlepszych wariantów testowanych wczeœniej metod.
+\begin{center}
+	\begin{tabular}{lrrrrrrr}
+		\hline
+		&   lsi500 &    lda900 &    w2v300 &   gv1000 &   ft1000 &   allegro &          rnd \\
+		\hline
+		mut\_cat      & 3.523  & 3.400   & 3.421   & 3.545  & 3.579  &  3.471  &   1.233    \\
+		mut\_cat\_ndcg & 0.518 & 0.501  & 0.505  & 0.524 & 0.529 &  0.509 &   0.185    \\
+		mut\_kw       & 2.388  & 1.766   & 1.684   & 2.152  & 2.170  &  3.705  &   0.137   \\
+		mut\_kw\_ndcg  & 0.129 & 0.096 & 0.091 & 0.115 & 0.116 &  0.203 &   0.008 \\
+		clicks       & 0.913 & 0.9064  & 0.936  & 0.880 & 0.886 &  0.890 & ---          \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_.png}
+	\caption{Porównanie znormalizowanych wyników dla wybranych metod.}
+	%\label{fig:warstwy}
+\end{figure}
+
+Wszystkie testowane metody daj¹ du¿o lepsze rezultaty od metody losowej. Stasunkowo wysokie wskaŸniki $mut\_cat$ dla metody losowej wynikaj¹ z du¿o wiêkszej szansy, ¿e dwa artyku³y maj¹ wspólnych przodków w drzewie kategorii ni¿, ¿e maj¹ wspólne s³owa kluczowe.
+
+Najwy¿sze wyniki wszystkich miar uzyska³a metoda $allegro$. Jej wysokie wskaŸniki dla metody $mut_kw$ wynikaj¹ wprost ze struktury zapytania do silnika elasticsearch, które to jest oparte w³aœnie o s³owa kluczowe do³¹czone do artyku³u.
+
+\subsection{Wyniki oceny eksperckiej}
+
+\begin{center}
+	\begin{tabular}{lrrrrrrr}
+		\hline
+		&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &   rnd \\
+		\hline
+		users &    8.415 &    7.895 &    8.185 &     8.61 &     8.68 &      8.47 & 1.345 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
+	\caption{Porównanie znormalizowanych wyników dla wybranych metod.}
+	%\label{fig:warstwy}
+\end{figure}
+
+%TODO dodatkowe statystyki userskie
+
+\chapter{Wnioski i podsumowanie}
+
+Istotn¹ zalet¹ dotychczasowego rozwi¹zainia stosowanego w Allegro jest uniwersalnoœæ silnika elasticsearch oraz to, ¿e pozwala edytowaæ inteksowane dane w locie, bez koniecznoœci przebudowy systemu. Metody semantycznej analizy tekstu potrzebuj¹ przebudowania modelu przy ka¿dej zmianie korpusu, na którym siê opieraj¹. 
+
+Wyniki metody $clicks$ odstaj¹ niekiedy od innych wyników. Mo¿e siê to wi¹zaæ z faktem, i¿ liczba przejœæ dokonanych przez u¿ytkowników miêdzy parami artyku³ów niekoniecznie odzwierciedla podobieñstwo miêdzy nimi. Fakt, i¿ u¿ytkownik przechodzi z artyku³u $A$ do rekomendowanego artyku³u $B$ mo¿e równie¿ wynikaæ z faktu, i¿ artyku³ $B$ porusza inn¹ tematykê ni¿ artyku³ $A$, która to jednak interesuje u¿ytkownika. Wprowadznie do rekomendacji ma³ego odsetka niepowi¹zanych przedmiotów jest znan¹ praktyk¹ przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie u¿ytkownika przedmiotami spoza krêgu jego dotychczasowych zainteresowañ.
+
+%TODO Popatrzeæ w podsumowania innych prac
+korelacja miêdzy metodami ewaluacji
+
+Dalsze badania.
+
+Niniejsza praca nie wyczerpuje sposobów wyboru artyku³ów podobnych. 
+
+Nie wszystkie pola zawarte w strukturze zosta³y wykorzystane. Pozostaj¹ np. ,,autor''.
+
+Przed zastosowaniem metod wyznaczania podobieñstwa wykona³em przetwarzanie wstêpne dokumentów, które mo¿na przeprowadziæ równie¿ na inne sposoby. Jest to temat osobnych badañ.
+
+Zdajê sobie sprawê z niedoskona³oœci zastosowanych miar.
+
+Tematem niniejszej pracy jest przypisanie danemu artyku³owi artyku³ów najbardziej podobnych. Warto tutaj zaznaczyæ ró¿nicê pomiêdzy tematyk¹ pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artyku³y, które mo¿na uznaæ za dobre rekomandacje, tj. takie, które przynosz¹ przedsiêbiorstwu najwiêkszy zysk, wcale nie mus¿ byæ podobne do danego. Powszechnym zjawiskiem jest wzbogacanie rekomandacji o przedmioty niepodobne do danego, a pozwalaj¹ce u¿ytkownikowi na poznanie osobnej kategorii przedmiotów, która mo¿e go zainteresowaæ a tym samym przyci¹gn¹æ do serwisu.
+
+
+%-----------Koniec czêœci zasadniczej-----------
+\appendix
+\chapter{Technologie i narzêdzia}
+%TODO przypisy
+Analizê danych, ich wstêpne przetworzenie a nastêpnie przeprowadzenie docelowych eksperymentów wykona³em korzystaj¹c g³ównie z jêzyka Python i szeregu skrytpów napisanych w nim w³asnorêcznie, wykorzystuj¹cych istniej¹ce specjalistyczne biblioteki posiadaj¹ce interfejs w tym¿e jêzyku.
+
+Wykorzystane narzêdzia:
+\begin{itemize}
+	\item Elasticsearch --- silnik wyszukiwania tekstowego. U¿ywam go do przechowywania bazy artyku³ów oraz ich przetworzonych wersji.
+	\item MongoDB --- nierelacyjna baza danych, której u¿ywam do przechowywania wyników generowanych przez testowane algorytmy.
+	\item GloVe --- implementacja metody GloVe. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
+	\item fastText --- implementacja metody fastText wykonana przez zespó³ Facebook Research. Generuje wektory s³ów, które nastêpnie mog¹ byæ wykorzystane np. przez bibliotekê gensim.
+\end{itemize}
+
+Poni¿sza lista zawiera wykorzystane biblioteki jêzyka Python:
+\begin{itemize}
+	\item Gensim --- rozbudowana biblioteka s³u¿¹ca do przetwarzania jêzyka naturalnego; zawiera implementacjê metod word2Vec, LSI, LDA, TF-IDF i inne.
+	\item Morfologik --- tokenizer jêzyka polskiego.
+	\item Numpy --- pozwala wydajnie wykonywaæ obliczenia numeryczne.
+	\item Pyemd --- implementacja algorytmu Earth Mover's Distance.
+	\item Elasticsearch --- u³atwia wykonywanie zapytañ do silnika Elasticsearch wprost z kodu Pythona.
+	\item Matplotlib --- biblioteka s³u¿¹ca do wykonywania wykresów.
+	\item Pymongo --- umo¿liwia wykonywanie zapytañ do bazy MongoDB wprost z kodu Pythona.
+\end{itemize} 
+
+
+\begin{thebibliography}{30}
+\bibitem{all_naj}
+	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
+	(09.08.17)
+\bibitem{allegro}
+	\url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet}
+	(07.05.2017)
+\bibitem{screen_allegro}
+	\url{https://allegro.pl/artykul/jaka-farba-dla-alergika-55917/}
+	(26.06.2017)
+\bibitem{slownik}
+	S³ownik Jêzyka Polskiego PWN
+	\url{http://sjp.pwn.pl/sjp/artykul;2441396.html}
+	(07.05.2017)
+\bibitem{aylien}
+	\url{http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/}
+	(18.08.2017)
+\bibitem{handbook}
+	F. Ricci, L. Rokach, B. Shapira,
+	\emph{Introduction to Recommender Systems Handbook},
+	Springer,
+	2011
+\bibitem{elastic}
+	\url{https://www.elastic.co/}
+	(18.08.2017)	
+\bibitem{lucene}
+	\url{https://lucene.apache.org/}
+	(18.08.2017)
+\bibitem{elastic_companies}
+	\url{https://www.elastic.co/use-cases}
+	(10.08.17)
+\bibitem{bow}
+	Z. S. Harris,
+	\emph{Distributional Structure},
+	WORD, tom 10, num. 2-3,
+	1954
+\bibitem{tf_idf}
+	G. Salton and M. McGill,
+	\emph{Introduction to modern information retrieval},
+	McGraw-Hill,
+	1983
+\bibitem{firth}
+	J.R. Firth,
+	\emph{A synopsis of linguistic theory 1930-1955},
+	Oxford: Philological Society,
+	1957
+\bibitem{lsa}
+	S. Deerwester, S. T. Dumais, G. W. Furnas, T. K. Landauer, R. Harshman,
+	\emph{Indexing by latent semantic analysis},
+	Journal of the American Society for Information Science, tom 41, num. 6,
+	1990
+\bibitem{lda}
+	David M. Blei, Andrew Y. Ng, Michael I. Jordan,
+	\emph{Latent Dirichlet Allocation},
+	Journal of Machine Learning Research, tom 3 num. 4–5,
+	2003
+\bibitem{svd}
+	G. H. Golub, W. Kahan,
+	\emph{Calculating the singular values and pseudo-inverse of a matrix},
+	Journal of the Society for Industrial and Applied Mathematics: Series B, Numerical Analysis. 2 (2),
+	1965
+\bibitem{word2vec}
+	T. Mikolov, K. Chen, G. Corrado, J. Dean,
+	\emph{Efficient Estimation of Word Representations in Vector Space},
+	International Conference on Machine Learning (ICML),
+	2013
+\bibitem{bengio}
+	Y. Bengio, R. Ducharme, P. Vincent, C. Jauvin,
+	\emph{A Neural Probabilistic Language Model},
+	Journal of Machine Learning Research 3 1137–1155,
+	2003
+\bibitem{c_w}
+	R. Collobert, J. Weston,
+	\emph{A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
+	NEC Labs America,
+	2008
+\bibitem{google_word2vec}
+	\url{https://code.google.com/archive/p/word2vec/}
+	(26.05.2017)
+\bibitem{word2vec_tutorial}
+	\url{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}
+	(26.05.2017)
+\bibitem{fasttext}
+	A. Joulin, E. Grave, P. Bojanowski T. Mikolov,
+	\emph{Bag of Tricks for Efficient Text Classification},
+	Facebook AI Research,
+	2016
+\bibitem{glove}
+	Jeffrey Pennington, Richard Socher, Christopher D. Manning,
+	\emph{GloVe: Global Vectors for Word Representation},
+	Computer Science Department, Stanford University, Stanford, CA 94305,
+	2014
+\bibitem{glove_cran}
+	\url{https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html}
+	(30.08.2017)
+\bibitem{wmd}
+	M. J. Kusner, Y. Sun, N. I. Kolkin, K. Q. Weinberger,
+	\emph{From Word Embeddings To Document Distances},
+	International Conference on Machine Learning (ICML),
+	2015	
+\bibitem{emd}
+	Y. Rubner, C. Tomasi, L. J. Guibas,
+	\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
+	str. 1,
+	Computer Science Department, Stanford University,
+	2000	
+\bibitem{emd_method}
+	O. Pele, M. Werman,
+	\emph{Fast and robust earth mover's distances},
+	ICCV,
+	2009
+\bibitem{ndcg}
+	K. Jarvelin, J. Kekalainen,
+	\emph{Cumulated gain-based evaluation of IR techniques},
+	University of Tampere,
+	2002
+\bibitem{stopwords}
+	\url{https://pl.wikipedia.org/wiki/Wikipedia:Stopwords}
+	(15.04.2017)
+\bibitem{morfologik}
+	\url{http://morfologik.blogspot.com/}
+	(07.05.2017)
+\bibitem{pias}
+	P. Kêdzia, G. Czachor, M. Piasecki, J. Kocoñ
+	\emph{Vector representations of polish words (Word2Vec method)},
+	Wroc³aw University of Technology,
+	2016,
+	\url{https://clarin-pl.eu/dspace/handle/11321/327}
+	(26.06.2017)
+\bibitem{wordnet}
+	\url{http://plwordnet.pwr.wroc.pl/wordnet/}
+	(28.06.2017)
+
+\end{thebibliography}
+
+\appendix
+%\chapter{Instrukcja u¿ytkownika}
+%\paragraph{}
+\clearpage
+\pagestyle{empty}
+\noindent Warszawa, dnia ...............
+\vspace{5cm}
+\begin{center}
+\LARGE{Oœwiadczenie}
+\end{center}
+Oœwiadczam, ¿e pracê magistersk¹ pod tytu³em: ,,Rekomendacje artyku³ów opisuj¹cych produkty w serwisach e-commerce'', której promotorem jest dr in¿. Anna Wróblewska, wykona³em samodzielnie, co poœwiadczam w³asnorêcznym podpisem.
+\vspace{2cm}
+\begin{flushright}
+...........................................
+\end{flushright}
+\end{document}
