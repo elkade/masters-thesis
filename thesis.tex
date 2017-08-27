@@ -73,11 +73,11 @@
 %TODO JAkie pytanie stawiam w pracy: czy semantyczne metody analizy języka naturalnego są w stanie dać lepsze efekty w zadaniu generowania rakomandacji od dotychczasowej metody stosowanej w Allegro opartej o silnik wyszukiwania Elasticearch i słowa kluczowe dobierane do artykułów przez ich autorów.
 Systemy rekomendacji są powszechnym elementem wielu serwisów internetowych. Sprawdzają się na takich polach, jak polecanie produktów w sklepie czy rekomendacje ofert pracy. Dają użytkownikowi poczucie indywidualnego traktowania przez serwis internetowy dopasowujący niejako zawartość swoich stron do konkretnego użytkownika. Pozwala to użytkownikowi na bardziej efektywne korzystanie z serwisu oraz może prowadzić do większego zaangażowania ze strony użytkownika i przywiązania do serwisu. Systemy rekomendacji dają obopulną korzyść zarówno użytkownikowi jak i właścicielowi serwisu internetowego.
 
-Celem niniejszej pracy magisterskiej jest analiza możliwości usprawnienia istniejacego systemu rekomendacji o oparciu o adaptację istniejących metod wyszukiwania semantycznego podobieństwa pomiędzy dokumentami tekstowymi. Rzeczony system rekomendacji istnieje w internetowym serwisie e-commerce Allegro w dziale artykułów tekstowych o tematyce związanej z produktami dostępnymi za pośrednictwem serwisu. System ma na celu zarekomendowanie użytkownikowi artykułów o tematyce podobnej do tego, który znajduje się na stornie aktualnie odwiedzanej przez uzytkownika.
+Celem niniejszej pracy magisterskiej jest analiza możliwości usprawnienia istniejacego systemu rekomendacji w oparciu o adaptację istniejących metod wyszukiwania semantycznego podobieństwa pomiędzy dokumentami tekstowymi. Rzeczony system rekomendacji istnieje w internetowym serwisie e-commerce Allegro w dziale artykułów tekstowych o tematyce związanej z produktami dostępnymi za pośrednictwem serwisu. System ma na celu zarekomendowanie użytkownikowi artykułów o tematyce podobnej do tego, który znajduje się na stornie aktualnie odwiedzanej przez uzytkownika.
 
 W swojej pracy badam możliwość użycia istniejących metod semantycznej analizy tekstu w odniesieniu do opisanego problemu. Badane metody to: Latent Semantic Analysis, Latent Dirichlet Allocation, Word2vec, GloVe oraz FastText. Jakość działania tych metod porównuję poprzez samodzielnie opracowane metody ewaluacji.
 
-Podczas prowadzenia badań stworzyłem szereg skryptów przetwarzających dane i wykorzystujących implementacje opisywanych w tej pracy metod. Opis użytych narzędzi programistycznych i bibliotek zawarłem w dodatku A do niniejszej pracy.
+Podczas prowadzenia badań stworzyłem szereg skryptów przetwarzających dane i wykorzystujących implementacje opisywanych w tej pracy metod. Opis użytych narzędzi programistycznych i bibliotek zawarłem w załączniku 1 do niniejszej pracy. Stworzone skrypty umieszczam na płycie CD dołączonej do pracy. Opis zawartości płyty znajduje się w załączniku 2.
 
 \section{Rekomendacje artykułów tekstowych w Allegro}%DONE
 Allegro jest największą\cite{all_naj} działającą na rynku polskim platformą aukcyjną on-line. Posiada ponad 20 mln zarejestrowanych klientów. Każdego dnia na Allegro sprzedaje się ponad 870 tysięcy przedmiotów. Zatrudnia 1300 pracowników.\cite{allegro} Serwis umożliwia użytkownikom wystawianie na sprzedaż oraz kupno przedmiotów poprzez mechanizm licytacji lub natychmiastowego zakupu.
@@ -572,7 +572,7 @@ Dokonuję porównania jakości modelu LSI w zależności od wartości hiperpara
 		clicks       & 0.865496  & 0.868586 & 0.878243 & 0.87366  \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody LSI dla zmiennej liczby tematów.}
 \end{table}
 
 \begin{figure}[H]
@@ -602,7 +602,7 @@ Podobnie, jak w poprzednim punkcie dokonuję porównania jakości modelu LDA w 
 		clicks       & 0.880891  & 0.90278   & 0.879733  & 0.906384  & 0.912387  & 0.890913  \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody LDA dla zmiennej liczby tematów.}
 \end{table}
 
 \begin{figure}[H]
@@ -632,7 +632,7 @@ Poniżej zestawiam wyniki dla modelów word2vec o wektorach długości 100 uczon
 		clicks       &    0.946487  &   0.946191  \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody word2vec w zależności od korpusu, na którym trenowany był model.}
 \end{table}
 
 \begin{figure}[H]
@@ -663,7 +663,7 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		clicks       &         0.938998  &       0.888249  &     0.996717 \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody word2vec dla wektorów dł. 100 w zależności od metody porównywania wektorowych reprezentacji dokumentów.}
 \end{table}
 
 \begin{figure}[H]
@@ -689,7 +689,7 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		clicks       &    0.936386  &       0.891596  &     0.940603 \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody word2vec dla wektorów dł. 300 w zależności od metody porównywania wektorowych reprezentacji dokumentów.}
 \end{table}
 
 \begin{figure}[H]
@@ -725,7 +725,7 @@ W niniejszym punkcie porównuję jakość metod word embedding (word2vec, GloVe 
 		clicks       & 0.946487  & 0.936386  & 0.938998  \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody word2vec dla zmiennej długości wektorów.}
 \end{table}
 
 \begin{figure}[H]
@@ -752,7 +752,7 @@ Dla różnej wymiarowości wektorów wyjściowych metoda word2vec daje bardzo po
 		clicks       & 0.907997 & 0.907997 & 0.879786 \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody GloVe dla zmiennej długości wektorów.}
 \end{table}
 
 \begin{figure}[H]
@@ -779,7 +779,7 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 		clicks       & 0.896766 & 0.89745  & 0.885622 \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Wyniki ewaluacji metody fastText dla zmiennej długości wektorów.}
 \end{table}
 
 \begin{figure}[H]
@@ -819,7 +819,7 @@ Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów tes
 		clicks       & 0.913 & 0.9064  & 0.936  & 0.880 & 0.886 &  0.890 & ---          \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Zestawienie wyników testów automatycznych dla najlepszych konfiguracji wybranych metod.}
 \end{table}
 
 \begin{figure}[H]
@@ -844,7 +844,7 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 		users &    8.415 &    7.895 &    8.185 &     8.61 &     8.68 &      8.47 & 1.345 \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Zestawienie wyników ewaluacji eksperckiej dla najlepszych konfiguracji wybranych metod.}
 \end{table}
 
 \begin{figure}[H]
@@ -866,7 +866,7 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 		users\_std &   2.6931 &  2.71551 &  2.59823 &  2.18813 &  2.06097 &    2.4019 & 1.34014 \\
 		\hline
 	\end{tabular}
-	\caption{This is my one big table}
+	\caption{Zestawienie odchyleń standardowych ocen dokonanych przy ewaluacji eksperckiej dla najlepszych konfiguracji wybranych metod.}
 \end{table}
 
 \begin{figure}[H]
@@ -894,17 +894,21 @@ Na uwadze należy mieć niedoskonałość wprowadzonych metod ewaluacji
 
 Artykuły najbardziej podobne wcale nie muszą wyć tymi, które najlepiej nadają się na rekomendacje. Istotnym problemem jest trudnośc zadania ewaluacji systemu rekomendacyjnego. Celem użycia systemu rekoemdacji jest w dłuższej perspektywie maksymalizacja zysku serwisu przez kierowanie użytkowników na strony ofert, co zwiększa szansę a dokonanie przez nich transakcji. Otwartym pytaniem pozostaje, czy rekomendowanie użytkownikowi podobnych artykułów wprost przekłada się na zwiększenie liczby transakci zawartych przez niego. Trudnośc oceny wiąże się z mnogością czynników, które kierują zachowaniami użytkowników.
 
+\section{Podsumowanie testów}
 
+Wyniki metody $clicks$ odstają niekiedy od innych wyników. Może się to wiązać z faktem, iż liczba przejść dokonanych przez użytkowników między parami artykułów niekoniecznie odzwierciedla podobieństwo między nimi. Fakt, iż użytkownik przechodzi z artykułu $A$ do rekomendowanego artykułu $B$ może również wynikać z faktu, iż artykuł $B$ porusza inną tematykę niż artykuł $A$, która to jednak interesuje użytkownika. Wprowadznie do rekomendacji małego odsetka niepowiązanych przedmiotów jest znaną praktyką przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie użytkownika przedmiotami spoza kręgu jego dotychczasowych zainteresowań.
 
 %TODO dodatkowe statystyki userskie
 
-\chapter{Wnioski i podsumowanie}
+\chapter{Podsumowanie i kierunki dalszych prac}
+
+W niniejszej pracy starałem się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w celu wyznaczania artykułów najbardziej podobnych do danego są w stanie dorównać dotychczas używanej w serwisie Allegro metodzie opartej o zapytanie do silnika wyszukiwania elasticsearch. W tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w zależności od konfiguracji poszczególnych metod. Po analizie wyników testów można udzielić odpowiedzi: tak, każda z testowanych metod semantycznej analizy języka naturalnego w swojej najlepszej konfiguracji może zostać zaadaptowana w celu generowania rekomendacji artykułów w oparciu o treść artykułu aktualnie wyświetlanego przez użytkownika serwisu. Rekomendacje te w ocenie  użytkowników nie ustępują jakością dotychczasowej metodzie. 
 
 %TODO o czym byłe ta praca
 
-Istotną zaletą dotychczasowego rozwiązainia stosowanego w Allegro jest uniwersalność silnika elasticsearch oraz to, że pozwala edytować inteksowane dane w locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy każdej zmianie korpusu, na którym się opierają. 
+Istotną zaletą dotychczasowego rozwiązainia stosowanego w Allegro jest uniwersalność silnika elasticsearch oraz to, że pozwala edytować indeksowane dane w locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy każdej zmianie korpusu, na którym się opierają. 
 
-Wyniki metody $clicks$ odstają niekiedy od innych wyników. Może się to wiązać z faktem, iż liczba przejść dokonanych przez użytkowników między parami artykułów niekoniecznie odzwierciedla podobieństwo między nimi. Fakt, iż użytkownik przechodzi z artykułu $A$ do rekomendowanego artykułu $B$ może również wynikać z faktu, iż artykuł $B$ porusza inną tematykę niż artykuł $A$, która to jednak interesuje użytkownika. Wprowadznie do rekomendacji małego odsetka niepowiązanych przedmiotów jest znaną praktyką przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie użytkownika przedmiotami spoza kręgu jego dotychczasowych zainteresowań.
+
 
 %TODO Popatrzeć w podsumowania innych prac
 korelacja między metodami ewaluacji
