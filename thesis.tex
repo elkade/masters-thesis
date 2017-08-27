@@ -212,11 +212,11 @@ Zaletą LDA jest jego interpretowalność: do każdego tematu przypisane są z p
 
 
 \subsection{Word embeddings}
-Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody word2vec\cite{word2vec} nastąpił gwałtowny rozwój i niewątpliwy sukces metod ,,word embeddings''. Określenie ,,word embeddings'' oznacza osadzanie słów w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zostało po raz pierwszy użyte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory słów generowane są przez głęboką sieć neuronową. Ogół technik zaliczanych obecnie do ,,word embeddings'' cechuje się usiłowaniem reprezentacji słów wraz z zależnościami pomiędzy nimi w postaci wektorów o stosunkowo niskiej wymiarowości. Dzieje się to w opozycji do wcześniejszych podejść podobnych do Bag of words - produkującego ogromne, rzadkie wektory, których wymiary równają się rozmiarowi słownika, o który oparty jest model (rzędu setek tysięcy). Ważną własnością metod osadzania słów jest zachowanie przez wektory semantycznych i syntaktycznych właściwości słów, co pozwala wykonywać na nich operacje artymetyczne na wektorach odwzorowujące cechy tychże słów np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
+Od 2013r., wraz z wprowadzeniem przez T. Mikolova metody Word2vec\cite{word2vec} nastąpił gwałtowny rozwój i niewątpliwy sukces metod ,,word embeddings''. Określenie ,,word embeddings'' oznacza osadzanie słów w przestrzei wektorowej przy pomocy uczenia nienadzorowanego i zostało po raz pierwszy użyte 2003r. w pracy Y. Bengio\cite{bengio}, gdzie wektory słów generowane są przez głęboką sieć neuronową. Ogół technik zaliczanych obecnie do ,,word embeddings'' cechuje się usiłowaniem reprezentacji słów wraz z zależnościami pomiędzy nimi w postaci wektorów o stosunkowo niskiej wymiarowości. Dzieje się to w opozycji do wcześniejszych podejść podobnych do Bag of words - produkującego ogromne, rzadkie wektory, których wymiary równają się rozmiarowi słownika, o który oparty jest model (rzędu setek tysięcy). Ważną własnością metod osadzania słów jest zachowanie przez wektory semantycznych i syntaktycznych właściwości słów, co pozwala wykonywać na nich operacje artymetyczne na wektorach odwzorowujące cechy tychże słów np. $vector("king")-vector("man")+vector("woman") \approx vector("queen")$ 
 
 Stosowane obecnie podejścia generowania wektorowych reprezentacji słów można podzielić na dwa typy:
 \begin{enumerate}
-	\item Modele predykcyjne: uczą się wektorowych reprezentacji słów poprzez zmniejszenie błędu predykcji słów należących do lokalnego kontekstu słowa $i$. Poniżej opisuję sztandarowy przykład takiego modelu - word2vec, gdzie sposobem na optymalizację funkcji celu jest zastosowanie płytkiej sieci neuronowej typu feed-forward optymalizowanej za pomocą metody stochastic gradient descent.
+	\item Modele predykcyjne: uczą się wektorowych reprezentacji słów poprzez zmniejszenie błędu predykcji słów należących do lokalnego kontekstu słowa $i$. Poniżej opisuję sztandarowy przykład takiego modelu - Word2vec, gdzie sposobem na optymalizację funkcji celu jest zastosowanie płytkiej sieci neuronowej typu feed-forward optymalizowanej za pomocą metody stochastic gradient descent.
 	\item Metody oparte o zliczanie: generują wektory słów poprzez redukcję wymiarowości w globalnej macierzy współwystąpień słów.
 	Jako pierwszy etap konstruują one ogromną (wymiar równa się liczbie słów w słowniku korpusu) macierz, która (podobnie, jak  metodzie LSI) następnie ulega faktoryzacji, aby uzyskać macierz o mniejszym wymiarze, lecz nadal zachowującą powiązania pomiędzy słowami. Przykładem jest tu opisana poniżej metoda Global Vectors - GloVe.
 \end{enumerate}
@@ -245,7 +245,7 @@ Rozwiązaniem tego problemu wydają się być nowe metody wektorowej reprezentac
 
 \subsection{Word2vec}%TODO przepisać rozdział tak, by był spójny z poprzednimi
 
-Metoda word2vec wprowadzona w 2013r. m.in. przez T. Mikolova w \cite{word2vec} odniosła niewątpliwy sukces w porównaniu z wcześniejszymi metodami osadzania słów w przestrzeni wektorowej. Autorzy metody proponują sieć neuronową, która podobnie jak wcześniejsze podejścia ma za zadanie odtworzyć kontekst danego słowa i na tej podstawie dokonać reprezentacji słowa jako wektora liczb rzeczywistych. Różnica jest taka, iż sieć ta ani nie jest głęboka, ani też nie zawiera nieliniowych funkcji aktywacji wykorzystywanej orzy warstwie we wcześniejsych modelach. Wyróżnia się dwie odwrotne architektury sieci:
+Metoda Word2vec wprowadzona w 2013r. m.in. przez T. Mikolova w \cite{word2vec} odniosła niewątpliwy sukces w porównaniu z wcześniejszymi metodami osadzania słów w przestrzeni wektorowej. Autorzy metody proponują sieć neuronową, która podobnie jak wcześniejsze podejścia ma za zadanie odtworzyć kontekst danego słowa i na tej podstawie dokonać reprezentacji słowa jako wektora liczb rzeczywistych. Różnica jest taka, iż sieć ta ani nie jest głęboka, ani też nie zawiera nieliniowych funkcji aktywacji wykorzystywanej orzy warstwie we wcześniejsych modelach. Wyróżnia się dwie odwrotne architektury sieci:
 \begin{itemize}
 	\item CBOW (continuous bag of words): na postawie okna $N$ sąsiednich słów sieć przewiduje słowo, którego z największym prawdopodobieństwem te $N$ słów jest sąsiedztwem. W tym modelu funkcja celu przyjmuje postać $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \sum\limits_{-n \leq j \leq n , \neq 0} \text{log} \space p(w_{t+j} \: | \: w_t)$.
 	\item skip-gram: na podstawie słowa sieć dokonuje predykcji $N$ sąsiednich słów. Zadaniem sieci neuronowej jest wtedy optymalizacja funkcji celu postaci $J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space p(w_t \: | \: w_{t-n} , \cdots , w_{t-1}, w_{t+1}, \cdots , w_{t+n})$.
@@ -259,9 +259,9 @@ Metoda word2vec wprowadzona w 2013r. m.in. przez T. Mikolova w \cite{word2vec} o
 \end{figure}
 Używając tej stosunkowo prostej architektury można wykonać proces nauki używając milionów słów, których powiązania między sobą zostaną zachowane w systemie wag sieci neuronowej. Wady i zalety obu podejść są wymienione w \cite{google_word2vec}.
 
-W celu dalszego opisu metody word2vec wprowadzam pojęcie funkcji softmax użytej w warstwie wyjściowej sieci neuronowej. Softmax jest generalizacją funkcji logistycznej, zamieniającą $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumują się do $1$. Funkcja wyraża się wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjście funkcji można traktować jako pewien rozkład prawdopodobieństwa.
+W celu dalszego opisu metody Word2vec wprowadzam pojęcie funkcji softmax użytej w warstwie wyjściowej sieci neuronowej. Softmax jest generalizacją funkcji logistycznej, zamieniającą $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na $K$-wymiarowy wektor liczb rzeczywistych z zakresu $(0,1]$, które sumują się do $1$. Funkcja wyraża się wzorem $\sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K$. Wyjście funkcji można traktować jako pewien rozkład prawdopodobieństwa.
 
-W metodzie word2vec nauka polega na trenowaniu sieci neuronowej. Jednakże w odróżnieniu od innych metod wykorzystujących sieci neuronowe, Word2vec nie używa później wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieci, które faktycznie są wynikowymi wektorami słow.
+W metodzie Word2vec nauka polega na trenowaniu sieci neuronowej. Jednakże w odróżnieniu od innych metod wykorzystujących sieci neuronowe, Word2vec nie używa później wytrenowanej sieci jako takiej, a jedynie otrzymanych w wyniku nauki wag warstwy ukrytej sieci, które faktycznie są wynikowymi wektorami słow.
 
 W dalszym opisie metody szczegółowo skupiam się na podejściu CBOW, lecz podejście skip-gram wygląda analogicznie.
 
@@ -274,18 +274,17 @@ Jednym z parametrów metody Word2vec jest wymiarowość przestrzeni, w której z
 W sieci nie jest używa funkcja akywacji, ale prawdopodobieństwa na wyjściu są efektem dziłania funkcji softmax. Funkcja ta ma za zadanie sprowadzić wyjściowe wartości warstwy ukrytej do postaci rozkładu prawdopodobieństwa. 
 
 
-%TODO word2vec małą literą
 \subsection{FastText}
 
-FastText\cite{fasttext} to biblioteka stworzona w 2016 w celu wydajnego uczenia wektorowej reprezentacji słów oraz klasyfikacji zdań. Od ,,klasycznego'' word2vec różni się stopniem szczegółowości analizy słów. Word2vec traktuje słowo jaką najmniejszą, niepodzielną jednostkę, której wektorową reprezentację usiłuje wyznaczyć. FastText natomiast dokonuje analizy również wewnętrznej analizy słów. Wykorzystuje w tym celu rozbicie słowa na podsłowa - ciągi znaków o określonej długości $n$, ,,character n-grams''. Np. słowo ,,pokój'' składa się następujących 3-gramów: [pok], [okó], [kój]. Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i znaczenie) z innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w ogóle nie ma w słowniku, jako że ich podsłowa mogą należeć do słów w słowniku się znajdujących. Zalety te wydają się być szczególnie obiecujące w przypadku bogatych morfologicznie języków, np. języka polskiego, tureskiego, czy fińskiego.
+FastText\cite{fasttext} to biblioteka stworzona w 2016 w celu wydajnego uczenia wektorowej reprezentacji słów oraz klasyfikacji zdań. Od ,,klasycznego'' Word2vec różni się stopniem szczegółowości analizy słów. Word2vec traktuje słowo jaką najmniejszą, niepodzielną jednostkę, której wektorową reprezentację usiłuje wyznaczyć. FastText natomiast dokonuje analizy również wewnętrznej analizy słów. Wykorzystuje w tym celu rozbicie słowa na podsłowa - ciągi znaków o określonej długości $n$, ,,character n-grams''. Np. słowo ,,pokój'' składa się następujących 3-gramów: [pok], [okó], [kój]. Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i znaczenie) z innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w ogóle nie ma w słowniku, jako że ich podsłowa mogą należeć do słów w słowniku się znajdujących. Zalety te wydają się być szczególnie obiecujące w przypadku bogatych morfologicznie języków, np. języka polskiego, tureskiego, czy fińskiego.
 
-Zasada działania metody bazuje na word2vec. Jednakże oprócz predykcji tylko całych słów następuje tu również predykcja n-gramów słowa $a$ w otoczeniu słowa $a$. Ostatecznie słowu $a$ zostaje przypisany wektor składający się ze średniej oryginalnej reprezentacji wektorowej słowa oraz reprezentacji jego n-gramów.
+Zasada działania metody bazuje na Word2vec. Jednakże oprócz predykcji tylko całych słów następuje tu również predykcja n-gramów słowa $a$ w otoczeniu słowa $a$. Ostatecznie słowu $a$ zostaje przypisany wektor składający się ze średniej oryginalnej reprezentacji wektorowej słowa oraz reprezentacji jego n-gramów.
 
-Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza się lepiej od word2vec w wykrywaniu syntaktycznych podobieństw pomiędzy słowami. 
+Jak pokazuje badanie\cite{fast_text_word2vec} metoda ta sprawdza się lepiej od Word2vec w wykrywaniu syntaktycznych podobieństw pomiędzy słowami. 
 
 \subsection{GloVe}
 
-GloVe\cite{glove} (GLObal VEctors) jest kolejną wartą uwagi metodą word embedding powstałą na przestrzeni ostatnich lat. Algorytm GloVe różni się od word2vec w sposobie uzyskania wektorowej reprezentacji słów. Word2vec jest modelem predykcyjnym, natomiast trening w GloVe opiera się na globalnej macierzy współwystąpień słów. Ponadto w porównaniu do word2vec GloVe stara się wyznaczyć reprezentacje wektorowe wprost, podczas gdy w word2vec dzieje się ,,przy okazji'' - szkoli się sieć neuronową nie w celu jej dalszego wykorzystania w celu predykcji, a jedynie dla jej macierzy wag. 
+GloVe\cite{glove} (GLObal VEctors) jest kolejną wartą uwagi metodą word embedding powstałą na przestrzeni ostatnich lat. Algorytm GloVe różni się od Word2vec w sposobie uzyskania wektorowej reprezentacji słów. Word2vec jest modelem predykcyjnym, natomiast trening w GloVe opiera się na globalnej macierzy współwystąpień słów. Ponadto w porównaniu do Word2vec GloVe stara się wyznaczyć reprezentacje wektorowe wprost, podczas gdy w Word2vec dzieje się ,,przy okazji'' - szkoli się sieć neuronową nie w celu jej dalszego wykorzystania w celu predykcji, a jedynie dla jej macierzy wag. 
 
 Algorytm GloVe składa się z następujących kroków\cite{glove_cran}:
 \begin{enumerate}
@@ -511,16 +510,16 @@ Wykonuję testy adaptacji metod wektorowej reprezentacji słów dla wielu konfig
 
 \subsubsection{Korpus bazowy}
 
-Pierwszy model word2vec, z jakim miałem styczność to model\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie Słowosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia word2Vec: metoda skip gram, wekroty długości 100, okno kontekstu wielkości 5.
+Pierwszy model Word2vec, z jakim miałem styczność to model\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie Słowosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia Word2Vec: metoda skip gram, wekroty długości 100, okno kontekstu wielkości 5.
 
 Model ten zawiera 73875 spośród 98174 (75\%) unikalnych słów korpusu artykułów Allegro oraz 7313915 z 7409145 (99\%) wszystkich słów korpusu artykułów. Wskazuje to, iż słowa nieobecne w modelu są bardzo mało popularne w korpusie artykułów (stanowią ok 1\% całości). Po samodzielnym sprawdzeniu stwierdzam, że słowa nieobecne w modelu to: ,,literówki'' lub słowa niepoprawnie stokenizowane (np. ,,urządzeia''), symbole marek produktów (np. ,,ux305fa'', ,,i7-4700qm''), żargon branżowy (np. ,,bootsów''), złożenia wyrazów (np. ,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np. ,,thermoprotect''). Uważam, iż mimo niewielkiej liczby tych słów w stosuku mogą mieć one znaczący wpływ na semantykę artykułów.
 
-W związku z powyższym stwierdzeniem wykonuję naukę modelu word2vec również na własnym korpusie artykułów w celu zawarcia brakujących w poprzednim modelu słów. Najrozsądniejszym postępowaniem byłoby tutaj rozszerzenie modelu opartego na korpusie Słowosieci również o brakujące słowa, jednak metoda word2vec nie pozwala na dodanie nowych słów do słownika istniejącego modelu, a jedynie na dalszą naukę w oparciu o słowa już istniejące w słowniku. Siłą rzeczy model zbudowany na zbiorze artykułów zawiera wszystkie słowa występujące w artykułach słowa. Korpusu tego używam do tworzenia modelów w oparciu o wszystkie pozostałe sposoby.
+W związku z powyższym stwierdzeniem wykonuję naukę modelu Word2vec również na własnym korpusie artykułów w celu zawarcia brakujących w poprzednim modelu słów. Najrozsądniejszym postępowaniem byłoby tutaj rozszerzenie modelu opartego na korpusie Słowosieci również o brakujące słowa, jednak metoda Word2vec nie pozwala na dodanie nowych słów do słownika istniejącego modelu, a jedynie na dalszą naukę w oparciu o słowa już istniejące w słowniku. Siłą rzeczy model zbudowany na zbiorze artykułów zawiera wszystkie słowa występujące w artykułach słowa. Korpusu tego używam do tworzenia modelów w oparciu o wszystkie pozostałe sposoby.
 
 Dokonuję porównania jakości modelu uczonego na korpusie Słowosieci z modelem uczonym na korpusie artykułów Allegro.
 
 \subsubsection{Sposób generowania wektorów i długość wektorów}
-Do wygenerowania wektorów reprezentujących słowa używam metod wektorowej reprezentacji tekstu: word2vec, GloVe oraz fastText. Każdą z nich testuję pod kątem różnej wymiarowości generowanych wektorów.
+Do wygenerowania wektorów reprezentujących słowa używam metod wektorowej reprezentacji tekstu: Word2vec, GloVe oraz FastText. Każdą z nich testuję pod kątem różnej wymiarowości generowanych wektorów.
 
 \subsubsection{Metoda określenia podobieństwa między wektorowymi reprezentacjami dokumentów}
 Zadaiem metod ,,word embedding'' jest wygenerowanie wektorowej reprezentacji słowa. W celu porównania całych dokumentów i wyznaczenia podobieństw między nimi należy użyć dodatkowych środków. W tym celu korzystam z poniższych metod:
@@ -617,7 +616,7 @@ Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych słów kl
 
 \section{Word2vec w zależności od korpusu}
 
-Poniżej zestawiam wyniki dla modelów word2vec o wektorach długości 100 uczonych: na korpusie artykułów z Allegro ($w2v100\_art$) oraz na korpusie Słowosieci ($w2v100\_wn$). Dokumenty porównywane są tu metodą centroidu.
+Poniżej zestawiam wyniki dla modelów Word2vec o wektorach długości 100 uczonych: na korpusie artykułów z Allegro ($w2v100\_art$) oraz na korpusie Słowosieci ($w2v100\_wn$). Dokumenty porównywane są tu metodą centroidu.
 
 \begin{table}
 	\centering
@@ -632,21 +631,21 @@ Poniżej zestawiam wyniki dla modelów word2vec o wektorach długości 100 uczon
 		clicks       &    0.946487  &   0.946191  \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody word2vec w zależności od korpusu, na którym trenowany był model.}
+	\caption{Wyniki ewaluacji metody Word2vec w zależności od korpusu, na którym trenowany był model.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zależnosci od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla metody Word2vec w zależnosci od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Maksymalna różnica między najlepszym i najgorszym wynikiem nie przekracza 2\%. Stąd trudno jest stwierdzić, która metoda daje tu lepsze wyniki. Na korzyść modelu word2vec uczonego na korpusie artykułów przemawia jego mały rozmiar, a co za tym idzie szybkość nauki. Z przyczyn braku wyraźnych zalet korzystania tu z modelu uczonego na korpusie słowosieci korzystam dalej jedynie z modeli opartych o korpus artykułów Allegro.
+Maksymalna różnica między najlepszym i najgorszym wynikiem nie przekracza 2\%. Stąd trudno jest stwierdzić, która metoda daje tu lepsze wyniki. Na korzyść modelu Word2vec uczonego na korpusie artykułów przemawia jego mały rozmiar, a co za tym idzie szybkość nauki. Z przyczyn braku wyraźnych zalet korzystania tu z modelu uczonego na korpusie słowosieci korzystam dalej jedynie z modeli opartych o korpus artykułów Allegro.
 
 \section{Word2vec w zależności od metody porównywania dokumentów}
 
-W niniejszym punkcie dokonuję porównania jakości metod określania podobieństwa między wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metodą word2vec dla wektorów długości 100 oraz 300. Biorę tu pod uwagę metody: centroidu całości dokumentu ($w2v100_centroid$), centroidu słów kluczowych wyznaczonych metodą LDA dla 100 tematów ($w2v100_lda100$) oraz Word Mover's Distance ($w2v100_wnd$). Z powodu powolności metody WMD stosuję ją do wyznaczenia dokumentów najbliższych danemu jedynie spośród 20 dokumentów najbardziej podobnych do danego wyznaczonych metodą centroidu.
+W niniejszym punkcie dokonuję porównania jakości metod określania podobieństwa między wektorowymi reprezentacjami dokumentów tekstowych wyznaczonymi metodą Word2vec dla wektorów długości 100 oraz 300. Biorę tu pod uwagę metody: centroidu całości dokumentu ($w2v100_centroid$), centroidu słów kluczowych wyznaczonych metodą LDA dla 100 tematów ($w2v100_lda100$) oraz Word Mover's Distance ($w2v100_wnd$). Z powodu powolności metody WMD stosuję ją do wyznaczenia dokumentów najbliższych danemu jedynie spośród 20 dokumentów najbardziej podobnych do danego wyznaczonych metodą centroidu.
 
 \subsection{Wymiar wektorów: 100}
 
@@ -663,13 +662,13 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		clicks       &         0.938998  &       0.888249  &     0.996717 \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody word2vec dla wektorów dł. 100 w zależności od metody porównywania wektorowych reprezentacji dokumentów.}
+	\caption{Wyniki ewaluacji metody Word2vec dla wektorów dł. 100 w zależności od metody porównywania wektorowych reprezentacji dokumentów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zależnosci od sposobu wyznaczania podobieństwa między wektorowymi reprezentacjami dokumentów.}
+	\caption{Porównanie znormalizowanych wyników dla metody Word2vec w zależnosci od sposobu wyznaczania podobieństwa między wektorowymi reprezentacjami dokumentów.}
 	%\label{fig:warstwy}
 \end{figure}
 
@@ -689,26 +688,26 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		clicks       &    0.936386  &       0.891596  &     0.940603 \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody word2vec dla wektorów dł. 300 w zależności od metody porównywania wektorowych reprezentacji dokumentów.}
+	\caption{Wyniki ewaluacji metody Word2vec dla wektorów dł. 300 w zależności od metody porównywania wektorowych reprezentacji dokumentów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/w2v300_ctr_w2v300_lda100_w2v300_wmd_.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zależnosci od sposobu wyznaczania podobieństwa między wektorowymi reprezentacjami dokumentów.}
+	\caption{Porównanie znormalizowanych wyników dla metody Word2vec w zależnosci od sposobu wyznaczania podobieństwa między wektorowymi reprezentacjami dokumentów.}
 	%\label{fig:warstwy}
 \end{figure}
 
 Wyniki dla metody opartej o tematy LDA są jednoznacznie gorsze od wyników dla metody centroidu.
 
-Dla obu konfiguracji metody word2vec metoda Word Mover's Distance wykazuje się największą zdolnością do poprawnego szeregowania dokumentów (wysoki wskaźnik metod nDCG w porównaniu z metodami wykorzystującymi średnią).
+Dla obu konfiguracji metody Word2vec metoda Word Mover's Distance wykazuje się największą zdolnością do poprawnego szeregowania dokumentów (wysoki wskaźnik metod nDCG w porównaniu z metodami wykorzystującymi średnią).
 
 Wadą metody WMD wykluczającą ją z użycia w tym przypadku jest jej powolność. Dla pierwszego przypadku  obliczenia trwały 55 minut, co przy czasie <1sek dla centroidu jest wartościa niedopuszczalną. Proporcjonalnie użycie tej metody dla całego korpusu trwałoby ok. 183 godzin.
 
 
 \section{Metody word embedding w zależności od wymiarowości wektorów}
 
-W niniejszym punkcie porównuję jakość metod word embedding (word2vec, GloVe i fastText) w zależności od wymiarowości wektorów: 100, 300 i 1000. Użyta metoda wyznaczania podobieństwa dokumentów to metoda centroidu.
+W niniejszym punkcie porównuję jakość metod word embedding (Word2vec, GloVe i FastText) w zależności od wymiarowości wektorów: 100, 300 i 1000. Użyta metoda wyznaczania podobieństwa dokumentów to metoda centroidu.
 
 \subsection{Word2vec}
 
@@ -725,17 +724,17 @@ W niniejszym punkcie porównuję jakość metod word embedding (word2vec, GloVe 
 		clicks       & 0.946487  & 0.936386  & 0.938998  \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody word2vec dla zmiennej długości wektorów.}
+	\caption{Wyniki ewaluacji metody Word2vec dla zmiennej długości wektorów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/w2v_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody word2vec w zależnosci od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla metody Word2vec w zależnosci od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Dla różnej wymiarowości wektorów wyjściowych metoda word2vec daje bardzo podobne rezultaty. Różnica między najlepszym i najgorszym wynikiem wynosi jedynie ok 1,5 pkt. proc. Mimo to najlepszą wartością hiperparametru wydaje się być 300.
+Dla różnej wymiarowości wektorów wyjściowych metoda Word2vec daje bardzo podobne rezultaty. Różnica między najlepszym i najgorszym wynikiem wynosi jedynie ok 1,5 pkt. proc. Mimo to najlepszą wartością hiperparametru wydaje się być 300.
 
 \subsection{GloVe}
 
@@ -779,17 +778,17 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 		clicks       & 0.896766 & 0.89745  & 0.885622 \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody fastText dla zmiennej długości wektorów.}
+	\caption{Wyniki ewaluacji metody FastText dla zmiennej długości wektorów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody fastText w zależnosci od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla metody FastText w zależnosci od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Również jak w przypadku metody GloVe metoda fastText osiąa najlepsze rezultaty dla wektorów długości 1000.
+Również jak w przypadku metody GloVe metoda FastText osiąa najlepsze rezultaty dla wektorów długości 1000.
 
 \section{Ocena jakości wybranych metod przez użytkowników}
 
@@ -798,10 +797,10 @@ Testowane warianty:
 \begin{itemize}
 	\item $lsi500$ --- Latent Semantic Indexing dla 500 tematów,
 	\item $lda900$ --- Latent Dirichlet Allocation dla 900 tematów,
-	\item $w2v300$ --- word2vec dla wektorów dł. 300 i przy użytej metodzie centroidu,
+	\item $w2v300$ --- Word2vec dla wektorów dł. 300 i przy użytej metodzie centroidu,
 	\item $w2v300$ --- GloVe dla wektorów dł. 1000 i przy użytej metodzie centroidu,
-	\item $w2v300$ --- fastText dla wektorów dł. 1000 i przy użytej metodzie centroidu,
-	\item $allegro$ --- używane dotychczas w Allegro zapytanie do silnika elasticsearch,
+	\item $w2v300$ --- FastText dla wektorów dł. 1000 i przy użytej metodzie centroidu,
+	\item $allegro$ --- używane dotychczas w Allegro zapytanie do silnika Elasticsearch,
 	\item $rnd$ --- metoda losowa.
 \end{itemize}
 \subsection{Zestawienie wyników testów automatycznych}
@@ -831,7 +830,7 @@ Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów tes
 
 Wszystkie testowane metody dają dużo lepsze rezultaty od metody losowej. Stasunkowo wysokie wskaźniki $mut\_cat$ dla metody losowej wynikają z dużo większej szansy, że dwa artykuły mają wspólnych przodków w drzewie kategorii niż, że mają wspólne słowa kluczowe.
 
-Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaźniki dla metody $mut_kw$ wynikają wprost ze struktury zapytania do silnika elasticsearch, które to jest oparte właśnie o słowa kluczowe dołączone do artykułu.
+Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaźniki dla metody $mut_kw$ wynikają wprost ze struktury zapytania do silnika Elasticsearch, które to jest oparte właśnie o słowa kluczowe dołączone do artykułu.
 
 \subsection{Wyniki oceny eksperckiej}
 
@@ -878,7 +877,7 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 
 Pożądaną cechą dla metody jest, aby możliwie rzadko generowała ona wyniki odstające --- w żaden sposób niezwiązane z artykułem bazowym. Stąd niska wartość odchylenia standardowego działa na korzyść metody.
 
-W świetle powyższych wyników najlepsze rezultaty zdaje się osiągać fastText. Zakładam, iż jest to związane z wewnętrzną analizą słów, jaką wykonuje ta metoda. Może się to sprawdzać szczegónie dobrze w przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
+W świetle powyższych wyników najlepsze rezultaty zdaje się osiągać FastText. Zakładam, iż jest to związane z wewnętrzną analizą słów, jaką wykonuje ta metoda. Może się to sprawdzać szczegónie dobrze w przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
 
 Zadna z testowanych metod nie odbiega znacząco od innych.
 
@@ -902,11 +901,11 @@ Wyniki metody $clicks$ odstają niekiedy od innych wyników. Może się to wiąz
 
 \chapter{Podsumowanie i kierunki dalszych prac}
 
-W niniejszej pracy starałem się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w celu wyznaczania artykułów najbardziej podobnych do danego są w stanie dorównać dotychczas używanej w serwisie Allegro metodzie opartej o zapytanie do silnika wyszukiwania elasticsearch. W tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w zależności od konfiguracji poszczególnych metod. Po analizie wyników testów można udzielić odpowiedzi: tak, każda z testowanych metod semantycznej analizy języka naturalnego w swojej najlepszej konfiguracji może zostać zaadaptowana w celu generowania rekomendacji artykułów w oparciu o treść artykułu aktualnie wyświetlanego przez użytkownika serwisu. Rekomendacje te w ocenie  użytkowników nie ustępują jakością dotychczasowej metodzie. 
+W niniejszej pracy starałem się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w celu wyznaczania artykułów najbardziej podobnych do danego są w stanie dorównać dotychczas używanej w serwisie Allegro metodzie opartej o zapytanie do silnika wyszukiwania Elasticsearch. W tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w zależności od konfiguracji poszczególnych metod. Po analizie wyników testów można udzielić odpowiedzi: tak, każda z testowanych metod semantycznej analizy języka naturalnego w swojej najlepszej konfiguracji może zostać zaadaptowana w celu generowania rekomendacji artykułów w oparciu o treść artykułu aktualnie wyświetlanego przez użytkownika serwisu. Rekomendacje te w ocenie  użytkowników nie ustępują jakością dotychczasowej metodzie. 
 
 %TODO o czym byłe ta praca
 
-Istotną zaletą dotychczasowego rozwiązainia stosowanego w Allegro jest uniwersalność silnika elasticsearch oraz to, że pozwala edytować indeksowane dane w locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy każdej zmianie korpusu, na którym się opierają. 
+Istotną zaletą dotychczasowego rozwiązainia stosowanego w Allegro jest uniwersalność silnika Elasticsearch oraz to, że pozwala edytować indeksowane dane w locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy każdej zmianie korpusu, na którym się opierają. 
 
 
 
@@ -943,138 +942,180 @@ Można by zastosować inne metody wyznaczania odległości między wektorowymi r
 %TODO w dodaktu opisać zawartość dołączonej płyty
 %TODO posortować bibliografię, pisać ,,dostęp''
 \begin{thebibliography}{30}
-	\bibitem{all_naj}
-	\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
-	(09.08.17)
 	\bibitem{allegro}
-	\url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet}
-	(07.05.2017)
-	\bibitem{screen_allegro}
-	\url{https://allegro.pl/artykul/jaka-farba-dla-alergika-55917/}
-	(26.06.2017)
-	\bibitem{slownik}
-	Słownik Języka Polskiego PWN
-	\url{http://sjp.pwn.pl/sjp/artykul;2441396.html}
-	(07.05.2017)
-	\bibitem{aylien}
-	\url{http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/}
-	(18.08.2017)
-	\bibitem{handbook}
-	F. Ricci, L. Rokach, B. Shapira,
-	\emph{Introduction to Recommender Systems Handbook},
-	Springer,
-	2011
-	\bibitem{elastic}
-	\url{https://www.elastic.co/}
-	(18.08.2017)	
-	\bibitem{lucene}
-	\url{https://lucene.apache.org/}
-	(18.08.2017)
-	\bibitem{elastic_companies}
-	\url{https://www.elastic.co/use-cases}
-	(10.08.17)
-	\bibitem{bow}
-	Z. S. Harris,
-	\emph{Distributional Structure},
-	WORD, tom 10, num. 2-3,
-	1954
-	\bibitem{tf_idf}
-	G. Salton and M. McGill,
-	\emph{Introduction to modern information retrieval},
-	McGraw-Hill,
-	1983
-	\bibitem{firth}
-	J.R. Firth,
-	\emph{A synopsis of linguistic theory 1930-1955},
-	Oxford: Philological Society,
-	1957
-	\bibitem{lsa}
-	S. Deerwester, S. T. Dumais, G. W. Furnas, T. K. Landauer, R. Harshman,
-	\emph{Indexing by latent semantic analysis},
-	Journal of the American Society for Information Science, tom 41, num. 6,
-	1990
-	\bibitem{lda}
-	David M. Blei, Andrew Y. Ng, Michael I. Jordan,
-	\emph{Latent Dirichlet Allocation},
-	Journal of Machine Learning Research, tom 3 num. 4–5,
-	2003
-	\bibitem{svd}
-	G. H. Golub, W. Kahan,
-	\emph{Calculating the singular values and pseudo-inverse of a matrix},
-	Journal of the Society for Industrial and Applied Mathematics: Series B, Numerical Analysis. 2 (2),
-	1965
-	\bibitem{word2vec}
-	T. Mikolov, K. Chen, G. Corrado, J. Dean,
-	\emph{Efficient Estimation of Word Representations in Vector Space},
-	International Conference on Machine Learning (ICML),
-	2013
-	\bibitem{bengio}
-	Y. Bengio, R. Ducharme, P. Vincent, C. Jauvin,
-	\emph{A Neural Probabilistic Language Model},
-	Journal of Machine Learning Research 3 1137–1155,
-	2003
-	\bibitem{c_w}
-	R. Collobert, J. Weston,
-	\emph{A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
-	NEC Labs America,
-	2008
-	\bibitem{google_word2vec}
-	\url{https://code.google.com/archive/p/word2vec/}
-	(26.05.2017)
-	\bibitem{word2vec_tutorial}
-	\url{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}
-	(26.05.2017)
-	\bibitem{fasttext}
-	A. Joulin, E. Grave, P. Bojanowski T. Mikolov,
-	\emph{Bag of Tricks for Efficient Text Classification},
-	Facebook AI Research,
-	2016
-	\bibitem{glove}
-	Jeffrey Pennington, Richard Socher, Christopher D. Manning,
-	\emph{GloVe: Global Vectors for Word Representation},
-	Computer Science Department, Stanford University, Stanford, CA 94305,
-	2014
-	\bibitem{glove_cran}
-	\url{https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html}
-	(30.08.2017)
-	\bibitem{wmd}
-	M. J. Kusner, Y. Sun, N. I. Kolkin, K. Q. Weinberger,
-	\emph{From Word Embeddings To Document Distances},
-	International Conference on Machine Learning (ICML),
-	2015	
-	\bibitem{emd}
-	Y. Rubner, C. Tomasi, L. J. Guibas,
-	\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
-	str. 1,
-	Computer Science Department, Stanford University,
-	2000	
-	\bibitem{emd_method}
-	O. Pele, M. Werman,
-	\emph{Fast and robust earth mover's distances},
-	ICCV,
-	2009
-	\bibitem{ndcg}
-	K. Jarvelin, J. Kekalainen,
-	\emph{Cumulated gain-based evaluation of IR techniques},
-	University of Tampere,
-	2002
-	\bibitem{stopwords}
-	\url{https://pl.wikipedia.org/wiki/Wikipedia:Stopwords}
-	(15.04.2017)
-	\bibitem{morfologik}
-	\url{http://morfologik.blogspot.com/}
-	(07.05.2017)
-	\bibitem{pias}
-	P. Kędzia, G. Czachor, M. Piasecki, J. Kocoń
-	\emph{Vector representations of polish words (Word2Vec method)},
-	Wrocław University of Technology,
-	2016,
-	\url{https://clarin-pl.eu/dspace/handle/11321/327}
-	(26.06.2017)
-	\bibitem{wordnet}
-	\url{http://plwordnet.pwr.wroc.pl/wordnet/}
-	(28.06.2017)
+		Opis Allegro
+		\url{https://magazyn.allegro.pl/3333-serwis-allegro-to-nasz-sposob-na-wasze-szybkie-i-wygodne-zakupy-przez-internet}
+		(dostęp 07.05.2017)
 	
+	\bibitem{bengio}
+		Y. Bengio, R. Ducharme, P. Vincent, C. Jauvin,
+		\emph{A Neural Probabilistic Language Model},
+		Journal of Machine Learning Research 3 1137–1155,
+		2003
+	
+	\bibitem{lda}
+		D. M. Blei, A. Y. Ng, M. I. Jordan,
+		\emph{Latent Dirichlet Allocation},
+		Journal of Machine Learning Research, tom 3 num. 4–5,
+		2003
+		
+	\bibitem{aylien}
+		Blog Aylien
+		\url{http://blog.aylien.com/overview-word-embeddings-history-word2vec-cbow-glove/}
+		(dostęp 18.08.2017)
+	
+	\bibitem{c_w}
+		R. Collobert, J. Weston,
+		\emph{A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning},
+		NEC Labs America,
+		2008
+	
+	\bibitem{lsa}
+		S. Deerwester, S. T. Dumais, G. W. Furnas, T. K. Landauer, R. Harshman,
+		\emph{Indexing by latent semantic analysis},
+		Journal of the American Society for Information Science, tom 41, num. 6,
+		1990
+	
+	\bibitem{elastic}
+		Elasticsearch
+		\url{https://www.elastic.co/}
+		(dostęp 18.08.2017)
+	
+	\bibitem{elastic_companies}
+		Firmy korzystające z Elasticsearch
+		\url{https://www.elastic.co/use-cases}
+		(dostęp 10.08.17)
+	
+	\bibitem{firth}
+		J.R. Firth,
+		\emph{A synopsis of linguistic theory 1930-1955},
+		Oxford: Philological Society,
+		1957
+	
+	\bibitem{svd}
+		G. H. Golub, W. Kahan,
+		\emph{Calculating the singular values and pseudo-inverse of a matrix},
+		Journal of the Society for Industrial and Applied Mathematics: Series B, Numerical Analysis. 2 (2),
+		1965
+	
+	\bibitem{bow}
+		Z. S. Harris,
+		\emph{Distributional Structure},
+		WORD, tom 10, num. 2-3,
+		1954
+	
+	\bibitem{google_word2vec}
+		Informacje o Word2vec
+		\url{https://code.google.com/archive/p/word2vec/}
+		(dostęp 26.05.2017)
+	
+	\bibitem{ndcg}
+		K. Jarvelin, J. Kekalainen,
+		\emph{Cumulated gain-based evaluation of IR techniques},
+		University of Tampere,
+		2002
+	
+	\bibitem{fasttext}
+		A. Joulin, E. Grave, P. Bojanowski T. Mikolov,
+		\emph{Bag of Tricks for Efficient Text Classification},
+		Facebook AI Research,
+		2016
+	
+	\bibitem{pias}
+		P. Kędzia, G. Czachor, M. Piasecki, J. Kocoń
+		\emph{Vector representations of polish words (Word2Vec method)},
+		Wrocław University of Technology,
+		2016,
+		\url{https://clarin-pl.eu/dspace/handle/11321/327}
+		(dostęp 26.06.2017)
+	
+	\bibitem{wmd}
+		M. J. Kusner, Y. Sun, N. I. Kolkin, K. Q. Weinberger,
+		\emph{From Word Embeddings To Document Distances},
+		International Conference on Machine Learning (ICML),
+		2015
+	
+	\bibitem{lucene}
+		Lucene
+		\url{https://lucene.apache.org/}
+		(dostęp 18.08.2017)
+	
+	\bibitem{word2vec}
+		T. Mikolov, K. Chen, G. Corrado, J. Dean,
+		\emph{Efficient Estimation of Word Representations in Vector Space},
+		International Conference on Machine Learning (ICML),
+		2013
+	
+	\bibitem{morfologik}
+		Morfologik
+		\url{http://morfologik.blogspot.com/}
+		(dostęp 07.05.2017)
+	
+	\bibitem{glove_cran}
+		Opis GloVe
+		\url{https://cran.r-project.org/web/packages/text2vec/vignettes/glove.html}
+		(dostęp 30.08.2017)
+	
+	\bibitem{word2vec_tutorial}
+		Opis Word2vec
+		\url{http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/}
+		(dostęp 26.05.2017)
+	
+	\bibitem{emd_method}
+		O. Pele, M. Werman,
+		\emph{Fast and robust earth mover's distances},
+		ICCV,
+		2009
+	
+	\bibitem{glove}
+		J. Pennington, R. Socher, C. D. Manning,
+		\emph{GloVe: Global Vectors for Word Representation},
+		Computer Science Department, Stanford University, Stanford, CA 94305,
+		2014
+	
+	\bibitem{all_naj}
+		Porównanie największych polskich serwisów aukcyjnych
+		\url{http://gadzetomania.pl/11824,zakupy-w-sieci-porownanie-najwiekszych-polskich-serwisow-aukcyjnych-2}
+		(dostęp 09.08.17)
+	
+	\bibitem{handbook}
+		F. Ricci, L. Rokach, B. Shapira,
+		\emph{Introduction to Recommender Systems Handbook},
+		Springer,
+		2011
+	
+	\bibitem{emd}
+		Y. Rubner, C. Tomasi, L. J. Guibas,
+		\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
+		str. 1,
+		Computer Science Department, Stanford University,
+		2000	
+
+	\bibitem{tf_idf}
+		G. Salton and M. McGill,
+		\emph{Introduction to modern information retrieval},
+		McGraw-Hill,
+		1983
+	
+	\bibitem{stopwords}
+		Słowa stopu w Wikipedii
+		\url{https://pl.wikipedia.org/wiki/Wikipedia:Stopwords}
+		(dostęp 15.04.2017)
+	
+	\bibitem{slownik}
+		Słownik Języka Polskiego PWN
+		\url{http://sjp.pwn.pl/sjp/artykul;2441396.html}
+		(dostęp 07.05.2017)
+	
+	\bibitem{screen_allegro}
+		Strona Allegro z artykułem
+		\url{https://allegro.pl/artykul/jaka-farba-dla-alergika-55917/}
+		(dostęp 26.06.2017)
+		
+	\bibitem{wordnet}
+		Wordnet
+		\url{http://plwordnet.pwr.wroc.pl/wordnet/}
+		(dostęp 28.06.2017)
 \end{thebibliography}
 
 
@@ -1118,12 +1159,12 @@ Wykorzystane narzędzia:
 	\item Elasticsearch --- silnik wyszukiwania tekstowego. Używam go do przechowywania bazy artykułów oraz ich przetworzonych wersji.
 	\item MongoDB --- nierelacyjna baza danych, której używam do przechowywania wyników generowanych przez testowane algorytmy.
 	\item GloVe --- implementacja metody GloVe. Generuje wektory słów, które następnie mogą być wykorzystane np. przez bibliotekę gensim.
-	\item fastText --- implementacja metody fastText wykonana przez zespół Facebook Research. Generuje wektory słów, które następnie mogą być wykorzystane np. przez bibliotekę gensim.
+	\item FastText --- implementacja metody FastText wykonana przez zespół Facebook Research. Generuje wektory słów, które następnie mogą być wykorzystane np. przez bibliotekę gensim.
 \end{itemize}
 
 Poniższa lista zawiera wykorzystane biblioteki języka Python:
 \begin{itemize}
-	\item Gensim --- rozbudowana biblioteka służąca do przetwarzania języka naturalnego; zawiera implementację metod word2Vec, LSI, LDA, TF-IDF i inne.
+	\item Gensim --- rozbudowana biblioteka służąca do przetwarzania języka naturalnego; zawiera implementację metod Word2Vec, LSI, LDA, TF-IDF i inne.
 	\item Morfologik --- tokenizer języka polskiego.
 	\item Numpy --- pozwala wydajnie wykonywać obliczenia numeryczne.
 	\item Pyemd --- implementacja algorytmu Earth Mover's Distance.
