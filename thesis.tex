@@ -337,7 +337,7 @@ Bardziej złożoną miarą lepiej charakteryzującą jakość procesu wyszukiwan
 \subsection{nDCG}
 Powyższe miary dokonują binarnego podziały wyników wyszukiwania: na relewantne i nierelewantne. Jednakże część rekomendowanych przedmiotów może być mniej lub bardziej od innych istotnych dla użytkownika. W tym świetle listę rekomendacji można uznać za pewien ranking, którego elementy mogą być uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z punktu widzenia ewaluacji metod generujących elementy rankingu. Stąd zachodzi potrzeba wprowadzenia formalnej miary jakości uszeregowania elementów rankingu Można osiągnąć poprzez rozszerzenie podstawowych metod ewaluacji opartych na binarnej ocenie relewantności, jak recall i precision.
 
-Miara nDCG\cite{ndcg} (Normalized Discounted Cumulative Gain) jest miarą jakości rankingu, która opiera się na założeniu, że im bardziej relewantne wyniki, tym wyżej powinny być w rankingu, aby ranking był najbardziej wartościowy. Miara ta mierzy skumulowany ,,zysk'' powstały poprzez umieszczenie poszczególnych przedmiotów na określonych pozycjach rankingu. Miara nDCG jest znormalizowaną wersją miary DCG (Discounted Cumulative Gain), która wyraża się wzorem: ${\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {2^{{rel_{{i}}}}-1}{\log _{{2}}(i+1)}}$, gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w rankingu, a $rel$ to poziom relewantności elementu. DCG premiuje relewantne przedmioty, które są wysoko w rankingu oraz karze za relewantlne przedmioty w dole rankingu. W wariancie nDCG następuje jeszcze normalizacja przez podzielenie wartości DCG rzeczywistego rankingu przez DCG idealnego rankingu zbudowanego na elementach korpusu ułożonych malejąco pod kątem relewantności: ${\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}}$, $\mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}}$, gdzie $|REL|$ oznacza listę relewantnych przedmiotów z całego zbioru podlegającego szeregowaniu.
+Miara nDCG\cite{ndcg} (Normalized Discounted Cumulative Gain) jest miarą jakości rankingu, która opiera się na założeniu, że im bardziej relewantne wyniki, tym wyżej powinny być w rankingu, aby ranking był najbardziej wartościowy. Miara ta mierzy skumulowany ,,zysk'' powstały poprzez umieszczenie poszczególnych przedmiotów na określonych pozycjach rankingu. Miara nDCG jest znormalizowaną wersją miary DCG (Discounted Cumulative Gain), która wyraża się wzorem: ${\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {2^{{rel_{{i}}}}-1}{\log _{{2}}(i+1)}}$, gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w rankingu, a $rel$ to poziom relewantności elementu. DCG premiuje relewantne przedmioty, które są wysoko w rankingu oraz karze za relewantlne przedmioty w dole rankingu. W wariancie nDCG następuje jeszcze normalizacja przez podzielenie wartości DCG rzeczywistego rankingu przez DCG idealnego rankingu zbudowanego na elementach korpusu ułożonych malejąco pod kątem relewantności: ${\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}}$, $\mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}}$, gdzie $REL$ oznacza listę relewantnych przedmiotów z całego zbioru podlegającego szeregowaniu.
 
 \chapter{Dane}
 
@@ -363,14 +363,14 @@ Każdy artykuł został przez autora przydzielony do pewnej kategorii, która od
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/categories_levels.png}
-	\caption{Liczba kategorii na poszczególnych poziomach drzewa.}
+	\caption{Wykres przedstawiający liczby kategorii na poszczególnych poziomach drzewa.}
 	%\label{fig:warstwy}
 \end{figure}
 Najwięcej artykułów z kolei jest przypisanych do kategorii z poziomów 4 i 5, średnio artykuł jest przypisany do kategorii z poziomu 4,63. Średnio na kategorię będącą liściem w drzewie przypada 7,71 artykułu.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/cat_art_levels.png}
-	\caption{Liczba artykułów, dla których kategoria na danym poziome drzewa jest tą najbardziej szczegółową.}
+	\caption{Wykres przedstawiający liczby artykułów, dla których kategoria na danym poziome drzewa jest tą najbardziej szczegółową.}
 	%\label{fig:warstwy}
 \end{figure}
 Po wstępnej analizie system kategorii oceniam jako spójny i rzetelny. Uważam, że można użyć go jako punkt odniesienia przy konstrukcji metod ewaluacji testowanych technik określania podobieństwa między artykułami.
@@ -558,7 +558,7 @@ W rozdziale tym przedstawiam wyniki oceny jakości poszczególnych metod w zale�
 
 Dokonuję porównania jakości modelu LSI w zależności od wartości hiperparametru - liczby tematów.
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrrr}
 		\hline
@@ -577,18 +577,18 @@ Dokonuję porównania jakości modelu LSI w zależności od wartości hiperpara
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/lsi.png}
-	\caption{Porównanie znormalizowanych wyników dla metody LSI.}
+	\caption{Wykres porównujący znormalizowane wyniki dla metody LSI.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Miary oparte na liczbie wspólnych słów kluczowych ($mut\_kw...$) wyraźnie pokazują wzrost jakości modelu przy wzroście liczby tematów. Średnia ze wszystkich miar pokazuje, że najwyższą jakość model osiąga dla liczby tematów 500.
+Miary oparte na liczbie wspólnych słów kluczowych ($mut\_kw...$) wyraźnie pokazują wzrost jakości modelu przy wzroście liczby tematów. Średnia wszystkich miar pokazuje, że najwyższą jakość model osiąga dla liczby tematów 500.
 
 \subsection{LDA w zależności od liczby tematów}
 
 Podobnie, jak w poprzednim punkcie dokonuję porównania jakości modelu LDA w zależności od wartości hiperparametru - liczby tematów.
 
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrrrrr}
 		\hline
@@ -607,18 +607,18 @@ Podobnie, jak w poprzednim punkcie dokonuję porównania jakości modelu LDA w 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/lda.png}
-	\caption{Porównanie znormalizowanych wyników dla metody LDA.}
+	\caption{Wykres porównujący znormalizowane wyniki dla metody LDA.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych słów kluczowych ($mut_kw$) pokazują wzrost jakości modelu przy wzroście liczby tematów. Średnia ze wszystkich miar pokazuje, że najwyższą jakość model osiąga dla liczby tematów 900.
+Podobnie jak w przypadku modelu LSI miary oparte na liczbie wspólnych słów kluczowych ($mut_kw$) pokazują wzrost jakości modelu przy wzroście liczby tematów. Średnia wszystkich miar pokazuje, że najwyższą jakość model osiąga dla liczby tematów 900.
 
 
 \section{Word2vec w zależności od korpusu}
 
 Poniżej zestawiam wyniki dla modelów Word2vec o wektorach długości 100 uczonych: na korpusie artykułów z Allegro ($w2v100\_art$) oraz na korpusie Słowosieci ($w2v100\_wn$). Dokumenty porównywane są tu metodą centroidu.
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrr}
 		\hline
@@ -637,7 +637,7 @@ Poniżej zestawiam wyniki dla modelów Word2vec o wektorach długości 100 uczon
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
-	\caption{Porównanie znormalizowanych wyników dla metody Word2vec w zależnosci od bazowego korpusu.}
+	\caption{Wykres porównujący znormalizowane wyniki dla metody Word2vec w zależnosci od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
 
@@ -649,7 +649,7 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 
 \subsection{Wymiar wektorów: 100}
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
@@ -675,7 +675,7 @@ W niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 \subsection{Wymiar wektorów: 300}
 
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
@@ -711,7 +711,7 @@ W niniejszym punkcie porównuję jakość metod word embedding (Word2vec, GloVe 
 
 \subsection{Word2vec}
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
@@ -738,7 +738,7 @@ Dla różnej wymiarowości wektorów wyjściowych metoda Word2vec daje bardzo po
 
 \subsection{GloVe}
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
@@ -765,7 +765,7 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 
 \subsection{FastText}
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
@@ -805,7 +805,7 @@ Testowane warianty:
 \end{itemize}
 \subsection{Zestawienie wyników testów automatycznych}
 Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów testowanych wcześniej metod.
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
@@ -834,7 +834,7 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 
 \subsection{Wyniki oceny eksperckiej}
 
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
@@ -853,10 +853,12 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 	%\label{fig:warstwy}
 \end{figure}
 
+Ewaluacja ekspercka wprost pokazuje, że zadna z testowanych metod nie odbiega znacząco od innych. Żadna z testowanych adaptacji metod semantycznej analizy tekstu nie odbiega róznież od dotychczasowej metody używanej w Allegro. Różnica pomiędzy najlepszą metodą (FastText) i najgorszą (LDA) wynosi ok. 9%.
+
+Każda z testowanych metod dała również wynika znacząco lepszy od metody losowej.
 
 
-
-\begin{table}
+\begin{table}[H]
 	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
@@ -875,11 +877,25 @@ Najwyższe wyniki wszystkich miar uzyskała metoda $allegro$. Jej wysokie wskaź
 	%\label{fig:warstwy}
 \end{figure}
 
-Pożądaną cechą dla metody jest, aby możliwie rzadko generowała ona wyniki odstające --- w żaden sposób niezwiązane z artykułem bazowym. Stąd niska wartość odchylenia standardowego działa na korzyść metody.
+Pożądaną cechą dla metody jest, aby możliwie rzadko generowała ona wyniki odstające --- w żaden sposób niezwiązane z artykułem bazowym. Stąd niska wartość odchylenia standardowego działa na korzyść metody. Tutaj również najlepszy rezultat --- najbardziej spójne wyniki uzyskała metoda FastText, nastomias najgorszy wynik znów uzyskała metoda LDA.
 
 W świetle powyższych wyników najlepsze rezultaty zdaje się osiągać FastText. Zakładam, iż jest to związane z wewnętrzną analizą słów, jaką wykonuje ta metoda. Może się to sprawdzać szczegónie dobrze w przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
 
-Zadna z testowanych metod nie odbiega znacząco od innych.
+\section{Podsumowanie testów}
+
+Przeprowadzone testy automatyczne miały na celu sprawdzenie, jak jakość danej metody zależy od jej konfiguracji. W tym celu wykorzystałem autorskie metody ewaluacji. W wielu przypadkach dało się zauważyć korelację między metodami ewaluacji opartymi o metadane artykułów: słowa kluczowe i kategorie.
+
+Wartościowym okazało się rozróżnienie na ewaluację poprzez obliczenie średniej relewantności oraz obliczenie miary nDCG. Pokazało to, wyjątkowo dobrą zdolność metody WMD do poprawnego szeregowania rekomendowanych artykułów.
+
+Wyniki metody $clicks$ --- opartej o historyczną aktywność użytkownikow --- odstają niekiedy od innych wyników. Może się to wiązać z faktem, iż liczba przejść dokonanych przez użytkowników między parami artykułów niekoniecznie odzwierciedla podobieństwo między nimi. Fakt, iż użytkownik przechodzi z artykułu $A$ do rekomendowanego artykułu $B$ może również wynikać z faktu, iż artykuł $B$ porusza inną tematykę niż artykuł $A$, która to jednak interesuje użytkownika. Wprowadznie do rekomendacji małego odsetka niepowiązanych przedmiotów jest znaną praktyką przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie użytkownika przedmiotami spoza kręgu jego dotychczasowych zainteresowań.
+
+Jakość autorskich automatycznych metod ewaluacji zdaje się potwierdzać dodadnia korelacja z wymikami oceny eksperckiej. Ocena ta pozwoliła wyznaczyć metodę najlepiej nadającą się do zadania rekomendacji artykułów w jezyku polskim oraz pokazała, że wszystkie testowane metodyw swoich najlepszych konfiguracjach dają wyniki o podobnej jakości. 
+
+
+\chapter{Podsumowanie pracy i kierunki dalszych badań}
+
+W niniejszej pracy starałem się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w celu wyznaczania artykułów najbardziej podobnych do danego są w stanie dorównać dotychczas używanej w serwisie Allegro metodzie opartej o zapytanie do silnika wyszukiwania Elasticsearch. W tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w zależności od konfiguracji poszczególnych metod. Po analizie wyników testów można udzielić odpowiedzi: tak, każda z testowanych metod semantycznej analizy języka naturalnego w swojej najlepszej konfiguracji może zostać zaadaptowana w celu generowania rekomendacji artykułów w oparciu o treść artykułu aktualnie wyświetlanego przez użytkownika serwisu. Rekomendacje te w ocenie  użytkowników nie ustępują jakością dotychczasowej metodzie. 
+
 
 Wadą metod semantycznej analizy tekstu w porównaniu do silnika wyszukiwania niest konieczność przebudowy modelu przy każdej edycji bazy artykułów.
 
@@ -893,24 +909,9 @@ Na uwadze należy mieć niedoskonałość wprowadzonych metod ewaluacji
 
 Artykuły najbardziej podobne wcale nie muszą wyć tymi, które najlepiej nadają się na rekomendacje. Istotnym problemem jest trudnośc zadania ewaluacji systemu rekomendacyjnego. Celem użycia systemu rekoemdacji jest w dłuższej perspektywie maksymalizacja zysku serwisu przez kierowanie użytkowników na strony ofert, co zwiększa szansę a dokonanie przez nich transakcji. Otwartym pytaniem pozostaje, czy rekomendowanie użytkownikowi podobnych artykułów wprost przekłada się na zwiększenie liczby transakci zawartych przez niego. Trudnośc oceny wiąże się z mnogością czynników, które kierują zachowaniami użytkowników.
 
-\section{Podsumowanie testów}
-
-Wyniki metody $clicks$ odstają niekiedy od innych wyników. Może się to wiązać z faktem, iż liczba przejść dokonanych przez użytkowników między parami artykułów niekoniecznie odzwierciedla podobieństwo między nimi. Fakt, iż użytkownik przechodzi z artykułu $A$ do rekomendowanego artykułu $B$ może również wynikać z faktu, iż artykuł $B$ porusza inną tematykę niż artykuł $A$, która to jednak interesuje użytkownika. Wprowadznie do rekomendacji małego odsetka niepowiązanych przedmiotów jest znaną praktyką przy tworzeniu systemów rekomendacji i ma na celu zainteresowanie użytkownika przedmiotami spoza kręgu jego dotychczasowych zainteresowań.
-
-%TODO dodatkowe statystyki userskie
-
-\chapter{Podsumowanie i kierunki dalszych prac}
-
-W niniejszej pracy starałem się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w celu wyznaczania artykułów najbardziej podobnych do danego są w stanie dorównać dotychczas używanej w serwisie Allegro metodzie opartej o zapytanie do silnika wyszukiwania Elasticsearch. W tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w zależności od konfiguracji poszczególnych metod. Po analizie wyników testów można udzielić odpowiedzi: tak, każda z testowanych metod semantycznej analizy języka naturalnego w swojej najlepszej konfiguracji może zostać zaadaptowana w celu generowania rekomendacji artykułów w oparciu o treść artykułu aktualnie wyświetlanego przez użytkownika serwisu. Rekomendacje te w ocenie  użytkowników nie ustępują jakością dotychczasowej metodzie. 
-
-%TODO o czym byłe ta praca
 
 Istotną zaletą dotychczasowego rozwiązainia stosowanego w Allegro jest uniwersalność silnika Elasticsearch oraz to, że pozwala edytować indeksowane dane w locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy każdej zmianie korpusu, na którym się opierają. 
 
-
-
-%TODO Popatrzeć w podsumowania innych prac
-korelacja między metodami ewaluacji
 
 Dalsze badania.
 
@@ -923,7 +924,7 @@ Przed zastosowaniem metod wyznaczania podobieństwa wykonałem przetwarzanie wst
 Zdaję sobie sprawę z niedoskonałości zastosowanych miar.
 
 Tematem niniejszej pracy jest przypisanie danemu artykułowi artykułów najbardziej podobnych. Warto tutaj zaznaczyć różnicę pomiędzy tematyką pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artykuły, które można uznać za dobre rekomandacje, tj. takie, które przynoszą przedsiębiorstwu największy zysk, wcale nie musż być podobne do danego. Powszechnym zjawiskiem jest wzbogacanie rekomandacji o przedmioty niepodobne do danego, a pozwalające użytkownikowi na poznanie osobnej kategorii przedmiotów, która może go zainteresować a tym samym przyciągnąć do serwisu.
-%TODO podpisać tabele
+
 %TOTO na początku pracy zaać pytania i w podsumowaniu na nie odpowiedzieć
 
 Przeprowadzone w pracy badania dają jedynie ogólny pogląd
@@ -940,7 +941,7 @@ Inne ciekawe badania w tym temacie
 Kwestie, które wykraczają poza zakres niniejszej pracy, a są związane z jej tematyką
 Można by zastosować inne metody wyznaczania odległości między wektorowymi reprezentacjami dokumentów. Metoda centroidu jest szybka i prosta, ale dokonuje sporego uproszczenia struktury dokumentu. Metoda WMD daje natomiast lepsze uszeregowanie, ale kosztem dużej złożoności obliczeniowej.
 %TODO w dodaktu opisać zawartość dołączonej płyty
-%TODO posortować bibliografię, pisać ,,dostęp''
+
 \begin{thebibliography}{30}
 	\bibitem{allegro}
 		Opis Allegro
