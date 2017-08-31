@@ -1,5 +1,5 @@
 \select@language {polish}
-\contentsline {figure}{\numberline {0.1}{\ignorespaces Widok strony internetowej zawieraj\IeC {\k a}cej jeden z artyku\IeC {\l }\IeC {\'o}w serwisu Allegro. \cite {screen_allegro}}}{12}{figure.0.1}
+\contentsline {figure}{\numberline {0.1}{\ignorespaces Widok strony internetowej zawieraj\IeC {\k a}cej jeden z artyku\IeC {\l }\IeC {\'o}w serwisu Allegro \cite {screen_allegro}.}}{13}{figure.0.1}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Neuronowy model j\IeC {\k e}zyka. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: \cite {bengio}.}}{22}{figure.1.1}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Schemat sieci wykorzystuj\IeC {\k a}cej podej\IeC {\'s}cie skip-gram i CBOW. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: \cite {word2vec}.}}{24}{figure.1.2}
