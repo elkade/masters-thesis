@@ -1,8 +1,8 @@
 \select@language {polish}
-\contentsline {figure}{\numberline {0.1}{\ignorespaces Widok strony internetowej zawieraj\IeC {\k a}cej jeden z~artyku\IeC {\l }\IeC {\'o}w serwisu \textit {Allegro} \cite {screen_allegro}.}}{13}{figure.0.1}
+\contentsline {figure}{\numberline {0.1}{\ignorespaces Widok strony internetowej zawieraj\IeC {\k a}cej jeden z~artyku\IeC {\l }\IeC {\'o}w serwisu \textit {Allegro}~\cite {screen_allegro}.}}{11}{figure.0.1}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Neuronowy model j\IeC {\k e}zyka. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: \cite {bengio}.}}{22}{figure.1.1}
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Schemat sieci wykorzystuj\IeC {\k a}cej podej\IeC {\'s}cie \textit {skip-gram} i \textit {CBOW}. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: \cite {word2vec}.}}{24}{figure.1.2}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Neuronowy model j\IeC {\k e}zyka. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o~\cite {bengio}.}}{22}{figure.1.1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Schemat sieci wykorzystuj\IeC {\k a}cej podej\IeC {\'s}cie \textit {skip-gram} i \textit {CBOW}. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o:~\cite {word2vec}.}}{24}{figure.1.2}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Wykres przedstawiaj\IeC {\k a}cy liczby kategorii na poszczeg\IeC {\'o}lnych poziomach drzewa.}}{31}{figure.2.1}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Wykres przedstawiaj\IeC {\k a}cy liczby artyku\IeC {\l }\IeC {\'o}w, dla~kt\IeC {\'o}rych kategoria na~danym poziome drzewa jest t\IeC {\k a} najbardziej szczeg\IeC {\'o}\IeC {\l }ow\IeC {\k a}.}}{32}{figure.2.2}
@@ -13,17 +13,17 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Drzewo kategorii dla~przyk\IeC {\l }adu 2.}}{38}{figure.3.2}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki r\IeC {\'o}\IeC {\.z}nych miar dla~rosn\IeC {\k a}cej liczby temat\IeC {\'o}w metody \textit {LSI}.}}{46}{figure.5.1}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki r\IeC {\'o}\IeC {\.z}nych miar dla~rosn\IeC {\k a}cej liczby temat\IeC {\'o}w metody \textit {LDA}.}}{47}{figure.5.2}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~bazowego korpusu.}}{48}{figure.5.3}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy~wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{50}{figure.5.4}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec}~w zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{51}{figure.5.5}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~hiperparametru --- d\IeC {\l }ugo\IeC {\'s}ci wektor\IeC {\'o}w.}}{52}{figure.5.6}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {GloVe} w~zale\IeC {\.z}no\IeC {\'s}ci od~hiperparametru --- d\IeC {\l }ugo\IeC {\'s}ci wektor\IeC {\'o}w.}}{53}{figure.5.7}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {FastText} w~zale\IeC {\.z}no\IeC {\'s}ci od~hiperparametru --- d\IeC {\l }ugo\IeC {\'s}ci wektor\IeC {\'o}w.}}{54}{figure.5.8}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla wybranych metod.}}{56}{figure.5.9}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Por\IeC {\'o}wnanie wynik\IeC {\'o}w ewaluacji eksperckiej dla~wybranych metod.}}{57}{figure.5.10}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Por\IeC {\'o}wnanie odchyle\IeC {\'n} standardowych ocen eksperckich dla~wybranych metod.}}{58}{figure.5.11}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki r\IeC {\'o}\IeC {\.z}nych miar dla~rosn\IeC {\k a}cej liczby temat\IeC {\'o}w metody \textit {LSI}.}}{47}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki r\IeC {\'o}\IeC {\.z}nych miar dla~rosn\IeC {\k a}cej liczby temat\IeC {\'o}w metody \textit {LDA}.}}{48}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~bazowego korpusu.}}{49}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy~wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{51}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec}~w zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{52}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~hiperparametru --- d\IeC {\l }ugo\IeC {\'s}ci wektor\IeC {\'o}w.}}{53}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {GloVe} w~zale\IeC {\.z}no\IeC {\'s}ci od~hiperparametru --- d\IeC {\l }ugo\IeC {\'s}ci wektor\IeC {\'o}w.}}{54}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {FastText} w~zale\IeC {\.z}no\IeC {\'s}ci od~hiperparametru --- d\IeC {\l }ugo\IeC {\'s}ci wektor\IeC {\'o}w.}}{55}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla wybranych metod.}}{57}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Por\IeC {\'o}wnanie wynik\IeC {\'o}w ewaluacji eksperckiej dla~wybranych metod.}}{58}{figure.5.10}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Por\IeC {\'o}wnanie odchyle\IeC {\'n} standardowych ocen eksperckich dla~wybranych metod.}}{59}{figure.5.11}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

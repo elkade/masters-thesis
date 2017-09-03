@@ -80,7 +80,7 @@ W~swojej pracy badam możliwość użycia istniejących metod semantycznej anali
 Podczas prowadzenia badań stworzyłem szereg skryptów przetwarzających dane i~wykorzystujących implementacje opisywanych w~tej pracy metod. Opis użytych narzędzi programistycznych i~bibliotek zawarłem w~załączniku 1 do~niniejszej pracy. Stworzone skrypty umieszczam na~płycie CD dołączonej do~pracy. Opis zawartości płyty znajduje się w~załączniku 2.
 
 \section{System rekomendacji artykułów tekstowych w \textit{Allegro}}%DONE
-\textit{Allegro} jest największą \cite{all_naj} działającą na rynku polskim platformą aukcyjną on-line. Posiada ponad 20~milionów zarejestrowanych klientów. Każdego dnia na~\textit{Allegro} sprzedaje~się ponad~870~tysięcy przedmiotów. Firma zatrudnia 1300 pracowników \cite{allegro}. Serwis umożliwia użytkownikom wystawianie na~sprzedaż oraz~kupno przedmiotów poprzez mechanizm licytacji lub~natychmiastowego zakupu.
+\textit{Allegro} jest największą~\cite{all_naj} działającą na rynku polskim platformą aukcyjną on-line. Posiada ponad 20~milionów zarejestrowanych klientów. Każdego dnia na~\textit{Allegro} sprzedaje~się ponad~870~tysięcy przedmiotów. Firma zatrudnia 1300 pracowników~\cite{allegro}. Serwis umożliwia użytkownikom wystawianie na~sprzedaż oraz~kupno przedmiotów poprzez mechanizm licytacji lub~natychmiastowego zakupu.
 
 Oprócz głównej części serwisu odpowiedzialnej za~transakcje, \textit{Allegro} posiada dział zajmujący~się publikacją artykułów opisujących produkty wystawiane za~pośrednictwem serwisu. Ma to na~celu pomoc użytkownikom przy~wyborze interesującego ich produktu.
 
@@ -89,12 +89,12 @@ Po to, aby zachęcić użytkowników do~zapoznania się z~treścią kolejnych ar
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/screen_allegro.png}
-	\caption{Widok strony internetowej zawierającej jeden z~artykułów serwisu \textit{Allegro}  \cite{screen_allegro}.}
+	\caption{Widok strony internetowej zawierającej jeden z~artykułów serwisu \textit{Allegro}~\cite{screen_allegro}.}
 \end{figure}
 
 Od serwisu \textit{Allegro} otrzymałem kopię ok.~20000 zserializowanych artykułów dostępnych na~stronach serwisu. Pojedynczy artykuł składa się z~głównej zawartości tekstowej oraz metadanych. W~celu otrzymania wszelkich danych od~firmy \textit{Allegro} wymagane było, abym podpisał umowę, w~której zobowiązuję się do nieujawniania żadnych danych, które otrzymałem. Stąd opisy danych, na których pracuję, zawarte w~tej pracy nie wnikają w~ich szczegóły i~nie odbiegają od~informacji publicznie dostępnych za~pośrednictwem strony pod~adresem \url{https://allegro.pl/artykuly}.
 
-Aktualnie w~rzeczonym dziale serwisu Allegro istnieje system rekomendacyjny, który opiera~się o~wyszukiwanie podobnych artykułów tekstowych za~pomocą silnika \textit{Elasticsearch} \cite{elastic}. Metoda ta wykorzystuje słowa kluczowe przypisane do~każdego artykułu przez~autora. W~swojej pracy staram~się porównać wyniki działania dotychczasowej metody z~metodami semantycznej analizy tekstu, które potrafią wykryć podobieństwo pomiędzy artykułami bazując jedynie na~ich treści, bez~potrzeby dołączania żadnych metadanych. Pomyślna próba zastosowania metod semantycznych pozwoliłaby na dokładniejsze dopasowanie podobnych artykułów w oparciu być może o~pewne ukryte cechy semantyczne nieosiągalne dla~silnika wyszukiwania tekstowego, jakim jest \textit{Elasticsearch}. Bardziej szczegółowego opisu silnika \textit{Elasticsearch} dokonuję w~kolejnym rozdziale.
+Aktualnie w~rzeczonym dziale serwisu Allegro istnieje system rekomendacyjny, który opiera~się o~wyszukiwanie podobnych artykułów tekstowych za~pomocą silnika \textit{Elasticsearch}~\cite{elastic}. Metoda ta wykorzystuje słowa kluczowe przypisane do~każdego artykułu przez~autora. W~swojej pracy staram~się porównać wyniki działania dotychczasowej metody z~metodami semantycznej analizy tekstu, które potrafią wykryć podobieństwo pomiędzy artykułami bazując jedynie na~ich treści, bez~potrzeby dołączania żadnych metadanych. Pomyślna próba zastosowania metod semantycznych pozwoliłaby na dokładniejsze dopasowanie podobnych artykułów w oparciu być może o~pewne ukryte cechy semantyczne nieosiągalne dla~silnika wyszukiwania tekstowego, jakim jest \textit{Elasticsearch}. Bardziej szczegółowego opisu silnika \textit{Elasticsearch} dokonuję w~kolejnym rozdziale.
 
 \section{Struktura pracy}
 W rozdziale 1 wprowadzam do zagadnienia systemów rekomendacji oraz~dokonuję przeglądu metod semantycznej analizy tekstu, które mogą zostać zastosowane w~celu określenia podobieństwa pomiędzy~dokumentami tekstowymi.
@@ -110,37 +110,40 @@ W rozdziale 5 opisuję wyniki przeprowadzonych eksperymentów.
 Ostatecznie w rozdziale 6 dokonuję podsumowania przeprowadzonych badań i~rozważam kierunki dalszych prac w~tej dziedzinie.
 
 \section{Uwagi}
-W~celu uniknięcia nieporozumień należy podkreślić różnicę pomiędzy znaczeniami słowa ,,artykuł'', które może oznaczać zarówno tekst publicystyczny, literacki lub naukowy jak~i~rzecz, która jest przedmiotem handlu \cite{slownik}. W~niniejszej pracy skupiam~się na~rekomendacjach artykułów tekstowych, stąd używam pierwszego znaczenia (chyba, że~inne znaczenie jest wyraźnie zaznaczone).
+W~celu uniknięcia nieporozumień należy podkreślić różnicę pomiędzy znaczeniami słowa ,,artykuł'', które może oznaczać zarówno tekst publicystyczny, literacki lub naukowy jak~i~rzecz, która jest przedmiotem handlu~\cite{slownik}. W~niniejszej pracy skupiam~się na~rekomendacjach artykułów tekstowych, stąd używam pierwszego znaczenia (chyba, że inne znaczenie jest wyraźnie zaznaczone).
+
+Z~racji szybkiego rozwoju szeroko pojętych metod sztucznej inteligencji, w~tym metod przetwarzania języka naturalnego, wiele z~pojęć opracowanych głównie w~firmach, uczelniach i~instytutach anglosaskich nie~ma jeszcze swoich polskich odpowiedników. Często również mimo istnienia polskiego odpowiednika pojęcie w~języku angielskim jest tak popularne, że używanie polskiego odpowiednika powodowałoby niepotrzebny zamęt. Stąd w~wielu przypadkach stosuję angielskie pojęcia, dołączając do~nich w~nawiasach, przy~ich wprowadzaniu, ich polskie odpowiedniki. Dalej na~ogół posługuję~się skrótami nazw angielskich --- forma ta jest najszerzej przyjęta. 
 
 \chapter{Przegląd wiedzy z zakresu tematyki pracy}
 W~swojej pracy dokonuję adaptacji metod przetwarzania języka naturalnego na~potrzeby generowania rekomendacji artykułów tekstowych w~oparciu o~ich treść. W~niniejszym rozdziale dokonuję przeglądu znanych metod z~obszaru tematyki pracy dyplomowej, skupiając~się szczególnie~na nowo powstałych metodach wektorowej reprezentacji słów, które cieszą~się obecnie dużym zainteresowaniem środowisk naukowych oraz firm komercyjnych. 
 
-Dokonuję krótkiego wprowadzenia do~zagadnienia generowania rekomendacji, którego głęboka analiza nie jest konieczna z punktu widzenia niniejszej pracy. Następnie wykonuję chronologiczny przegląd metod ciągłej reprezentacji słów zaczynając od~trywialnych metod zliczania słów (\textit{bag-of-words}, \textit{TF-IDF}), przechodząc przez metody wykorzystujące koncepcję tematów (\textit{Latent Semantic Analysi}s, \textit{Latent Dirichlet Allocation}) i~kończąc na~głośnych ostatnio metodach osadzania słów w przestrzeni wektorowej (\textit{Word2vec}, \textit{GloVe}, \textit{FastText}). Przy~zarysie historycznym opieram~się w~dużej mierze na~artykule \cite{aylien}.
-
-%Część z nich (metoda tf-idf, bag-of-words, silnik Elasticsearch oparty na indeksie Lucene\cite{lucene}) jest od lat powszechnie wykorzystywana w zadaniu wyszukiwania tekstowego. Inne z kolei - korzystające z semantycznej analizy tekstu - nie są tak popularne z powodu swojej nowości, bądź trudności w zaaplikowaniu. Daje to pole do badań i ewentualnych usprawnień istniejących systemów opierających się o klasyczne metody. Wybrane metody stosuję, zgodnie z tematem pracy, w zadaniu generowania rekomendacji, stąd przegląd metod zaczynam właśnie od wprowadzenia do tego zagadnienia.
+Dokonuję krótkiego wprowadzenia do~zagadnienia generowania rekomendacji, którego głęboka analiza nie jest konieczna z punktu widzenia niniejszej pracy. Następnie wykonuję chronologiczny przegląd metod ciągłej reprezentacji słów zaczynając od~trywialnych metod zliczania słów (\textit{bag-of-words}, \textit{TF-IDF}), przechodząc przez metody wykorzystujące koncepcję tematów (\textit{latent semantic analysis}, \textit{latent Dirichlet allocation}) i~kończąc na~głośnych ostatnio metodach osadzania słów w przestrzeni wektorowej (\textit{Word2vec}, \textit{GloVe}, \textit{FastText}). Przy~zarysie historycznym opieram~się w~dużej mierze na~artykule~\cite{aylien}.
 
 \section{Systemy rekomendacji}
 
-Systemy rekomendacji to narzędzia i~techniki mające na~celu zasugerowanie użytkownikowi przedmiotów. Sugestie te odnoszą~się do~różnych procesów podejmowania decyzji takich jak np.~które artykuły kupić, jakiej muzyki słuchać czy też które wiadomości czytać. ,,Przedmiot'' jest tutaj ogólnym pojęciem oznaczającym coś, co system poleca użytkownikowi \cite{handbook}. 
+Systemy rekomendacji to narzędzia i~techniki mające na~celu zasugerowanie użytkownikowi przedmiotów. Sugestie te odnoszą~się do~różnych procesów podejmowania decyzji takich jak np.~które artykuły kupić, jakiej muzyki słuchać czy też które wiadomości czytać. ,,Przedmiot'' jest tutaj ogólnym pojęciem oznaczającym coś, co system poleca użytkownikowi~\cite{handbook}. 
 
 Przy~wciąż wzrastającej ilości danych użytkownicy serwisów internetowych często nie są w~stanie dotrzeć do~informacji, która ich interesuje. Jest to pole do~rozwoju zautomatyzowanych systemów rekomendacyjnych polecających użytkownikom treści, które mogą ich zainteresować. Działalność takiego systemu daje zysk zarówno użytkownikowi, pozwalając mu dotrzeć do~informacji, której mógłby samodzielnie nie odszukać, albo wręcz nie wiedzieć, iż~taka informacja istnieje, jak~i~właścicielowi serwisu internetowego, któremu zależy, by przyciągnąć do~siebie użytkowników, aby ci w~jak~największym stopniu korzystali z~ich usług.
 
 Sposoby działania systemów rekomendacji można podzielić na~różne warianty, spośród których wyodrębnić można dwa najszerzej używane. Są to: filtrowanie kolaboratywne (\textit{collaborative filtering}) i~filtrowanie oparte na~treści (\textit{content-based filtering}).
 
 \subsection{Filtrowanie kolaboratywne}
-Technika ta opiera~się na~spostrzeżeniu, iż użytkownicy o~podobnych preferencjach zachowują się podobnie. Stąd jeżeli użytkownik zachowuje się podobnie do~zaobserwowanej wcześniej grupy użytkowników, można przewidzieć jego preferencje na~podstawie zachowań owej~grupy. Istotną zaletą tej metody jest fakt, iż nie~zależy ona od~dziedziny, w~której ulokowany jest system rekomendacji (w~przeciwieństwie do~rekomendacji opartych na treści), a~jedynie od~zachowań użytkowników.
+Filtrowanie kolaboratywne (\textit{collaborative filtering}) opiera~się na~spostrzeżeniu, iż użytkownicy o~podobnych preferencjach zachowują się podobnie. Stąd jeżeli użytkownik zachowuje się podobnie do~zaobserwowanej wcześniej grupy użytkowników, można przewidzieć jego preferencje na~podstawie zachowań owej~grupy. Istotną zaletą tej metody jest fakt, iż nie~zależy ona od~dziedziny, w~której ulokowany jest system rekomendacji (w~przeciwieństwie do~rekomendacji opartych na treści), a~jedynie od~zachowań użytkowników.
 \subsection{Filtrowanie oparte na treści}
-W~technice tej przedmioty polecane użytkownikowi zależą od~innych przedmiotów, na~temat których stwierdzono, że użytkownik się nimi interesuje. Mogą~się one opierać np. na~podobieństwie przedmiotów: jeżeli użytkownik ,,lubi'' przedmiot $A$, który jest podobny do~przedmiotu $B$ to można spodziewać się, że również przedmiot $B$ zainteresuje użytkownika. Technika ta jest mocno zależna od~dziedziny rekomendowanych przedmiotów, gdyż wymaga wprowadzenia pewnej miary podobieństwa między nimi. Stąd jest trudniejsza do~zastosowania, ale daje też możliwości nieosiągalne dla~filtrowania kolaboratywnego.
+W~filtrowaniu opartym na treści (\textit{content-based filtering}) przedmioty polecane użytkownikowi zależą od~innych przedmiotów, na~temat których stwierdzono, że użytkownik się nimi interesuje. Mogą~się one opierać np. na~podobieństwie przedmiotów: jeżeli użytkownik ,,lubi'' przedmiot $A$, który jest podobny do~przedmiotu $B$ to można spodziewać się, że również przedmiot $B$ zainteresuje użytkownika. Technika ta jest mocno zależna od~dziedziny rekomendowanych przedmiotów, gdyż wymaga wprowadzenia pewnej miary podobieństwa między nimi. Stąd jest trudniejsza do~zastosowania, ale daje też możliwości nieosiągalne dla~filtrowania kolaboratywnego.
 
 Celem niniejszej pracy jest zbadanie metod sugerujących użytkownikowi artykuły podobne do~aktualnie odwiedzanego, co wprost wiąże się z~metodami używanymi w~technice filtrowania opartego na~treści.
 
-\section{Silnik \textit{Elasticsearch}}
+\section{Systemy wyszukiwania}
+%TODO wstęp do systemów wyszukiwania
 
-Obecnie wykorzystywana przez \textit{Allegro} metoda generowania rekomendacji artykułów opiera~się o~zapytanie do~usługi \textit{Elasticsearch} \cite{elastic} wykorzystujące słowa kluczowe manualnie dołączone do~artykułów. \textit{Elasticsearch} jest popularnym silnikiem wyszukiwania tekstu opartym o~indeks \textit{Lucene} \cite{lucene}. Działa w~architekturze rozproszonej a~komunikacja z~nim następuje poprzez protokół \textit{HTTP} i~format \textit{JSON}. Umożliwia on efektywne przechowywanie dokumentów tekstowych oraz~efektywne ich wyszukiwanie. 
+,,Systemy wyszukiwania mają na celu sugerowanie tego, co użytkownik chciałby otrzymać, natomiast systemy rekomendacji mają sugerować przedmioty potrzebne użytkownikowi nawet, jeżeli potrzeby te nie zostały bezpośrednio wyrażone.''
+
+Przykładem systemu wyszukiwania jest silnik \textit{Elasticsearch} używany m.in. w \textit{Allegro}. Metoda generowania rekomendacji obecnie wykorzystywana w serwisie opiera~się właśnie o~zapytanie do~usługi \textit{Elasticsearch}~\cite{elastic} wykorzystujące słowa kluczowe manualnie dołączone do~artykułów. \textit{Elasticsearch} jest popularnym silnikiem wyszukiwania tekstu opartym o~indeks \textit{Lucene}~\cite{lucene}. Działa w~architekturze rozproszonej a~komunikacja z~nim następuje poprzez protokół \textit{HTTP} i~format \textit{JSON}. Umożliwia on efektywne przechowywanie dokumentów tekstowych oraz~efektywne ich wyszukiwanie.
 
 \textit{Apache Lucene} jest biblioteką napisaną w~języku \textit{Java} służącą do~wyszukiwania tekstu, która w~tym celu wykorzystuje mechanizm odwróconego indeksu. Zasada działania biblioteki polega na~stworzeniu słownika ze~wszystkich (odpowiednio wstępnie przetworzonych) słów dokumentów przeznaczonych do~wyszukiwania. Następnie na~bazie owego słownika tworzony jest odwrócony indeks. Każdemu ze słów przypisywana jest lista dokumentów, które zawierają to słowo. Pozwala to przyspieszyć proces wyszukiwania, gdyż w~poszukiwaniu pojedynczego słowa biblioteka nie~przeszukuje całego zbioru dokumentów, a~jedynie słownik, który na~ogół jest wielokrotnie krótszy.
 
-Zaletą silnika \textit{Elasticsearch} są jego wydajność, skalowalność, niezawodność i~prostota użytkowania, co przekłada~się na~jego dużą popularność wśród np.~serwisów internetowych \cite{elastic_companies}.
+Zaletą silnika \textit{Elasticsearch} są jego wydajność, skalowalność, niezawodność i~prostota użytkowania, co przekłada~się na~jego dużą popularność wśród np.~serwisów internetowych~\cite{elastic_companies}.
 
 Wadą metody jest to, że ogranicza się ona do~wyszukiwania tekstowego pomijając aspekt semantyczny. Stwarza to trudności przy wyszukiwaniu synonimów lub homonimów.
 
@@ -155,8 +158,10 @@ W~celu formalizacji, w~dalszych opisach stosowanych metod stosuję następujące
 	\item słownik zbudowany na korpusie $C$: $V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
 \end{itemize}
 
-\subsection{\textit{Bag-of-words}}
-\textit{Bag-of-words} (worek słów) \cite{bow} jest jedną z~pierwszych koncepcji reprezentacji tekstu jako zbioru zawartych w~nim słów w~postaci wektorów. Metoda nie~bierze pod~uwagę kolejności słów w~tekście, lecz liczbę ich wystąpień. Istotną zaletą reprezentacji wektorowej dokumentów jest możliwość zdefiniowania miary odległości pomiędzy dokumentami (np.~miara kosinusowa opisana później) odzwierciedlającej ich podobieństwo. Technikę tę można opisać jako przekształcenie z~korpusu w~przestrzeń wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
+\subsection{Techniki podstawowe}
+
+\subsubsection{\textit{Bag-of-words}}
+\textit{Bag-of-words} (worek słów, w dalszej części pracy używam skrótu \textit{BOW})~\cite{bow} jest jedną z~pierwszych koncepcji reprezentacji tekstu jako zbioru zawartych w~nim słów w~postaci wektorów. Metoda nie~bierze pod~uwagę kolejności słów w~tekście, lecz liczbę ich wystąpień. Istotną zaletą reprezentacji wektorowej dokumentów jest możliwość zdefiniowania miary odległości pomiędzy dokumentami (np.~miara kosinusowa opisana później) odzwierciedlającej ich podobieństwo. Technikę tę można opisać jako przekształcenie z~korpusu w~przestrzeń wektorów $ bow: C \to \mathbb{R}^n $ gdzie:\\
 $C$: korpus,\\
 $m = |C|$: liczba dokumentów w korpusie $C$,\\
 $V$: słownik zbudowany na $C$,\\
@@ -165,9 +170,9 @@ $v_i \in \mathbb{R}^n$, gdzie $i \in 1, 2, ..., n$ wektor reprezentujący dokume
 $v_{ij}$, gdzie $j \in 1, 2, ..., m$: liczba wystąpień w~dokumencie  $d_i \in C$ słowa $w_j \in V$.\\
 
 Technika ta jest stosunkowo prosta, lecz jej wadą jest traktowanie każdego słowa z~jednakową wagą. Pewne słowa (np.~,,i'', ,,lub'', ,,o'') występują bardzo często, lecz ich wkład w~znaczenie całego dokumentu jest marginalny. Stąd powstały bardziej zaawansowane techniki uwzględniające istotność słów dla~znaczenia całego dokumentu. Mimo~to metoda \textit{BOW} jest często wykorzystywana w bardziej zaawansowanych technikach \textit{NLP}, a~także przy~przetwarzaniu wstępnym tekstu przy okazji zadań usunięcia słów stopu oraz lematyzacji stosowanych w celu zmniejszenia wymiarowości przestrzeni wektorowej słów.
-\subsection{\textit{Term frequency --- inverse document frequency}}
+\subsubsection{\textit{TF-IDF}}
 
-\textit{TF-IDF} \cite{tf_idf} (ważenie częstością termów --- odwrotna częstość w dokumentach) jest metodą reprezentacji tekstu jako zbioru słów przy~jednoczesnym uwzględnieniu wagi słów, która zależy od~częstości występowania słowa w~korpusie.
+\textit{Term frequency --- inverse document frequency} (ważenie częstością termów --- odwrotna częstość w dokumentach, w dalszej części pracy używam skrótu \textit{TF-IDF})~\cite{tf_idf} jest metodą reprezentacji tekstu jako zbioru słów przy~jednoczesnym uwzględnieniu wagi słów, która zależy od~częstości występowania słowa w~korpusie.
 Wartość \textit{TF-IDF} słowa $w_i$ w dokumencie $d_j$ wyraża się wzorem: 
 \begin{equation}
 tfidf_{ij} = tf_{ij} * idf_i,\ tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}},\ idf_i = log\frac{|D|}{|{d:w_i \in d}|},
@@ -176,21 +181,23 @@ gdzie $tf_{ij}$, \textit{term frequency} to liczba wystąpień słowa $w_i$ w~do
 
 Dokumenty reprezentowane są tu jako wektory, składające się z~wag słów występujących w~każdym z~nich. \textit{TF-IDF} przechowuje informację o~częstotliwości występowania słów biorąc przy~tym pod~uwagę istotność znaczenia słowa lokalnego w~stosunku do~jego znaczenia w~kontekście całego zbioru dokumentów. W~tej technice słowa występujące rzadko są premiowane względem słów pospolitych. Wadą metod tej i~poprzedniej jest postać wektorów reprezentujących słowa: są to na~ogół rzadkie wektory dużej wymiarowości.
 
-\subsection{\textit{Distributional semantics}}
-Kolejne, bardziej zaawansowane, omawiane tu metody opierają się na~tzw. \textit{distributional hypothesis} - hipotezie zakładającej, że słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie \cite{bow}\cite{firth}. Sprzyja to zastosowaniu metod algebry liniowej jako narzędzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejście polega na~zgromadzeniu informacji o~rozkładzie słów w~dokumentach w~postaci wielowymiarowych wektorów, a~następnie wyodrębnieniu podobieństw pomiędzy~tymi wektorami, które świadczyłyby o~pewnych powiązaniach między reprezentowanymi słowami.
+\subsection{Semantyka dystrybucyjna}
+Kolejne, bardziej zaawansowane, omawiane tu metody opierają się na~tzw. \textit{distributional hypothesis} - hipotezie zakładającej, że słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie~\cite{bow}\cite{firth}. Sprzyja to zastosowaniu metod algebry liniowej jako narzędzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejście polega na~zgromadzeniu informacji o~rozkładzie słów w~dokumentach w~postaci wielowymiarowych wektorów, a~następnie wyodrębnieniu podobieństw pomiędzy~tymi wektorami, które świadczyłyby o~pewnych powiązaniach między reprezentowanymi słowami.
 
-\subsection{\textit{Latent Semantic Analysis}}
+\subsection{Modelowanie tematów}
+
+\subsubsection{\textit{Latent semantic analysis}}
 %TODO przeczytać waziaka jeszcze raz
-Analiza rozkładu słów w~dokumentach tekstowych pozwala na~wyodrębnienie podobieństw między słowami pod~kątem: ich znaczenia (podobieństwo tematu słowa), ich osadzenia w~stosunku do~innych typów słów, czy też ich struktury wewnętrznej. Dwie istotne metody: \textit{Latent Semantic Analysis} \cite{lsa} oraz~\textit{Latent Dirichlet Allocation} \cite{lda} zakładają istnienie abstrakcyjnych niejawnych (\textit{latent}) tematów, do~których można przydzielić słowa wchodzące w skład korpusu.
+Analiza rozkładu słów w~dokumentach tekstowych pozwala na~wyodrębnienie podobieństw między słowami pod~kątem: ich znaczenia (podobieństwo tematu słowa), ich osadzenia w~stosunku do~innych typów słów, czy też ich struktury wewnętrznej. Dwie istotne metody, które opisuję w niniejszej pracy: \textit{latent semantic analysis}~\cite{lsa} oraz~\textit{latent Dirichlet allocation}~\cite{lda} zakładają istnienie abstrakcyjnych niejawnych (\textit{latent}) tematów, do~których można przydzielić słowa wchodzące w skład korpusu.
 
-\textit{LSA} \cite{lsa}, znane również jako \textit{Latent Semantic Indexing} (\textit{LSI}) dokonuje transformacji każdego dokumentu w~wektor dł.~$|V|$ posiadający na~$i$-tym miejscu wagę \textit{TF-IDF} $i$-tego słowa ze~słownika. W~ten sposób tworzona jest rzadka macierz: kolumny reprezentują dokumenty, a~wiersze reprezentują unikalne słowa. W~celu identyfikacji istotnych cech tej macierzy dokonuje~się rozkładu według wartości osobliwych (\textit{singular value decomposition} \cite{svd}, \textit{SVD}), który jest techniką redukcji wymiarowości. Celem użycia \textit{SVD} jest redukcja liczby wierszy macierzy dla~wydajniejszych dalszych obliczeń numerycznych oraz~pozbycie~się szumów, utrzymując jednocześnie podobieństwa pomiędzy kolumnami. Ostatecznie uzyskuje~się macierz przynależności tematów do~dokumentów, gdzie wiersze odpowiadające tematom można interpretować jako kombinacje pierwotnych wierszy-słów o~podobnym znaczeniu. Np. \textit{\{(,,samochód''), (,,ciągnik''), (,,jezdnia'')\}}~$\to$~\textit{\{(1.3452 * ,,samochód'' + 0.2828 * ,,ciągnik'' + 0.3 * ,,jezdnia'')\}}. Wymiar uzyskiwanej macierzy jest ustalany za~pomocą hiperparametru, który oznacza liczbę tematów. Używając uzyskanej macierzy, podobieństwo pomiędzy kolumnami-dokumentami obliczane jest wykorzystując odległość kosinusową. Metoda \textit{LSA} łagodzi problem synonimów poprzez scalanie podobnych słów w~jeden temat. Niweluje również problem homonimów, włączając je częściowo w~skład różnych tematów. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za~liczbę tematów część semantycznie odrębnych tematów może zostać wchłonięta przez~inne lub też rozbicie na~tematy może być zbyt ,,drobne'' nie~wykorzystując w~pełni semantycznych powiązań.
+\textit{Latent semantic analysis} (ukryta analiza semantyczna, \textit{LSA})~\cite{lsa}, znane również jako \textit{latent semantic indexing} (ukryte indeksowanie semantyczne, w dalszej części pracy używam skrótu \textit{LSI}) dokonuje transformacji każdego dokumentu w~wektor dł.~$|V|$ posiadający na~$i$-tym miejscu wagę \textit{TF-IDF} $i$-tego słowa ze~słownika. W~ten sposób tworzona jest rzadka macierz: kolumny reprezentują dokumenty, a~wiersze reprezentują unikalne słowa. W~celu identyfikacji istotnych cech tej macierzy dokonuje~się rozkładu według wartości osobliwych (\textit{singular value decomposition}~\cite{svd}, \textit{SVD}), który jest techniką redukcji wymiarowości. Celem użycia \textit{SVD} jest redukcja liczby wierszy macierzy dla~wydajniejszych dalszych obliczeń numerycznych oraz~pozbycie~się szumów, utrzymując jednocześnie podobieństwa pomiędzy kolumnami. Ostatecznie uzyskuje~się macierz przynależności tematów do~dokumentów, gdzie wiersze odpowiadające tematom można interpretować jako kombinacje pierwotnych wierszy-słów o~podobnym znaczeniu. Np. \textit{\{(,,samochód''), (,,ciągnik''), (,,jezdnia'')\}}~$\to$~\textit{\{(1.3452 * ,,samochód'' + 0.2828 * ,,ciągnik'' + 0.3 * ,,jezdnia'')\}}. Wymiar uzyskiwanej macierzy jest ustalany za~pomocą hiperparametru, który oznacza liczbę tematów. Używając uzyskanej macierzy, podobieństwo pomiędzy kolumnami-dokumentami obliczane jest wykorzystując odległość kosinusową. Metoda \textit{LSA} łagodzi problem synonimów poprzez scalanie podobnych słów w~jeden temat. Niweluje również problem homonimów, włączając je częściowo w~skład różnych tematów. Niemniej jednak poprzez arbitralne ustalanie hiperparametru odpowiedzialnego za~liczbę tematów część semantycznie odrębnych tematów może zostać wchłonięta przez~inne lub też rozbicie na~tematy może być zbyt ,,drobne'' nie~wykorzystując w~pełni semantycznych powiązań.
 
 %(2003)
 %This means that if we have an LSI representation of a collection of documents, a new document not in the collection can be ``folded in'' to this representation using Equation 244. This allows us to incrementally add documents to an LSI representation. Of course, such incremental addition fails to capture the co-occurrences of the newly added documents (and even ignores any new terms they contain). As such, the quality of the LSI representation will degrade as more documents are added and will eventually require a recomputation of the LSI representation.
 
-\subsection{\textit{Latent Dirichlet Allocation}}
+\subsubsection{\textit{Latent Dirichlet allocation}}
 
-\textit{LDA} \cite{lda} jest techniką automatycznego wykrywania niejawnych (\textit{latent}) tematów zawartych w~dokumentach przy~użyciu uczenia nienadzorowanego. \textit{LDA} reprezentuje dokumenty jako mieszanki tematów, które z~kolei reprezentowane są jako rozkłady prawdopodobieństwa na~zbiorze słów. Liczba tematów ustalana jest za~pomocą hiperparametru. \textit{LDA} jest modelem statystycznym, który wykorzystuje m.in. rozkład Dirichleta. 
+\textit{Latent Dirichlet allocation}(ukryta alokacja Dirichleta, dalej używam skrótu  \textit{LDA})~\cite{lda} jest techniką automatycznego wykrywania niejawnych (\textit{latent}) tematów zawartych w~dokumentach przy~użyciu uczenia nienadzorowanego. \textit{LDA} reprezentuje dokumenty jako mieszanki tematów, które z~kolei reprezentowane są jako rozkłady prawdopodobieństwa na~zbiorze słów. Liczba tematów ustalana jest za~pomocą hiperparametru. \textit{LDA} jest modelem statystycznym, który wykorzystuje m.in. rozkład Dirichleta. 
 
 Rozkład Dirichleta to ciągły rozkład prawdopodobieństwa parametryzowany przez~wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ określa wymiar rozkładu. Gęstość rozkładu Dirichleta wyraża~się wzorem: 
 \begin{equation}
@@ -212,8 +219,8 @@ Ciągłe wykonywanie powyższych kroków doprowadzi do~stabilnej sytuacji, w~kt�
 Zaletą \textit{LDA} jest jego interpretowalność: do~każdego tematu przypisane są z~pewną wagą prawdziwe słowa pochodzące z~przetwarzanego korpusu. Metoda ta może być traktowana jako technika redukcji wymiarowości, gdyż dopasowuje dokumentowi składającemu się z~wielu słów reprezentację złożoną z~małej liczby tematów.
 
 
-\subsection{\textit{Word embeddings}}
-Od 2013r., wraz z~wprowadzeniem przez T.~Mikolova metody \textit{Word2vec} \cite{word2vec} nastąpił gwałtowny rozwój i~niewątpliwy sukces metod \textit{word embeddings}. Określenie \textit{word embeddings} oznacza osadzanie słów w przestrzeni wektorowej przy~pomocy uczenia nienadzorowanego i~zostało po~raz~pierwszy użyte 2003r. w~pracy Y.~Bengio \cite{bengio}, gdzie wektory słów generowane są przez~głęboką sieć neuronową. Ogół technik zaliczanych obecnie do~\textit{word embeddings} cechuje~się usiłowaniem reprezentacji słów wraz z~zależnościami pomiędzy nimi w~postaci wektorów o~stosunkowo niskiej wymiarowości. Dzieje~się to w~opozycji do~wcześniejszych podejść podobnych do~\textit{bag-of-words} --- produkującego ogromne, rzadkie wektory, których wymiary równają~się rozmiarowi słownika, o~który oparty jest model (rzędu setek tysięcy). Ważną własnością metod osadzania słów jest zachowanie przez~wektory semantycznych i~syntaktycznych właściwości słów, co pozwala wykonywać na~nich operacje arytmetyczne odwzorowujące cechy tychże słów, np.~\textit{vector(,,king'')-vector(,,man''+vector(,,woman'')~$\approx$~vector(,,queen'')} 
+\subsection{Osadzanie słów w przestrzeni wektorowej}
+Od 2013r., wraz z~wprowadzeniem przez T.~Mikolova metody \textit{Word2vec}~\cite{word2vec} nastąpił gwałtowny rozwój i~niewątpliwy sukces metod typu \textit{word embeddings}. Określenie \textit{word embeddings} oznacza osadzanie słów w przestrzeni wektorowej przy~pomocy uczenia nienadzorowanego i~zostało po~raz~pierwszy użyte 2003r. w~pracy Y.~Bengio~\cite{bengio}, gdzie wektory słów generowane są przez~głęboką sieć neuronową. Ogół technik zaliczanych obecnie do~\textit{word embeddings} cechuje~się usiłowaniem reprezentacji słów wraz z~zależnościami pomiędzy nimi w~postaci wektorów o~stosunkowo niskiej wymiarowości. Dzieje~się to w~opozycji do~wcześniejszych podejść podobnych do~\textit{bag-of-words} --- produkującego ogromne, rzadkie wektory, których wymiary równają~się rozmiarowi słownika, o~który oparty jest model (rzędu setek tysięcy). Ważną własnością metod osadzania słów jest zachowanie przez~wektory semantycznych i~syntaktycznych właściwości słów, co pozwala wykonywać na~nich operacje arytmetyczne odwzorowujące cechy tychże słów, np.~\textit{vector(,,king'')-vector(,,man''+vector(,,woman'')~$\approx$~vector(,,queen'')} 
 
 Stosowane obecnie podejścia generowania wektorowych reprezentacji słów można podzielić na~dwa typy.
 \begin{enumerate}
@@ -225,14 +232,14 @@ Stosowane obecnie podejścia generowania wektorowych reprezentacji słów można
 Jedną z~szerokiego wachlarza możliwości, jakie dają tego typu techniki jest określanie podobieństwa pomiędzy całymi dokumentami, wykorzystując dodatkowe metody pozwalające przenieść zależności między poszczególnymi słowami dokumentu na zależności między całymi zbiorami słów, co jest istotne z~punktu widzenia tematu niniejszej pracy. Dwie z~nich: metodę centroidu oraz \textit{Word Mover's Distance} opisuję później w tym rozdziale. Warto zauważyć, iż posiadając wektorową reprezentację słów można wyznaczyć ,,odległość'' pomiędzy dwoma dokumentami nawet, jeżeli nie~posiadają one wspólnych słów.
 
 
-\subsection{Podejścia deep learningowe}
+\subsubsection{Podejścia \textit{deep learning}}
 
 Wspomniane podejście Bengio oparte jest o~sieć neuronową typu f\textit{eed-forward} o jednej warstwie ukrytej zgodnie z architekturą z poniższego rysunku.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/bengio_language_model.png}
-	\caption{Neuronowy model języka. Źródło: \cite{bengio}.}
+	\caption{Neuronowy model języka. Źródło~\cite{bengio}.}
 \end{figure}
 
 Celem działania sieci jest maksymalizacja funkcji celu postaci:
@@ -247,7 +254,7 @@ Podejście to jak i kolejne (\cite{c_w}) wykorzystujące głębokie sieci neuron
 Rozwiązaniem tego problemu wydają się być nowe metody wektorowej reprezentacji słów powstałe na~przestrzeni ostatnich lat. W~odróżnieniu od metod opartych o \textit{deep learning}, opierają się one o~metody szybkiej nauki, np.~o~płytkie sieci neuronowe, które uczą~się na~tyle krótko, że sprawdzają~się one w~zastosowaniach komercyjnych.
 
 
-\subsection{\textit{Word2vec}}%TODO przepisać rozdział tak, by był spójny z poprzednimi
+\subsubsection{\textit{Word2vec}}%TODO przepisać rozdział tak, by był spójny z poprzednimi
 
 Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewątpliwy sukces w~porównaniu z~wcześniejszymi metodami osadzania słów w~przestrzeni wektorowej. Autorzy metody proponują sieć neuronową, która podobnie jak wcześniejsze podejścia ma za~zadanie odtworzyć kontekst danego słowa i~na~tej podstawie dokonać reprezentacji słowa jako wektora liczb rzeczywistych. Różnica jest taka, iż sieć ta ani nie~jest głęboka, ani też nie~zawiera nieliniowych funkcji aktywacji wykorzystywanych we~wcześniejszych modelach. Wyróżnia się dwie odwrotne architektury sieci:
 \begin{itemize}
@@ -264,7 +271,7 @@ Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewą
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
-	\caption{Schemat sieci wykorzystującej podejście \textit{skip-gram} i \textit{CBOW}. Źródło: \cite{word2vec}.}
+	\caption{Schemat sieci wykorzystującej podejście \textit{skip-gram} i \textit{CBOW}. Źródło:~\cite{word2vec}.}
 	%\label{fig:warstwy}
 \end{figure}
 Używając tej stosunkowo prostej architektury można wykonać proces nauki używając milionów słów, których powiązania między sobą zostaną zachowane w~systemie wag sieci neuronowej. Zaletą podejścia \textit{skip-gram} są lepsze wyniki w~przypadku rzadkich słów. Nauka w~przypadku tego podejścia jest jednak wolniejsza niż dla~\textit{CBOW}~\cite{google_word2vec}.
@@ -288,19 +295,19 @@ Jednym z~parametrów metody \textit{Word2vec} jest wymiarowość przestrzeni, w~
 W~sieci nie~jest używana funkcja aktywacji, ale prawdopodobieństwa na~wyjściu są efektem działania funkcji \textit{softmax}. Funkcja ta ma za~zadanie sprowadzić wyjściowe wartości warstwy ukrytej do~postaci rozkładu prawdopodobieństwa. 
 
 
-\subsection{\textit{FastText}}
+\subsubsection{\textit{FastText}}
 
 \textit{FastText}~\cite{fasttext} to biblioteka stworzona w~2016r. w~celu wydajnego uczenia wektorowej reprezentacji słów oraz~klasyfikacji zdań. Od~,,klasycznego'' \textit{Word2vec} różni~się stopniem szczegółowości analizy słów. \textit{Word2vec} traktuje słowo jaką najmniejszą, niepodzielną jednostkę, której wektorową reprezentację usiłuje wyznaczyć. \textit{FastText} natomiast dokonuje analizy również wewnętrznej analizy słów. Wykorzystuje w~tym celu rozbicie słowa na podsłowa --- ciągi znaków o~określonej długości $n$, \textit{character n-grams}. Np.~słowo ,,pokój'' składa~się następujących 3-gramów: [pok], [okó], [kój]. Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i~znaczenie) z~innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w~ogóle nie~ma w~słowniku, jako, że ich podsłowa mogą należeć do~słów w~słowniku się~znajdujących. Zalety te wydają~się być szczególnie obiecujące w~przypadku bogatych morfologicznie języków, np.~języka polskiego, tureckiego, czy fińskiego.
 
 Zasada działania metody bazuje na~\textit{Word2vec}. Jednakże oprócz predykcji tylko całych słów następuje tu również predykcja n-gramów słowa $a$ w~otoczeniu słowa $a$. Ostatecznie słowu $a$ zostaje przypisany wektor składający~się ze~średniej oryginalnej reprezentacji wektorowej słowa oraz reprezentacji jego n-gramów.
 
-Jak pokazuje badanie \cite{fast_text_word2vec} metoda ta sprawdza~się lepiej od~\textit{Word2vec} w~wykrywaniu syntaktycznych podobieństw pomiędzy słowami. 
+Jak pokazuje badanie~\cite{fast_text_word2vec} metoda ta sprawdza~się lepiej od~\textit{Word2vec} w~wykrywaniu syntaktycznych podobieństw pomiędzy słowami. 
 
-\subsection{\textit{GloVe}}
+\subsubsection{\textit{GloVe}}
 
-\textit{GloVe} \cite{glove} (\textit{GLObal VEctors}) jest kolejną wartą uwagi metodą \textit{word embeddings} powstałą na~przestrzeni ostatnich lat. Algorytm \textit{GloVe} różni~się od~\textit{Word2vec} w~sposobie uzyskania wektorowej reprezentacji słów. \textit{Word2vec} jest modelem predykcyjnym, natomiast trening w~GloVe opiera~się na~globalnej macierzy współwystąpień słów. Ponadto, w~porównaniu do~\textit{Word2vec}, \textit{GloVe} stara~się wyznaczyć reprezentacje wektorowe wprost, podczas gdy w~\textit{Word2vec} dzieje~się ,,przy okazji'' --- szkoli~się sieć neuronową nie~w~celu jej dalszego wykorzystania dla~predykcji, a jedynie dla~jej macierzy wag. 
+\textit{GloVe}~\cite{glove} (\textit{GLObal VEctors}) jest kolejną wartą uwagi metodą \textit{word embeddings} powstałą na~przestrzeni ostatnich lat. Algorytm \textit{GloVe} różni~się od~\textit{Word2vec} w~sposobie uzyskania wektorowej reprezentacji słów. \textit{Word2vec} jest modelem predykcyjnym, natomiast trening w~GloVe opiera~się na~globalnej macierzy współwystąpień słów. Ponadto, w~porównaniu do~\textit{Word2vec}, \textit{GloVe} stara~się wyznaczyć reprezentacje wektorowe wprost, podczas gdy w~\textit{Word2vec} dzieje~się ,,przy okazji'' --- szkoli~się sieć neuronową nie~w~celu jej dalszego wykorzystania dla~predykcji, a jedynie dla~jej macierzy wag. 
 
-Algorytm \textit{GloVe} składa się z następujących kroków\cite{glove_cran}:
+Algorytm \textit{GloVe} składa się z następujących kroków~\cite{glove_cran}:
 \begin{enumerate}
 	\item Zgromadź współwystąpienia słów w formie macierzy $X$. Każdy element $X_{ij}$ takiej macierzy reprezentuje jak często słowo $i$ występuje w pobliżu słowa $j$. Zazwyczaj macierz buduje się poprzez skanowanie bazowego korpusu oknem o ustalonej szerokości, w obrębie którego centralne słowo leży w kontekście słów je otaczających. Dodatkowo można tu wprowadzić wagi dla słów malejące wraz ze wzrostem dystansu od słowa centralnego.
 	\item Zdefiniuj ograniczenie dla każdej pary słów: $w_i^Tw_j + b_i + b_j = log(X_{ij})$, gdzie $w_i$ oznacza wektor głównego słowa, $w_j$ słowa leżącego w pobliżu $i$, $b_i$ i $b_j$ to skalary.
@@ -320,7 +327,7 @@ Algorytm \textit{GloVe} składa się z następujących kroków\cite{glove_cran}:
 	\item Dokonaj minimalizacji funkcji kosztu poprzez stopniową aktualizację wektorów $w_i$ i $w_j$.
 \end{enumerate}
 
-\subsection{Odległość między dokumentami}
+\subsection{Odległość między wektorowymi reprezentacjami dokumentów}
 W~celu wykorzystania omówionych metod osadzania słów, należy wybrać metodę obliczania odległości między całymi dokumentami, których słowa potrafimy reprezentować jako wektory. Zakładamy, że jeżeli dystans pomiędzy dokumentami jest mały, to ich tematyka jest podobna.
 \subsubsection{Centroid}
 Najprostszą i~najbardziej intuicyjną metodą obliczenia odległości pomiędzy wektorową reprezentacją dokumentów jest wykonanie dwóch prostych kroków:
@@ -337,15 +344,15 @@ Wadą opisanej powyżej metody jest utrata potencjalnie użytecznych zależnośc
 W~kontrze do~tego prezentuję metodę obliczania dystansu między dokumentami uwzględniającą rozkład wektorów wewnątrz dokumentu.
 
 \subsubsection{\textit{Word Mover's Distance}}
-\textit{Word Mover's Distance} \cite{wmd} to rozwiązanie zwracające odległość między dokumentami tekstowymi. W~tym celu adaptuje algorytm \textit{Earth Mover's Distance} \cite{emd} oraz~wektorową reprezentację słów dokumentu. \textit{WMD} mierzy odległość między dokumentami jako minimalny dystans, jaki wektory słów pierwszego dokumentu muszą ,,pokonać'', aby osiągnąć wartości wektorów z drugiego dokumentu.
+\textit{Word Mover's Distance}~\cite{wmd} to rozwiązanie zwracające odległość między dokumentami tekstowymi. W~tym celu adaptuje algorytm \textit{Earth Mover's Distance}~\cite{emd} oraz~wektorową reprezentację słów dokumentu. \textit{WMD} mierzy odległość między dokumentami jako minimalny dystans, jaki wektory słów pierwszego dokumentu muszą ,,pokonać'', aby osiągnąć wartości wektorów z drugiego dokumentu.
 
 \textit{EMD} jest metodą mierzenia odległości pomiędzy dwoma rozkładami, która opiera~się na~minimalnym koszcie, jaki musi zostać poniesiony, aby dokonać transformacji jednego rozkładu w~drugi. Problem można sformalizować jako problem programowania liniowego, gdzie:
 $P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ są danymi rozkładami o~$m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest masą klastra. $D=[d_{ij}]$ jest macierzą odległości, w~której $d_{ij}$ reprezentuje odległość pomiędzy klastrami $p_i$ i $q_j$. Celem jest znaleźć taki przepływ $F = [f_{ij}]$, gdzie $f_{ij}$ to przepływ pomiędzy $p_i$ i $q_j$, który minimalizuje całościowy koszt
 \begin{equation}
 Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}
 \end{equation}
-przy~odpowiednich ograniczeniach \cite{emd}.
-\textit{EMD} jest dobrze zbadanym problemem transportowym \cite{emd}, dla~którego powstały efektywne metody rozwiązania \cite{emd_method}. 
+przy~odpowiednich ograniczeniach~\cite{emd}.
+\textit{EMD} jest dobrze zbadanym problemem transportowym~\cite{emd}, dla~którego powstały efektywne metody rozwiązania~\cite{emd_method}. 
 
 Przypuśćmy, że dzięki metodzie \textit{Word2vec} dla~słownika $V$ o~$n$ słowach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te słowo ze~słownika $V$. Odległości pomiędzy wektorami reprezentującymi semantycznie zbliżone słowa są relatywnie mniejsze od~odległości dla~słów niezwiązanych ze~sobą. Celem \textit{WMD} jest zawrzeć semantyczne podobieństwo pomiędzy poszczególnymi parami słów w~dystansie pomiędzy~całymi dokumentami. Aby to osiągnąć metoda traktuje dokument jako rozkład, którego $i$-tym elementem jest liczba wystąpień $i$-tego słowa w~tym dokumencie, a następnie stosuje metodę \textit{EMD} do~obliczenia dystansu między tymi rozkładami. Macierz odległości $D$ używana w~metodzie \textit{EMD} jest zbudowana na~bazie odległości między wektorami \textit{Word2vec} reprezentującymi słowa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy słów ze~słownika $V$, a $x_{ij}$ to element macierzy $X$. Autorzy metody określają złożoność metody jako $O(p^3\log p)$, gdzie $p$ to wielkość słownika $V$.
 
@@ -371,7 +378,7 @@ Rezultat miary można interpretować jako ważoną średnią precyzji i~zwrotu.
 
 Powyższe miary dokonują binarnego podziału wyników wyszukiwania: na~relewantne i~nierelewantne. Jednakże część rekomendowanych przedmiotów może być mniej lub bardziej od~innych istotnych dla~użytkownika. W~tym świetle listę rekomendacji można uznać za~pewien ranking, którego elementy mogą być uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z~punktu widzenia ewaluacji metod generujących elementy rankingu. Stąd zachodzi potrzeba wprowadzenia formalnej miary jakości uszeregowania elementów rankingu. Można osiągnąć poprzez rozszerzenie podstawowych metod ewaluacji opartych na~binarnej ocenie relewantności, jak \textit{recall} i~\textit{precision}.
 
-Miara \textit{nDCG} \cite{ndcg} (\textit{Normalized Discounted Cumulative Gain}) jest miarą jakości rankingu, która opiera~się na~założeniu, że im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy. Miara ta mierzy skumulowany ,,zysk'' powstały poprzez umieszczenie poszczególnych przedmiotów na~określonych pozycjach rankingu. Miara \textit{nDCG} jest znormalizowaną wersją miary \textit{DCG} (\textit{Discounted Cumulative Gain}), która wyraża~się wzorem: 
+Miara \textit{nDCG}~\cite{ndcg} (\textit{Normalized Discounted Cumulative Gain}) jest miarą jakości rankingu, która opiera~się na~założeniu, że im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy. Miara ta mierzy skumulowany ,,zysk'' powstały poprzez umieszczenie poszczególnych przedmiotów na~określonych pozycjach rankingu. Miara \textit{nDCG} jest znormalizowaną wersją miary \textit{DCG} (\textit{Discounted Cumulative Gain}), która wyraża~się wzorem: 
 \begin{equation}
 {\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {2^{{rel_{{i}}}}-1}{\log _{{2}}(i+1)}},
 \end{equation}
@@ -428,8 +435,8 @@ Niżej opisuję kolejne kroki wstępnego przetwarzania tekstu, które wykonuję 
 	\item Oczyszczanie tekstu ze~zbędnych, wspomnianych wcześniej znaczników. Z~punktu widzenia semantycznej analizy tekstu są one bezużyteczne, czy wręcz szkodliwe (powodują pewne ,,zanieczyszczenie'' tekstu). Stąd usuwam je wykorzystując odpowiednio skonstruowane wyrażenia regularne.
 	\item Usunięcie ,,słów stopu''(ang. \textit{stopwords}) --- na~ogół krótkich słów niewnoszących nic do~znaczenia całości artykułu. Są to np.~,,w'', ,,z'', ,,ponieważ''. Ich usunięcie zmniejsza liczbę słów dokumentu skracając tym samym czas jego przetwarzania. Jako, że słowa te występują często, usunięcie ich daje możliwość uwypuklenia znaczenia innych słów mających wpływ na~rzeczywiste znaczenie całego artykułu. Zbiór słów stopu czerpię z~\cite{stopwords}.
 \item Sprowadzenie wszystkich słów dokumentu do~małych liter. Pomaga to ujednolicić postać części słów o~tym samym znaczeniu, wśród których jedno występuje na~początku zdania, a inne w~środku.
-	\item Rozbicie słów połączonych myślnikiem. Doświadczenie w~późniejszym etapie (tokenizacji) pokazuje, że narzędzie jej dokonujące (\textit{Morfologik} \cite{morfologik}) nie~radzi sobie z~tego typu słowami (np.~,,biało-czerwony'') i~zostawia je w~niezmienionej postaci gramatycznej (np.~,,biało-czerwonego''). Stąd konieczność ręcznego wykonania przeze~mnie mechanizmu rozbijającego takie słowa do~postaci kompatybilnej z~tokenizerem. Do~wykonania odpowiedniej funkcji potrzebna była wcześniejsza analiza tego typu słów pod~kątem zachowania obu członów~w zależności od~ich rodzaju, przypadku i występowania konkretnych liter w~sufiksach słów składowych. Zależało mi także, aby nie~rozbijać słów będących nazwami własnymi, czy symbolami urządzeń.
-\item Tokenizacja. Jest to najistotniejszy element całego procesu. Polega na~sprowadzaniu słów o~tym samym znaczeniu, a różnej formie gramatycznej do~tej samej postaci. Sporym utrudnieniem jest tutaj stopień skomplikowania języka polskiego oraz liczba wyjątków, jaką ten język posiada. Za~przykład może posłużyć słowo ,,mieć'', którego jedna z~form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie każdego z~tych wyrazów do~formy podstawowej ,,mieć''. Do~przeprowadzenia tej operacji stosuję narzędzie \textit{Morfologik} \cite{morfologik}.
+	\item Rozbicie słów połączonych myślnikiem. Doświadczenie w~późniejszym etapie (tokenizacji) pokazuje, że narzędzie jej dokonujące (\textit{Morfologik}~\cite{morfologik}) nie~radzi sobie z~tego typu słowami (np.~,,biało-czerwony'') i~zostawia je w~niezmienionej postaci gramatycznej (np.~,,biało-czerwonego''). Stąd konieczność ręcznego wykonania przeze~mnie mechanizmu rozbijającego takie słowa do~postaci kompatybilnej z~tokenizerem. Do~wykonania odpowiedniej funkcji potrzebna była wcześniejsza analiza tego typu słów pod~kątem zachowania obu członów~w zależności od~ich rodzaju, przypadku i występowania konkretnych liter w~sufiksach słów składowych. Zależało mi także, aby nie~rozbijać słów będących nazwami własnymi, czy symbolami urządzeń.
+\item Tokenizacja. Jest to najistotniejszy element całego procesu. Polega na~sprowadzaniu słów o~tym samym znaczeniu, a różnej formie gramatycznej do~tej samej postaci. Sporym utrudnieniem jest tutaj stopień skomplikowania języka polskiego oraz liczba wyjątków, jaką ten język posiada. Za~przykład może posłużyć słowo ,,mieć'', którego jedna z~form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie każdego z~tych wyrazów do~formy podstawowej ,,mieć''. Do~przeprowadzenia tej operacji stosuję narzędzie \textit{Morfologik}~\cite{morfologik}.
 \end{enumerate}
 
 Użycie wymienionych technik nie jest jedynym standardem, a wynikiem analizy przetwarzanych danych i~techniki te zostały dobrane dla~tego konkretnego przypadku
@@ -464,7 +471,11 @@ Inną praktyką umożliwiającą obiektywną ocenę, wykorzystywaną w~działaj�
 
 Z~powodu braku możliwości wykorzystania do~ewaluacji realnych użytkowników serwisu internetowego jestem zmuszony wprowadzić własne miary oparte na~dostępnych danych. Należy tu zaznaczyć niedoskonałość wprowadzanych miar, ponieważ każda z~nich opiera~się na~pewnych założeniach, od~których prawdziwości zależy jakość całej miary.
 
-Testowane metody adaptuję tak, aby na~podstawie pewnego artykułu bazowego otrzymywać listę artykułów podobnych do~niego uszeregowanych pod~kątem relewantności malejąco. Takie działanie można sformalizować w~postaci funkcji $S_p: a_j \to \{a_{i}\}_{i < p}$, gdzie $a$ to artykuł, a $p$ to liczba elementów zwracanego ciągu. Funkcja $S$ przyjmuje artykuł tekstowy i~zwraca skończony ciąg artykułów do~niego podobnych zgodnie ze~stopniem dopasowania (najlepsze na~początku). Celem działania niżej opisanych miar jest każdej parze postaci: artykuł wejściowy-jeden z~wyznaczonych artykułów podobnych przypisać ocenę tego podobieństwa --- relewantność. Np.~metoda $S$ dla~artykułu $X$ zwraca ciąg {$Y_1$, $Y_2$, ...}. Dla każdej z~par za~pomocą poniższych metod ewaluacji można określić relewantność np.~$rel(X, Y_1) = a_1, rel(X, Y_2) = a_2$ itd. Następnie wyniki dla~metody $S$ i~wejścia $X$ należy zagregować. Dokonuję tego na~dwa sposoby.
+Testowane metody adaptuję tak, aby na~podstawie pewnego artykułu bazowego otrzymywać listę artykułów podobnych do~niego uszeregowanych pod~kątem relewantności malejąco. Takie działanie można sformalizować w~postaci funkcji 
+\begin{equation}
+S_p: a_j \to \{a_{i}\}_{i < p},
+\end{equation}
+gdzie $a$ to artykuł, a $p$ to liczba elementów zwracanego ciągu. Funkcja $S$ przyjmuje artykuł tekstowy i~zwraca skończony ciąg artykułów do~niego podobnych zgodnie ze~stopniem dopasowania (najlepsze na~początku). Celem działania niżej opisanych miar jest każdej parze postaci: artykuł wejściowy-jeden z~wyznaczonych artykułów podobnych przypisać ocenę tego podobieństwa --- relewantność. Np.~metoda $S$ dla~artykułu $X$ zwraca ciąg {$Y_1$, $Y_2$, ...}. Dla każdej z~par za~pomocą poniższych metod ewaluacji można określić relewantność np.~$rel(X, Y_1) = a_1, rel(X, Y_2) = a_2$ itd. Następnie wyniki dla~metody $S$ i~wejścia $X$ należy zagregować. Dokonuję tego na~dwa sposoby.
 \begin{itemize}
 	\item Obliczenie średniej $\frac{1}{p}\sum_{i=1}^{p}relevance(X,Y_1)$.
 	\item Użycie metody \textit{nDCG}, gdzie relewantność to wynik poszczególnych ewaluacji podobieństwa artykułów.
@@ -558,7 +569,7 @@ Wykonuję testy adaptacji metod wektorowej reprezentacji słów~dla wielu konfig
 
 \subsubsection{Korpus bazowy}
 
-Pierwszy model \textit{Word2vec}, z jakim miałem styczność to model\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie Słowosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia \textit{Word2Vec}: metoda \textit{skip-gram}, wektory długości 100, okno kontekstu wielkości 5.
+Pierwszy model \textit{Word2vec}, z jakim miałem styczność to model~\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie Słowosieci wer. 10~\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia \textit{Word2Vec}: metoda \textit{skip-gram}, wektory długości 100, okno kontekstu wielkości 5.
 
 Model ten zawiera 73875 spośród 98174 (75\%) unikalnych słów korpusu artykułów \textit{Allegro} oraz 7313915 z 7409145 (99\%) wszystkich słów korpusu artykułów. Wskazuje to, iż słowa nieobecne w modelu są bardzo mało popularne w korpusie artykułów (stanowią ok 1\% całości). Po samodzielnym sprawdzeniu stwierdzam, że słowa nieobecne w modelu to: ,,literówki'' lub słowa niepoprawnie stokenizowane (np. ,,urządzeia''), symbole marek produktów (np.~,,ux305fa'', ,,i7-4700qm''), żargon branżowy (np.~,,bootsów''), złożenia wyrazów (np.~,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np.~,,thermoprotect''). Uważam, iż mimo niewielkiej liczby tych słów w stosunku do modelu mogą mieć one znaczący wpływ na semantykę artykułów.
 
@@ -971,6 +982,21 @@ Można by zastosować inne metody wyznaczania odległości między~wektorowymi r
 %Inne ciekawe badania w tym temacie
 %Kwestie, które wykraczają poza zakres niniejszej pracy, a są związane z jej tematyką
 %Otrzymane wyniki nie wskazują jednoznacznej przewagi jednej metody nad innymi.
+
+%TODO:
+%przeglądowy artykuł naukowy o rekomendacjach
+%opisać systemy wyszukiwania
+%w tekście numery wzorów
+%poprawić referencję word2vec
+%dlaczego taka złożoność WMD
+%precyzja i zwrot po angielsku
+%wykres kategorii
+%przykłady znaczników z artykułów
+%literówki i przecinki jeszcze raz
+%paragraf z metodą clicks
+%paragraf o piaseckim
+%podsumowanie
+%bibliografia
 
 \begin{thebibliography}{30}
 	\bibitem{allegro}
