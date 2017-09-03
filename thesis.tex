@@ -4,8 +4,8 @@
 \usepackage{float}
 \setlength{\parindent}{5mm} % wcięcie akapitowe 5mm, zarządzenie Rektora
 \usepackage{hyperref}
+\usepackage{diagbox}
 \def\UrlBreaks{\do\/\do-}
-
 % ------------ Ustawienia autora pracy ---------------
 
 \setboolean{lady}{false} % kobiety wpisują true, mężczyźni - false
@@ -480,9 +480,9 @@ Jak wspomniałem wcześniej dane prócz treści artykułów zawierają również
 
 \subsection{Kategorie} 
 
-Pierwszą zastosowaną miarą, pozwalającą ocenić jakość dopasowania podobnych artykułów jest ich odległość we~wcześniej wspomnianym drzewie kategorii. Formalnie wartość miary to długość części wspólnej ścieżek od~korzenia drzewa kategorii do~węzłów reprezentujących artykuły. Im więcej wspólnych przodków w~drzewie, tym bardziej podobne do~siebie są artykuły reprezentowane przez~węzły drzewa. Zaletą miary jest fakt, iż przypisanie artykułu do~kategorii zostało wykonane przez autora, którego można określić ekspertem w~dziedzinie tematyki artykułu. Stąd przynależność artykułu do~danej kategorii jest mocno uzasadniona. Kolejną zaletą tej miary jest fakt, iż można ją zastosować automatycznie --- wiedza ekspercka jest już zapisana w~metadanych artykułów. Należy zaznaczyć tu jednak, że miara nie~jest idealna --- każdy artykuł należy do~tylko jednego liścia drzewa kategorii. Stąd artykuł poruszający zagadnienia z~różnych obszarów, który można by przypisać dwóm stosunkowo odległym kategoriom $A$ i~$B$, zostanie przypisany tylko do~jednej kategorii, np.~$A$. Miara pokaże wtedy dużą odległość od~artykułów z~kategorii $B$, co nie~jest prawdą.
+Pierwszą zastosowaną miarą, pozwalającą ocenić jakość dopasowania podobnych artykułów jest ich odległość we~wcześniej wspomnianym drzewie kategorii. Formalnie wartość miary to długość części wspólnej ścieżek od~korzenia drzewa kategorii do~węzłów reprezentujących artykuły. Im więcej wspólnych przodków w~drzewie, tym bardziej podobne do~siebie są artykuły reprezentowane przez~węzły drzewa. Zaletą miary jest fakt, iż przypisanie artykułu do~kategorii zostało wykonane przez autora, którego można określić ekspertem w~dziedzinie tematyki artykułu. Stąd przynależność artykułu do~danej kategorii jest mocno uzasadniona. Kolejną zaletą tej miary jest fakt, iż można ją zastosować automatycznie --- wiedza ekspercka jest już zapisana w~metadanych artykułów. Należy zaznaczyć tu jednak, że miara nie~jest idealna --- każdy artykuł należy do~tylko jednego liścia drzewa kategorii. Stąd artykuł poruszający zagadnienia z~różnych obszarów, który można by przypisać dwóm stosunkowo odległym kategoriom $A$ i~$B$, zostanie przypisany tylko do~jednej kategorii, np.~$A$. Miara pokaże wtedy dużą odległość od~artykułów z~kategorii $B$, co nie~jest prawdą. Wartości miary normalizuję, dzieląc je przez~głębokość drzewa kategorii: 8.
 
-Za~przykład mogą posłużyć drzewa na~poniższych rysunkach. W~drzewie 1. artykuły $X$ i~$Y$ mają dwie wspólne kategorie, stąd $relevance(X, Y) = 2$. Natomiast artykuły $Y$ i~$Z$ z~drugiego drzewa mają trzech wspólnych przodków, stąd $relevance(Y, Z)=3$. Miara wskazuje, że artykuły $X$ i~$Y$ są do~siebie mniej podobne, niż artykuły $Y$ i~$Z$.
+Za~przykład mogą posłużyć drzewa na~poniższych rysunkach. W~drzewie 1. artykuły $X$ i~$Y$ mają dwie wspólne kategorie, stąd $relevance(X, Y) = \frac{2}{8} = 0.25$. Natomiast artykuły $Y$ i~$Z$ z~drugiego drzewa mają trzech wspólnych przodków, stąd $relevance(Y, Z)=\frac{3}{8} = 0.375$. Miara wskazuje, że artykuły $X$ i~$Y$ są do~siebie mniej podobne, niż artykuły $Y$ i~$Z$.
 
 \begin{figure}[H]
 	\centering
@@ -502,7 +502,7 @@ Za~przykład mogą posłużyć drzewa na~poniższych rysunkach. W~drzewie 1. art
 
 Kolejna miara oparta na~metadanych artykułów korzysta ze~słów kluczowych. Wśród ogółu słów kluczowych występują niespójności, których większość zlikwidowałem poprzez~sprowadzenie słów od~małych liter oraz~usunięciu ,,słów stopu''. Po~tej unifikacji liczba unikalnych słów kluczowych to 58565.
 
-Niniejsza miara działa podobnie do~poprzedniej opartej o~kategorie. Para artykułów otrzymuje 1~punkt za~każdą wspólną parę posiadanych kategorii. Np. dla~artykułu $X$ o~słowach kluczowych \{,,kosmetyki'', ,,kremy'', ,,zmarszczki''\} oraz~$Y$ o~słowach kluczowych \{,,kosmetyki'', ,,żele do włosów'', ,,kremy'', ,,szampony''\} $relevance(X,Y)=2$, ponieważ oba artykuły mają dwa wspólne słowa kluczowe (,,kosmetyki'' i ,,kremy'').
+Niniejsza miara działa podobnie do~poprzedniej opartej o~kategorie. Para artykułów otrzymuje 1~punkt za~każdą wspólną parę posiadanych kategorii. Następnie wartość jest normalizowana poprzez podzielenie przez~maksymalną liczbę wspólnych słów kluczowych, tj. 6. Np. dla~artykułu $X$ o~słowach kluczowych \{,,kosmetyki'', ,,kremy'', ,,zmarszczki''\} oraz~$Y$ o~słowach kluczowych \{,,kosmetyki'', ,,żele do włosów'', ,,kremy'', ,,szampony''\} $relevance(X,Y)=\frac{2}{6}=0.(3)$, ponieważ oba artykuły mają dwa wspólne słowa kluczowe (,,kosmetyki'' i ,,kremy'').
 
 \section{Miara 2: Historyczna aktywność użytkowników serwisu}
 
@@ -562,7 +562,7 @@ Wykonuję testy adaptacji metod wektorowej reprezentacji słów~dla wielu konfig
 
 Pierwszy model \textit{Word2vec}, z jakim miałem styczność to model\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie Słowosieci wer. 10\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia \textit{Word2Vec}: metoda \textit{skip-gram}, wektory długości 100, okno kontekstu wielkości 5.
 
-Model ten zawiera 73875 spośród 98174 (75\%) unikalnych słów korpusu artykułów \textit{Allegro} oraz 7313915 z 7409145 (99\%) wszystkich słów korpusu artykułów. Wskazuje to, iż słowa nieobecne w modelu są bardzo mało popularne w korpusie artykułów (stanowią ok 1\% całości). Po samodzielnym sprawdzeniu stwierdzam, że słowa nieobecne w modelu to: ,,literówki'' lub słowa niepoprawnie stokenizowane (np. ,,urządzeia''), symbole marek produktów (np.~,,ux305fa'', ,,i7-4700qm''), żargon branżowy (np.~,,bootsów''), złożenia wyrazów (np.~,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np.~,,thermoprotect''). Uważam, iż mimo niewielkiej liczby tych słów w stosunku mogą mieć one znaczący wpływ na semantykę artykułów.
+Model ten zawiera 73875 spośród 98174 (75\%) unikalnych słów korpusu artykułów \textit{Allegro} oraz 7313915 z 7409145 (99\%) wszystkich słów korpusu artykułów. Wskazuje to, iż słowa nieobecne w modelu są bardzo mało popularne w korpusie artykułów (stanowią ok 1\% całości). Po samodzielnym sprawdzeniu stwierdzam, że słowa nieobecne w modelu to: ,,literówki'' lub słowa niepoprawnie stokenizowane (np. ,,urządzeia''), symbole marek produktów (np.~,,ux305fa'', ,,i7-4700qm''), żargon branżowy (np.~,,bootsów''), złożenia wyrazów (np.~,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np.~,,thermoprotect''). Uważam, iż mimo niewielkiej liczby tych słów w stosunku do modelu mogą mieć one znaczący wpływ na semantykę artykułów.
 
 W związku z powyższym stwierdzeniem wykonuję naukę modelu \textit{Word2vec} również na własnym korpusie artykułów w celu zawarcia brakujących w poprzednim modelu słów. Najrozsądniejszym postępowaniem byłoby tutaj rozszerzenie modelu opartego na korpusie Słowosieci również o brakujące słowa, jednak metoda \textit{Word2vec} nie pozwala na dodanie nowych słów do słownika istniejącego modelu, a jedynie na dalszą naukę w oparciu o słowa już istniejące w słowniku. Siłą rzeczy model zbudowany na zbiorze artykułów zawiera wszystkie słowa występujące w artykułach słowa. Korpusu tego używam do tworzenia modelów w oparciu o wszystkie pozostałe sposoby.
 
@@ -612,13 +612,13 @@ Dokonuję porównania jakości modelu \textit{LSI} w~zależności od~wartości 
 	\centering
 	\begin{tabular}{lrrrr}
 		\hline
-		&       100 &      300 &      500 &      600 \\
+		liczba tematów &       100 &      300 &      500 &      600 \\
 		\hline
-		mut\_cat      & 3.43131   & 3.50634  & 3.52346  & 3.51793  \\
-		mut\_kw       & 1.77666   & 2.20166  & 2.38808  & 2.33861  \\
-		mut\_cat\_ndcg & 0.507238  & 0.516217 & 0.518053 & 0.517515 \\
-		mut\_kw\_ndcg  & 0.0972985 & 0.119504 & 0.129079 & 0.126829 \\
-		clicks       & 0.865496  & 0.868586 & 0.878243 & 0.87366  \\
+		mut\_cat      & 0.4289 & 0.4383 & 0.4404 & 0.4397 \\
+		mut\_cat\_ndcg & 0.5072 & 0.5162 & 0.5181 & 0.5175 \\
+		mut\_kw       & 0.2961 & 0.3669 & 0.3980  & 0.3898 \\
+		mut\_kw\_ndcg  & 0.0973 & 0.1195 & 0.1291 & 0.1268 \\
+		clicks       & 0.9255 & 0.8914 & 0.9132 & 0.9133 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{LSI} dla zmiennej liczby tematów.}
@@ -626,7 +626,7 @@ Dokonuję porównania jakości modelu \textit{LSI} w~zależności od~wartości 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/lsi.png}
+	\includegraphics[width=0.75\textwidth]{img/results/lsi_.png}
 	\caption{Wykres porównujący znormalizowane wyniki dla~metody \textit{LSI}.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -642,13 +642,13 @@ Podobnie jak w~poprzednim punkcie dokonuję porównania jakości modelu \textit
 	\centering
 	\begin{tabular}{lrrrrrr}
 		\hline
-		&       100 &       300 &       500 &       700 &       900 &      1100 \\
+		liczba tematów &       100 &       300 &       500 &       700 &       900 &      1100 \\
 		\hline
-		mut\_cat      & 3.29108   & 3.34755   & 3.35077   & 3.36767   & 3.39972   & 3.3788    \\
-		mut\_cat\_ndcg & 0.48793   & 0.495011  & 0.494236  & 0.497623  & 0.500823  & 0.498854  \\
-		mut\_kw       & 1.31741   & 1.48792   & 1.58854   & 1.69146   & 1.76637   & 1.75904   \\
-		mut\_kw\_ndcg  & 0.0733675 & 0.0815366 & 0.0880742 & 0.0919873 & 0.0961874 & 0.0963659 \\
-		clicks       & 0.880891  & 0.90278   & 0.879733  & 0.906384  & 0.912387  & 0.890913  \\
+		mut\_cat      & 0.4114 & 0.4184 & 0.4188 & 0.4210  & 0.4250  & 0.4223 \\
+		mut\_cat\_ndcg & 0.4879 & 0.4950  & 0.4942 & 0.4976 & 0.5008 & 0.4989 \\
+		mut\_kw       & 0.2196 & 0.2480  & 0.2648 & 0.2819 & 0.2944 & 0.2932 \\
+		mut\_kw\_ndcg  & 0.0734 & 0.0815 & 0.0881 & 0.092  & 0.0962 & 0.0964 \\
+		clicks       & 0.8809 & 0.9028 & 0.8797 & 0.9064 & 0.9124 & 0.8909 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{LDA} dla~zmiennej liczby tematów.}
@@ -656,7 +656,7 @@ Podobnie jak w~poprzednim punkcie dokonuję porównania jakości modelu \textit
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/lda.png}
+	\includegraphics[width=0.75\textwidth]{img/results/lda_.png}
 	\caption{Wykres porównujący znormalizowane wyniki dla~metody \textit{LDA}.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -672,13 +672,13 @@ Poniżej zestawiam wyniki dla~modelów \textit{Word2vec} o~wektorach długości 
 	\centering
 	\begin{tabular}{lrr}
 		\hline
-		&   w2v100\_art &   w2v100\_wn \\
+		sygnatura metody &   w2v100\_art &   w2v100\_wn \\
 		\hline
-		mut\_cat      &    3.41328   &   3.38265   \\
-		mut\_cat\_ndcg &    0.504018  &   0.496797  \\
-		mut\_kw       &    1.66191   &   1.67062   \\
-		mut\_kw\_ndcg  &    0.0896029 &   0.0885063 \\
-		clicks       &    0.946487  &   0.946191  \\
+		mut\_cat      &       0.4267 &      0.4228 \\
+		mut\_cat\_ndcg &       0.504  &      0.4968 \\
+		mut\_kw       &       0.277  &      0.2784 \\
+		mut\_kw\_ndcg  &       0.0896 &      0.0885 \\
+		clicks       &       0.9465 &      0.9462 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{Word2vec} w~zależności od~korpusu, na~którym trenowany był model.}
@@ -686,7 +686,7 @@ Poniżej zestawiam wyniki dla~modelów \textit{Word2vec} o~wektorach długości 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
+	\includegraphics[width=0.75\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
 \caption{Wykres porównujący znormalizowane wyniki dla~metody \textit{Word2vec} w~zależności od~bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -703,13 +703,13 @@ W~niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
-		&   w2v100\_centroid &   w2v100\_lda100 &   w2v100\_wmd \\
+		sygnatura metody &   w2v100\_centroid &   w2v100\_lda100 &   w2v100\_wmd \\
 		\hline
-		mut\_cat      &         3.41763   &       3.25386   &     3.17404  \\
-		mut\_cat\_ndcg &         0.504596  &       0.482482  &     0.54389  \\
-		mut\_kw       &         1.66962   &       1.2749    &     1.14807  \\
-		mut\_kw\_ndcg  &         0.0900018 &       0.0701703 &     0.096873 \\
-		clicks       &         0.938998  &       0.888249  &     0.996717 \\
+		mut\_cat      &            0.4267 &          0.4044 &       0.3968 \\
+		mut\_cat\_ndcg &            0.504  &          0.4797 &       0.5439 \\
+		mut\_kw       &            0.277  &          0.2065 &       0.1913 \\
+		mut\_kw\_ndcg  &            0.0896 &          0.0686 &       0.0969 \\
+		clicks       &            0.9465 &          0.8985 &       0.9967 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{Word2vec} dla~wektorów dł.~100 w~zależności od~metody porównywania wektorowych reprezentacji dokumentów.}
@@ -717,7 +717,7 @@ W~niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
+	\includegraphics[width=0.75\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
 	\caption{Porównanie znormalizowanych wyników dla~metody \textit{Word2vec} w~zależności od~sposobu wyznaczania podobieństwa między~wektorowymi reprezentacjami dokumentów.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -729,21 +729,21 @@ W~niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
-		&   w2v300\_ctr &   w2v300\_lda100 &   w2v300\_wmd \\
-		\hline
-		mut\_cat      &    3.42132   &       3.25724   &     3.1182   \\
-		mut\_cat\_ndcg &    0.505457  &       0.482896  &     0.705453 \\
-		mut\_kw       &    1.68395   &       1.27438   &     1.02838  \\
-		mut\_kw\_ndcg  &    0.0906939 &       0.0701459 &     0.120046 \\
-		clicks       &    0.936386  &       0.891596  &     0.940603 \\
-		\hline
+		sygnatura metody &   w2v300\_ctr &   w2v300\_lda100 &   w2v300\_wmd \\
+	\hline
+	mut\_cat      &            0.4277 &          0.4072 &       0.3898 \\
+	mut\_cat\_ndcg &            0.5055 &          0.4829 &       0.7055 \\
+	mut\_kw       &            0.2807 &          0.2124 &       0.1714 \\
+	mut\_kw\_ndcg  &            0.0907 &          0.0701 &       0.1200   \\
+	clicks       &            0.9364 &          0.8916 &       0.9406 \\
+	\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{Word2vec} dla~wektorów dł.~300 w~zależności od~metody porównywania wektorowych reprezentacji dokumentów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/w2v300_ctr_w2v300_lda100_w2v300_wmd_.png}
+	\includegraphics[width=0.75\textwidth]{img/results/w2v300_centroid_w2v300_lda100_w2v300_wmd_.png}
 	\caption{Porównanie znormalizowanych wyników dla~metody \textit{Word2vec}~w zależności od~sposobu wyznaczania podobieństwa między wektorowymi reprezentacjami dokumentów.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -765,13 +765,13 @@ W niniejszym punkcie porównuję jakość metod \textit{word embeddings} (\texti
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
-		&       100 &       300 &      1000 \\
+		długość wektorów &       100 &       300 &      1000 \\
 		\hline
-		mut\_cat      & 3.41328   & 3.42132   & 3.41763   \\
-		mut\_cat\_ndcg & 0.504018  & 0.505457  & 0.504596  \\
-		mut\_kw       & 1.66191   & 1.68395   & 1.66962   \\
-		mut\_kw\_ndcg  & 0.0896029 & 0.0906939 & 0.0900018 \\
-		clicks       & 0.946487  & 0.936386  & 0.938998  \\
+		mut\_cat      & 0.4267 & 0.4277 & 0.4272 \\
+		mut\_cat\_ndcg & 0.504  & 0.5055 & 0.5046 \\
+		mut\_kw       & 0.277  & 0.2807 & 0.2783 \\
+		mut\_kw\_ndcg  & 0.0896 & 0.0907 & 0.09   \\
+		clicks       & 0.9465 & 0.9364 & 0.939  \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{Word2vec} dla zmiennej długości wektorów.}
@@ -779,7 +779,7 @@ W niniejszym punkcie porównuję jakość metod \textit{word embeddings} (\texti
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/w2v_ctr.png}
+	\includegraphics[width=0.75\textwidth]{img/results/w2v_ctr.png}
 	\caption{Porównanie znormalizowanych wyników dla metody \textit{Word2vec} w zależności od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -792,13 +792,13 @@ Dla~różnej wymiarowości wektorów wyjściowych metoda \textit{Word2vec} daje 
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
-		&      100 &      300 &     1000 \\
+		długość wektorów &      100 &      300 &     1000 \\
 		\hline
-		mut\_cat      & 3.4595   & 3.4595   & 3.54532  \\
-		mut\_cat\_ndcg & 0.510077 & 0.510077 & 0.523677 \\
-		mut\_kw       & 1.79875  & 1.79875  & 2.15176  \\
-		mut\_kw\_ndcg  & 0.097138 & 0.097138 & 0.115149 \\
-		clicks       & 0.907997 & 0.907997 & 0.879786 \\
+		mut\_cat      & 0.4324 & 0.4324 & 0.4432 \\
+		mut\_cat\_ndcg & 0.5101 & 0.5101 & 0.5237 \\
+		mut\_kw       & 0.2998 & 0.2998 & 0.3586 \\
+		mut\_kw\_ndcg  & 0.0971 & 0.0971 & 0.1151 \\
+		clicks       & 0.908  & 0.908  & 0.8798 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{GloVe} dla zmiennej długości wektorów.}
@@ -806,7 +806,7 @@ Dla~różnej wymiarowości wektorów wyjściowych metoda \textit{Word2vec} daje 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/gv_ctr.png}
+	\includegraphics[width=0.75\textwidth]{img/results/gv_ctr.png}
 	\caption{Porównanie znormalizowanych wyników dla metody \textit{GloVe} w zależności od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -819,21 +819,21 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 	\centering
 	\begin{tabular}{lrrr}
 		\hline
-		&      100 &      300 &     1000 \\
+		długość wektorów &      100 &      300 &     1000 \\
 		\hline
-		mut\_cat      & 3.55494  & 3.57287  & 3.57869  \\
-		mut\_cat\_ndcg & 0.525164 & 0.528378 & 0.528948 \\
-		mut\_kw       & 2.00994  & 2.11828  & 2.16992  \\
-		mut\_kw\_ndcg  & 0.108461 & 0.113908 & 0.116528 \\
-		clicks       & 0.896766 & 0.89745  & 0.885622 \\
+		mut\_cat      & 0.4444 & 0.4466 & 0.4473 \\
+		mut\_cat\_ndcg & 0.5252 & 0.5284 & 0.5289 \\
+		mut\_kw       & 0.335  & 0.353  & 0.3617 \\
+		mut\_kw\_ndcg  & 0.1085 & 0.1139 & 0.1165 \\
+		clicks       & 0.8968 & 0.8974 & 0.8856 \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody FastText dla zmiennej długości wektorów.}
+	\caption{Wyniki ewaluacji metody \textit{FastText} dla zmiennej długości wektorów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
+	\includegraphics[width=0.75\textwidth]{img/results/ft_ctr.png}
 	\caption{Porównanie znormalizowanych wyników dla metody \textit{FastText} w zależności od bazowego korpusu.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -859,13 +859,13 @@ Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów tes
 	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
-		&   lsi500 &    lda900 &    w2v300 &   gv1000 &   ft1000 &   allegro &          rnd \\
+		sygnatura metody &   lsi500 &    lda900 &    w2v300 &   gv1000 &   ft1000 &   allegro &          rnd \\
 		\hline
-		mut\_cat      & 3.523  & 3.400   & 3.421   & 3.545  & 3.579  &  3.471  &   1.233    \\
-		mut\_cat\_ndcg & 0.518 & 0.501  & 0.505  & 0.524 & 0.529 &  0.509 &   0.185    \\
-		mut\_kw       & 2.388  & 1.766   & 1.684   & 2.152  & 2.170  &  3.705  &   0.137   \\
-		mut\_kw\_ndcg  & 0.129 & 0.096 & 0.091 & 0.115 & 0.116 &  0.203 &   0.008 \\
-		clicks       & 0.913 & 0.9064  & 0.936  & 0.880 & 0.886 &  0.890 & ---          \\
+		mut\_cat      &   0.4404 &   0.4250  &   0.4277 &   0.4432 &   0.4473 &    0.4339 &   0.1541 \\
+		mut\_cat\_ndcg &   0.5181 &   0.5008 &   0.5055 &   0.5237 &   0.5289 &    0.5091 &   0.1854 \\
+		mut\_kw       &   0.3980  &   0.2944 &   0.2807 &   0.3586 &   0.3617 &    0.6175 &   0.0229 \\
+		mut\_kw\_ndcg  &   0.1291 &   0.0962 &   0.0907 &   0.1151 &   0.1165 &    0.2027 &   0.0084 \\
+		clicks       &   0.9132 &   0.9124 &   0.9364 &   0.8798 &   0.8856 &    0.8904 & nan      \\
 		\hline
 	\end{tabular}
 	\caption{Zestawienie wyników testów automatycznych dla najlepszych konfiguracji wybranych metod.}
@@ -873,7 +873,7 @@ Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów tes
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_.png}
+	\includegraphics[width=0.75\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_.png}
 	\caption{Porównanie znormalizowanych wyników dla wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -888,7 +888,7 @@ Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie
 	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
-		&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &   rnd \\
+		sygnatura metody &   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &   rnd \\
 		\hline
 		users &    8.415 &    7.895 &    8.185 &     8.61 &     8.68 &      8.47 & 1.345 \\
 		\hline
@@ -898,7 +898,7 @@ Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
+	\includegraphics[width=0.75\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
 	\caption{Porównanie wyników ewaluacji eksperckiej dla wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -912,9 +912,9 @@ Każda z~testowanych metod dała również wynika znacząco lepszy od~metody los
 	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
-		&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &     rnd \\
+		sygnatura metody&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &     rnd \\
 		\hline
-		users\_std &   2.6931 &  2.71551 &  2.59823 &  2.18813 &  2.06097 &    2.4019 & 1.34014 \\
+		users\_std &   2.6931 &   2.7155 &   2.5982 &   2.1881 &    2.061 &    2.4019 & 1.3401 \\
 		\hline
 	\end{tabular}
 	\caption{Zestawienie odchyleń standardowych ocen dokonanych przy~ewaluacji eksperckiej dla~najlepszych konfiguracji wybranych metod.}
@@ -922,7 +922,7 @@ Każda z~testowanych metod dała również wynika znacząco lepszy od~metody los
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users_std.png}
+	\includegraphics[width=0.75\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users_std.png}
 	\caption{Porównanie odchyleń standardowych ocen eksperckich dla~wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -945,7 +945,7 @@ Jakość autorskich automatycznych metod ewaluacji zdaje~się potwierdzać dodat
 \chapter{Podsumowanie pracy i kierunki dalszych badań}
 %TOTO na początku pracy zaać pytania i w podsumowaniu na nie odpowiedzieć
 
-W~niniejszej pracy starałem~się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w~celu wyznaczania artykułów najbardziej podobnych do~danego są w~stanie dorównać dotychczas używanej w~serwisie \textit{Allegro} metodzie opartej o~zapytanie do~silnika wyszukiwania \textit{Elasticsearch}. W~tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w~zależności od~konfiguracji poszczególnych metod. Po~analizie wyników testów można udzielić odpowiedzi: tak, każda~z testowanych metod semantycznej analizy języka naturalnego w~swojej najlepszej konfiguracji może zostać zaadaptowana w~celu generowania rekomendacji artykułów w~oparciu o~treść artykułu aktualnie wyświetlanego przez~użytkownika serwisu. Rekomendacje te w~ocenie użytkowników nie~ustępują jakością dotychczasowej metodzie. 
+W~niniejszej pracy starałem~się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w~celu wyznaczania artykułów najbardziej podobnych do~danego są w~stanie dorównać dotychczas używanej w~serwisie \textit{Allegro} metodzie opartej o~zapytanie do~silnika wyszukiwania \textit{Elasticsearch}. W~tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w~zależności od~konfiguracji poszczególnych metod. Po~analizie wyników testów można udzielić odpowiedzi: tak, każda~ metod semantycznej analizy języka naturalnego w~swojej najlepszej konfiguracji może zostać zaadaptowana w~celu generowania rekomendacji artykułów w~oparciu o~treść artykułu aktualnie wyświetlanego przez~użytkownika serwisu. Rekomendacje te w~ocenie użytkowników nie~ustępują jakością dotychczasowej metodzie. 
 
 Użycie metod semantycznej analizy tekstu pozwala wychwycić ukryte podobieństwa między dokumentami, gdzie dokumenty łączą nie~te same słowa, czy synonimy, ale pewne złożone abstrakcyjne koncepty powiązane ze~sobą. Użycie metod semantycznej analizy tekstu zwalnia autorów artykułów z~samodzielnego opatrywania ich dodatkowymi słowami kluczowymi, gdyż metody te pozwalają wykazać podobieństwo w~oparciu jedynie o~treść dokumentu.
 

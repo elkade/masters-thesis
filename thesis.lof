@@ -15,15 +15,15 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki dla~metody \textit {LSI}.}}{46}{figure.5.1}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki dla~metody \textit {LDA}.}}{47}{figure.5.2}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~bazowego korpusu.}}{49}{figure.5.3}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy~wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{50}{figure.5.4}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec}~w zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{51}{figure.5.5}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody \textit {Word2vec} w zale\IeC {\.z}no\IeC {\'s}ci od bazowego korpusu.}}{53}{figure.5.6}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody \textit {GloVe} w zale\IeC {\.z}no\IeC {\'s}ci od bazowego korpusu.}}{54}{figure.5.7}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody \textit {FastText} w zale\IeC {\.z}no\IeC {\'s}ci od bazowego korpusu.}}{55}{figure.5.8}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla wybranych metod.}}{57}{figure.5.9}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Por\IeC {\'o}wnanie wynik\IeC {\'o}w ewaluacji eksperckiej dla wybranych metod.}}{58}{figure.5.10}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Por\IeC {\'o}wnanie odchyle\IeC {\'n} standardowych ocen eksperckich dla~wybranych metod.}}{59}{figure.5.11}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Wykres por\IeC {\'o}wnuj\IeC {\k a}cy znormalizowane wyniki dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~bazowego korpusu.}}{48}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec} w~zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy~wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{49}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla~metody \textit {Word2vec}~w zale\IeC {\.z}no\IeC {\'s}ci od~sposobu wyznaczania podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w.}}{50}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody \textit {Word2vec} w zale\IeC {\.z}no\IeC {\'s}ci od bazowego korpusu.}}{52}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody \textit {GloVe} w zale\IeC {\.z}no\IeC {\'s}ci od bazowego korpusu.}}{53}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla metody \textit {FastText} w zale\IeC {\.z}no\IeC {\'s}ci od bazowego korpusu.}}{54}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Por\IeC {\'o}wnanie znormalizowanych wynik\IeC {\'o}w dla wybranych metod.}}{55}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Por\IeC {\'o}wnanie wynik\IeC {\'o}w ewaluacji eksperckiej dla wybranych metod.}}{56}{figure.5.10}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Por\IeC {\'o}wnanie odchyle\IeC {\'n} standardowych ocen eksperckich dla~wybranych metod.}}{57}{figure.5.11}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
