@@ -432,24 +432,26 @@ Niżej opisuję kolejne kroki wstępnego przetwarzania tekstu, które wykonuję 
 \item Tokenizacja. Jest to najistotniejszy element całego procesu. Polega na~sprowadzaniu słów o~tym samym znaczeniu, a różnej formie gramatycznej do~tej samej postaci. Sporym utrudnieniem jest tutaj stopień skomplikowania języka polskiego oraz liczba wyjątków, jaką ten język posiada. Za~przykład może posłużyć słowo ,,mieć'', którego jedna z~form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie każdego z~tych wyrazów do~formy podstawowej ,,mieć''. Do~przeprowadzenia tej operacji stosuję narzędzie \textit{Morfologik} \cite{morfologik}.
 \end{enumerate}
 
-Użycie wymienionych technik nie jest jedynym standardem a wynikiem analizy przetwarzanych danych i techniki te zostały dobrane dla tego konkretnego przypadku
+Użycie wymienionych technik nie jest jedynym standardem, a wynikiem analizy przetwarzanych danych i~techniki te zostały dobrane dla~tego konkretnego przypadku
 
 \section{Opis danych po wstępnym przetwarzaniu}
 
-Powyższe kroki doprowadzają dane do stanu, w którym można zastosować techniki semantycznej analizy tekstu. Słownik zbudowany na~wstępnie przetworzonym korpusie zawiera 98174~unikalnych słów, oraz 7409145~wszystkich słów (z~powtórzeniami).
+Powyższe kroki doprowadzają dane do~stanu, w~którym można zastosować techniki semantycznej analizy tekstu. Słownik zbudowany na~wstępnie przetworzonym korpusie zawiera 98174~unikalnych słów, oraz~7409145~wszystkich słów (z~powtórzeniami). Poniższy histogram (2.3) pokazuje, że przytłaczającą większość wśród słownika zbudowanego na~korpusie stanowią słowa występujące rzadko. Ciekawym wydaje~się być fakt dużej liczby słów słownikowych występujących często (ok. 8000 razy) w~stosunku do~słów występujących rzadziej (ok. 7000 razy). Przykładem najczęściej występujących słów są: ,,sam'', ,,uwaga'', ,,ważny'', ,,należeć'', ,,wybrać'', ,,sprawdzić'', ,,model'', ,,miejsce'', ,,znaleźć''. Najrzadziej występujące słowa to: ,,naciągactwo'', ,,phone’ów'', ,,v90'', ,,eurobusiness'', ,,namakać'', ,,bale’a'', ,,hmb'', ,,ameksyka'', ,,e-paper'', ,,süskind''. Widać wśród nich słowa bardzo nietypowe, również w języku codziennym, symbole modeli i marek oraz błędy, tzw. ,,literówki''.
+
+
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/words_hist_log.png}
+	\includegraphics[width=0.75\textwidth]{img/words_hist_log.png}
 	\caption{Histogram liczby wystąpień słów w korpusie w skali logarytmicznej.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Większość artykułów okazała~się być podobnej długości, średnia długość artykułu to 370~słów.
+Większość artykułów okazała~się być podobnej długości, średnia długość artykułu to 370~słów, co widać wprost z rysunku 2.4.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/articles_length_hist.png}
+	\includegraphics[width=0.75\textwidth]{img/articles_length_hist.png}
 	\caption{Histogram długości artykułów.}
 	%\label{fig:warstwy}
 \end{figure}
