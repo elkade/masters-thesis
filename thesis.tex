@@ -438,8 +438,6 @@ Użycie wymienionych technik nie jest jedynym standardem, a wynikiem analizy prz
 
 Powyższe kroki doprowadzają dane do~stanu, w~którym można zastosować techniki semantycznej analizy tekstu. Słownik zbudowany na~wstępnie przetworzonym korpusie zawiera 98174~unikalnych słów, oraz~7409145~wszystkich słów (z~powtórzeniami). Poniższy histogram (2.3) pokazuje, że przytłaczającą większość wśród słownika zbudowanego na~korpusie stanowią słowa występujące rzadko. Ciekawym wydaje~się być fakt dużej liczby słów słownikowych występujących często (ok. 8000 razy) w~stosunku do~słów występujących rzadziej (ok. 7000 razy). Przykładem najczęściej występujących słów są: ,,sam'', ,,uwaga'', ,,ważny'', ,,należeć'', ,,wybrać'', ,,sprawdzić'', ,,model'', ,,miejsce'', ,,znaleźć''. Najrzadziej występujące słowa to: ,,naciągactwo'', ,,phone’ów'', ,,v90'', ,,eurobusiness'', ,,namakać'', ,,bale’a'', ,,hmb'', ,,ameksyka'', ,,e-paper'', ,,süskind''. Widać wśród nich słowa bardzo nietypowe, również w języku codziennym, symbole modeli i marek oraz błędy, tzw. ,,literówki''.
 
-
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/words_hist_log.png}
@@ -472,9 +470,7 @@ Testowane metody adaptuję tak, aby na~podstawie pewnego artykułu bazowego otr
 	\item Użycie metody \textit{nDCG}, gdzie relewantność to wynik poszczególnych ewaluacji podobieństwa artykułów.
 \end{itemize}  
 
-
 Oceny dla~konkretnej metody, dla~ustalonej próby par artykułów są następnie wykorzystane do~wyznaczenia wartości średniej miary \textit{nDCG} tej metody.
-
 
 \section{Miara 1: Dystans oparty na metadanych}
 
@@ -591,7 +587,7 @@ W~celu uzyskania punktu odniesienia dokonuję testów dla~metody losowo wybieraj
 
 \section{Metody ewaluacji}
 
-W~celu wykonania oceny testowanych metod wykorzystuję wszystkie metody ewaluacji opisane w~rozdziale 4, które opatruję skróconymi sygnaturami.
+W~celu wykonania oceny testowanych metod wykorzystuję wszystkie metody ewaluacji opisane w~rozdziale 4, które opatruję skróconymi sygnaturami. Wszystkie miary przyjmują wartości $(0,1]$.
 \begin{enumerate}
 	\item \textit{clicks} --- ocena na~podstawie historycznej aktywności użytkowników mierzona na~podstawie liczby kliknięć w~odnośniki.
 	\item \textit{mut\_cat[\_ndcg]} --- relewantność wyszukanych artykułów liczona na~podstawie liczby wspólnych kategorii z~artykułem bazowym. Stosuję dwa warianty: średnia relewantność wyszukanych artykułów oraz~miara \textit{nDCG}.
@@ -599,16 +595,16 @@ W~celu wykonania oceny testowanych metod wykorzystuję wszystkie metody ewaluacj
 	\item \textit{users} --- ocena na~podstawie eksperckiej oceny użytkowników. W~badaniu wykorzystałem 5~użytkowników operujących każdy na~tym samym zbiorze par testowych. Pary zostały wygenerowane (zgodnie z~wcześniejszym opisem metody) na~podstawie 50 artykułów bazowych wylosowanych spośród wszystkich artykułów udostępnionych mi przez~\textit{Allegro}.
 \end{enumerate}
 
-
-
-
-
 \chapter{Wyniki badań}
-W~rozdziale tym przedstawiam wyniki oceny jakości poszczególnych metod w~zależności od~ich hiperparametrów. Oceny dokonuję na~podstawie opisanych uprzednio miar. Do~wyników każdego testu dołączam ich interpretację oraz~wnioski.
+W~rozdziale tym przedstawiam wyniki oceny jakości poszczególnych metod w~zależności od~ich hiperparametrów. Wyniki te zebrane są w~postaci tabel zawierających oryginalne wartości opisanych uprzednio miar ewaluacji. Każdy wiersz zawiera wyniki danej miary dla~różnych konfiguracji testowanej metody. Każda kolumna zawiera wyniki ewaluacji danej konfiguracji metody uzyskane przez~każdą z miar. Stąd dane należy analizować jedynie w~obrębie wiersza, gdyż wyniki uzyskane różnymi miarami nie~są porównywalne --- powstały na~różne sposoby. W~każdym wierszu pogrubieniem oznaczam najwyższy wynik uzyskany przy użyciu danej miary. Kolumna, w~której się on znajduje reprezentuje najlepszą konfigurację metody wg.~tej miary.
+
+W~celu zwiększenia czytelności przedstawiam na~wykresach znormalizowane wyniki z~tabel. Normalizacja ma na~celu sprawić, aby wyniki uzyskane różnymi miarami mogły być przedstawione wspólnie i~były porównywalne ze~sobą. Normalizacja na~wykresach odbywa~się przez~podzielenie wszystkich wyników uzyskanych daną miarą przez~najwyższy z~nich.
+
+Do~wyników każdego testu dołączam ich interpretację oraz~wnioski.
 
 \subsection{\textit{LSI} w zależności od liczby tematów}
 
-Dokonuję porównania jakości modelu \textit{LSI} w~zależności od~wartości hiperparametru --- liczby tematów.
+Dokonuję porównania jakości modelu \textit{LSI} w~zależności od~wartości hiperparametru --- liczby tematów --- przy~użyciu opisanych wcześniej miar.
 
 \begin{table}[H]
 	\centering
@@ -616,29 +612,32 @@ Dokonuję porównania jakości modelu \textit{LSI} w~zależności od~wartości 
 		\hline
 		liczba tematów &       100 &      300 &      500 &      600 \\
 		\hline
-		mut\_cat      & 0.4289 & 0.4383 & 0.4404 & 0.4397 \\
-		mut\_cat\_ndcg & 0.5072 & 0.5162 & 0.5181 & 0.5175 \\
-		mut\_kw       & 0.2961 & 0.3669 & 0.3980  & 0.3898 \\
-		mut\_kw\_ndcg  & 0.0973 & 0.1195 & 0.1291 & 0.1268 \\
-		clicks       & 0.9255 & 0.8914 & 0.9132 & 0.9133 \\
+		mut\_cat      & 0.4289 & 0.4383 & \textbf{0.4404} & 0.4397 \\
+		mut\_cat\_ndcg & 0.5072 & 0.5162 & \textbf{0.5181} & 0.5175 \\
+		mut\_kw       & 0.2961 & 0.3669 & \textbf{0.3980}  & 0.3898 \\
+		mut\_kw\_ndcg  & 0.0973 & 0.1195 &\textbf{ 0.1291} & 0.1268 \\
+		clicks       & \textbf{0.9255} & 0.8914 & 0.9132 & 0.9133 \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody \textit{LSI} dla zmiennej liczby tematów.}
+	\caption{Wyniki ewaluacji metody \textit{LSI} różnymi miarami dla~zmiennej liczby tematów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/results/lsi_.png}
-	\caption{Wykres porównujący znormalizowane wyniki dla~metody \textit{LSI}.}
+	\caption{Wykres porównujący znormalizowane wyniki różnych miar dla~rosnącej liczby tematów metody \textit{LSI}.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Miary oparte na~liczbie wspólnych słów kluczowych (\textit{mut\_kw...}) wyraźnie pokazują wzrost jakości modelu przy~wzroście liczby tematów. Średnia wszystkich miar pokazuje, że najwyższą jakość model osiąga dla~liczby tematów 500.
+Miary oparte na~liczbie wspólnych słów kluczowych (\textit{mut\_kw...}) wyraźnie pokazują wzrost jakości modelu przy~wzroście liczby tematów. Wskazują one, że najlepsze rezultaty metoda \textit{LSI} osiąga dla liczby tematów 500, po czym dla wyższej liczby tematów jakość przestaje się poprawiać.
+
+Natomiast wyniki miar \textit{clicks} i~\textit{mut\_cat...} nie~różnią~się dla~różnych liczb tematów więcej niż o~5\%, stąd na~ich podstawie nie~da~się wybrać najlepszej konfiguracji.
+
+Warto zauważyć wyraźny związek pomiędzy wynikami dla wariantów metod opartych o średnią relewantność (np. \textit{mut\_kw}) oraz opartych o metodę \textit{nDCG} (np.~\textit{mut\_kw\_ndcg}).
 
 \subsection{\textit{LDA} w zależności od liczby tematów}
 
-Podobnie jak w~poprzednim punkcie dokonuję porównania jakości modelu \textit{LDA} w~zależności od~wartości hiperparametru --- liczby tematów.
-
+Podobnie jak w~poprzednim punkcie dokonuję porównania jakości modelu \textit{LDA} w~zależności od~wartości hiperparametru --- liczby tematów --- przy~użyciu wprowadzonych przez~siebie miar.
 
 \begin{table}[H]
 	\centering
@@ -646,24 +645,26 @@ Podobnie jak w~poprzednim punkcie dokonuję porównania jakości modelu \textit
 		\hline
 		liczba tematów &       100 &       300 &       500 &       700 &       900 &      1100 \\
 		\hline
-		mut\_cat      & 0.4114 & 0.4184 & 0.4188 & 0.4210  & 0.4250  & 0.4223 \\
-		mut\_cat\_ndcg & 0.4879 & 0.4950  & 0.4942 & 0.4976 & 0.5008 & 0.4989 \\
-		mut\_kw       & 0.2196 & 0.2480  & 0.2648 & 0.2819 & 0.2944 & 0.2932 \\
-		mut\_kw\_ndcg  & 0.0734 & 0.0815 & 0.0881 & 0.092  & 0.0962 & 0.0964 \\
-		clicks       & 0.8809 & 0.9028 & 0.8797 & 0.9064 & 0.9124 & 0.8909 \\
+		mut\_cat      & 0.4114 & 0.4184 & 0.4188 & 0.4210  & \textbf{0.4250}  & 0.4223 \\
+		mut\_cat\_ndcg & 0.4879 & 0.4950  & 0.4942 & 0.4976 & \textbf{0.5008} & 0.4989 \\
+		mut\_kw       & 0.2196 & 0.2480  & 0.2648 & 0.2819 & \textbf{0.2944} & 0.2932 \\
+		mut\_kw\_ndcg  & 0.0734 & 0.0815 & 0.0881 & 0.092  & 0.0962 & \textbf{0.0964} \\
+		clicks       & 0.8809 & 0.9028 & 0.8797 & 0.9064 & \textbf{0.9124} & 0.8909 \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody \textit{LDA} dla~zmiennej liczby tematów.}
+	\caption{Wyniki ewaluacji metody \textit{LDA} różnymi miarami dla~zmiennej liczby tematów.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/results/lda_.png}
-	\caption{Wykres porównujący znormalizowane wyniki dla~metody \textit{LDA}.}
+	\caption{Wykres porównujący znormalizowane wyniki różnych miar dla~rosnącej liczby tematów metody \textit{LDA}.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Podobnie jak w~przypadku modelu \textit{LSI} miary oparte na~liczbie wspólnych słów kluczowych (\textit{mut\_kw}) pokazują wzrost jakości modelu przy wzroście liczby tematów. Średnia wszystkich miar pokazuje, że najwyższą jakość model osiąga dla~liczby tematów 900.
+Podobnie jak w~przypadku modelu \textit{LSI} miary oparte na~liczbie wspólnych słów kluczowych (\textit{mut\_kw...}) pokazują wzrost jakości modelu przy wzroście liczby tematów. Według tych miar najwyższą jakość model osiąga dla~liczby tematów 900. W~tym modelu miary oparte o~ kategorie (\textit{mut\_cat...}) wskazują najlepszy rezultat dla~liczby tematów 900-1100, ale ich niskie wahania (<5\%) sugerują, że ich wyniki mogą nie~być dla~tego przypadku miarodajne. Podobnie oceniam wyniki miary \textit{clicks}, która nie~wykazuje powiązania liczby tematów z~jakością modelu.
+
+Warto zauważyć, że obie metody oparte o~ekstrakcję tematów --- \textit{LSI} oraz~\textit{LDA} --- osiągają najlepsze rezultaty dla~różnych liczb tematów. Wynika to zapewne z~faktu różnych sposobów wyznaczania owych tematów oraz~różnej ich postaci w~każdej z~metod.
 
 
 \section{\textit{Word2vec} w zależności od korpusu}
@@ -676,11 +677,11 @@ Poniżej zestawiam wyniki dla~modelów \textit{Word2vec} o~wektorach długości 
 		\hline
 		sygnatura metody &   w2v100\_art &   w2v100\_wn \\
 		\hline
-		mut\_cat      &       0.4267 &      0.4228 \\
-		mut\_cat\_ndcg &       0.504  &      0.4968 \\
-		mut\_kw       &       0.277  &      0.2784 \\
-		mut\_kw\_ndcg  &       0.0896 &      0.0885 \\
-		clicks       &       0.9465 &      0.9462 \\
+		mut\_cat      &       \textbf{0.4267} &      0.4228 \\
+		mut\_cat\_ndcg &       \textbf{0.5040}  &      0.4968 \\
+		mut\_kw       &       0.2770  &      \textbf{0.2784} \\
+		mut\_kw\_ndcg  &       \textbf{0.0896} &      0.0885 \\
+		clicks       &       \textbf{0.9465} &      0.9462 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{Word2vec} w~zależności od~korpusu, na~którym trenowany był model.}
@@ -693,7 +694,7 @@ Poniżej zestawiam wyniki dla~modelów \textit{Word2vec} o~wektorach długości 
 	%\label{fig:warstwy}
 \end{figure}
 
-Maksymalna różnica między najlepszym i~najgorszym wynikiem nie~przekracza 2\%. Stąd trudno jest stwierdzić, która metoda daje tu lepsze wyniki. Na~korzyść modelu \textit{Word2vec} uczonego na~korpusie artykułów przemawia jego mały rozmiar, a co za~tym idzie szybkość nauki. Z~przyczyny braku wyraźnych zalet korzystania tu z~modelu uczonego na korpusie Słowosieci korzystam dalej jedynie z~modeli opartych o~korpus artykułów \textit{Allegro}.
+Mimo, iż wykres pozornie przedstawia duże różnice między~metodami, to maksymalna różnica między najlepszym i~najgorszym wynikiem dla~dowolnej z~miar nie~przekracza 2\%. Stąd trudno jest stwierdzić, metoda uczona na~którym korpusie daje tu lepsze wyniki. Na~korzyść modelu \textit{Word2vec} uczonego na~korpusie artykułów przemawia jego mały rozmiar, a co za~tym idzie szybkość nauki. Z~przyczyny braku wyraźnych zalet korzystania tu z~modelu uczonego na korpusie Słowosieci korzystam dalej jedynie z~modeli opartych o~korpus artykułów \textit{Allegro}.
 
 \section{\textit{Word2vec} w zależności od metody porównywania dokumentów}
 
@@ -707,14 +708,14 @@ W~niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		\hline
 		sygnatura metody &   w2v100\_centroid &   w2v100\_lda100 &   w2v100\_wmd \\
 		\hline
-		mut\_cat      &            0.4267 &          0.4044 &       0.3968 \\
-		mut\_cat\_ndcg &            0.504  &          0.4797 &       0.5439 \\
-		mut\_kw       &            0.277  &          0.2065 &       0.1913 \\
-		mut\_kw\_ndcg  &            0.0896 &          0.0686 &       0.0969 \\
-		clicks       &            0.9465 &          0.8985 &       0.9967 \\
+		mut\_cat      &            \textbf{0.4267} &          0.4044 &       0.3968 \\
+		mut\_cat\_ndcg &            0.5040  &          0.4797 &       \textbf{0.5439} \\
+		mut\_kw       &            \textbf{0.2770}  &          0.2065 &       0.1913 \\
+		mut\_kw\_ndcg  &            0.0896 &          0.0686 &       \textbf{0.0969} \\
+		clicks       &            0.9465 &          0.8985 &       \textbf{0.9967} \\
 		\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody \textit{Word2vec} dla~wektorów dł.~100 w~zależności od~metody porównywania wektorowych reprezentacji dokumentów.}
+	\caption{Wyniki ewaluacji metody \textit{Word2vec} różnymi miarami dla~wektorów dł.~100 w~zależności od~metody porównywania wektorowych reprezentacji dokumentów.}
 \end{table}
 
 \begin{figure}[H]
@@ -733,14 +734,14 @@ W~niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 		\hline
 		sygnatura metody &   w2v300\_ctr &   w2v300\_lda100 &   w2v300\_wmd \\
 	\hline
-	mut\_cat      &            0.4277 &          0.4072 &       0.3898 \\
-	mut\_cat\_ndcg &            0.5055 &          0.4829 &       0.7055 \\
-	mut\_kw       &            0.2807 &          0.2124 &       0.1714 \\
-	mut\_kw\_ndcg  &            0.0907 &          0.0701 &       0.1200   \\
-	clicks       &            0.9364 &          0.8916 &       0.9406 \\
+	mut\_cat      &            \textbf{0.4277} &          0.4072 &       0.3898 \\
+	mut\_cat\_ndcg &            0.5055 &          0.4829 &       \textbf{0.7055} \\
+	mut\_kw       &            \textbf{0.2807} &          0.2124 &       0.1714 \\
+	mut\_kw\_ndcg  &            0.0907 &          0.0701 &       \textbf{0.1200}   \\
+	clicks       &            0.9364 &          0.8916 &       \textbf{0.9406} \\
 	\hline
 	\end{tabular}
-	\caption{Wyniki ewaluacji metody \textit{Word2vec} dla~wektorów dł.~300 w~zależności od~metody porównywania wektorowych reprezentacji dokumentów.}
+	\caption{Wyniki ewaluacji metody \textit{Word2vec} różnymi miarami dla~wektorów dł.~300 w~zależności od~metody porównywania wektorowych reprezentacji dokumentów.}
 \end{table}
 
 \begin{figure}[H]
@@ -750,7 +751,7 @@ W~niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 	%\label{fig:warstwy}
 \end{figure}
 
-Wyniki dla~metody opartej o~tematy \textit{LDA} są jednoznacznie gorsze od~wyników dla~metody centroidu.
+Z powyższych testów wprost wynika, że rezultaty dla~metody opartej o~tematy \textit{LDA} są jednoznacznie gorsze od~wyników dla~metody centroidu.
 
 Dla~obu konfiguracji metody \textit{Word2vec} metoda \textit{Word Mover's Distance} wykazuje~się największą zdolnością do~poprawnego szeregowania dokumentów (wysoki wskaźnik metod \textit{nDCG} w~porównaniu z~metodami wykorzystującymi średnią).
 
@@ -769,11 +770,11 @@ W niniejszym punkcie porównuję jakość metod \textit{word embeddings} (\texti
 		\hline
 		długość wektorów &       100 &       300 &      1000 \\
 		\hline
-		mut\_cat      & 0.4267 & 0.4277 & 0.4272 \\
-		mut\_cat\_ndcg & 0.504  & 0.5055 & 0.5046 \\
-		mut\_kw       & 0.277  & 0.2807 & 0.2783 \\
-		mut\_kw\_ndcg  & 0.0896 & 0.0907 & 0.09   \\
-		clicks       & 0.9465 & 0.9364 & 0.939  \\
+		mut\_cat      & 0.4267 & \textbf{0.4277} & 0.4272 \\
+		mut\_cat\_ndcg & 0.5040  & \textbf{0.5055} & 0.5046 \\
+		mut\_kw       & 0.2770  & \textbf{0.2807} & 0.2783 \\
+		mut\_kw\_ndcg  & 0.0896 & \textbf{0.0907} & 0.0900   \\
+		clicks       & \textbf{0.9465} & 0.9364 & 0.939  \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{Word2vec} dla zmiennej długości wektorów.}
@@ -782,11 +783,13 @@ W niniejszym punkcie porównuję jakość metod \textit{word embeddings} (\texti
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/results/w2v_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody \textit{Word2vec} w zależności od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla~metody \textit{Word2vec} w~zależności od~hiperparametru --- długości wektorów.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Dla~różnej wymiarowości wektorów wyjściowych metoda \textit{Word2vec} daje bardzo podobne rezultaty. Różnica między~najlepszym i~najgorszym wynikiem wynosi jedynie ok.~1,5\%.  Mimo to najlepszą wartością hiperparametru wydaje~się być 300.
+Dla~różnej wymiarowości wektorów wyjściowych metoda \textit{Word2vec} daje bardzo podobne rezultaty. Różnica między~najlepszym i~najgorszym wynikiem wynosi jedynie ok.~1,5\%. Mimo to najlepszą wartością hiperparametru wydaje~się być 300 --- wskazują na to miary \textit{mut\_cat...} oraz~\textit{mut\_kw...}.
+
+W~oczy rzucają~się natomiast odstające wyniki metody \textit{clicks}. Można to tłumaczyć niedoskonałością tej miary opartej o~preferencje realnych użytkowników serwisu. Szerszej interpretacji zjawiska dokonuję w~podsumowaniu rozdziału.
 
 \subsection{\textit{GloVe}}
 
@@ -796,11 +799,11 @@ Dla~różnej wymiarowości wektorów wyjściowych metoda \textit{Word2vec} daje 
 		\hline
 		długość wektorów &      100 &      300 &     1000 \\
 		\hline
-		mut\_cat      & 0.4324 & 0.4324 & 0.4432 \\
-		mut\_cat\_ndcg & 0.5101 & 0.5101 & 0.5237 \\
-		mut\_kw       & 0.2998 & 0.2998 & 0.3586 \\
-		mut\_kw\_ndcg  & 0.0971 & 0.0971 & 0.1151 \\
-		clicks       & 0.908  & 0.908  & 0.8798 \\
+		mut\_cat      & 0.4324 & 0.4324 & \textbf{0.4432} \\
+		mut\_cat\_ndcg & 0.5101 & 0.5101 & \textbf{0.5237} \\
+		mut\_kw       & 0.2998 & 0.2998 &\textbf{ 0.3586} \\
+		mut\_kw\_ndcg  & 0.0971 & 0.0971 & \textbf{0.1151} \\
+		clicks       & \textbf{0.908}  & \textbf{0.908}  & 0.8798 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{GloVe} dla zmiennej długości wektorów.}
@@ -809,11 +812,11 @@ Dla~różnej wymiarowości wektorów wyjściowych metoda \textit{Word2vec} daje 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/results/gv_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody \textit{GloVe} w zależności od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla~metody \textit{GloVe} w~zależności od~hiperparametru --- długości wektorów.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości 1000.
+Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości 1000. Świadczą o~tym zgodne wysokie wyniki wszystkich miar prócz miary \textit{clicks}.
 
 \subsection{\textit{FastText}}
 
@@ -823,11 +826,11 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 		\hline
 		długość wektorów &      100 &      300 &     1000 \\
 		\hline
-		mut\_cat      & 0.4444 & 0.4466 & 0.4473 \\
-		mut\_cat\_ndcg & 0.5252 & 0.5284 & 0.5289 \\
-		mut\_kw       & 0.335  & 0.353  & 0.3617 \\
-		mut\_kw\_ndcg  & 0.1085 & 0.1139 & 0.1165 \\
-		clicks       & 0.8968 & 0.8974 & 0.8856 \\
+		mut\_cat      & 0.4444 & 0.4466 & \textbf{0.4473} \\
+		mut\_cat\_ndcg & 0.5252 & 0.5284 & \textbf{0.5289} \\
+		mut\_kw       & 0.335  & 0.353  & \textbf{0.3617} \\
+		mut\_kw\_ndcg  & 0.1085 & 0.1139 & \textbf{0.1165} \\
+		clicks       & 0.8968 & \textbf{0.8974} & 0.8856 \\
 		\hline
 	\end{tabular}
 	\caption{Wyniki ewaluacji metody \textit{FastText} dla zmiennej długości wektorów.}
@@ -836,41 +839,41 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/results/ft_ctr.png}
-	\caption{Porównanie znormalizowanych wyników dla metody \textit{FastText} w zależności od bazowego korpusu.}
+	\caption{Porównanie znormalizowanych wyników dla~metody \textit{FastText} w~zależności od~hiperparametru --- długości wektorów.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Również jak w przypadku metody \textit{GloVe} metoda \textit{FastText} osiąga najlepsze rezultaty dla wektorów długości 1000.
+Również jak w przypadku metody \textit{GloVe} metoda \textit{FastText} osiąga najlepsze rezultaty dla wektorów długości 1000. Również wyniki poszczególnych miar wyglądają bardzo podobnie do~wyników przy~poprzednio testowanej metodzie \textit{GloVe}
 
 \section{Ocena jakości wybranych metod przez użytkowników}
 
-W niniejszym punkcie dokonuję porównania najlepszych konfiguracji testowanych wcześniej metod. Zestawiam z nimi wyniki dla metody używanej dotychczas w \textit{Allegro} oraz metodę losową.
+W~niniejszym punkcie dokonuję porównania najlepszych konfiguracji testowanych wcześniej metod. Zestawiam z~nimi wyniki dla~metody używanej dotychczas w~\textit{Allegro} oraz~metodę losową.
 Testowane warianty:
 \begin{itemize}
-	\item $lsi500$ --- \textit{Latent Semantic Indexing} dla 500 tematów,
-	\item $lda900$ --- \textit{Latent Dirichlet Allocation} dla 900 tematów,
-	\item $w2v300$ --- \textit{Word2vec} dla wektorów dł. 300 i przy użytej metodzie centroidu,
-	\item $w2v300$ --- \textit{GloVe} dla wektorów dł. 1000 i przy użytej metodzie centroidu,
-	\item $w2v300$ --- \textit{FastText} dla wektorów dł. 1000 i przy użytej metodzie centroidu,
-	\item $allegro$ --- używane dotychczas w \textit{Allegro} zapytanie do silnika \textit{Elasticsearch},
+	\item $lsi500$ --- \textit{Latent Semantic Indexing} dla~500~tematów,
+	\item $lda900$ --- \textit{Latent Dirichlet Allocation} dla~900~tematów,
+	\item $w2v300$ --- \textit{Word2vec} dla~wektorów dł.~300 i~przy~użytej metodzie centroidu,
+	\item $w2v300$ --- \textit{GloVe} dla~wektorów dł.~1000 i~przy~użytej metodzie centroidu,
+	\item $w2v300$ --- \textit{FastText} dla~wektorów dł.~1000 i~przy~użytej metodzie centroidu,
+	\item $allegro$ --- używane dotychczas w\textit{Allegro} zapytanie do~silnika \textit{Elasticsearch},
 	\item $rnd$ --- metoda losowa.
 \end{itemize}
 \subsection{Zestawienie wyników testów automatycznych}
-Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów testowanych wcześniej metod.
+Poniżej zestawienie wyników miar automatycznych dla~najlepszych wariantów testowanych wcześniej metod.
 \begin{table}[H]
 	\centering
 	\begin{tabular}{lrrrrrrr}
 		\hline
 		sygnatura metody &   lsi500 &    lda900 &    w2v300 &   gv1000 &   ft1000 &   allegro &          rnd \\
 		\hline
-		mut\_cat      &   0.4404 &   0.4250  &   0.4277 &   0.4432 &   0.4473 &    0.4339 &   0.1541 \\
-		mut\_cat\_ndcg &   0.5181 &   0.5008 &   0.5055 &   0.5237 &   0.5289 &    0.5091 &   0.1854 \\
-		mut\_kw       &   0.3980  &   0.2944 &   0.2807 &   0.3586 &   0.3617 &    0.6175 &   0.0229 \\
-		mut\_kw\_ndcg  &   0.1291 &   0.0962 &   0.0907 &   0.1151 &   0.1165 &    0.2027 &   0.0084 \\
-		clicks       &   0.9132 &   0.9124 &   0.9364 &   0.8798 &   0.8856 &    0.8904 & nan      \\
+		mut\_cat      &   0.4404 &   0.4250  &   0.4277 &   0.4432 &   \textbf{0.4473} &    0.4339 &   0.1541 \\
+		mut\_cat\_ndcg &   0.5181 &   0.5008 &   0.5055 &   0.5237 &   \textbf{0.5289} &    0.5091 &   0.1854 \\
+		mut\_kw       &   0.3980  &   0.2944 &   0.2807 &   0.3586 &   0.3617 &    \textbf{0.6175} &   0.0229 \\
+		mut\_kw\_ndcg  &   0.1291 &   0.0962 &   0.0907 &   0.1151 &   0.1165 &    \textbf{0.2027} &   0.0084 \\
+		clicks       &   0.9132 &   0.9124 &   \textbf{0.9364} &   0.8798 &   0.8856 &    0.8904 & ---      \\
 		\hline
 	\end{tabular}
-	\caption{Zestawienie wyników testów automatycznych dla najlepszych konfiguracji wybranych metod.}
+	\caption{Zestawienie wyników testów automatycznych dla~najlepszych konfiguracji wybranych metod.}
 \end{table}
 
 \begin{figure}[H]
@@ -880,9 +883,9 @@ Poniżej zestawienie wyników miar automatycznych dla najlepszych wariantów tes
 	%\label{fig:warstwy}
 \end{figure}
 
-Wszystkie testowane metody dają dużo lepsze rezultaty od metody losowej. Stosunkowo wysokie wskaźniki \textit{mut\_cat} dla metody losowej wynikają z dużo większej szansy, że dwa artykuły mają wspólnych przodków w drzewie kategorii niż, że mają wspólne słowa kluczowe.
+Wszystkie testowane metody dają dużo lepsze rezultaty od~metody losowej. Stosunkowo wysokie wskaźniki \textit{mut\_cat} dla~metody losowej wynikają z~dużo większej szansy, że dwa artykuły mają wspólnych przodków w~drzewie kategorii niż, że mają wspólne słowa kluczowe.
 
-Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie wskaźniki dla metody \textit{mut\_kw} wynikają wprost ze struktury zapytania do silnika \textit{Elasticsearch}, które to jest oparte właśnie o słowa kluczowe dołączone do artykułu.
+Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie wskaźniki dla~metody \textit{mut\_kw} wynikają wprost ze~struktury zapytania do~silnika \textit{Elasticsearch}, które to jest oparte właśnie o~słowa kluczowe dołączone do~artykułu. Poza~tym metoda ta ma bezpośredni wpływ na~wyniki miary \textit{clicks}, ponieważ generuje ona dotychczasowe rekomendacje serwisie, a miara ta została opracowana na~podstawie aktywności użytkowników właśnie w~działającym dotychczas serwisie.
 
 \subsection{Wyniki oceny eksperckiej}
 
@@ -892,16 +895,16 @@ Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie
 		\hline
 		sygnatura metody &   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &   rnd \\
 		\hline
-		users &    8.415 &    7.895 &    8.185 &     8.61 &     8.68 &      8.47 & 1.345 \\
+		users &    8.4150 &    7.895 &    8.1850 &     8.6100 &     \textbf{8.6800} &      8.4700 & 1.345 \\
 		\hline
 	\end{tabular}
-	\caption{Zestawienie wyników ewaluacji eksperckiej dla najlepszych konfiguracji wybranych metod.}
+	\caption{Zestawienie wyników ewaluacji eksperckiej dla~najlepszych konfiguracji wybranych metod.}
 \end{table}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
-	\caption{Porównanie wyników ewaluacji eksperckiej dla wybranych metod.}
+	\caption{Porównanie wyników ewaluacji eksperckiej dla~wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
 
@@ -916,7 +919,7 @@ Każda z~testowanych metod dała również wynika znacząco lepszy od~metody los
 		\hline
 		sygnatura metody&   lsi500 &   lda900 &   w2v300 &   gv1000 &   ft1000 &   allegro &     rnd \\
 		\hline
-		users\_std &   2.6931 &   2.7155 &   2.5982 &   2.1881 &    2.061 &    2.4019 & 1.3401 \\
+		users\_std &   2.6931 &   2.7155 &   2.5982 &   2.1881 &    2.0610 &    2.4019 & 1.3401 \\
 		\hline
 	\end{tabular}
 	\caption{Zestawienie odchyleń standardowych ocen dokonanych przy~ewaluacji eksperckiej dla~najlepszych konfiguracji wybranych metod.}
