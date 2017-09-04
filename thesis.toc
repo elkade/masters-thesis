@@ -29,46 +29,46 @@
 \contentsline {section}{\numberline {2.1}Opis danych}{30}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Tre\IeC {\'s}\IeC {\'c} artyku\IeC {\l }u}{30}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Kategoria}{31}{subsection.2.1.2}
-\contentsline {subsection}{\numberline {2.1.3}S\IeC {\l }owa kluczowe}{32}{subsection.2.1.3}
-\contentsline {section}{\numberline {2.2}Wst\IeC {\k e}pne przetwarzanie danych}{33}{section.2.2}
-\contentsline {section}{\numberline {2.3}Opis danych po wst\IeC {\k e}pnym przetwarzaniu}{34}{section.2.3}
-\contentsline {chapter}{\numberline {3}Metody ewaluacji}{36}{chapter.3}
-\contentsline {section}{\numberline {3.1}Miara 1: Dystans oparty na metadanych}{37}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Kategorie}{37}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}S\IeC {\l }owa kluczowe}{38}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Miara 2: Historyczna aktywno\IeC {\'s}\IeC {\'c} u\IeC {\.z}ytkownik\IeC {\'o}w serwisu}{39}{section.3.2}
-\contentsline {section}{\numberline {3.3}Miara 3: Ocena przez u\IeC {\.z}ytkownik\IeC {\'o}w offline}{40}{section.3.3}
-\contentsline {chapter}{\numberline {4}Opis test\IeC {\'o}w}{42}{chapter.4}
-\contentsline {section}{\numberline {4.1}Testowane metody generowania rekomendacji}{42}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Metody oparte o modelowanie tematu}{42}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Metody oparte o \textit {word embeddings}}{42}{subsection.4.1.2}
-\contentsline {subsubsection}{Korpus bazowy}{42}{subsubsection*.12}
-\contentsline {subsubsection}{Spos\IeC {\'o}b generowania wektor\IeC {\'o}w i d\IeC {\l }ugo\IeC {\'s}\IeC {\'c} wektor\IeC {\'o}w}{43}{subsubsection*.13}
-\contentsline {subsubsection}{Metoda okre\IeC {\'s}lenia podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w}{43}{subsubsection*.14}
-\contentsline {subsection}{\numberline {4.1.3}\textit {Elasticsearch}}{44}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Metoda losowa}{44}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}Metody ewaluacji}{44}{section.4.2}
-\contentsline {chapter}{\numberline {5}Wyniki bada\IeC {\'n}}{46}{chapter.5}
-\contentsline {subsection}{\numberline {5.0.1}\textit {LSI} w zale\IeC {\.z}no\IeC {\'s}ci od liczby temat\IeC {\'o}w}{46}{subsection.5.0.1}
-\contentsline {subsection}{\numberline {5.0.2}\textit {LDA} w zale\IeC {\.z}no\IeC {\'s}ci od liczby temat\IeC {\'o}w}{47}{subsection.5.0.2}
-\contentsline {section}{\numberline {5.1}\textit {Word2vec} w zale\IeC {\.z}no\IeC {\'s}ci od korpusu}{48}{section.5.1}
-\contentsline {section}{\numberline {5.2}\textit {Word2vec} w zale\IeC {\.z}no\IeC {\'s}ci od metody por\IeC {\'o}wnywania dokument\IeC {\'o}w}{50}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Wymiar wektor\IeC {\'o}w: 100}{50}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Wymiar wektor\IeC {\'o}w: 300}{51}{subsection.5.2.2}
-\contentsline {section}{\numberline {5.3}Metody \textit {word embeddings} w zale\IeC {\.z}no\IeC {\'s}ci od wymiarowo\IeC {\'s}ci wektor\IeC {\'o}w}{52}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}\textit {Word2vec}}{53}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}\textit {GloVe}}{54}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}\textit {FastText}}{55}{subsection.5.3.3}
-\contentsline {section}{\numberline {5.4}Ocena jako\IeC {\'s}ci wybranych metod przez u\IeC {\.z}ytkownik\IeC {\'o}w}{56}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Zestawienie wynik\IeC {\'o}w test\IeC {\'o}w automatycznych}{56}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Wyniki oceny eksperckiej}{57}{subsection.5.4.2}
-\contentsline {section}{\numberline {5.5}Podsumowanie test\IeC {\'o}w}{59}{section.5.5}
-\contentsline {chapter}{\numberline {6}Podsumowanie pracy i kierunki dalszych bada\IeC {\'n}}{61}{chapter.6}
-\contentsline {section}{\numberline {6.1}Dalsze badania}{61}{section.6.1}
-\contentsline {chapter}{Bibliografia}{63}{section*.15}
-\contentsline {chapter}{Spis rysunk\'ow}{66}{section*.16}
-\contentsline {chapter}{Spis tabel}{68}{section*.17}
-\contentsline {chapter}{Spis za\IeC {\l }\IeC {\k a}cznik\IeC {\'o}w}{69}{section*.18}
-\contentsline {chapter}{\numberline {A}Wykorzystane technologie i narz\IeC {\k e}dzia}{70}{appendix.A}
-\contentsline {chapter}{\numberline {B}Zawarto\IeC {\'s}\IeC {\'c} do\IeC {\l }\IeC {\k a}czonej p\IeC {\l }yty CD}{71}{appendix.B}
+\contentsline {subsection}{\numberline {2.1.3}S\IeC {\l }owa kluczowe}{31}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}Wst\IeC {\k e}pne przetwarzanie danych}{32}{section.2.2}
+\contentsline {section}{\numberline {2.3}Opis danych po wst\IeC {\k e}pnym przetwarzaniu}{33}{section.2.3}
+\contentsline {chapter}{\numberline {3}Metody ewaluacji}{35}{chapter.3}
+\contentsline {section}{\numberline {3.1}Miara 1: Dystans oparty na metadanych}{36}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Kategorie}{36}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}S\IeC {\l }owa kluczowe}{37}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Miara 2: Historyczna aktywno\IeC {\'s}\IeC {\'c} u\IeC {\.z}ytkownik\IeC {\'o}w serwisu}{38}{section.3.2}
+\contentsline {section}{\numberline {3.3}Miara 3: Ocena przez u\IeC {\.z}ytkownik\IeC {\'o}w offline}{39}{section.3.3}
+\contentsline {chapter}{\numberline {4}Opis test\IeC {\'o}w}{41}{chapter.4}
+\contentsline {section}{\numberline {4.1}Testowane metody generowania rekomendacji}{41}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Metody oparte o modelowanie tematu}{41}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Metody oparte o \textit {word embeddings}}{41}{subsection.4.1.2}
+\contentsline {subsubsection}{Korpus bazowy}{41}{subsubsection*.12}
+\contentsline {subsubsection}{Spos\IeC {\'o}b generowania wektor\IeC {\'o}w i d\IeC {\l }ugo\IeC {\'s}\IeC {\'c} wektor\IeC {\'o}w}{42}{subsubsection*.13}
+\contentsline {subsubsection}{Metoda okre\IeC {\'s}lenia podobie\IeC {\'n}stwa mi\IeC {\k e}dzy wektorowymi reprezentacjami dokument\IeC {\'o}w}{42}{subsubsection*.14}
+\contentsline {subsection}{\numberline {4.1.3}\textit {Elasticsearch}}{43}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Metoda losowa}{43}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Metody ewaluacji}{43}{section.4.2}
+\contentsline {chapter}{\numberline {5}Wyniki bada\IeC {\'n}}{45}{chapter.5}
+\contentsline {subsection}{\numberline {5.0.1}\textit {LSI} w zale\IeC {\.z}no\IeC {\'s}ci od liczby temat\IeC {\'o}w}{45}{subsection.5.0.1}
+\contentsline {subsection}{\numberline {5.0.2}\textit {LDA} w zale\IeC {\.z}no\IeC {\'s}ci od liczby temat\IeC {\'o}w}{46}{subsection.5.0.2}
+\contentsline {section}{\numberline {5.1}\textit {Word2vec} w zale\IeC {\.z}no\IeC {\'s}ci od korpusu}{47}{section.5.1}
+\contentsline {section}{\numberline {5.2}\textit {Word2vec} w zale\IeC {\.z}no\IeC {\'s}ci od metody por\IeC {\'o}wnywania dokument\IeC {\'o}w}{49}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Wymiar wektor\IeC {\'o}w: 100}{49}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Wymiar wektor\IeC {\'o}w: 300}{50}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Metody \textit {word embeddings} w zale\IeC {\.z}no\IeC {\'s}ci od wymiarowo\IeC {\'s}ci wektor\IeC {\'o}w}{51}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}\textit {Word2vec}}{52}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}\textit {GloVe}}{53}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}\textit {FastText}}{54}{subsection.5.3.3}
+\contentsline {section}{\numberline {5.4}Ocena jako\IeC {\'s}ci wybranych metod przez u\IeC {\.z}ytkownik\IeC {\'o}w}{55}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Zestawienie wynik\IeC {\'o}w test\IeC {\'o}w automatycznych}{55}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Wyniki oceny eksperckiej}{56}{subsection.5.4.2}
+\contentsline {section}{\numberline {5.5}Podsumowanie test\IeC {\'o}w}{58}{section.5.5}
+\contentsline {chapter}{\numberline {6}Podsumowanie pracy i kierunki dalszych bada\IeC {\'n}}{60}{chapter.6}
+\contentsline {section}{\numberline {6.1}Dalsze badania}{60}{section.6.1}
+\contentsline {chapter}{Bibliografia}{62}{section*.15}
+\contentsline {chapter}{Spis rysunk\'ow}{65}{section*.16}
+\contentsline {chapter}{Spis tabel}{67}{section*.17}
+\contentsline {chapter}{Spis za\IeC {\l }\IeC {\k a}cznik\IeC {\'o}w}{68}{section*.18}
+\contentsline {chapter}{\numberline {A}Wykorzystane technologie i narz\IeC {\k e}dzia}{69}{appendix.A}
+\contentsline {chapter}{\numberline {B}Zawarto\IeC {\'s}\IeC {\'c} do\IeC {\l }\IeC {\k a}czonej p\IeC {\l }yty CD}{70}{appendix.B}
 \contentsfinish 

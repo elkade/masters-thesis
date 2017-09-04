@@ -173,8 +173,9 @@ Technika ta jest stosunkowo prosta, lecz jej wadą jest traktowanie każdego sł
 \subsubsection{\textit{TF-IDF}}
 
 \textit{Term frequency --- inverse document frequency} (ważenie częstością termów --- odwrotna częstość w dokumentach, w dalszej części pracy używam skrótu \textit{TF-IDF})~\cite{tf_idf} jest metodą reprezentacji tekstu jako zbioru słów przy~jednoczesnym uwzględnieniu wagi słów, która zależy od~częstości występowania słowa w~korpusie.
-Wartość \textit{TF-IDF} słowa $w_i$ w dokumencie $d_j$ wyraża się wzorem: 
+Wartość \textit{TF-IDF} słowa $w_i$ w dokumencie $d_j$ wyraża się wzorem \ref{eq:tf-idf}: 
 \begin{equation}
+\label{eq:tf-idf}
 tfidf_{ij} = tf_{ij} * idf_i,\ tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}},\ idf_i = log\frac{|D|}{|{d:w_i \in d}|},
 \end{equation}
 gdzie $tf_{ij}$, \textit{term frequency} to liczba wystąpień słowa $w_i$ w~dokumencie $d_j$ podzielona przez liczbę słów dokumentu $d_j$, a $idf_i$, \textit{inverse document frequency} to liczba dokumentów w korpusie podzielona przez liczbę dokumentów zawierających przynajmniej jedno wystąpienie słowa $w_i$.
@@ -199,8 +200,9 @@ Analiza rozkładu słów w~dokumentach tekstowych pozwala na~wyodrębnienie podo
 
 \textit{Latent Dirichlet allocation}(ukryta alokacja Dirichleta, dalej używam skrótu  \textit{LDA})~\cite{lda} jest techniką automatycznego wykrywania niejawnych (\textit{latent}) tematów zawartych w~dokumentach przy~użyciu uczenia nienadzorowanego. \textit{LDA} reprezentuje dokumenty jako mieszanki tematów, które z~kolei reprezentowane są jako rozkłady prawdopodobieństwa na~zbiorze słów. Liczba tematów ustalana jest za~pomocą hiperparametru. \textit{LDA} jest modelem statystycznym, który wykorzystuje m.in. rozkład Dirichleta. 
 
-Rozkład Dirichleta to ciągły rozkład prawdopodobieństwa parametryzowany przez~wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ określa wymiar rozkładu. Gęstość rozkładu Dirichleta wyraża~się wzorem: 
+Rozkład Dirichleta to ciągły rozkład prawdopodobieństwa parametryzowany przez~wektor $\alpha$ $K$ dodatnich liczb rzeczywistych. Wymiar wektora $\alpha$ określa wymiar rozkładu. Gęstość rozkładu Dirichleta wyraża~się wzorem \ref{eq:dirichlet}: 
 \begin{equation}
+\label{eq:dirichlet}: 
 f\left(x_{1},\cdots ,x_{K-1};\alpha _{1},\cdots ,\alpha _{K}\right)={\frac {1}{\mathrm {B} (\alpha )}}\prod _{i=1}^{K}x_{i}^{\alpha _{i}-1},
 \end{equation}
 gdzie $ x_{1},\cdots ,x_{K-1}>0$, $x_{1}+\cdots +x_{K-1}<1$, $x_{K}=1-x_{1}-\cdots -x_{K-1}$, a $B$ to stała normalizująca. Nośnikiem gęstości rozkładu jest $K-1$ wymiarowy sympleks.
@@ -242,8 +244,9 @@ Wspomniane podejście Bengio oparte jest o~sieć neuronową typu f\textit{eed-fo
 	\caption{Neuronowy model języka. Źródło~\cite{bengio}.}
 \end{figure}
 
-Celem działania sieci jest maksymalizacja funkcji celu postaci:
+Celem działania sieci jest maksymalizacja funkcji celu postaci \ref{eq:bengio}:
 \begin{equation}
+\label{eq:bengio}
 J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space f(w_t , w_{t-1} , \cdots , w_{t-n+1}),
 \end{equation}
 gdzie $f(w_t , w_{t-1} , \cdots , w_{t-n+1})$ odpowiada prawdopodobieństwu $p(w_t \: | \: w_{t-1} , \cdots , w_{t-n+1})$ wystąpienia słowa $w_t$ bezpośrednio po~sekwencji słów $w_{t-1} , \cdots , w_{t-n+1}$. Wektorowa reprezentacja słowa uzyskiwana jest tu przez~przemnożenie wejściowego wektora (wektor zer z~jedynką na~$i$-tym miejscu reprezentujący $i$-te słowo, \textit{one-hot-vector}) z~macierzą wag pierwszej warstwy sieci.
@@ -258,12 +261,14 @@ Rozwiązaniem tego problemu wydają się być nowe metody wektorowej reprezentac
 
 Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewątpliwy sukces w~porównaniu z~wcześniejszymi metodami osadzania słów w~przestrzeni wektorowej. Autorzy metody proponują sieć neuronową, która podobnie jak wcześniejsze podejścia ma za~zadanie odtworzyć kontekst danego słowa i~na~tej podstawie dokonać reprezentacji słowa jako wektora liczb rzeczywistych. Różnica jest taka, iż sieć ta ani nie~jest głęboka, ani też nie~zawiera nieliniowych funkcji aktywacji wykorzystywanych we~wcześniejszych modelach. Wyróżnia się dwie odwrotne architektury sieci:
 \begin{itemize}
-	\item \textit{CBOW} (\textit{continuous bag-of-words}): na~postawie okna $N$ sąsiednich słów sieć przewiduje słowo, którego z~największym prawdopodobieństwem te $N$ słów jest sąsiedztwem. W~tym modelu funkcja celu przyjmuje postać:
+	\item \textit{CBOW} (\textit{continuous bag-of-words}): na~postawie okna $N$ sąsiednich słów sieć przewiduje słowo, którego z~największym prawdopodobieństwem te $N$ słów jest sąsiedztwem. W~tym modelu funkcja celu przyjmuje postać \ref{eq:cbow}:
 	\begin{equation}
+	\label{eq:cbow}
 	J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \sum\limits_{-n \leq j \leq n , \neq 0} \text{log} \space p(w_{t+j} \: | \: w_t).
 	\end{equation}
-	\item \textit{skip-gram}: na~podstawie słowa sieć dokonuje predykcji $N$ sąsiednich słów. Zadaniem sieci neuronowej jest wtedy optymalizacja funkcji celu postaci:
+	\item \textit{skip-gram}: na~podstawie słowa sieć dokonuje predykcji $N$ sąsiednich słów. Zadaniem sieci neuronowej jest wtedy optymalizacja funkcji celu postaci \ref{eq:skip-gram}:
 	\begin{equation}
+	\label{eq:skip-gram}
 	J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space p(w_t \: | \: w_{t-n} , \cdots , w_{t-1}, w_{t+1}, \cdots , w_{t+n}).
 	\end{equation}
 \end{itemize}
@@ -276,8 +281,9 @@ Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewą
 \end{figure}
 Używając tej stosunkowo prostej architektury można wykonać proces nauki używając milionów słów, których powiązania między sobą zostaną zachowane w~systemie wag sieci neuronowej. Zaletą podejścia \textit{skip-gram} są lepsze wyniki w~przypadku rzadkich słów. Nauka w~przypadku tego podejścia jest jednak wolniejsza niż dla~\textit{CBOW}~\cite{google_word2vec}.
 
-W~celu dalszego opisu metody \textit{Word2vec} wprowadzam pojęcie funkcji \textit{softmax} użytej w~warstwie wyjściowej sieci neuronowej. \textit{Softmax} jest generalizacją funkcji logistycznej, zamieniającą $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na~$K$-wymiarowy wektor liczb rzeczywistych z~zakresu $(0,1]$, które sumują~się do~$1$. Funkcja wyraża~się wzorem:
+W~celu dalszego opisu metody \textit{Word2vec} wprowadzam pojęcie funkcji \textit{softmax} użytej w~warstwie wyjściowej sieci neuronowej. \textit{Softmax} jest generalizacją funkcji logistycznej, zamieniającą $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na~$K$-wymiarowy wektor liczb rzeczywistych z~zakresu $(0,1]$, które sumują~się do~$1$. Funkcja wyraża~się wzorem \ref{eq:softmax}:
 \begin{equation}
+\label{eq:softmax}
 \sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K.
 \end{equation}
 Wyjście funkcji można traktować jako pewien rozkład prawdopodobieństwa.
@@ -311,12 +317,14 @@ Algorytm \textit{GloVe} składa się z następujących kroków~\cite{glove_cran}
 \begin{enumerate}
 	\item Zgromadź współwystąpienia słów w formie macierzy $X$. Każdy element $X_{ij}$ takiej macierzy reprezentuje jak często słowo $i$ występuje w pobliżu słowa $j$. Zazwyczaj macierz buduje się poprzez skanowanie bazowego korpusu oknem o ustalonej szerokości, w obrębie którego centralne słowo leży w kontekście słów je otaczających. Dodatkowo można tu wprowadzić wagi dla słów malejące wraz ze wzrostem dystansu od słowa centralnego.
 	\item Zdefiniuj ograniczenie dla każdej pary słów: $w_i^Tw_j + b_i + b_j = log(X_{ij})$, gdzie $w_i$ oznacza wektor głównego słowa, $w_j$ słowa leżącego w pobliżu $i$, $b_i$ i $b_j$ to skalary.
-	\item Zdefiniuj funkcję kosztu:
+	\item Zdefiniuj funkcję kosztu \ref{eq:glove_loss}:
 	\begin{equation}
+	\label{eq:glove_loss}
 	J = \sum_{i=1}^V \sum_{j=1}^V \; f(X_{ij}) ( w_i^T w_j + b_i + b_j - \log X_{ij})^2,
 	\end{equation}
-	gdzie f jest funkcją ważącą, która pomaga zapobiec uczeniu tylko na~podstawie najbardziej popularnych par słów. Autorzy proponują funkcję postaci:
+	gdzie f jest funkcją ważącą, która pomaga zapobiec uczeniu tylko na~podstawie najbardziej popularnych par słów. Autorzy proponują funkcję postaci \ref{eq:glove_loss_impl}:
 	\begin{equation}
+	\label{eq:glove_loss_impl}
 	f(X_{ij}) = 
 	\begin{cases}
 	(\frac{X_{ij}}{x_{max}})^\alpha & \text{if } X_{ij} < XMAX \\
@@ -333,8 +341,9 @@ W~celu wykorzystania omówionych metod osadzania słów, należy wybrać metodę
 Najprostszą i~najbardziej intuicyjną metodą obliczenia odległości pomiędzy wektorową reprezentacją dokumentów jest wykonanie dwóch prostych kroków:
 \begin{enumerate}
 	\item Uśrednienie wektorów wchodzących w~skład każdego z~dokumentów. Powstały w~ten sposób wektor jest centroidem reprezentującym dokument w~przestrzeni wektorowej.
-	\item Obliczenie dystansu między wektorami. Powszechnie przyjętą praktyką jest stosowanie tzw.~odległości kosinusowej --- znormalizowanego iloczynu skalarnego wektorów $A$ i~$B$. Jest to kosinus kąta pomiędzy dwoma wektorami reprezentującymi dokumenty. Zaletą tej metody jest natychmiastowa normalizacja wyniku do~zakresu $(0, 1)$. Odległość 
+	\item Obliczenie dystansu między wektorami. Powszechnie przyjętą praktyką jest stosowanie tzw.~odległości kosinusowej --- znormalizowanego iloczynu skalarnego wektorów $A$ i~$B$. Jest to kosinus kąta pomiędzy dwoma wektorami reprezentującymi dokumenty. Zaletą tej metody jest natychmiastowa normalizacja wyniku do~zakresu $(0, 1)$. Odległość wyraża się wzorem \ref{eq:cos}:
 	\begin{equation}
+	\label{eq:cos}
 	sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},
 	\end{equation}
 	gdzie $A_i$ i $B_i$ są składowymi wektorów odpowiednio $A$ i $B$
@@ -347,9 +356,10 @@ W~kontrze do~tego prezentuję metodę obliczania dystansu między dokumentami uw
 \textit{Word Mover's Distance}~\cite{wmd} to rozwiązanie zwracające odległość między dokumentami tekstowymi. W~tym celu adaptuje algorytm \textit{Earth Mover's Distance}~\cite{emd} oraz~wektorową reprezentację słów dokumentu. \textit{WMD} mierzy odległość między dokumentami jako minimalny dystans, jaki wektory słów pierwszego dokumentu muszą ,,pokonać'', aby osiągnąć wartości wektorów z drugiego dokumentu.
 
 \textit{EMD} jest metodą mierzenia odległości pomiędzy dwoma rozkładami, która opiera~się na~minimalnym koszcie, jaki musi zostać poniesiony, aby dokonać transformacji jednego rozkładu w~drugi. Problem można sformalizować jako problem programowania liniowego, gdzie:
-$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ są danymi rozkładami o~$m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest masą klastra. $D=[d_{ij}]$ jest macierzą odległości, w~której $d_{ij}$ reprezentuje odległość pomiędzy klastrami $p_i$ i $q_j$. Celem jest znaleźć taki przepływ $F = [f_{ij}]$, gdzie $f_{ij}$ to przepływ pomiędzy $p_i$ i $q_j$, który minimalizuje całościowy koszt
+$P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ są danymi rozkładami o~$m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest masą klastra. $D=[d_{ij}]$ jest macierzą odległości, w~której $d_{ij}$ reprezentuje odległość pomiędzy klastrami $p_i$ i $q_j$. Celem jest znaleźć taki przepływ $F = [f_{ij}]$, gdzie $f_{ij}$ to przepływ pomiędzy $p_i$ i $q_j$, który minimalizuje całościowy koszt postaci \ref{eq:work}
 \begin{equation}
-Work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}
+\label{eq:work}
+work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}
 \end{equation}
 przy~odpowiednich ograniczeniach~\cite{emd}.
 \textit{EMD} jest dobrze zbadanym problemem transportowym~\cite{emd}, dla~którego powstały efektywne metody rozwiązania~\cite{emd_method}. 
@@ -360,31 +370,41 @@ Przypuśćmy, że dzięki metodzie \textit{Word2vec} dla~słownika $V$ o~$n$ sł
 
 Razem z~rozwojem systemów wyszukiwania informacji powstały miary pozwalające ocenić wyniki działania tych systemów. Do~najbardziej popularnych należą ,,precyzja'' i~,,zwrot''.
 
-Precyzja to odsetek wyszukanych dokumentów, które są relewantne do~zapytania. 
+Precyzja to odsetek wyszukanych dokumentów, które są relewantne do~zapytania (\ref{eq:prec}). 
 \begin{equation}
-precision=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{retrieved\}|}.
+\label{eq:prec}
+\mathrm{precision}=\frac{|\{\mathrm{relevant}\} \cap \{\mathrm{retrieved}\}|}{|\{\mathrm{retrieved}\}|}.
 \end{equation}
 
-Zwrot natomiast jest liczbą wyszukanych relewantnych dokumentów w~stosunku do~wszystkich relewantnych dokumentów (również tych niewyszukanych)
+Zwrot natomiast jest liczbą wyszukanych relewantnych dokumentów w~stosunku do~wszystkich relewantnych dokumentów (również tych niewyszukanych) (\ref{eq:rec}).
 \begin{equation}
-recall=\frac{|\{relevant\} \cap \{retrieved\}|}{|\{relevant\}|}.
+\label{eq:rec}
+\mathrm{recall}=\frac{|\{\mathrm{relevant}\} \cap \{\mathrm{retrieved}\}|}{|\{\mathrm{relevant}\}|}.
 \end{equation}
 
-Bardziej złożoną miarą lepiej charakteryzującą jakość procesu wyszukiwania jest \textit{F-miara}. W~celu obliczenia wyniku uwzględnia ona zarówno precyzję jak i~zwrot. Miara wyraża~się wzorem:
+Bardziej złożoną miarą lepiej charakteryzującą jakość procesu wyszukiwania jest \textit{F-miara}. W~celu obliczenia wyniku uwzględnia ona zarówno precyzję jak i~zwrot. Miara wyraża~się wzorem \ref{eq:F}:
 \begin{equation}
+\label{eq:F}
 F_\beta = (1 + \beta^2) \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{(\beta^2 \cdot \mathrm{precision}) + \mathrm{recall}}
 \end{equation}
 Rezultat miary można interpretować jako ważoną średnią precyzji i~zwrotu. 
 
 Powyższe miary dokonują binarnego podziału wyników wyszukiwania: na~relewantne i~nierelewantne. Jednakże część rekomendowanych przedmiotów może być mniej lub bardziej od~innych istotnych dla~użytkownika. W~tym świetle listę rekomendacji można uznać za~pewien ranking, którego elementy mogą być uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z~punktu widzenia ewaluacji metod generujących elementy rankingu. Stąd zachodzi potrzeba wprowadzenia formalnej miary jakości uszeregowania elementów rankingu. Można osiągnąć poprzez rozszerzenie podstawowych metod ewaluacji opartych na~binarnej ocenie relewantności, jak \textit{recall} i~\textit{precision}.
 
-Miara \textit{nDCG}~\cite{ndcg} (\textit{Normalized Discounted Cumulative Gain}) jest miarą jakości rankingu, która opiera~się na~założeniu, że im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy. Miara ta mierzy skumulowany ,,zysk'' powstały poprzez umieszczenie poszczególnych przedmiotów na~określonych pozycjach rankingu. Miara \textit{nDCG} jest znormalizowaną wersją miary \textit{DCG} (\textit{Discounted Cumulative Gain}), która wyraża~się wzorem: 
+Miara \textit{nDCG}~\cite{ndcg} (\textit{Normalized Discounted Cumulative Gain}) jest miarą jakości rankingu, która opiera~się na~założeniu, że im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy. Miara ta mierzy skumulowany ,,zysk'' powstały poprzez umieszczenie poszczególnych przedmiotów na~określonych pozycjach rankingu. Miara \textit{nDCG} jest znormalizowaną wersją miary \textit{DCG} (\textit{Discounted Cumulative Gain}), która wyraża~się wzorem \ref{eq:dcg}: 
 \begin{equation}
+\label{eq:dcg}
 {\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {2^{{rel_{{i}}}}-1}{\log _{{2}}(i+1)}},
 \end{equation}
-gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w~rankingu, a $rel$ to poziom relewantności elementu. \textit{DCG} premiuje relewantne przedmioty, które są wysoko w~rankingu oraz~karze za~relewantne przedmioty w~dole rankingu. W~wariancie \textit{nDCG} następuje jeszcze normalizacja przez~podzielenie wartości \textit{DCG} rzeczywistego rankingu przez~\textit{DCG} idealnego rankingu ($IDCG$) zbudowanego na~elementach korpusu ułożonych malejąco pod~kątem relewantności:
+gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w~rankingu, a $rel$ to poziom relewantności elementu. \textit{DCG} premiuje relewantne przedmioty, które są wysoko w~rankingu oraz~karze za~relewantne przedmioty w~dole rankingu. W~wariancie \textit{nDCG} następuje jeszcze normalizacja przez~podzielenie wartości \textit{DCG} rzeczywistego rankingu przez~\textit{DCG} idealnego rankingu ($IDCG$, \ref{eq:idcg}) zbudowanego na~elementach korpusu ułożonych malejąco pod~kątem relewantności.
 \begin{equation}
-{\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}},\ \mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}},
+\label{eq:idcg}
+\mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}}
+\end{equation}
+Miara \textit{nDCG} wyraża się wzorem \ref{eq:ndcg}:
+\begin{equation}
+\label{eq:ndcg}
+{\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}},
 \end{equation}
 gdzie $REL$ oznacza listę relewantnych przedmiotów z~całego zbioru podlegającego szeregowaniu.
 
@@ -398,7 +418,7 @@ Otrzymane dane to baza ok.~20000~artykułów tekstowych w~formacie \textit{JSON}
 
 \subsection{Treść artykułu}
 
-Treść każdego artykułu składa~się z~trzech pól: ,,zawartość'', ,,nagłówek'' i~,,tytuł''. Średnia długość artykułu to 821~słów, w~tym nagłówek to jednozdaniowy wstęp. Średnią tę estymuję na~podstawie średniej liczby znaków artykułu i~średniej długości słowa w~języku polskim. Dokładne statystyki tekstu będą dostępne dopiero po~wstępnym przetwarzaniu.
+Treść każdego artykułu składa~się z~trzech pól: ,,zawartość'', ,,nagłówek'' i~,,tytuł''. Średnia długość ,,surowego'' artykułu to 821~słów, w~tym nagłówek to jednozdaniowy wstęp. Średnią tę estymuję na~podstawie średniej liczby znaków artykułu i~średniej długości słowa w~języku polskim. Dokładne statystyki tekstu będą dostępne dopiero po~wstępnym przetwarzaniu.
 
 Wszystkie artykuły napisane są w języku polskim, w nielicznych przypadkach wykryłem błędy, tzw. ,,literówki''. Jako, że artykuły ze zbioru dotyczą produktów sprzedawanych za pośrednictwem serwisu Allegro, w skład słownika zbudowanego na ich bazie wchodzi wiele słów specyficznych dla różnych branż. Są to m.in. nazwy modeli aparatów (np.~,,Sony Alpha 77 II''), samochodów, gier komputerowych, a także nazwy techniczne: ,,sprężarka'', ,,hipertoniczny'', ,,autofocus''.
 
@@ -408,18 +428,11 @@ Spójność danych oceniam na~wysoką, tj.~każde pole zawarte w~strukturze doku
 
 \subsection{Kategoria}
 
-Każdy artykuł został przez~autora przydzielony do pewnej kategorii, która odpowiada tematyce artykułu, np.~,,Aparaty cyfrowe'' czy ,,Przyprawy i zioła''. W~skład pola ,,kategoria'' wchodzi również lista kategorii nadrzędnych, a cała hierarcha kategorii ma strukturę drzewiastą. Np.~kategoria nadrzędna dla kategorii ,,Przyprawy i~zioła'' to ,,Delikatesy'', a dla~kategorii ,,Delikatesy'' to ,,Dom i~zdrowie''. Każdy artykuł należy do~tylko jednej kategorii będącej dowolnym węzłem w~drzewie (nie tylko liściem). Drzewo kategorii posiada 8~poziomów, a najwięcej węzłów znajduje~się na~poziomach 5 i 6. 
+Każdy artykuł został przez~autora przydzielony do pewnej kategorii, która odpowiada tematyce artykułu, np.~,,Aparaty cyfrowe'' czy ,,Przyprawy i zioła''. W~skład pola ,,kategoria'' wchodzi również lista kategorii nadrzędnych, a cała hierarcha kategorii ma strukturę drzewiastą. Np.~kategoria nadrzędna dla kategorii ,,Przyprawy i~zioła'' to ,,Delikatesy'', a dla~kategorii ,,Delikatesy'' to ,,Dom i~zdrowie''. Każdy artykuł należy do~tylko jednej kategorii będącej dowolnym węzłem w~drzewie (nie tylko liściem). Drzewo kategorii posiada 8~poziomów, a najwięcej węzłów znajduje~się na~poziomach 5 i 6. Najwięcej artykułów jest przypisanych do~kategorii z~poziomów 4 i~5, średnio artykuł jest przypisany do~kategorii z~poziomu 4,63.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/categories_levels.png}
-	\caption{Wykres przedstawiający liczby kategorii na poszczególnych poziomach drzewa.}
-	%\label{fig:warstwy}
-\end{figure}
-Najwięcej artykułów z kolei jest przypisanych do kategorii z poziomów 4 i 5, średnio artykuł jest przypisany do kategorii z poziomu 4,63. Średnio na kategorię będącą liściem w drzewie przypada 7,71 artykułu.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{img/cat_art_levels.png}
-	\caption{Wykres przedstawiający liczby artykułów, dla~których kategoria na~danym poziome drzewa jest tą najbardziej szczegółową.}
+	\includegraphics[width=0.75\textwidth]{img/categories_levels.png}
+	\caption{Wykres przedstawia liczby kategorii na~poszczególnych poziomach drzewa.}
 	%\label{fig:warstwy}
 \end{figure}
 Po~wstępnej analizie system kategorii oceniam jako spójny i rzetelny. Uważam, że można użyć go jako punkt odniesienia przy konstrukcji metod ewaluacji testowanych technik określania podobieństwa między artykułami.
@@ -471,8 +484,9 @@ Inną praktyką umożliwiającą obiektywną ocenę, wykorzystywaną w~działaj�
 
 Z~powodu braku możliwości wykorzystania do~ewaluacji realnych użytkowników serwisu internetowego jestem zmuszony wprowadzić własne miary oparte na~dostępnych danych. Należy tu zaznaczyć niedoskonałość wprowadzanych miar, ponieważ każda z~nich opiera~się na~pewnych założeniach, od~których prawdziwości zależy jakość całej miary.
 
-Testowane metody adaptuję tak, aby na~podstawie pewnego artykułu bazowego otrzymywać listę artykułów podobnych do~niego uszeregowanych pod~kątem relewantności malejąco. Takie działanie można sformalizować w~postaci funkcji 
+Testowane metody adaptuję tak, aby na~podstawie pewnego artykułu bazowego otrzymywać listę artykułów podobnych do~niego uszeregowanych pod~kątem relewantności malejąco. Takie działanie można sformalizować w~postaci funkcji \ref{eq:fun}:
 \begin{equation}
+\label{eq:fun}
 S_p: a_j \to \{a_{i}\}_{i < p},
 \end{equation}
 gdzie $a$ to artykuł, a $p$ to liczba elementów zwracanego ciągu. Funkcja $S$ przyjmuje artykuł tekstowy i~zwraca skończony ciąg artykułów do~niego podobnych zgodnie ze~stopniem dopasowania (najlepsze na~początku). Celem działania niżej opisanych miar jest każdej parze postaci: artykuł wejściowy-jeden z~wyznaczonych artykułów podobnych przypisać ocenę tego podobieństwa --- relewantność. Np.~metoda $S$ dla~artykułu $X$ zwraca ciąg {$Y_1$, $Y_2$, ...}. Dla każdej z~par za~pomocą poniższych metod ewaluacji można określić relewantność np.~$rel(X, Y_1) = a_1, rel(X, Y_2) = a_2$ itd. Następnie wyniki dla~metody $S$ i~wejścia $X$ należy zagregować. Dokonuję tego na~dwa sposoby.
@@ -536,13 +550,15 @@ Ostatnią opracowaną przeze~mnie miarą jest subiektywna ocena ekspercka. W~ce
 	\item Testowaną metodą $M$ generuję $p$ artykułów $s_{jk}, k=1,...,p$ podobnych do każdego $b_j$ z $n$ wcześniej wylosowanych.
 	\item Grupuję artykuły w pary: artykuł bazowy $b_j$ --- artykuł podobny $s_{jk}$.
 	\item Za pomocą stworzonego interfejsu prezentuję każdemu z użytkowników kolejno wygenerowane pary w~postaci rzeczywistych stron z~artykułami dostępnych przez przeglądarkę internetową. Co ważne każdy użytkownik otrzymuje ten sam zestaw par. Podczas prezentacji pary artykułów użytkownik za~pomocą interfejsu webowego ocenia podobieństwo pomiędzy artykułami $rel(b_j, s_{jk})$ w skali 1-10.
-	\item Dla~każdej pary obliczam średnią ocen wszystkich $T$ użytkowników:
+	\item Dla~każdej pary obliczam średnią ocen wszystkich $T$ użytkowników wyrażoną wzorem \ref{eq:avg}:
 	\begin{equation}
+	\label{eq:avg}
 	avg(j,k)=\frac{1}{T}\sum_{t}^{T}rel_t(b_j, s_{jk}),
 	\end{equation}
 	gdzie $rel_t$ to ocena $t$-go użytkownika.
-	\item Dla~każdego artykułu bazowego $b_j$ obliczam:
+	\item Dla~każdego artykułu bazowego $b_j$ obliczam \ref{eq:mj}:
 	\begin{equation}
+	\label{eq:mj}
 	m(j) = \frac{1}{\sum_{i=1}^{p}i}\sum_{i=0}^{k} avg(j,k)*(p-i)
 	\end{equation}
 	będące średnią ważoną ocen, gdzie każdy kolejny artykuł podobny otrzymuje coraz mniejszą wagę.
