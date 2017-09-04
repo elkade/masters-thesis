@@ -11,7 +11,7 @@
 \contentsline {section}{\numberline {1.3}Techniki przetwarzania j\IeC {\k e}zyka naturalnego}{16}{section.1.3}
 \contentsline {subsection}{\numberline {1.3.1}Techniki podstawowe}{17}{subsection.1.3.1}
 \contentsline {subsubsection}{\textit {Bag-of-words}}{17}{subsubsection*.2}
-\contentsline {subsubsection}{\textit {TF-IDF}}{17}{subsubsection*.3}
+\contentsline {subsubsection}{\textit {TF-IDF}}{18}{subsubsection*.3}
 \contentsline {subsection}{\numberline {1.3.2}Semantyka dystrybucyjna}{18}{subsection.1.3.2}
 \contentsline {subsection}{\numberline {1.3.3}Modelowanie temat\IeC {\'o}w}{18}{subsection.1.3.3}
 \contentsline {subsubsection}{\textit {Latent semantic analysis}}{18}{subsubsection*.4}

@@ -136,6 +136,9 @@ Celem niniejszej pracy jest zbadanie metod sugerujących użytkownikowi artykuł
 
 \section{Systemy wyszukiwania}
 %TODO wstęp do systemów wyszukiwania
+System wyszukiwania ma na celu ,,odnajdywanie informacji na podstawie podanych przez użytkownika słów kluczowych lub wyrażeń sformułowanych w języku naturalnym'' %z wiki
+
+designed to help find information stored on a computer system. The search results are usually presented in a list and are commonly called hits. Search engines help to minimize the time required to find information and the amount of information which must be consulted, akin to other techniques for managing information overload
 
 ,,Systemy wyszukiwania mają na celu sugerowanie tego, co użytkownik chciałby otrzymać, natomiast systemy rekomendacji mają sugerować przedmioty potrzebne użytkownikowi nawet, jeżeli potrzeby te nie zostały bezpośrednio wyrażone.''
 
@@ -305,13 +308,11 @@ W~sieci nie~jest używana funkcja aktywacji, ale prawdopodobieństwa na~wyjściu
 
 \textit{FastText}~\cite{fasttext} to biblioteka stworzona w~2016r. w~celu wydajnego uczenia wektorowej reprezentacji słów oraz~klasyfikacji zdań. Od~,,klasycznego'' \textit{Word2vec} różni~się stopniem szczegółowości analizy słów. \textit{Word2vec} traktuje słowo jaką najmniejszą, niepodzielną jednostkę, której wektorową reprezentację usiłuje wyznaczyć. \textit{FastText} natomiast dokonuje analizy również wewnętrznej analizy słów. Wykorzystuje w~tym celu rozbicie słowa na podsłowa --- ciągi znaków o~określonej długości $n$, \textit{character n-grams}. Np.~słowo ,,pokój'' składa~się następujących 3-gramów: [pok], [okó], [kój]. Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i~znaczenie) z~innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w~ogóle nie~ma w~słowniku, jako, że ich podsłowa mogą należeć do~słów w~słowniku się~znajdujących. Zalety te wydają~się być szczególnie obiecujące w~przypadku bogatych morfologicznie języków, np.~języka polskiego, tureckiego, czy fińskiego.
 
-Zasada działania metody bazuje na~\textit{Word2vec}. Jednakże oprócz predykcji tylko całych słów następuje tu również predykcja n-gramów słowa $a$ w~otoczeniu słowa $a$. Ostatecznie słowu $a$ zostaje przypisany wektor składający~się ze~średniej oryginalnej reprezentacji wektorowej słowa oraz reprezentacji jego n-gramów.
-
-Jak pokazuje badanie~\cite{fast_text_word2vec} metoda ta sprawdza~się lepiej od~\textit{Word2vec} w~wykrywaniu syntaktycznych podobieństw pomiędzy słowami. 
+Zasada działania metody bazuje na~\textit{Word2vec}. Jednakże oprócz predykcji tylko całych słów następuje tu również predykcja n-gramów słowa $a$ w~otoczeniu słowa $a$. Ostatecznie słowu $a$ zostaje przypisany wektor składający~się ze~średniej oryginalnej reprezentacji wektorowej słowa oraz reprezentacji jego n-gramów. 
 
 \subsubsection{\textit{GloVe}}
 
-\textit{GloVe}~\cite{glove} (\textit{GLObal VEctors}) jest kolejną wartą uwagi metodą \textit{word embeddings} powstałą na~przestrzeni ostatnich lat. Algorytm \textit{GloVe} różni~się od~\textit{Word2vec} w~sposobie uzyskania wektorowej reprezentacji słów. \textit{Word2vec} jest modelem predykcyjnym, natomiast trening w~GloVe opiera~się na~globalnej macierzy współwystąpień słów. Ponadto, w~porównaniu do~\textit{Word2vec}, \textit{GloVe} stara~się wyznaczyć reprezentacje wektorowe wprost, podczas gdy w~\textit{Word2vec} dzieje~się ,,przy okazji'' --- szkoli~się sieć neuronową nie~w~celu jej dalszego wykorzystania dla~predykcji, a jedynie dla~jej macierzy wag. 
+\textit{GloVe}~\cite{glove} (\textit{GLObal VEctors}) jest kolejną wartą uwagi metodą \textit{word embeddings} powstałą na~przestrzeni ostatnich lat. Algorytm \textit{GloVe} różni~się od~\textit{Word2vec} w~sposobie uzyskania wektorowej reprezentacji słów. \textit{Word2vec} jest modelem predykcyjnym, natomiast trening w~\textit{GloVe} opiera~się na~globalnej macierzy współwystąpień słów. Ponadto, w~porównaniu do~\textit{Word2vec}, \textit{GloVe} stara~się wyznaczyć reprezentacje wektorowe wprost, podczas gdy w~\textit{Word2vec} dzieje~się ,,przy okazji'' --- szkoli~się sieć neuronową nie~w~celu jej dalszego wykorzystania dla~predykcji, a jedynie dla~jej macierzy wag. 
 
 Algorytm \textit{GloVe} składa się z następujących kroków~\cite{glove_cran}:
 \begin{enumerate}
@@ -368,15 +369,15 @@ Przypuśćmy, że dzięki metodzie \textit{Word2vec} dla~słownika $V$ o~$n$ sł
 
 \section{Miary oceny wyszukiwania}
 
-Razem z~rozwojem systemów wyszukiwania informacji powstały miary pozwalające ocenić wyniki działania tych systemów. Do~najbardziej popularnych należą ,,precyzja'' i~,,zwrot''.
+Razem z~rozwojem systemów wyszukiwania informacji powstały miary pozwalające ocenić wyniki działania tych systemów. Do~najbardziej popularnych należą \textit{precision} (precyzja) i~\textit{recall} (zwrot).
 
-Precyzja to odsetek wyszukanych dokumentów, które są relewantne do~zapytania (\ref{eq:prec}). 
+\textit{Precision} to odsetek wyszukanych dokumentów, które są relewantne do~zapytania (\ref{eq:prec}): 
 \begin{equation}
 \label{eq:prec}
 \mathrm{precision}=\frac{|\{\mathrm{relevant}\} \cap \{\mathrm{retrieved}\}|}{|\{\mathrm{retrieved}\}|}.
 \end{equation}
 
-Zwrot natomiast jest liczbą wyszukanych relewantnych dokumentów w~stosunku do~wszystkich relewantnych dokumentów (również tych niewyszukanych) (\ref{eq:rec}).
+\textit{Recall} natomiast jest liczbą wyszukanych relewantnych dokumentów w~stosunku do~wszystkich relewantnych dokumentów (również tych niewyszukanych) (\ref{eq:rec}).
 \begin{equation}
 \label{eq:rec}
 \mathrm{recall}=\frac{|\{\mathrm{relevant}\} \cap \{\mathrm{retrieved}\}|}{|\{\mathrm{relevant}\}|}.
@@ -445,7 +446,7 @@ W~celu zwiększenia skuteczności metod analizy tekstu stosuje~się wstępne prz
 
 Niżej opisuję kolejne kroki wstępnego przetwarzania tekstu, które wykonuję na~posiadanym zbiorze artykułów.
 \begin{enumerate}
-	\item Oczyszczanie tekstu ze~zbędnych, wspomnianych wcześniej znaczników. Z~punktu widzenia semantycznej analizy tekstu są one bezużyteczne, czy wręcz szkodliwe (powodują pewne ,,zanieczyszczenie'' tekstu). Stąd usuwam je wykorzystując odpowiednio skonstruowane wyrażenia regularne.
+	\item Oczyszczanie tekstu ze~zbędnych, wspomnianych wcześniej znaczników. Z~punktu widzenia semantycznej analizy tekstu są one bezużyteczne, czy wręcz szkodliwe (powodują pewne ,,zanieczyszczenie'' tekstu). Stąd usuwam je wykorzystując odpowiednio skonstruowane wyrażenia regularne. Przykładem takiego znacznika jest \texttt{![2\_new.jpg](http://(...) '2\_new.jpg')} umieszczający obrazek w środku tekstu (treść adresu \textit{URL} usunąłem przyczyn poufności).
 	\item Usunięcie ,,słów stopu''(ang. \textit{stopwords}) --- na~ogół krótkich słów niewnoszących nic do~znaczenia całości artykułu. Są to np.~,,w'', ,,z'', ,,ponieważ''. Ich usunięcie zmniejsza liczbę słów dokumentu skracając tym samym czas jego przetwarzania. Jako, że słowa te występują często, usunięcie ich daje możliwość uwypuklenia znaczenia innych słów mających wpływ na~rzeczywiste znaczenie całego artykułu. Zbiór słów stopu czerpię z~\cite{stopwords}.
 \item Sprowadzenie wszystkich słów dokumentu do~małych liter. Pomaga to ujednolicić postać części słów o~tym samym znaczeniu, wśród których jedno występuje na~początku zdania, a inne w~środku.
 	\item Rozbicie słów połączonych myślnikiem. Doświadczenie w~późniejszym etapie (tokenizacji) pokazuje, że narzędzie jej dokonujące (\textit{Morfologik}~\cite{morfologik}) nie~radzi sobie z~tego typu słowami (np.~,,biało-czerwony'') i~zostawia je w~niezmienionej postaci gramatycznej (np.~,,biało-czerwonego''). Stąd konieczność ręcznego wykonania przeze~mnie mechanizmu rozbijającego takie słowa do~postaci kompatybilnej z~tokenizerem. Do~wykonania odpowiedniej funkcji potrzebna była wcześniejsza analiza tego typu słów pod~kątem zachowania obu członów~w zależności od~ich rodzaju, przypadku i występowania konkretnych liter w~sufiksach słów składowych. Zależało mi także, aby nie~rozbijać słów będących nazwami własnymi, czy symbolami urządzeń.
@@ -585,13 +586,13 @@ Wykonuję testy adaptacji metod wektorowej reprezentacji słów~dla wielu konfig
 
 \subsubsection{Korpus bazowy}
 
-Pierwszy model \textit{Word2vec}, z jakim miałem styczność to model~\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie Słowosieci wer. 10~\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia \textit{Word2Vec}: metoda \textit{skip-gram}, wektory długości 100, okno kontekstu wielkości 5.
+Pierwszy model \textit{Word2vec}, z jakim miałem styczność to model~\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie \textit{Słowosieci} wer. 10~\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia \textit{Word2Vec}: metoda \textit{skip-gram}, wektory długości 100, okno kontekstu wielkości 5.
 
 Model ten zawiera 73875 spośród 98174 (75\%) unikalnych słów korpusu artykułów \textit{Allegro} oraz 7313915 z 7409145 (99\%) wszystkich słów korpusu artykułów. Wskazuje to, iż słowa nieobecne w modelu są bardzo mało popularne w korpusie artykułów (stanowią ok 1\% całości). Po samodzielnym sprawdzeniu stwierdzam, że słowa nieobecne w modelu to: ,,literówki'' lub słowa niepoprawnie stokenizowane (np. ,,urządzeia''), symbole marek produktów (np.~,,ux305fa'', ,,i7-4700qm''), żargon branżowy (np.~,,bootsów''), złożenia wyrazów (np.~,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np.~,,thermoprotect''). Uważam, iż mimo niewielkiej liczby tych słów w stosunku do modelu mogą mieć one znaczący wpływ na semantykę artykułów.
 
-W związku z powyższym stwierdzeniem wykonuję naukę modelu \textit{Word2vec} również na własnym korpusie artykułów w celu zawarcia brakujących w poprzednim modelu słów. Najrozsądniejszym postępowaniem byłoby tutaj rozszerzenie modelu opartego na korpusie Słowosieci również o brakujące słowa, jednak metoda \textit{Word2vec} nie pozwala na dodanie nowych słów do słownika istniejącego modelu, a jedynie na dalszą naukę w oparciu o słowa już istniejące w słowniku. Siłą rzeczy model zbudowany na zbiorze artykułów zawiera wszystkie słowa występujące w artykułach słowa. Korpusu tego używam do tworzenia modelów w oparciu o wszystkie pozostałe sposoby.
+W związku z powyższym stwierdzeniem wykonuję naukę modelu \textit{Word2vec} również na samym korpusie artykułów w celu zawarcia brakujących w poprzednim modelu słów. Najrozsądniejszym postępowaniem byłoby tutaj rozszerzenie modelu opartego na korpusie \textit{Słowosieci} również o brakujące słowa, jednak metoda \textit{Word2vec} nie pozwala na dodanie nowych słów do słownika istniejącego modelu, a jedynie na dalszą naukę w oparciu o słowa już istniejące w słowniku. Siłą rzeczy model zbudowany na zbiorze artykułów zawiera wszystkie słowa występujące w artykułach słowa. Ostatecznie pozostałe modele metod \textit{word embeddings}, których używam w dalszej części pracy są uczone i testowane na tym samym zbiorze artykułów \textit{Allegro}.
 
-Dokonuję porównania jakości modelu uczonego na korpusie Słowosieci z modelem uczonym na korpusie artykułów Allegro.
+Dokonuję porównania jakości modelu uczonego na korpusie \textit{Słowosieci} z modelem uczonym na korpusie artykułów \textit{Allegro}.
 
 \subsubsection{Sposób generowania wektorów i długość wektorów}
 Do wygenerowania wektorów reprezentujących słowa używam metod wektorowej reprezentacji tekstu: \textit{Word2vec}, \textit{GloVe} oraz \textit{FastText}. Każdą z nich testuję pod kątem różnej wymiarowości generowanych wektorów.
@@ -696,7 +697,7 @@ Warto zauważyć, że obie metody oparte o~ekstrakcję tematów --- \textit{LSI}
 
 \section{\textit{Word2vec} w zależności od korpusu}
 
-Poniżej zestawiam wyniki dla~modelów \textit{Word2vec} o~wektorach długości 100 uczonych: na~korpusie artykułów z~\textit{Allegro} (\textit{w2v100\_art}) oraz na~korpusie Słowosieci (\textit{w2v100\_wn}). Dokumenty porównywane są tu metodą centroidu.
+Poniżej zestawiam wyniki dla~modelów \textit{Word2vec} o~wektorach długości 100 uczonych: na~korpusie artykułów z~\textit{Allegro} (\textit{w2v100\_art}) oraz na~korpusie \textit{Słowosieci} (\textit{w2v100\_wn}). Dokumenty porównywane są tu metodą centroidu.
 
 \begin{table}[H]
 	\centering
@@ -721,7 +722,7 @@ Poniżej zestawiam wyniki dla~modelów \textit{Word2vec} o~wektorach długości 
 	%\label{fig:warstwy}
 \end{figure}
 
-Mimo, iż wykres pozornie przedstawia duże różnice między~metodami, to maksymalna różnica między najlepszym i~najgorszym wynikiem dla~dowolnej z~miar nie~przekracza 2\%. Stąd trudno jest stwierdzić, metoda uczona na~którym korpusie daje tu lepsze wyniki. Na~korzyść modelu \textit{Word2vec} uczonego na~korpusie artykułów przemawia jego mały rozmiar, a co za~tym idzie szybkość nauki. Z~przyczyny braku wyraźnych zalet korzystania tu z~modelu uczonego na korpusie Słowosieci korzystam dalej jedynie z~modeli opartych o~korpus artykułów \textit{Allegro}.
+Mimo, iż wykres pozornie przedstawia duże różnice między~metodami, to maksymalna różnica między najlepszym i~najgorszym wynikiem dla~dowolnej z~miar nie~przekracza 2\%. Stąd trudno jest stwierdzić, metoda uczona na~którym korpusie daje tu lepsze wyniki. Na~korzyść modelu \textit{Word2vec} uczonego na~korpusie artykułów przemawia jego mały rozmiar, a co za~tym idzie szybkość nauki. Z~przyczyny braku wyraźnych zalet korzystania tu z~modelu uczonego na korpusie \textit{Słowosieci} korzystam dalej jedynie z~modeli opartych o~korpus artykułów \textit{Allegro}.
 
 \section{\textit{Word2vec} w zależności od metody porównywania dokumentów}
 
@@ -975,7 +976,6 @@ Jakość autorskich automatycznych metod ewaluacji zdaje~się potwierdzać dodat
 
 
 \chapter{Podsumowanie pracy i kierunki dalszych badań}
-%TOTO na początku pracy zaać pytania i w podsumowaniu na nie odpowiedzieć
 
 W~niniejszej pracy starałem~się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w~celu wyznaczania artykułów najbardziej podobnych do~danego są w~stanie dorównać dotychczas używanej w~serwisie \textit{Allegro} metodzie opartej o~zapytanie do~silnika wyszukiwania \textit{Elasticsearch}. W~tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w~zależności od~konfiguracji poszczególnych metod. Po~analizie wyników testów można udzielić odpowiedzi: tak, każda~ metod semantycznej analizy języka naturalnego w~swojej najlepszej konfiguracji może zostać zaadaptowana w~celu generowania rekomendacji artykułów w~oparciu o~treść artykułu aktualnie wyświetlanego przez~użytkownika serwisu. Rekomendacje te w~ocenie użytkowników nie~ustępują jakością dotychczasowej metodzie. 
 
@@ -1002,18 +1002,15 @@ Można by zastosować inne metody wyznaczania odległości między~wektorowymi r
 %TODO:
 %przeglądowy artykuł naukowy o rekomendacjach
 %opisać systemy wyszukiwania
-%w tekście numery wzorów
 %poprawić referencję word2vec
 %dlaczego taka złożoność WMD
-%precyzja i zwrot po angielsku
-%wykres kategorii
-%przykłady znaczników z artykułów
+
 %literówki i przecinki jeszcze raz
 %paragraf z metodą clicks
 %paragraf o piaseckim
 %podsumowanie
 %bibliografia
-
+%antyplagiat
 \begin{thebibliography}{30}
 	\bibitem{allegro}
 		Opis Allegro
