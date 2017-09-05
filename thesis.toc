@@ -62,7 +62,7 @@
 \contentsline {section}{\numberline {5.4}Ocena jako\IeC {\'s}ci wybranych metod przez u\IeC {\.z}ytkownik\IeC {\'o}w}{55}{section.5.4}
 \contentsline {subsection}{\numberline {5.4.1}Zestawienie wynik\IeC {\'o}w test\IeC {\'o}w automatycznych}{55}{subsection.5.4.1}
 \contentsline {subsection}{\numberline {5.4.2}Wyniki oceny eksperckiej}{56}{subsection.5.4.2}
-\contentsline {section}{\numberline {5.5}Podsumowanie test\IeC {\'o}w}{58}{section.5.5}
+\contentsline {section}{\numberline {5.5}Podsumowanie test\IeC {\'o}w}{59}{section.5.5}
 \contentsline {chapter}{\numberline {6}Podsumowanie pracy i kierunki dalszych bada\IeC {\'n}}{60}{chapter.6}
 \contentsline {section}{\numberline {6.1}Dalsze badania}{60}{section.6.1}
 \contentsline {chapter}{Bibliografia}{62}{section*.15}

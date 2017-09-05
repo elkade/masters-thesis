@@ -354,7 +354,7 @@ Wadą opisanej powyżej metody jest utrata potencjalnie użytecznych zależnośc
 W~kontrze do~tego prezentuję metodę obliczania dystansu między dokumentami uwzględniającą rozkład wektorów wewnątrz dokumentu.
 
 \subsubsection{\textit{Word Mover's Distance}}
-\textit{Word Mover's Distance}~\cite{wmd} to rozwiązanie zwracające odległość między dokumentami tekstowymi. W~tym celu adaptuje algorytm \textit{Earth Mover's Distance}~\cite{emd} oraz~wektorową reprezentację słów dokumentu. \textit{WMD} mierzy odległość między dokumentami jako minimalny dystans, jaki wektory słów pierwszego dokumentu muszą ,,pokonać'', aby osiągnąć wartości wektorów z drugiego dokumentu.
+\textit{Word Mover's Distance}~\cite{wmd} to rozwiązanie zwracające odległość między dokumentami tekstowymi. W~tym celu adaptuje algorytm \textit{Earth Mover's Distance} (\textit{EMD})~\cite{emd} oraz~wektorową reprezentację słów dokumentu. \textit{WMD} mierzy odległość między dokumentami jako minimalny dystans, jaki wektory słów pierwszego dokumentu muszą ,,pokonać'', aby osiągnąć wartości wektorów z drugiego dokumentu.
 
 \textit{EMD} jest metodą mierzenia odległości pomiędzy dwoma rozkładami, która opiera~się na~minimalnym koszcie, jaki musi zostać poniesiony, aby dokonać transformacji jednego rozkładu w~drugi. Problem można sformalizować jako problem programowania liniowego, gdzie:
 $P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ są danymi rozkładami o~$m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest masą klastra. $D=[d_{ij}]$ jest macierzą odległości, w~której $d_{ij}$ reprezentuje odległość pomiędzy klastrami $p_i$ i $q_j$. Celem jest znaleźć taki przepływ $F = [f_{ij}]$, gdzie $f_{ij}$ to przepływ pomiędzy $p_i$ i $q_j$, który minimalizuje całościowy koszt postaci \ref{eq:work}
@@ -363,9 +363,9 @@ $P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ s
 work(P, Q, F) = \sum_{i=1}^{m}\sum_{n}^{j=1}d_{ij}f_{ij}
 \end{equation}
 przy~odpowiednich ograniczeniach~\cite{emd}.
-\textit{EMD} jest dobrze zbadanym problemem transportowym~\cite{emd}, dla~którego powstały efektywne metody rozwiązania~\cite{emd_method}. 
 
-Przypuśćmy, że dzięki metodzie \textit{Word2vec} dla~słownika $V$ o~$n$ słowach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te słowo ze~słownika $V$. Odległości pomiędzy wektorami reprezentującymi semantycznie zbliżone słowa są relatywnie mniejsze od~odległości dla~słów niezwiązanych ze~sobą. Celem \textit{WMD} jest zawrzeć semantyczne podobieństwo pomiędzy poszczególnymi parami słów w~dystansie pomiędzy~całymi dokumentami. Aby to osiągnąć metoda traktuje dokument jako rozkład, którego $i$-tym elementem jest liczba wystąpień $i$-tego słowa w~tym dokumencie, a następnie stosuje metodę \textit{EMD} do~obliczenia dystansu między tymi rozkładami. Macierz odległości $D$ używana w~metodzie \textit{EMD} jest zbudowana na~bazie odległości między wektorami \textit{Word2vec} reprezentującymi słowa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy słów ze~słownika $V$, a $x_{ij}$ to element macierzy $X$. Autorzy metody określają złożoność metody jako $O(p^3\log p)$, gdzie $p$ to wielkość słownika $V$.
+Przypuśćmy, że dzięki metodzie \textit{Word2vec} dla~słownika $V$ o~$n$ słowach otrzymujemy macierz $X \in \mathbb{R}^{d \times n}$. $i$-ta kolumna tej macierzy reprezentuje $i$-te słowo ze~słownika $V$. Odległości pomiędzy wektorami reprezentującymi semantycznie zbliżone słowa są relatywnie mniejsze od~odległości dla~słów niezwiązanych ze~sobą. Celem \textit{WMD} jest zawrzeć semantyczne podobieństwo pomiędzy poszczególnymi parami słów w~dystansie pomiędzy~całymi dokumentami. Aby to osiągnąć metoda traktuje dokument jako rozkład, którego $i$-tym elementem jest liczba wystąpień $i$-tego słowa w~tym dokumencie, a następnie stosuje metodę \textit{EMD} do~obliczenia dystansu między tymi rozkładami. Macierz odległości $D$ używana w~metodzie \textit{EMD} jest zbudowana na~bazie odległości między wektorami \textit{Word2vec} reprezentującymi słowa dokumentów. $d_{ij} = ||x_i-x_j||$, gdzie $i$ i $j$ to indeksy słów ze~słownika $V$, a $x_{ij}$ to element macierzy $X$. \textit{EMD} jest dobrze zbadanym problemem transportowym~\cite{emd}, a efektywne metody jego rozwiązania przy złożoności poniżej $O(p^3\log p)$ zostały opisane np.~w~\cite{emd_method}. 
+
 
 \section{Miary oceny wyszukiwania}
 
@@ -964,15 +964,21 @@ Pożądaną cechą dla~metody jest, aby możliwie rzadko generowała ona wyniki 
 
 W~świetle powyższych wyników najlepsze rezultaty zdaje~się osiągać \textit{FastText}. Zakładam, iż jest to związane z wewnętrzną analizą słów, jaką wykonuje ta metoda. Może~się to sprawdzać szczególnie dobrze w~przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
 
+W~celu bardziej szczegółowego porównania wyników uzyskanych przy~ewaluacji eksperckiej przeprowadzam test Kruskala-Wallisa. Za~dane wejściowe testu przyjmuję próby złożone z~wartości $m(j)$ (ze~wzoru \ref{eq:mj}) uzyskane dla~każdej z~testowanych przez~użytkowników metod bez~metody losowej. Pojedynczy element odpowiada średniej ocen pomiędzy artykułem bazowym, a artykułami podobnymi do niego wygenerowanymi przez daną metodę. Za hipotezę zerową $H_0$ przyjmuję, równość dystrybuant rozkładów w~populacjach, z~których pochodzą próby. Sytuację tę interpretuję, iż nie~ma statystycznie istotnej różnicy w~eksperckiej ocenie testowanych metod.
+
+Przyjmuję poziom istotności $\alpha=0.05$. Jako wynik testu Kruskala-Wallisa otrzymuję $p=0.28371>\alpha$, na~podstawie czego stwierdzam, że brak jest przesłanek, by odrzucić hipotezę zerową --- różnica między jakością rekomendacji testowanych metod nie~jest istotna statystycznie.
+
 \section{Podsumowanie testów}
 
 Przeprowadzone testy automatyczne miały na~celu sprawdzenie, jak jakość danej metody zależy od~jej konfiguracji. W~tym celu wykorzystałem autorskie metody ewaluacji. W~wielu przypadkach dało~się zauważyć korelację między metodami ewaluacji opartymi o~metadane artykułów: słowa kluczowe i~kategorie.
 
 Wartościowym okazało~się rozróżnienie na~ewaluację poprzez~obliczenie średniej relewantności oraz obliczenie miary \textit{nDCG}. Pokazało to wyjątkowo dobrą zdolność metody \textit{WMD} do~poprawnego szeregowania rekomendowanych artykułów.
 
-Wyniki metody \textit{clicks} --- opartej o~historyczną aktywność użytkowników --- odstają niekiedy od~innych wyników. Może~się to wiązać z~faktem, iż liczba przejść dokonanych przez~użytkowników między parami artykułów niekoniecznie odzwierciedla podobieństwo między nimi. Fakt, iż użytkownik przechodzi z~artykułu $A$ do~rekomendowanego artykułu $B$ może również wynikać z~faktu, iż artykuł $B$ porusza inną tematykę niż artykuł $A$, która to jednak interesuje użytkownika. Wprowadzanie do~rekomendacji małego odsetka niepowiązanych przedmiotów jest znaną praktyką przy~tworzeniu systemów rekomendacji i~ma na~celu zainteresowanie użytkownika przedmiotami spoza kręgu jego dotychczasowych zainteresowań.
+Wyniki metody \textit{clicks} --- opartej o~historyczną aktywność użytkowników --- wyraźnie odstają od~innych wyników. Może~się to wiązać z~faktem, iż liczba przejść dokonanych przez~użytkowników między parami artykułów niekoniecznie odzwierciedla podobieństwo między nimi. Fakt, iż użytkownik przechodzi z~artykułu $A$ do~rekomendowanego artykułu $B$ może również wynikać z~faktu, iż artykuł $B$ porusza inną tematykę niż artykuł $A$, która to jednak interesuje użytkownika. Wprowadzanie do~rekomendacji małego odsetka niepowiązanych przedmiotów jest znaną praktyką przy~tworzeniu systemów rekomendacji i~ma na~celu zainteresowanie użytkownika przedmiotami spoza kręgu jego dotychczasowych zainteresowań.
 
-Jakość autorskich automatycznych metod ewaluacji zdaje~się potwierdzać dodatnia korelacja z~wynikami oceny eksperckiej. Ocena ta pozwoliła wyznaczyć metodę najlepiej nadającą~się do~zadania rekomendacji artykułów w~języku polskim oraz~pokazała, że wszystkie testowane metody w~swoich najlepszych konfiguracjach dają wyniki o~podobnej jakości. 
+Porównanie najlepszych konfiguracji testowanych metod wykazało, że nie~ma istotnych różnic między metodami semantycznej analizy tekstu zaadaptowanymi do~zadania generowania rekomendacji oraz~dotychczasową metodą stosowaną w~\textit{Allegro} opartą o~zapytanie do~silnika \textit{Elasticsearch}.
+
+% Jakość autorskich automatycznych metod ewaluacji zdaje~się potwierdzać dodatnia korelacja z~wynikami oceny eksperckiej. Ocena ta pozwoliła wyznaczyć metodę najlepiej nadającą~się do~zadania rekomendacji artykułów w~języku polskim oraz~pokazała, że wszystkie testowane metody w~swoich najlepszych konfiguracjach dają wyniki o~podobnej jakości. 
 
 
 \chapter{Podsumowanie pracy i kierunki dalszych badań}
@@ -995,20 +1001,15 @@ Przed~zastosowaniem metod wyznaczania podobieństwa wykonałem przetwarzanie wst
 Innym aspektem jest założenie braku dynamiki systemu. Konieczność przebudowywania modelu przy~każdej zmianie w~bazie artykułów w~praktyce mogłaby powodować niemożność zastosowania metod semantycznej analizy tekstu w~tym celu. Tempo zmian rzeczywistego zbioru artykułów oraz~czasy budowania modeli nie~były poruszane w~niniejszej pracy.
 
 Można by zastosować inne metody wyznaczania odległości między~wektorowymi reprezentacjami dokumentów. Metoda centroidu jest szybka i~prosta, ale dokonuje sporego uproszczenia struktury dokumentu. Metoda \textit{WMD} daje natomiast lepsze uszeregowanie, ale kosztem dużej złożoności obliczeniowej.
-%Inne ciekawe badania w tym temacie
-%Kwestie, które wykraczają poza zakres niniejszej pracy, a są związane z jej tematyką
-%Otrzymane wyniki nie wskazują jednoznacznej przewagi jednej metody nad innymi.
 
 %TODO:
-%przeglądowy artykuł naukowy o rekomendacjach
 %opisać systemy wyszukiwania
-%poprawić referencję word2vec
-%dlaczego taka złożoność WMD
 
 %literówki i przecinki jeszcze raz
 %paragraf z metodą clicks
 %paragraf o piaseckim
 %podsumowanie
+% https://s6.postimg.org/r0m8bpjw1/recommender-architecture.png
 %bibliografia
 %antyplagiat
 \begin{thebibliography}{30}
