@@ -65,10 +65,10 @@
 \contentsline {section}{\numberline {5.5}Podsumowanie test\IeC {\'o}w}{59}{section.5.5}
 \contentsline {chapter}{\numberline {6}Podsumowanie pracy i kierunki dalszych bada\IeC {\'n}}{60}{chapter.6}
 \contentsline {section}{\numberline {6.1}Dalsze badania}{60}{section.6.1}
-\contentsline {chapter}{Bibliografia}{62}{section*.15}
-\contentsline {chapter}{Spis rysunk\'ow}{65}{section*.16}
-\contentsline {chapter}{Spis tabel}{67}{section*.17}
-\contentsline {chapter}{Spis za\IeC {\l }\IeC {\k a}cznik\IeC {\'o}w}{68}{section*.18}
-\contentsline {chapter}{\numberline {A}Wykorzystane technologie i narz\IeC {\k e}dzia}{69}{appendix.A}
-\contentsline {chapter}{\numberline {B}Zawarto\IeC {\'s}\IeC {\'c} do\IeC {\l }\IeC {\k a}czonej p\IeC {\l }yty CD}{71}{appendix.B}
+\contentsline {chapter}{Bibliografia}{63}{section*.15}
+\contentsline {chapter}{Spis rysunk\'ow}{66}{section*.16}
+\contentsline {chapter}{Spis tabel}{68}{section*.17}
+\contentsline {chapter}{Spis za\IeC {\l }\IeC {\k a}cznik\IeC {\'o}w}{69}{section*.18}
+\contentsline {chapter}{\numberline {A}Wykorzystane technologie i narz\IeC {\k e}dzia}{70}{appendix.A}
+\contentsline {chapter}{\numberline {B}Zawarto\IeC {\'s}\IeC {\'c} do\IeC {\l }\IeC {\k a}czonej p\IeC {\l }yty CD}{72}{appendix.B}
 \contentsfinish 

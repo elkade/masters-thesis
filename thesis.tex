@@ -993,21 +993,24 @@ Istotną zaletą dotychczasowego rozwiązania stosowanego w \textit{Allegro} jes
 
 Analiza zawarta w~tej pracy nie~wyczerpuje całkowicie zagadnień związanych z~tematem pracy. Przeprowadzone w~pracy badania dają jedynie ogólny pogląd, ale pokazują, że istnieje pole do~dalszych badań w~tym kierunku.
 
-Nietrywialnym problemem okazało~się zadanie ewaluacji systemu rekomendacyjnego. Warto zaznaczyć tu różnicę pomiędzy tematyką pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artykuły najbardziej podobne wcale nie~muszą być tymi, które najlepiej nadają~się na~rekomendacje. Otwartym pytaniem pozostaje, czy rekomendowanie użytkownikowi podobnych artykułów wprost przekłada~się na~zwiększenie liczby transakcji zawartych przez niego. Powszechnym zjawiskiem jest wzbogacanie rekomendacji o~przedmioty niepodobne do~danego, a~pozwalające użytkownikowi na~poznanie osobnej kategorii przedmiotów, która może go zainteresować, a tym samym przyciągnąć do~serwisu. Ostatecznym celem użycia systemu rekomendacji jest w~dłuższej perspektywie maksymalizacja zysku serwisu przez kierowanie użytkowników na~strony ofert, co zwiększa szansę na~dokonanie przez~nich transakcji. Trudność oceny jakości takiego systemu wiąże~się z~mnogością czynników, które kierują zachowaniami użytkowników. Dopiero badania na~,,żywym systemie'' są w~stanie wykazać realną wyższość jednej z~metod nad~innymi. Sporządzenie systemu rekomendacji uwzględniającego te czynniki wydaje~się więc być osobnym tematem godnym szczegółowych badań.
+Nietrywialnym problemem okazało~się zadanie ewaluacji systemu rekomendacyjnego. Warto zaznaczyć tu różnicę pomiędzy tematyką pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artykuły najbardziej podobne wcale nie~muszą być tymi, które najlepiej nadają~się na~rekomendacje. Otwartym pytaniem pozostaje, czy rekomendowanie użytkownikowi podobnych artykułów wprost przekłada~się na~zwiększenie liczby transakcji zawartych przez niego. Powszechnym zjawiskiem jest wzbogacanie rekomendacji o~przedmioty niepodobne do~danego, a~pozwalające użytkownikowi na~poznanie osobnej kategorii przedmiotów, która może go zainteresować, a~tym samym przyciągnąć do~serwisu. Ostatecznym celem użycia systemu rekomendacji jest w~dłuższej perspektywie maksymalizacja zysku serwisu przez kierowanie użytkowników na~strony ofert, co zwiększa szansę na~dokonanie przez~nich transakcji. Trudność oceny jakości takiego systemu wiąże~się z~mnogością czynników, które kierują zachowaniami użytkowników. Dopiero badania na~,,żywym systemie'' są w~stanie wykazać realną wyższość jednej z~metod nad~innymi. Sporządzenie systemu rekomendacji uwzględniającego te czynniki wydaje~się więc być osobnym tematem godnym szczegółowych badań.
+
+Badania przeprowadzone w~niniejszej pracy mogą być podstawą do~zaprojektowania pełnego systemu rekomendacji, który mógłby zostać wykorzystany w~realnej aplikacji.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{img/recom_sys_scheme.png}
+	\caption{Ogólny schemat aplikacji wykorzystującej system rekomendacyjny oparty na treści artykułów.}
+\end{figure}
+
+W~aplikacji tej użytkownik odpytuje aplikację za~pośrednictwem strony internetowej w~celu wyświetlenia treści artykułu. Gdy porusza~się po~stronach serwisu, informacje o~sekwencji odwiedzonych przez niego stron zostają zapisane w~bazie danych analitycznych. Artykuły wyświetlane przez~użytkownika pochodzą z~bazy danych o~zoptymalizowanym odczycie --- np. silnika wyszukiwania. Z~założenia edycja takiej bazy następuje nieporównywalnie rzadziej niż odczyt z~niej. Do~każdego wyświetlanego przez~użytkownika artykułu dołączane są artykuły do~niego rekomendowane. Wybór artykułów rekomendowanych dokonywany jest przez silnik rekomendacyjny oparty o~model semantycznej analizy języka naturalnego. Model ten jest uczony na~podstawie artykułów pochodzących z bazy artykułów. Jego ewaluacja następuje na~podstawie danych analitycznych gromadzonych w~osobnej bazie. W~trakcie działania systemu zmieniają~się zachowania użytkowników, warstwa wizualna stron internetowych oraz zbiór dostępnych artykułów. W~związku z~tym model musi być co pewien czas przebudowywany w~celu maksymalizacji jakości generowanych wyników.
 
 Przed~zastosowaniem metod wyznaczania podobieństwa wykonałem przetwarzanie wstępne dokumentów, które można przeprowadzić również na~inne sposoby. Dobór metod wstępnego przetwarzania tekstu jest zawsze kwestią indywidualną, trudną w~ocenie.
 
-Innym aspektem jest założenie braku dynamiki systemu. Konieczność przebudowywania modelu przy~każdej zmianie w~bazie artykułów w~praktyce mogłaby powodować niemożność zastosowania metod semantycznej analizy tekstu w~tym celu. Tempo zmian rzeczywistego zbioru artykułów oraz~czasy budowania modeli nie~były poruszane w~niniejszej pracy.
-
-Można by zastosować inne metody wyznaczania odległości między~wektorowymi reprezentacjami dokumentów. Metoda centroidu jest szybka i~prosta, ale dokonuje sporego uproszczenia struktury dokumentu. Metoda \textit{WMD} daje natomiast lepsze uszeregowanie, ale kosztem dużej złożoności obliczeniowej.
+Można by również zastosować inne metody wyznaczania odległości między~wektorowymi reprezentacjami dokumentów. Metoda centroidu jest szybka i~prosta, ale dokonuje sporego uproszczenia struktury dokumentu. Metoda \textit{WMD} daje natomiast lepsze uszeregowanie, ale kosztem dużej złożoności obliczeniowej.
 
 %TODO:
-%opisać systemy wyszukiwania
-
 %literówki i przecinki jeszcze raz
 %paragraf z metodą clicks
-%podsumowanie
-% https://s6.postimg.org/r0m8bpjw1/recommender-architecture.png
 %bibliografia
 %antyplagiat
 \begin{thebibliography}{30}
