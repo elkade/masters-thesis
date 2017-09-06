@@ -11,7 +11,7 @@
 \setboolean{lady}{false} % kobiety wpisują true, mężczyźni - false
 
 \title{Content-based recommendations in e-commerce services} % nazwa pracy
-\titleaux{System rekomendacji artykułów opisujących produkty w serwisach e-commerce}
+\titleaux{Rekomendacje artykułów opisujących produkty w serwisach e-commerce}
 \type{magisters} % licencjat = licencjac, inżynier = inżyniers
 \discipline{Informatyka} % kierunek
 \specjal{Metody Sztucznej Inteligencji}
@@ -136,11 +136,10 @@ Celem niniejszej pracy jest zbadanie metod sugerujących użytkownikowi artykuł
 
 \section{Systemy wyszukiwania}
 %TODO wstęp do systemów wyszukiwania
-System wyszukiwania ma na celu ,,odnajdywanie informacji na podstawie podanych przez użytkownika słów kluczowych lub wyrażeń sformułowanych w języku naturalnym'' %z wiki
 
-designed to help find information stored on a computer system. The search results are usually presented in a list and are commonly called hits. Search engines help to minimize the time required to find information and the amount of information which must be consulted, akin to other techniques for managing information overload
+Systemy wyszukiwania projektuje~się w~celu znajdywania informacji przechowywanych w~systemie komputerowym. Wyniki wyszukiwania są zazwyczaj prezentowane w~postaci listy, której elementy uszeregowane są od~najbardziej związanych z~szukaną frazą: słowami kluczowymi lub wyrażeniem w języku naturalnym. Celem systemu jest ograniczenie czasu poświęcanego przez~użytkownika na~samodzielnym przeszukiwaniu systemu.
 
-,,Systemy wyszukiwania mają na celu sugerowanie tego, co użytkownik chciałby otrzymać, natomiast systemy rekomendacji mają sugerować przedmioty potrzebne użytkownikowi nawet, jeżeli potrzeby te nie zostały bezpośrednio wyrażone.''
+W ujęciu ogólnym systemy wyszukiwania mają na~celu sugerowanie tego, co użytkownik chciałby otrzymać. Natomiast systemy rekomendacji mają sugerować przedmioty potrzebne użytkownikowi nawet, jeżeli potrzeby te nie~zostały bezpośrednio wyrażone.
 
 Przykładem systemu wyszukiwania jest silnik \textit{Elasticsearch} używany m.in. w \textit{Allegro}. Metoda generowania rekomendacji obecnie wykorzystywana w serwisie opiera~się właśnie o~zapytanie do~usługi \textit{Elasticsearch}~\cite{elastic} wykorzystujące słowa kluczowe manualnie dołączone do~artykułów. \textit{Elasticsearch} jest popularnym silnikiem wyszukiwania tekstu opartym o~indeks \textit{Lucene}~\cite{lucene}. Działa w~architekturze rozproszonej a~komunikacja z~nim następuje poprzez protokół \textit{HTTP} i~format \textit{JSON}. Umożliwia on efektywne przechowywanie dokumentów tekstowych oraz~efektywne ich wyszukiwanie.
 
@@ -532,11 +531,11 @@ Niniejsza miara działa podobnie do~poprzedniej opartej o~kategorie. Para artyku
 
 Gromadzenie informacji o~aktywności użytkownika w~ramach serwisu internetowego jest powszechną praktyką. Proces ten pozwala na~analizę zachowania użytkowników co może doprowadzić do~wniosków, jakie usprawnienia należy przedsięwziąć, aby spełnić cele biznesowe. Jednym z~przykładów aktywności użytkownika zapisywanej przez~serwis \textit{Allegro} są kliknięcia w~linki znajdujące~się na~stronie internetowej. Informacja ta pozwala sporządzić jeszcze jedną miarę jakości dopasowania podobnych do~siebie artykułów. Postać danych, jakie udało mi się~uzyskać z~serwisu to tabela o~polach: adres strony, na~której nastąpiło kliknięcie, adres strony, na~którą prowadzi link, data kliknięcia.
 
-Jak już zostało opisane powyżej strona z~artykułem tekstowym zawiera odnośniki do~innych artykułów poruszających tematykę podobną do danego. Skoro zapisywana jest informacja o~przejściach pomiędzy~podstronami serwisu, to można obliczyć ile razy z~artykułu $X$ dokonano przejścia na~rekomendowany do~niego artykuł $Y_1$, a ile razy na~rekomendowany artykuł $Y_2$. Jeżeli liczba przejść na~artykuł $Y_1$ jest większa niż na~$Y_2$, można wnioskować, iż $Y_1$ wydaje się być bardziej relewantną rekomendacją dla~artykułu $X$.
+Jak już zostało opisane powyżej strona z~artykułem tekstowym zawiera odnośniki do~innych artykułów poruszających tematykę podobną do~niego. Skoro zapisywana jest informacja o~przejściach pomiędzy~podstronami serwisu, to można obliczyć ile razy w~pewnym okresie dokonano przejścia z~artykułu $X$ na~rekomendowany do~niego artykuł $Y_1$, a ile razy na~rekomendowany artykuł $Y_2$. Jeżeli liczba przejść na~artykuł $Y_1$ jest większa niż na~$Y_2$, można wnioskować, iż $Y_1$ wydaje się być bardziej relewantną rekomendacją dla~artykułu $X$.
 
 Posługując się powyższym założeniem, można zaproponować miarę jakości rekomendacji generowanych przez~testowane metody w~odniesieniu do~popularności rzeczywistych rekomendacji wyekstrahowanej z~danych serwisu o~aktywności użytkowników.
 
-W~tym celu dokonuję adaptacji miary \textit{nDCG}. Załóżmy, że testowana metoda $A$ zwraca pewien ciąg $p$ artykułów $c_A=a_1,\ a_2,\ ...,\ a_p$ podobnych do~danego artykułu $x$ w~kolejności od~najbardziej relewantnego. Załóżmy również, część elementów ciągu $c_B$ artykułów rekomendowanych w~serwisie dla $x$ (używaną dotychczas w serwisie metodą $B$) znajduje~się również w~ciągu $c_A$, tj. $(\exists{a_i, a_j\in c_A})a_i \in c_B \land a_j \in c_B$, gdzie $i$, $j$ to indeksy w~ciągu $c_A$. Załóżmy ponadto, że z~danych o~kliknięciach użytkowników w~linki w~ramach serwisu wiadomo, że przejście z~$x$ na~$a_i$ jest bardziej popularne niż przejście z~$x$ na~$a_j$. Stąd jeżeli $i<j$ ($i>j$), to jakość działania metody $A$ jest dobra (zła), bo metoda ta generuje podobne artykuły w~kolejności zgodnej ze stopniem podobieństwa z~artykułem bazowym, opartym o~częstość przejść użytkowników między artykułami.
+W~tym celu dokonuję adaptacji miary \textit{nDCG}. Załóżmy, że testowana metoda $A$ zwraca pewien ciąg $p$ artykułów $(a_1,\ a_2,\ ...,\ a_p)$ podobnych do~danego artykułu $x$ w~kolejności od~najbardziej relewantnego. Załóżmy również, część elementów ciągu $c_B$ artykułów rekomendowanych w~serwisie dla $x$ (używaną dotychczas w serwisie metodą $B$) znajduje~się również w~ciągu $c_A$, tj. $(\exists{a_i, a_j\in c_A})a_i \in c_B \land a_j \in c_B$, gdzie $i$, $j$ to indeksy w~ciągu $c_A$. Załóżmy ponadto, że z~danych o~kliknięciach użytkowników w~linki w~ramach serwisu wiadomo, że przejście z~$x$ na~$a_i$ jest bardziej popularne niż przejście z~$x$ na~$a_j$. Stąd jeżeli $i<j$ ($i>j$), to jakość działania metody $A$ jest dobra (zła), bo metoda ta generuje podobne artykuły w~kolejności zgodnej ze stopniem podobieństwa z~artykułem bazowym, opartym o~częstość przejść użytkowników między artykułami.
 
 Za~miarę relewantności używaną przez~\textit{nDCG} przyjmuję liczby rzeczywistych przejść pomiędzy artykułami, a samą metodę stosuję tylko do~przecięcia zbioru artykułów podobnych do~danego generowanych przez~daną metodę ze~zbiorem artykułów rekomendowanych przez~dotychczasową metodę działającą w~serwisie.
 
@@ -1007,7 +1006,6 @@ Można by zastosować inne metody wyznaczania odległości między~wektorowymi r
 
 %literówki i przecinki jeszcze raz
 %paragraf z metodą clicks
-%paragraf o piaseckim
 %podsumowanie
 % https://s6.postimg.org/r0m8bpjw1/recommender-architecture.png
 %bibliografia
@@ -1222,25 +1220,26 @@ Można by zastosować inne metody wyznaczania odległości między~wektorowymi r
 \pagestyle{empty}
 \appendix
 \chapter{Wykorzystane technologie i narzędzia}
-Analizę danych, ich wstępne przetworzenie a następnie przeprowadzenie docelowych eksperymentów wykonałem korzystając głównie z języka Python i szeregu skrytpów napisanych w nim własnoręcznie, wykorzystujących istniejące specjalistyczne biblioteki posiadające interfejs w tymże języku.
+Analizę danych, ich wstępne przetworzenie, a~następnie przeprowadzenie docelowych eksperymentów wykonałem korzystając głównie z~języka \textit{Python} i szeregu skryptów napisanych w~nim własnoręcznie, wykorzystujących istniejące specjalistyczne biblioteki, posiadające interfejs w~tymże języku.
 
 Wykorzystane narzędzia:
 \begin{itemize}
-	\item Elasticsearch --- silnik wyszukiwania tekstowego. Używam go do przechowywania bazy artykułów oraz ich przetworzonych wersji.
-	\item MongoDB --- nierelacyjna baza danych, której używam do przechowywania wyników generowanych przez testowane algorytmy.
-	\item GloVe --- implementacja metody GloVe. Generuje wektory słów, które następnie mogą być wykorzystane np. przez bibliotekę gensim.
-	\item FastText --- implementacja metody FastText wykonana przez zespół Facebook Research. Generuje wektory słów, które następnie mogą być wykorzystane np. przez bibliotekę gensim.
+	\item \textit{Elasticsearch} --- silnik wyszukiwania tekstowego. Używam go do~przechowywania bazy artykułów oraz~ich przetworzonych wersji.
+	\item \textit{MongoDB} --- nierelacyjna baza danych, której używam do~przechowywania wyników generowanych przez~testowane algorytmy.
+	\item \textit{GloVe} --- implementacja metody \textit{GloVe}. Generuje wektory słów, które następnie mogą być wykorzystane np.~przez~bibliotekę \textit{gensim}.
+	\item \textit{FastText} --- implementacja metody \textit{FastText} wykonana przez zespół \textit{Facebook Research}. Generuje wektory słów, które następnie mogą być wykorzystane np.~przez bibliotekę \textit{gensim}.
 \end{itemize}
 
-Poniższa lista zawiera wykorzystane biblioteki języka Python:
+Poniższa lista zawiera wykorzystane biblioteki języka \textit{Python}:
 \begin{itemize}
-	\item Gensim --- rozbudowana biblioteka służąca do przetwarzania języka naturalnego; zawiera implementację metod Word2Vec, LSI, LDA, TF-IDF i inne.
-	\item Morfologik --- tokenizer języka polskiego.
-	\item Numpy --- pozwala wydajnie wykonywać obliczenia numeryczne.
-	\item Pyemd --- implementacja algorytmu Earth Mover's Distance.
-	\item Elasticsearch --- ułatwia wykonywanie zapytań do silnika Elasticsearch wprost z kodu Pythona.
-	\item Matplotlib --- biblioteka służąca do wykonywania wykresów.
-	\item Pymongo --- umożliwia wykonywanie zapytań do bazy MongoDB wprost z kodu Pythona.
+	\item \textit{Gensim} --- rozbudowana biblioteka służąca do~przetwarzania języka naturalnego; zawiera implementację metod \textit{Word2Vec}, \textit{LSI}, \textit{LDA}, \textit{TF-IDF} i inne.
+	\item \textit{Morfologik} --- tokenizer języka polskiego.
+	\item \textit{Numpy} --- pozwala wydajnie wykonywać obliczenia numeryczne.
+	\item \textit{Scipy} --- biblioteka do zastosowań naukowych, matematycznych i inżynierskich.
+	\item \textit{Pyemd} --- implementacja algorytmu \textit{Earth Mover's Distance}.
+	\item \textit{Elasticsearch} --- ułatwia wykonywanie zapytań do silnika \textit{Elasticsearch} wprost z kodu języka \textit{Python}.
+	\item \textit{Matplotlib} --- biblioteka służąca do wykonywania wykresów.
+	\item \textit{Pymongo} --- umożliwia wykonywanie zapytań do bazy \textit{MongoDB} wprost z kodu języka \textit{Python}.
 \end{itemize}
 
 \chapter{Zawartość dołączonej płyty CD}
