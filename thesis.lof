@@ -1,10 +1,10 @@
 \select@language {polish}
 \contentsline {figure}{\numberline {0.1}{\ignorespaces Widok strony internetowej zawieraj\IeC {\k a}cej jeden z~artyku\IeC {\l }\IeC {\'o}w serwisu \textit {Allegro}~\cite {screen_allegro}.}}{10}{figure.0.1}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Neuronowy model j\IeC {\k e}zyka. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o~\cite {bengio}.}}{21}{figure.1.1}
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Schemat sieci wykorzystuj\IeC {\k a}cej podej\IeC {\'s}cie \textit {skip-gram} i \textit {CBOW}. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o:~\cite {word2vec}.}}{23}{figure.1.2}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Neuronowy model j\IeC {\k e}zyka. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o:~\cite {bengio}.}}{21}{figure.1.1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Schemat sieci wykorzystuj\IeC {\k a}cej podej\IeC {\'s}cie \textit {skip-gram} i \textit {CBOW}. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o:~\cite {word2vec}.}}{22}{figure.1.2}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Wykres przedstawia liczby kategorii na~poszczeg\IeC {\'o}lnych poziomach drzewa.}}{30}{figure.2.1}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Wykres przedstawia liczby kategorii na~poszczeg\IeC {\'o}lnych poziomach drzewa kategorii.}}{30}{figure.2.1}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Histogram liczby wyst\IeC {\k a}pie\IeC {\'n} s\IeC {\l }\IeC {\'o}w w korpusie w skali logarytmicznej.}}{33}{figure.2.2}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Histogram d\IeC {\l }ugo\IeC {\'s}ci artyku\IeC {\l }\IeC {\'o}w.}}{33}{figure.2.3}
 \addvspace {10\p@ }

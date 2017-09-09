@@ -228,7 +228,7 @@ Od 2013r., wraz z~wprowadzeniem przez T.~Mikolova metody \textit{Word2vec}~\cite
 
 Stosowane obecnie podejścia generowania wektorowych reprezentacji słów można podzielić na~dwa typy.
 \begin{enumerate}
-	\item Modele predykcyjne: uczą~się wektorowych reprezentacji słów poprzez zmniejszenie błędu predykcji słów należących do~lokalnego kontekstu słowa $i$. Poniżej opisuję sztandarowy przykład takiego modelu - \textit{Word2vec}, gdzie sposobem na~optymalizację funkcji celu jest zastosowanie płytkiej sieci neuronowej typu \textit{feed-forward} optymalizowanej za pomocą metody \textit{stochastic gradient descent}.
+	\item Modele predykcyjne: uczą~się wektorowych reprezentacji słów poprzez zmniejszenie błędu predykcji słów należących do~lokalnego kontekstu słowa $i$. Poniżej opisuję sztandarowy przykład takiego modelu --- \textit{Word2vec}, w~którym sposobem na~optymalizację funkcji celu jest zastosowanie płytkiej sieci neuronowej typu \textit{feed-forward} optymalizowanej za~pomocą metody \textit{stochastic gradient descent}.
 	\item Metody oparte o~zliczanie: generują wektory słów poprzez redukcję wymiarowości w~globalnej macierzy współwystąpień słów.
 	Jako pierwszy etap konstruują one ogromną (wymiar równa~się liczbie słów w słowniku korpusu) macierz, która (podobnie, jak  metodzie \textit{LSI}) następnie ulega faktoryzacji, aby uzyskać macierz o~mniejszym wymiarze, lecz nadal zachowującą powiązania pomiędzy słowami. Przykładem jest tu opisana poniżej metoda \textit{Global~Vectors} --- \textit{GloVe}.
 \end{enumerate}
@@ -243,7 +243,7 @@ Wspomniane podejście Bengio oparte jest o~sieć neuronową typu f\textit{eed-fo
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/bengio_language_model.png}
-	\caption{Neuronowy model języka. Źródło~\cite{bengio}.}
+	\caption{Neuronowy model języka. Źródło:~\cite{bengio}.}
 \end{figure}
 
 Celem działania sieci jest maksymalizacja funkcji celu postaci \ref{eq:bengio}:
@@ -253,15 +253,15 @@ J_\theta = \frac{1}{T}\sum\limits_{t=1}^T\ \text{log} \space f(w_t , w_{t-1} , \
 \end{equation}
 gdzie $f(w_t , w_{t-1} , \cdots , w_{t-n+1})$ odpowiada prawdopodobieństwu $p(w_t \: | \: w_{t-1} , \cdots , w_{t-n+1})$ wystąpienia słowa $w_t$ bezpośrednio po~sekwencji słów $w_{t-1} , \cdots , w_{t-n+1}$. Wektorowa reprezentacja słowa uzyskiwana jest tu przez~przemnożenie wejściowego wektora (wektor zer z~jedynką na~$i$-tym miejscu reprezentujący $i$-te słowo, \textit{one-hot-vector}) z~macierzą wag pierwszej warstwy sieci.
 
-Podejście to jak i kolejne (\cite{c_w}) wykorzystujące głębokie sieci neuronowe nie~znalazły zastosowań komercyjnych, ponieważ ich wydajność nauki jest na~tyle niska, że niemożliwe jest ich użycie przy~ogromnych zbiorach danych wykorzystywanych w~środowiskach produkcyjnych.
+Podejście to jak i~kolejne (\cite{c_w}) wykorzystujące głębokie sieci neuronowe nie~znalazły zastosowań komercyjnych, ponieważ ich wydajność nauki jest na~tyle niska, że niemożliwe jest ich użycie przy~ogromnych zbiorach danych wykorzystywanych w~środowiskach produkcyjnych.
 
 
-Rozwiązaniem tego problemu wydają się być nowe metody wektorowej reprezentacji słów powstałe na~przestrzeni ostatnich lat. W~odróżnieniu od metod opartych o \textit{deep learning}, opierają się one o~metody szybkiej nauki, np.~o~płytkie sieci neuronowe, które uczą~się na~tyle krótko, że sprawdzają~się one w~zastosowaniach komercyjnych.
+Rozwiązaniem tego problemu wydają~się być nowe metody wektorowej reprezentacji słów powstałe na~przestrzeni ostatnich lat. W~odróżnieniu od~metod opartych o~\textit{deep learning}, opierają się one o~metody szybkiej nauki, np.~o~płytkie sieci neuronowe, które uczą~się na~tyle krótko, że sprawdzają~się one w~zastosowaniach komercyjnych.
 
 
 \subsubsection{\textit{Word2vec}}%TODO przepisać rozdział tak, by był spójny z poprzednimi
 
-Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewątpliwy sukces w~porównaniu z~wcześniejszymi metodami osadzania słów w~przestrzeni wektorowej. Autorzy metody proponują sieć neuronową, która podobnie jak wcześniejsze podejścia ma za~zadanie odtworzyć kontekst danego słowa i~na~tej podstawie dokonać reprezentacji słowa jako wektora liczb rzeczywistych. Różnica jest taka, iż sieć ta ani nie~jest głęboka, ani też nie~zawiera nieliniowych funkcji aktywacji wykorzystywanych we~wcześniejszych modelach. Wyróżnia się dwie odwrotne architektury sieci:
+Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewątpliwy sukces w~porównaniu z~wcześniejszymi metodami osadzania słów w~przestrzeni wektorowej. Autorzy metody proponują sieć neuronową, która podobnie, jak wcześniejsze podejścia ma za~zadanie odtworzyć kontekst danego słowa i~na~tej podstawie dokonać reprezentacji słowa jako wektora liczb rzeczywistych. Różnica jest taka, iż sieć ta ani nie~jest głęboka, ani też nie~zawiera nieliniowych funkcji aktywacji wykorzystywanych we~wcześniejszych modelach. Wyróżnia~się dwie odwrotne architektury sieci:
 \begin{itemize}
 	\item \textit{CBOW} (\textit{continuous bag-of-words}): na~postawie okna $N$ sąsiednich słów sieć przewiduje słowo, którego z~największym prawdopodobieństwem te $N$ słów jest sąsiedztwem. W~tym modelu funkcja celu przyjmuje postać \ref{eq:cbow}:
 	\begin{equation}
@@ -277,11 +277,11 @@ Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewą
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
+	\includegraphics[width=0.9\textwidth]{img/skipgram_cbow.png}
 	\caption{Schemat sieci wykorzystującej podejście \textit{skip-gram} i \textit{CBOW}. Źródło:~\cite{word2vec}.}
 	%\label{fig:warstwy}
 \end{figure}
-Używając tej stosunkowo prostej architektury można wykonać proces nauki używając milionów słów, których powiązania między sobą zostaną zachowane w~systemie wag sieci neuronowej. Zaletą podejścia \textit{skip-gram} są lepsze wyniki w~przypadku rzadkich słów. Nauka w~przypadku tego podejścia jest jednak wolniejsza niż dla~\textit{CBOW}~\cite{google_word2vec}.
+Używając tej stosunkowo prostej architektury można przeprowadzić proces nauki używając milionów słów, których powiązania między sobą zostaną zachowane w~systemie wag sieci neuronowej. Zaletą podejścia \textit{skip-gram} są lepsze wyniki w~przypadku rzadkich słów. Nauka w~przypadku tego podejścia jest jednak wolniejsza niż dla~\textit{CBOW}~\cite{google_word2vec}.
 
 W~celu dalszego opisu metody \textit{Word2vec} wprowadzam pojęcie funkcji \textit{softmax} użytej w~warstwie wyjściowej sieci neuronowej. \textit{Softmax} jest generalizacją funkcji logistycznej, zamieniającą $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na~$K$-wymiarowy wektor liczb rzeczywistych z~zakresu $(0,1]$, które sumują~się do~$1$. Funkcja wyraża~się wzorem \ref{eq:softmax}:
 \begin{equation}
@@ -305,9 +305,9 @@ W~sieci nie~jest używana funkcja aktywacji, ale prawdopodobieństwa na~wyjściu
 
 \subsubsection{\textit{FastText}}
 
-\textit{FastText}~\cite{fasttext} to biblioteka stworzona w~2016r. w~celu wydajnego uczenia wektorowej reprezentacji słów oraz~klasyfikacji zdań. Od~,,klasycznego'' \textit{Word2vec} różni~się stopniem szczegółowości analizy słów. \textit{Word2vec} traktuje słowo jaką najmniejszą, niepodzielną jednostkę, której wektorową reprezentację usiłuje wyznaczyć. \textit{FastText} natomiast dokonuje analizy również wewnętrznej analizy słów. Wykorzystuje w~tym celu rozbicie słowa na podsłowa --- ciągi znaków o~określonej długości $n$, \textit{character n-grams}. Np.~słowo ,,pokój'' składa~się następujących 3-gramów: [pok], [okó], [kój]. Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i~znaczenie) z~innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w~ogóle nie~ma w~słowniku, jako, że ich podsłowa mogą należeć do~słów w~słowniku się~znajdujących. Zalety te wydają~się być szczególnie obiecujące w~przypadku bogatych morfologicznie języków, np.~języka polskiego, tureckiego, czy fińskiego.
+\textit{FastText}~\cite{fasttext} to biblioteka stworzona w~2016r. w~celu wydajnego uczenia wektorowej reprezentacji słów oraz~klasyfikacji zdań. Zasada działania metody bazuje na~\textit{Word2vec}. Od~,,klasycznego'' \textit{Word2vec} różni~się jednak stopniem szczegółowości analizy słów. \textit{Word2vec} traktuje słowo jaką najmniejszą, niepodzielną jednostkę, której wektorową reprezentację usiłuje wyznaczyć. \textit{FastText} natomiast dokonuje analizy również wewnętrznej struktury słów. Wykorzystuje w~tym celu rozbicie słowa na podsłowa --- ciągi znaków o~określonej długości $n$, (\textit{character n-grams}). Np.~słowo \textit{pokój} składa~się następujących 3-gramów: \textit{pok}, \textit{okó}, \textit{kój}. Ostatecznie słowu wejściowemu zostaje przypisany wektor składający~się ze~średniej oryginalnej reprezentacji wektorowej słowa oraz wektorowych reprezentacji jego \textit{n-gramów}.
 
-Zasada działania metody bazuje na~\textit{Word2vec}. Jednakże oprócz predykcji tylko całych słów następuje tu również predykcja n-gramów słowa $a$ w~otoczeniu słowa $a$. Ostatecznie słowu $a$ zostaje przypisany wektor składający~się ze~średniej oryginalnej reprezentacji wektorowej słowa oraz reprezentacji jego n-gramów. 
+Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i~znaczenie) z~innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w~ogóle nie~ma w~słowniku, jako, że ich podsłowa mogą należeć do~słów w~słowniku się~znajdujących. Zalety te wydają~się być szczególnie obiecujące w~przypadku bogatych morfologicznie języków, np.~języka polskiego, tureckiego, czy fińskiego.  
 
 \subsubsection{\textit{GloVe}}
 
@@ -336,9 +336,9 @@ Algorytm \textit{GloVe} składa się z następujących kroków~\cite{glove_cran}
 \end{enumerate}
 
 \subsection{Odległość między wektorowymi reprezentacjami dokumentów}
-W~celu wykorzystania omówionych metod osadzania słów, należy wybrać metodę obliczania odległości między całymi dokumentami, których słowa potrafimy reprezentować jako wektory. Zakładamy, że jeżeli dystans pomiędzy dokumentami jest mały, to ich tematyka jest podobna.
+W~celu wykorzystania omówionych metod osadzania słów, należy wybrać metodę obliczania odległości między całymi dokumentami, których słowa potrafimy reprezentować jako wektory. Zakładam, że jeżeli dystans pomiędzy dokumentami jest mały, to ich tematyka jest podobna.
 \subsubsection{Centroid}
-Najprostszą i~najbardziej intuicyjną metodą obliczenia odległości pomiędzy wektorową reprezentacją dokumentów jest wykonanie dwóch prostych kroków:
+Najprostszą i~najbardziej intuicyjną metodą obliczenia odległości pomiędzy wektorowymi reprezentacjami dokumentów jest wykonanie dwóch prostych kroków:
 \begin{enumerate}
 	\item Uśrednienie wektorów wchodzących w~skład każdego z~dokumentów. Powstały w~ten sposób wektor jest centroidem reprezentującym dokument w~przestrzeni wektorowej.
 	\item Obliczenie dystansu między wektorami. Powszechnie przyjętą praktyką jest stosowanie tzw.~odległości kosinusowej --- znormalizowanego iloczynu skalarnego wektorów $A$ i~$B$. Jest to kosinus kąta pomiędzy dwoma wektorami reprezentującymi dokumenty. Zaletą tej metody jest natychmiastowa normalizacja wyniku do~zakresu $(0, 1)$. Odległość wyraża się wzorem \ref{eq:cos}:
@@ -346,14 +346,14 @@ Najprostszą i~najbardziej intuicyjną metodą obliczenia odległości pomiędzy
 	\label{eq:cos}
 	sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},
 	\end{equation}
-	gdzie $A_i$ i $B_i$ są składowymi wektorów odpowiednio $A$ i $B$
+	gdzie $A_i$ i $B_i$ są składowymi wektorów $A$ i $B$
 \end{enumerate}
 Wadą opisanej powyżej metody jest utrata potencjalnie użytecznych zależności pomiędzy poszczególnymi wektorami wchodzącymi w~skład dokumentu.
 
 W~kontrze do~tego prezentuję metodę obliczania dystansu między dokumentami uwzględniającą rozkład wektorów wewnątrz dokumentu.
 
 \subsubsection{\textit{Word Mover's Distance}}
-\textit{Word Mover's Distance}~\cite{wmd} to rozwiązanie zwracające odległość między dokumentami tekstowymi. W~tym celu adaptuje algorytm \textit{Earth Mover's Distance} (\textit{EMD})~\cite{emd} oraz~wektorową reprezentację słów dokumentu. \textit{WMD} mierzy odległość między dokumentami jako minimalny dystans, jaki wektory słów pierwszego dokumentu muszą ,,pokonać'', aby osiągnąć wartości wektorów z drugiego dokumentu.
+\textit{Word Mover's Distance} (\textit{WMD})~\cite{wmd} to rozwiązanie zwracające odległość między dokumentami tekstowymi. W~tym celu adaptuje algorytm \textit{Earth Mover's Distance} (\textit{EMD})~\cite{emd} oraz~wektorową reprezentację słów dokumentu. \textit{WMD} mierzy odległość między dokumentami jako minimalny dystans, jaki wektory słów pierwszego dokumentu muszą ,,pokonać'', aby osiągnąć wartości wektorów z drugiego dokumentu.
 
 \textit{EMD} jest metodą mierzenia odległości pomiędzy dwoma rozkładami, która opiera~się na~minimalnym koszcie, jaki musi zostać poniesiony, aby dokonać transformacji jednego rozkładu w~drugi. Problem można sformalizować jako problem programowania liniowego, gdzie:
 $P=\{f(p_1,w_{p_1})...(p_m,w_{p_m})\}$, $Q=\{f(q_1,w_{q_1})...(q_n,w_{q_n})\}$ są danymi rozkładami o~$m$ (odpowiednio $n$) klastrach $p_i$ ($q_j$), a $w_{p_i}$ ($w_{q_j}$) jest masą klastra. $D=[d_{ij}]$ jest macierzą odległości, w~której $d_{ij}$ reprezentuje odległość pomiędzy klastrami $p_i$ i $q_j$. Celem jest znaleźć taki przepływ $F = [f_{ij}]$, gdzie $f_{ij}$ to przepływ pomiędzy $p_i$ i $q_j$, który minimalizuje całościowy koszt postaci \ref{eq:work}
@@ -370,7 +370,7 @@ Przypuśćmy, że dzięki metodzie \textit{Word2vec} dla~słownika $V$ o~$n$ sł
 
 Razem z~rozwojem systemów wyszukiwania informacji powstały miary pozwalające ocenić wyniki działania tych systemów. Do~najbardziej popularnych należą \textit{precision} (precyzja) i~\textit{recall} (zwrot).
 
-\textit{Precision} to odsetek wyszukanych dokumentów, które są relewantne do~zapytania (\ref{eq:prec}): 
+\textit{Precision} to odsetek wyszukanych dokumentów (\textit{retrieved}), które są relewantne (\textit{relevant}) do~zapytania (\ref{eq:prec}): 
 \begin{equation}
 \label{eq:prec}
 \mathrm{precision}=\frac{|\{\mathrm{relevant}\} \cap \{\mathrm{retrieved}\}|}{|\{\mathrm{retrieved}\}|}.
@@ -389,7 +389,7 @@ F_\beta = (1 + \beta^2) \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{(\
 \end{equation}
 Rezultat miary można interpretować jako ważoną średnią precyzji i~zwrotu. 
 
-Powyższe miary dokonują binarnego podziału wyników wyszukiwania: na~relewantne i~nierelewantne. Jednakże część rekomendowanych przedmiotów może być mniej lub bardziej od~innych istotnych dla~użytkownika. W~tym świetle listę rekomendacji można uznać za~pewien ranking, którego elementy mogą być uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z~punktu widzenia ewaluacji metod generujących elementy rankingu. Stąd zachodzi potrzeba wprowadzenia formalnej miary jakości uszeregowania elementów rankingu. Można osiągnąć poprzez rozszerzenie podstawowych metod ewaluacji opartych na~binarnej ocenie relewantności, jak \textit{recall} i~\textit{precision}.
+Powyższe miary dokonują binarnego podziału wyników wyszukiwania: na~relewantne i~nierelewantne. Jednakże część rekomendowanych przedmiotów może być mniej lub bardziej od~innych istotna dla~użytkownika. W~tym świetle listę rekomendacji można uznać za~pewien ranking, którego elementy mogą być uszeregowane lepiej lub gorzej. Ocena, czy dane uszeregowanie jest dobre, jest istotnym problemem z~punktu widzenia ewaluacji metod generujących elementy rankingu. Stąd zachodzi potrzeba wprowadzenia formalnej miary jakości uszeregowania elementów rankingu. Można osiągnąć poprzez rozszerzenie podstawowych metod ewaluacji opartych na~binarnej ocenie relewantności, jak \textit{recall} i~\textit{precision}.
 
 Miara \textit{nDCG}~\cite{ndcg} (\textit{Normalized Discounted Cumulative Gain}) jest miarą jakości rankingu, która opiera~się na~założeniu, że im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy. Miara ta mierzy skumulowany ,,zysk'' powstały poprzez umieszczenie poszczególnych przedmiotów na~określonych pozycjach rankingu. Miara \textit{nDCG} jest znormalizowaną wersją miary \textit{DCG} (\textit{Discounted Cumulative Gain}), która wyraża~się wzorem \ref{eq:dcg}: 
 \begin{equation}
@@ -401,26 +401,26 @@ gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w~rankingu, a
 \label{eq:idcg}
 \mathrm {IDCG_{p}} =\sum _{i=1}^{|REL|}{\frac {2^{rel_{i}}-1}{\log _{2}(i+1)}}
 \end{equation}
-Miara \textit{nDCG} wyraża się wzorem \ref{eq:ndcg}:
+$REL$ oznacza listę relewantnych przedmiotów z~całego zbioru podlegającego szeregowaniu. Miara \textit{nDCG} wyraża się wzorem \ref{eq:ndcg}:
 \begin{equation}
 \label{eq:ndcg}
-{\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}},
+{\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}}.
 \end{equation}
-gdzie $REL$ oznacza listę relewantnych przedmiotów z~całego zbioru podlegającego szeregowaniu.
+
 
 \chapter{Dane}
 
-Dane, na~których testowane były opisywane w~niniejszej pracy metody otrzymałem dzięki życzliwości serwisu \textit{Allegro}. Jednak, by dane te otrzymać, zobowiązany zostałem do~podpisania umowy o~poufności. Stąd, w~niniejszej pracy brak jakichkolwiek przykładów danych poza~tymi dostępnymi za~pośrednictwem strony internetowej \textit{Allegro}. W~niniejszym rozdziale opisuję strukturę i~stan pozyskanych danych oraz~proces ich wstępnego przetwarzania i~analizy w~celu zastosowania na~nich zaadaptowanych metod opisanych w~rozdziale poprzednim. 
+Dane, na~których testowane są opisywane w~niniejszej pracy metody otrzymałem dzięki życzliwości serwisu \textit{Allegro}. Jednak, by dane te otrzymać, zobowiązany zostałem do~podpisania umowy o~poufności. Stąd, w~niniejszej pracy brak jakichkolwiek przykładów danych poza~tymi dostępnymi publicznie za~pośrednictwem strony internetowej \textit{Allegro}. W~niniejszym rozdziale opisuję strukturę i~stan pozyskanych danych oraz~proces ich wstępnego przetwarzania i~analizy w~celu zastosowania na~nich zaadaptowanych metod opisanych w~rozdziale poprzednim. 
 
 \section{Opis danych}
 
-Otrzymane dane to baza ok.~20000~artykułów tekstowych w~formacie \textit{JSON}. Są to te same artykuły, które są dostępne dla~użytkowników poprzez serwis internetowy (stan na~styczeń 2017). Pojedynczy rekord danych składa~się z~głównej treści artykułu oraz~z~metadanych, z~których za~istotne z~punktu widzenia tematu pracy uznałem pola: id, kategoria i~słowa kluczowe.
+Otrzymane dane to baza ok.~20000~artykułów tekstowych w~formacie \textit{JSON}. Są to te same artykuły, które są dostępne dla~użytkowników poprzez serwis internetowy (stan na~styczeń 2017). Pojedynczy rekord danych składa~się z~głównej treści artykułu oraz~z~metadanych, z~których za~istotne z~punktu widzenia tematu pracy uznałem pola: \textit{id}, \textit{kategoria} i~\textit{słowa kluczowe}.
 
 \subsection{Treść artykułu}
 
-Treść każdego artykułu składa~się z~trzech pól: ,,zawartość'', ,,nagłówek'' i~,,tytuł''. Średnia długość ,,surowego'' artykułu to 821~słów, w~tym nagłówek to jednozdaniowy wstęp. Średnią tę estymuję na~podstawie średniej liczby znaków artykułu i~średniej długości słowa w~języku polskim. Dokładne statystyki tekstu będą dostępne dopiero po~wstępnym przetwarzaniu.
+Treść każdego artykułu składa~się z~trzech pól: \textit{zawartość}, \textit{nagłówek} i~\textit{tytuł}. Średnia długość ,,surowego'' artykułu to 821~słów, w~tym nagłówek to jednozdaniowy wstęp. Średnią tę estymuję na~podstawie średniej liczby znaków artykułu i~średniej długości słowa w~języku polskim. Dokładne statystyki tekstu będą dostępne dopiero po~wstępnym przetwarzaniu.
 
-Wszystkie artykuły napisane są w języku polskim, w nielicznych przypadkach wykryłem błędy, tzw. ,,literówki''. Jako, że artykuły ze zbioru dotyczą produktów sprzedawanych za pośrednictwem serwisu Allegro, w skład słownika zbudowanego na ich bazie wchodzi wiele słów specyficznych dla różnych branż. Są to m.in. nazwy modeli aparatów (np.~,,Sony Alpha 77 II''), samochodów, gier komputerowych, a także nazwy techniczne: ,,sprężarka'', ,,hipertoniczny'', ,,autofocus''.
+Wszystkie artykuły napisane są w języku polskim, w nielicznych przypadkach wykryłem błędy, tzw. ,,literówki''. Jako, że artykuły ze zbioru dotyczą produktów sprzedawanych za pośrednictwem serwisu \textit{Allegro}, w skład słownika zbudowanego na ich bazie wchodzi wiele słów specyficznych dla różnych branż. Są to m.in. nazwy modeli aparatów (np.~,,Sony Alpha 77 II''), samochodów, gier komputerowych, a także nazwy techniczne: ,,sprężarka'', ,,hipertoniczny'', ,,autofocus''.
 
 Artykuły posiadają w swej treści wiele znaczników interpretowanych przez system, na podstawie których wzbogacana jest warstwa wizualna strony internetowej zawierającej artykuł, np.~obrazki czy łącza do ofert związanych z tematem artykułu.
 
@@ -428,11 +428,11 @@ Spójność danych oceniam na~wysoką, tj.~każde pole zawarte w~strukturze doku
 
 \subsection{Kategoria}
 
-Każdy artykuł został przez~autora przydzielony do pewnej kategorii, która odpowiada tematyce artykułu, np.~,,Aparaty cyfrowe'' czy ,,Przyprawy i zioła''. W~skład pola ,,kategoria'' wchodzi również lista kategorii nadrzędnych, a cała hierarcha kategorii ma strukturę drzewiastą. Np.~kategoria nadrzędna dla kategorii ,,Przyprawy i~zioła'' to ,,Delikatesy'', a dla~kategorii ,,Delikatesy'' to ,,Dom i~zdrowie''. Każdy artykuł należy do~tylko jednej kategorii będącej dowolnym węzłem w~drzewie (nie tylko liściem). Drzewo kategorii posiada 8~poziomów, a najwięcej węzłów znajduje~się na~poziomach 5 i 6. Najwięcej artykułów jest przypisanych do~kategorii z~poziomów 4 i~5, średnio artykuł jest przypisany do~kategorii z~poziomu 4,63.
+Każdy artykuł został przez~autora przydzielony do pewnej kategorii, która odpowiada tematyce artykułu, np.~,,Aparaty cyfrowe'' czy ,,Przyprawy i zioła''. W~skład pola \textit{kategoria} wchodzi również lista kategorii nadrzędnych, a cała hierarcha kategorii ma strukturę drzewiastą. Np.~kategoria nadrzędna dla kategorii ,,Przyprawy i~zioła'' to ,,Delikatesy'', a dla~kategorii ,,Delikatesy'' to ,,Dom i~zdrowie''. Każdy artykuł należy do~tylko jednej kategorii będącej dowolnym węzłem w~drzewie (nie tylko liściem). Drzewo kategorii posiada 8~poziomów, a najwięcej węzłów znajduje~się na~poziomach 5 i 6. Najwięcej artykułów jest przypisanych do~kategorii z~poziomów 4 i~5, średnio artykuł jest przypisany do~kategorii z~poziomu 4,63.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/categories_levels.png}
-	\caption{Wykres przedstawia liczby kategorii na~poszczególnych poziomach drzewa.}
+	\caption{Wykres przedstawia liczby kategorii na~poszczególnych poziomach drzewa kategorii.}
 	%\label{fig:warstwy}
 \end{figure}
 Po~wstępnej analizie system kategorii oceniam jako spójny i rzetelny. Uważam, że można użyć go jako punkt odniesienia przy konstrukcji metod ewaluacji testowanych technik określania podobieństwa między artykułami.
@@ -441,14 +441,14 @@ Do~każdego artykułu dołączona jest lista słów kluczowych. Są to wyrażeni
 
 \section{Wstępne przetwarzanie danych}
 
-W~celu zwiększenia skuteczności metod analizy tekstu stosuje~się wstępne przetwarzanie danych. Ma ono na~celu takie przygotowanie tekstu, aby zmaksymalizować jakość wyników operujących na~nim później algorytmów. Techniki wstępnego przetwarzania tekstu nie~wchodzą w skład żadnego standardu - dobieram je indywidualnie do~konkretnego przypadku, zgodnie z~intuicją.
+W~celu zwiększenia skuteczności metod analizy tekstu stosuje~się wstępne przetwarzanie danych. Ma ono na~celu takie przygotowanie tekstu, aby zmaksymalizować jakość wyników operujących na~nim później algorytmów. Techniki wstępnego przetwarzania tekstu nie~wchodzą w skład żadnego standardu --- dobieram je indywidualnie do~konkretnego przypadku, zgodnie z~intuicją.
 
 Niżej opisuję kolejne kroki wstępnego przetwarzania tekstu, które wykonuję na~posiadanym zbiorze artykułów.
 \begin{enumerate}
 	\item Oczyszczanie tekstu ze~zbędnych, wspomnianych wcześniej znaczników. Z~punktu widzenia semantycznej analizy tekstu są one bezużyteczne, czy wręcz szkodliwe (powodują pewne ,,zanieczyszczenie'' tekstu). Stąd usuwam je wykorzystując odpowiednio skonstruowane wyrażenia regularne. Przykładem takiego znacznika jest \texttt{![2\_new.jpg](http://(...) '2\_new.jpg')} umieszczający obrazek w środku tekstu (treść adresu \textit{URL} usunąłem przyczyn poufności).
-	\item Usunięcie ,,słów stopu''(ang. \textit{stopwords}) --- na~ogół krótkich słów niewnoszących nic do~znaczenia całości artykułu. Są to np.~,,w'', ,,z'', ,,ponieważ''. Ich usunięcie zmniejsza liczbę słów dokumentu skracając tym samym czas jego przetwarzania. Jako, że słowa te występują często, usunięcie ich daje możliwość uwypuklenia znaczenia innych słów mających wpływ na~rzeczywiste znaczenie całego artykułu. Zbiór słów stopu czerpię z~\cite{stopwords}.
+	\item Usunięcie słów stopu (\textit{stopwords}) --- na~ogół krótkich słów niewnoszących nic do~znaczenia całości artykułu. Są to np.~,,w'', ,,z'', ,,ponieważ''. Ich usunięcie zmniejsza liczbę słów dokumentu skracając tym samym czas jego przetwarzania. Jako, że słowa te występują często, usunięcie ich daje możliwość uwypuklenia znaczenia innych słów mających wpływ na~rzeczywiste znaczenie całego artykułu. Zbiór słów stopu czerpię z~\cite{stopwords}.
 \item Sprowadzenie wszystkich słów dokumentu do~małych liter. Pomaga to ujednolicić postać części słów o~tym samym znaczeniu, wśród których jedno występuje na~początku zdania, a inne w~środku.
-	\item Rozbicie słów połączonych myślnikiem. Doświadczenie w~późniejszym etapie (tokenizacji) pokazuje, że narzędzie jej dokonujące (\textit{Morfologik}~\cite{morfologik}) nie~radzi sobie z~tego typu słowami (np.~,,biało-czerwony'') i~zostawia je w~niezmienionej postaci gramatycznej (np.~,,biało-czerwonego''). Stąd konieczność ręcznego wykonania przeze~mnie mechanizmu rozbijającego takie słowa do~postaci kompatybilnej z~tokenizerem. Do~wykonania odpowiedniej funkcji potrzebna była wcześniejsza analiza tego typu słów pod~kątem zachowania obu członów~w zależności od~ich rodzaju, przypadku i występowania konkretnych liter w~sufiksach słów składowych. Zależało mi także, aby nie~rozbijać słów będących nazwami własnymi, czy symbolami urządzeń.
+	\item Rozbicie słów połączonych myślnikiem. Doświadczenie w~późniejszym etapie (tokenizacji) pokazuje, że narzędzie jej dokonujące (\textit{Morfologik}~\cite{morfologik}) nie~radzi sobie z~tego typu słowami  i~zostawia je w~niezmienionej postaci gramatycznej (np.~,,biało-czerwonego''). Stąd konieczność ręcznego wykonania przeze~mnie mechanizmu rozbijającego takie słowa do~postaci kompatybilnej z~tokenizerem. Do~wykonania odpowiedniej funkcji potrzebna była wcześniejsza analiza tego typu słów pod~kątem zachowania obu członów~w zależności od~ich rodzaju, przypadku i występowania konkretnych liter w~sufiksach słów składowych. Zależało mi także, aby nie~rozbijać słów będących nazwami własnymi, czy symbolami urządzeń.
 \item Tokenizacja. Jest to najistotniejszy element całego procesu. Polega na~sprowadzaniu słów o~tym samym znaczeniu, a różnej formie gramatycznej do~tej samej postaci. Sporym utrudnieniem jest tutaj stopień skomplikowania języka polskiego oraz liczba wyjątków, jaką ten język posiada. Za~przykład może posłużyć słowo ,,mieć'', którego jedna z~form to ,,ma'', kolejna to ,,miej''. Celem etapu jest sprowadzenie każdego z~tych wyrazów do~formy podstawowej ,,mieć''. Do~przeprowadzenia tej operacji stosuję narzędzie \textit{Morfologik}~\cite{morfologik}.
 \end{enumerate}
 
@@ -465,13 +465,13 @@ Powyższe kroki doprowadzają dane do~stanu, w~którym można zastosować techni
 	%\label{fig:warstwy}
 \end{figure}
 
-Większość artykułów okazała~się być podobnej długości, średnia długość artykułu to 370~słów, co widać wprost z rysunku 2.4.
+Większość artykułów okazała~się być podobnej długości, średnia długość artykułu to 370~słów, co widać wprost z rysunku	\ref{fig:lenghts}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/articles_length_hist.png}
 	\caption{Histogram długości artykułów.}
-	%\label{fig:warstwy}
+	\label{fig:lenghts}
 \end{figure}
 
 \chapter{Metody ewaluacji}
@@ -480,7 +480,7 @@ W~celu porównania stosowanych metod wyznaczania podobieństwa między~artykuła
 
 Ewaluacja rankingu, w~którym trafność wyników zależy od~zachowania realnych użytkowników jest zadaniem nietrywialnym. Podobieństwo artykułów napisanych w~języku naturalnym jest rzeczą subiektywną. W~sytuacji idealnej dysponowałbym obiektywną miarą podobieństwa pomiędzy parami $N$ artykułów (np.~wyznaczoną wcześniej przez~miarodajną grupę użytkowników), które to $N$ artykułów stanowiłoby zbiór testowy. Uzyskanie takich danych wiąże~się jednak z dużymi kosztami i~leży poza~moimi możliwościami.
 
-Inną praktyką umożliwiającą obiektywną ocenę, wykorzystywaną w~działających systemach są tzw. testy A/B polegające na~podziale użytkowników na~grupy i~zaaplikowaniu każdej grupie innego rozwiązania. Następnie mierzone są pewne wskaźniki wśród każdej grupy (w~moim przypadku np.~liczba ,,kliknięć'' prawdziwych użytkowników w~artykuły rekomendowane) i spośród zgromadzonych wyników wybierane jest rozwiązanie najlepsze.
+Inną praktyką umożliwiającą obiektywną ocenę, wykorzystywaną w~działających systemach są tzw. \textit{testy A/B} polegające na~podziale użytkowników na~grupy i~zaaplikowaniu każdej grupie innego rozwiązania. Następnie mierzone są pewne wskaźniki wśród każdej grupy (w~moim przypadku np.~liczba ,,kliknięć'' prawdziwych użytkowników w~artykuły rekomendowane) i spośród zgromadzonych wyników wybierane jest rozwiązanie najlepsze.
 
 Z~powodu braku możliwości wykorzystania do~ewaluacji realnych użytkowników serwisu internetowego jestem zmuszony wprowadzić własne miary oparte na~dostępnych danych. Należy tu zaznaczyć niedoskonałość wprowadzanych miar, ponieważ każda z~nich opiera~się na~pewnych założeniach, od~których prawdziwości zależy jakość całej miary.
 
@@ -1011,8 +1011,7 @@ Można by również zastosować inne metody wyznaczania odległości między~wek
 
 %TODO:
 %literówki i przecinki jeszcze raz
-%porządek w skryptach. Jeżeli nie chcę dołączać płyty, to usunąć wzmiankę z początku pracy, załącznik i wpis ze spisu załączników
-%paragraf z metodą clicks
+%Jeżeli nie chcę dołączać płyty, to usunąć wzmiankę z początku pracy, załącznik i wpis ze spisu załączników
 %bibliografia
 %antyplagiat
 \begin{thebibliography}{30}
