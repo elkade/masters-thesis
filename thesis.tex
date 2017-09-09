@@ -117,7 +117,7 @@ Z~racji szybkiego rozwoju szeroko pojętych metod sztucznej inteligencji, w~tym 
 \chapter{Przegląd wiedzy z zakresu tematyki pracy}
 W~swojej pracy dokonuję adaptacji metod przetwarzania języka naturalnego na~potrzeby generowania rekomendacji artykułów tekstowych w~oparciu o~ich treść. W~niniejszym rozdziale dokonuję przeglądu znanych metod z~obszaru tematyki pracy dyplomowej, skupiając~się szczególnie~na nowo powstałych metodach wektorowej reprezentacji słów, które cieszą~się obecnie dużym zainteresowaniem środowisk naukowych oraz firm komercyjnych. 
 
-Dokonuję krótkiego wprowadzenia do~zagadnienia systemów rekomendacji oraz systemów wyszukiwania. Następnie wykonuję chronologiczny przegląd metod liczbowej, ciągłej reprezentacji słów zaczynając od~trywialnych metod zliczania słów (\textit{bag-of-words}, \textit{TF-IDF}), przechodząc przez~metody wykorzystujące koncepcję tematów (\textit{latent semantic analysis}, \textit{latent Dirichlet allocation}) i~kończąc na~głośnych ostatnio metodach osadzania słów w przestrzeni wektorowej (\textit{Word2vec}, \textit{GloVe}, \textit{FastText}). Przy~zarysie historycznym opieram~się w~dużej mierze na~artykule~\cite{aylien}.
+Dokonuję krótkiego wprowadzenia do~zagadnienia systemów rekomendacji oraz systemów wyszukiwania. Następnie wykonuję chronologiczny przegląd metod liczbowej, ciągłej reprezentacji słów zaczynając od~trywialnych metod zliczania słów (\textit{bag-of-words}, \textit{TF-IDF}), przechodząc przez~metody wykorzystujące koncepcję tematów (\textit{latent semantic analysis}, \textit{latent Dirichlet allocation}) i~kończąc na~głośnych ostatnio metodach osadzania słów w przestrzeni wektorowej (\textit{Word2vec}, \textit{GloVe}, \textit{FastText}). Przy~zarysie historycznym m.in. z~artykułu~\cite{aylien}.
 
 \section{Systemy rekomendacji}
 
@@ -128,16 +128,16 @@ Przy~wciąż wzrastającej ilości danych użytkownicy serwisów internetowych c
 Sposoby działania systemów rekomendacji można podzielić na~różne warianty, spośród których wyodrębnić można dwa najszerzej używane. Są to: filtrowanie kolaboratywne i~filtrowanie oparte na~treści.
 
 \subsection{Filtrowanie kolaboratywne}
-Filtrowanie kolaboratywne (\textit{collaborative filtering}) opiera~się na~spostrzeżeniu, iż użytkownicy o~podobnych preferencjach zachowują się podobnie. Stąd, jeżeli użytkownik zachowuje~się podobnie do~zaobserwowanej wcześniej grupy użytkowników, można przewidzieć jego preferencje na~podstawie zachowań owej~grupy. Istotną zaletą tej metody jest fakt, iż nie~zależy ona od~dziedziny, w~której ulokowany jest system rekomendacji (w~przeciwieństwie do~rekomendacji opartych na treści), a~jedynie od~zachowań użytkowników.
+Filtrowanie kolaboratywne (\textit{collaborative filtering}) opiera~się na~spostrzeżeniu, iż użytkownicy o~podobnych preferencjach zachowują się podobnie. Stąd, jeżeli użytkownik zachowuje~się podobnie do~zaobserwowanej wcześniej grupy użytkowników, można przewidzieć jego preferencje na~podstawie zachowań owej~grupy. Istotną zaletą tej metody jest fakt, iż nie~zależy ona od~dziedziny, w~której ulokowany jest system rekomendacji (w~przeciwieństwie do~rekomendacji opartych na treści), a~jedynie od~zachowań użytkowników~\cite{handbook_col}.
 \subsection{Filtrowanie oparte na treści}
-W~filtrowaniu opartym na treści (\textit{content-based filtering}) przedmioty polecane użytkownikowi zależą od~innych przedmiotów, na~temat których stwierdzono, że użytkownik się nimi interesuje. Mogą~się one opierać np. na~podobieństwie przedmiotów: jeżeli użytkownik ,,lubi'' przedmiot $A$, który jest podobny do~przedmiotu $B$, to można spodziewać się, że również przedmiot $B$ zainteresuje użytkownika. Technika ta jest mocno zależna od~dziedziny rekomendowanych przedmiotów, gdyż wymaga wprowadzenia pewnej miary podobieństwa między nimi. Stąd jest trudniejsza do~zastosowania, ale daje też możliwości nieosiągalne dla~filtrowania kolaboratywnego.
+W~filtrowaniu opartym na treści (\textit{content-based filtering}) przedmioty polecane użytkownikowi zależą od~innych przedmiotów, na~temat których stwierdzono, że użytkownik się nimi interesuje. Mogą~się one opierać np. na~podobieństwie przedmiotów: jeżeli użytkownik ,,lubi'' przedmiot $A$, który jest podobny do~przedmiotu $B$, to można spodziewać się, że również przedmiot $B$ zainteresuje użytkownika. Technika ta jest mocno zależna od~dziedziny rekomendowanych przedmiotów, gdyż wymaga wprowadzenia pewnej miary podobieństwa między nimi. Stąd jest trudniejsza do~zastosowania, ale daje też możliwości nieosiągalne dla~filtrowania kolaboratywnego~\cite{handbook_cb}.
 
 Celem niniejszej pracy jest zbadanie metod sugerujących użytkownikowi artykuły podobne do~aktualnie odwiedzanego, co wprost wiąże się z~metodami używanymi w~technice filtrowania opartego na~treści.
 
 \section{Systemy wyszukiwania}
 %TODO wstęp do systemów wyszukiwania
 
-Systemy wyszukiwania projektuje~się w~celu znajdywania informacji przechowywanych w~systemie komputerowym. Wyniki wyszukiwania są zazwyczaj prezentowane w~postaci listy, której elementy uszeregowane są od~najbardziej związanych z~szukaną frazą: słowami kluczowymi lub wyrażeniem w języku naturalnym. Celem systemu jest ograniczenie czasu poświęcanego przez~użytkownika na~samodzielnym przeszukiwaniu systemu.
+Systemy wyszukiwania projektuje~się w~celu znajdywania informacji przechowywanych w~systemie komputerowym. Wyniki wyszukiwania są zazwyczaj prezentowane w~postaci listy, której elementy uszeregowane są od~najbardziej związanych z~szukaną frazą: słowami kluczowymi lub wyrażeniem w języku naturalnym. Celem systemu jest ograniczenie czasu poświęcanego przez~użytkownika na~samodzielnym przeszukiwaniu systemu~\cite{engines}.
 
 W ujęciu ogólnym systemy wyszukiwania mają na~celu sugerowanie tego, co użytkownik chciałby otrzymać. Natomiast systemy rekomendacji mają sugerować przedmioty potrzebne użytkownikowi nawet, jeżeli potrzeby te nie~zostały bezpośrednio wyrażone.
 
@@ -1035,6 +1035,13 @@ Można by również zastosować inne metody wyznaczania odległości między~wek
 		NEC Labs America,
 		2008
 	
+	\bibitem{engines}
+		W. B. Croft, D. Metzler, T. Strohman,
+		\emph{Search Engines. Information Retrieval in Practice},
+		Pearson Education, Inc.,
+		6-9,
+		2015
+		
 	\bibitem{lsa}
 		S. Deerwester, S. T. Dumais, G. W. Furnas, T. K. Landauer, R. Harshman,
 		\emph{Indexing by latent semantic analysis},
@@ -1066,7 +1073,8 @@ Można by również zastosować inne metody wyznaczania odległości między~wek
 	\bibitem{bow}
 		Z. S. Harris,
 		\emph{Distributional Structure},
-		WORD, tom 10, num. 2-3,
+		Word,
+		10 (2/3): 146–62,
 		1954
 	
 	\bibitem{google_word2vec}
@@ -1147,13 +1155,28 @@ Można by również zastosować inne metody wyznaczania odległości między~wek
 		F. Ricci, L. Rokach, B. Shapira,
 		\emph{Introduction to Recommender Systems Handbook},
 		Springer,
+		1-4,
+		2011
+		
+	\bibitem{handbook_col}
+		F. Ricci, L. Rokach, B. Shapira,
+		\emph{Introduction to Recommender Systems Handbook},
+		Springer,
+		145-147,
+		2011
+		
+	\bibitem{handbook_cb}
+		F. Ricci, L. Rokach, B. Shapira,
+		\emph{Introduction to Recommender Systems Handbook},
+		Springer,
+		73-75,
 		2011
 	
 	\bibitem{emd}
 		Y. Rubner, C. Tomasi, L. J. Guibas,
 		\emph{The Earth Mover's Distance as a Metric for Image Retrieval},
-		str. 1,
 		Computer Science Department, Stanford University,
+		1,
 		2000	
 
 	\bibitem{tf_idf}
