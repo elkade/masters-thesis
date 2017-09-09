@@ -476,7 +476,7 @@ Większość artykułów okazała~się być podobnej długości, średnia długo
 
 \chapter{Metody ewaluacji}
 
-W~celu porównania stosowanych metod wyznaczania podobieństwa między~artykułami konieczna jest formalizacja pewnych miar tego podobieństwa. W~opisie znanych ogólnych miar posłużyłem~się pojęciem ,,relewantności'' --- formalną wartością wyrażoną za~pomocą liczb rzeczywistych. Jednakże w~praktyce rzadko dysponuje~się wartością, na ile dany element rankingu jest adekwatny do~zapytania, generującego ów ranking.  
+W~celu porównania stosowanych metod wyznaczania podobieństwa między~artykułami konieczna jest formalizacja pewnych miar tego podobieństwa. W~opisie znanych ogólnych miar posłużyłem~się pojęciem ,,relewantności'' --- formalną wartością wyrażoną za~pomocą liczb rzeczywistych. Jednakże w~praktyce rzadko dysponuje~się wartością, na~ile dany element rankingu jest adekwatny do~zapytania, generującego ów ranking.  
 
 Ewaluacja rankingu, w~którym trafność wyników zależy od~zachowania realnych użytkowników jest zadaniem nietrywialnym. Podobieństwo artykułów napisanych w~języku naturalnym jest rzeczą subiektywną. W~sytuacji idealnej dysponowałbym obiektywną miarą podobieństwa pomiędzy parami $N$ artykułów (np.~wyznaczoną wcześniej przez~miarodajną grupę użytkowników), które to $N$ artykułów stanowiłoby zbiór testowy. Uzyskanie takich danych wiąże~się jednak z dużymi kosztami i~leży poza~moimi możliwościami.
 
@@ -484,57 +484,55 @@ Inną praktyką umożliwiającą obiektywną ocenę, wykorzystywaną w~działaj�
 
 Z~powodu braku możliwości wykorzystania do~ewaluacji realnych użytkowników serwisu internetowego jestem zmuszony wprowadzić własne miary oparte na~dostępnych danych. Należy tu zaznaczyć niedoskonałość wprowadzanych miar, ponieważ każda z~nich opiera~się na~pewnych założeniach, od~których prawdziwości zależy jakość całej miary.
 
-Testowane metody adaptuję tak, aby na~podstawie pewnego artykułu bazowego otrzymywać listę artykułów podobnych do~niego uszeregowanych pod~kątem relewantności malejąco. Takie działanie można sformalizować w~postaci funkcji \ref{eq:fun}:
+Testowane metody adaptuję tak, aby na~podstawie pewnego artykułu bazowego otrzymywać listę artykułów podobnych do~niego, uszeregowanych pod~kątem relewantności malejąco. Takie działanie można sformalizować w~postaci funkcji \ref{eq:fun}:
 \begin{equation}
 \label{eq:fun}
 S_p: a_j \to \{a_{i}\}_{i < p},
 \end{equation}
-gdzie $a$ to artykuł, a $p$ to liczba elementów zwracanego ciągu. Funkcja $S$ przyjmuje artykuł tekstowy i~zwraca skończony ciąg artykułów do~niego podobnych zgodnie ze~stopniem dopasowania (najlepsze na~początku). Celem działania niżej opisanych miar jest każdej parze postaci: artykuł wejściowy-jeden z~wyznaczonych artykułów podobnych przypisać ocenę tego podobieństwa --- relewantność. Np.~metoda $S$ dla~artykułu $X$ zwraca ciąg {$Y_1$, $Y_2$, ...}. Dla każdej z~par za~pomocą poniższych metod ewaluacji można określić relewantność np.~$rel(X, Y_1) = a_1, rel(X, Y_2) = a_2$ itd. Następnie wyniki dla~metody $S$ i~wejścia $X$ należy zagregować. Dokonuję tego na~dwa sposoby.
+gdzie $a$ to artykuł, a $p$ to liczba elementów zwracanego ciągu. Funkcja $S$ przyjmuje artykuł tekstowy i~zwraca skończony ciąg artykułów do~niego podobnych zgodnie ze~stopniem dopasowania (najlepsze na~początku). Celem działania niżej opisanych miar jest każdej parze postaci: artykuł wejściowy oraz jeden z~wyznaczonych artykułów podobnych przypisać ocenę tego podobieństwa --- relewantność. Np.~metoda $S$ dla~artykułu $X$ zwraca ciąg {$Y_1$, $Y_2$, ...}. Dla każdej z~par za~pomocą poniższych metod ewaluacji można określić relewantność np.~$relevance(X, Y_1) = a_1, relevance(X, Y_2) = a_2$ itd. Następnie wyniki dla~metody $S$ i~wejścia $X$ należy zagregować. Dokonuję tego na~dwa sposoby.
 \begin{itemize}
-	\item Obliczenie średniej $\frac{1}{p}\sum_{i=1}^{p}relevance(X,Y_1)$.
+	\item Obliczenie średniej $\frac{1}{p}\sum_{i=1}^{p}relevance(X,Y_i)$.
 	\item Użycie metody \textit{nDCG}, gdzie relewantność to wynik poszczególnych ewaluacji podobieństwa artykułów.
 \end{itemize}  
 
-Oceny dla~konkretnej metody, dla~ustalonej próby par artykułów są następnie wykorzystane do~wyznaczenia wartości średniej miary \textit{nDCG} tej metody.
-
 \section{Miara 1: Dystans oparty na metadanych}
 
-Jak wspomniałem wcześniej dane prócz treści artykułów zawierają również pewne metadane, a wśród nich umożliwiające tworzenie powiązań między~artykułami. Skupiam~się tu na~polach: ,,słowa kluczowe'' i~,,kategoria''.
+Jak wspomniałem wcześniej, dane prócz treści artykułów zawierają również pewne metadane, a~wśród nich umożliwiające tworzenie powiązań między~artykułami. Skupiam~się tu na~polach: \textit{słowa kluczowe} i~\textit{kategoria}.
 
 \subsection{Kategorie} 
 
-Pierwszą zastosowaną miarą, pozwalającą ocenić jakość dopasowania podobnych artykułów jest ich odległość we~wcześniej wspomnianym drzewie kategorii. Formalnie wartość miary to długość części wspólnej ścieżek od~korzenia drzewa kategorii do~węzłów reprezentujących artykuły. Im więcej wspólnych przodków w~drzewie, tym bardziej podobne do~siebie są artykuły reprezentowane przez~węzły drzewa. Zaletą miary jest fakt, iż przypisanie artykułu do~kategorii zostało wykonane przez autora, którego można określić ekspertem w~dziedzinie tematyki artykułu. Stąd przynależność artykułu do~danej kategorii jest mocno uzasadniona. Kolejną zaletą tej miary jest fakt, iż można ją zastosować automatycznie --- wiedza ekspercka jest już zapisana w~metadanych artykułów. Należy zaznaczyć tu jednak, że miara nie~jest idealna --- każdy artykuł należy do~tylko jednego liścia drzewa kategorii. Stąd artykuł poruszający zagadnienia z~różnych obszarów, który można by przypisać dwóm stosunkowo odległym kategoriom $A$ i~$B$, zostanie przypisany tylko do~jednej kategorii, np.~$A$. Miara pokaże wtedy dużą odległość od~artykułów z~kategorii $B$, co nie~jest prawdą. Wartości miary normalizuję, dzieląc je przez~głębokość drzewa kategorii: 8.
+Pierwszą zastosowaną miarą, pozwalającą ocenić jakość dopasowania podobnych artykułów jest ich odległość we~wcześniej wspomnianym drzewie kategorii. Formalnie wartość miary to długość części wspólnej ścieżek od~korzenia drzewa kategorii do~węzłów reprezentujących artykuły. Im więcej wspólnych przodków w~drzewie, tym bardziej podobne do~siebie są artykuły reprezentowane przez~węzły drzewa. Zaletą miary jest fakt, iż przypisanie artykułu do~kategorii zostało wykonane przez autora, którego można określić ekspertem w~dziedzinie tematyki artykułu. Stąd przynależność artykułu do~danej kategorii jest mocno uzasadniona. Kolejną zaletą tej miary jest fakt, iż można ją zastosować automatycznie --- wiedza ekspercka jest już zapisana w~metadanych artykułów. Należy zaznaczyć tu jednak, że miara nie~jest idealna --- każdy artykuł należy do~tylko jednego liścia drzewa kategorii. Stąd artykuł poruszający zagadnienia z~różnych obszarów, który można by przypisać dwóm stosunkowo odległym kategoriom $A$ i~$B$, zostanie przypisany tylko do~jednej kategorii, np.~$A$. Miara pokaże wtedy dużą odległość od~artykułów z~kategorii $B$, co nie~jest prawdą. Wartości miary normalizuję, dzieląc je przez~głębokość drzewa kategorii: $8$.
 
-Za~przykład mogą posłużyć drzewa na~poniższych rysunkach. W~drzewie 1. artykuły $X$ i~$Y$ mają dwie wspólne kategorie, stąd $relevance(X, Y) = \frac{2}{8} = 0.25$. Natomiast artykuły $Y$ i~$Z$ z~drugiego drzewa mają trzech wspólnych przodków, stąd $relevance(Y, Z)=\frac{3}{8} = 0.375$. Miara wskazuje, że artykuły $X$ i~$Y$ są do~siebie mniej podobne, niż artykuły $Y$ i~$Z$.
+Za~przykład mogą posłużyć drzewa na~poniższych rysunkach. W~drzewie \ref{fig:tree1}. artykuły $X$ i~$Y$ mają dwie wspólne kategorie, stąd $relevance(X, Y) = \frac{2}{8} = 0.25$. Natomiast artykuły $Y$ i~$Z$ z~drugiego drzewa (\ref{fig:tree2}) mają trzech wspólnych przodków, stąd $relevance(Y, Z)=\frac{3}{8} = 0.375$. Miara wskazuje, że artykuły $X$ i~$Y$ są do~siebie mniej podobne, niż artykuły $Y$ i~$Z$.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{img/cat_tree_example_1.png}
 	\caption{Drzewo kategorii dla~przykładu 1.}
-	%\label{fig:warstwy}
+	\label{fig:tree1}
 \end{figure}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{img/cat_tree_example_2.png}
 	\caption{Drzewo kategorii dla~przykładu 2.}
-	\label{fig:warstwy}
+	\label{fig:tree2}
 \end{figure}
 
 
 \subsection{Słowa kluczowe}
 
-Kolejna miara oparta na~metadanych artykułów korzysta ze~słów kluczowych. Wśród ogółu słów kluczowych występują niespójności, których większość zlikwidowałem poprzez~sprowadzenie słów od~małych liter oraz~usunięciu ,,słów stopu''. Po~tej unifikacji liczba unikalnych słów kluczowych to 58565.
+Kolejna miara oparta na~metadanych artykułów korzysta ze~słów kluczowych. Wśród ogółu słów kluczowych występują niespójności, których większość zlikwidowałem poprzez~sprowadzenie słów od~małych liter oraz~usunięciu słów stopu. Po~tej unifikacji liczba unikalnych słów kluczowych to 58565.
 
-Niniejsza miara działa podobnie do~poprzedniej opartej o~kategorie. Para artykułów otrzymuje 1~punkt za~każdą wspólną parę posiadanych kategorii. Następnie wartość jest normalizowana poprzez podzielenie przez~maksymalną liczbę wspólnych słów kluczowych, tj. 6. Np. dla~artykułu $X$ o~słowach kluczowych \{,,kosmetyki'', ,,kremy'', ,,zmarszczki''\} oraz~$Y$ o~słowach kluczowych \{,,kosmetyki'', ,,żele do włosów'', ,,kremy'', ,,szampony''\} $relevance(X,Y)=\frac{2}{6}=0.(3)$, ponieważ oba artykuły mają dwa wspólne słowa kluczowe (,,kosmetyki'' i ,,kremy'').
+Niniejsza miara działa podobnie do~poprzedniej opartej o~kategorie. Para artykułów otrzymuje 1~punkt za~każdą wspólną parę posiadanych słów kluczowych. Następnie wartość jest normalizowana poprzez podzielenie przez~maksymalną liczbę wspólnych słów kluczowych, tj. 6. Np. dla~artykułu $X$ o~słowach kluczowych \{,,kosmetyki'', ,,kremy'', ,,zmarszczki''\} oraz~$Y$ o~słowach kluczowych \{,,kosmetyki'', ,,żele do włosów'', ,,kremy'', ,,szampony''\} $relevance(X,Y)=\frac{2}{6}=0.(3)$, ponieważ oba artykuły mają dwa wspólne słowa kluczowe (,,kosmetyki'' i ,,kremy'').
 
 \section{Miara 2: Historyczna aktywność użytkowników serwisu}
 
-Gromadzenie informacji o~aktywności użytkownika w~ramach serwisu internetowego jest powszechną praktyką. Proces ten pozwala na~analizę zachowania użytkowników co może doprowadzić do~wniosków, jakie usprawnienia należy przedsięwziąć, aby spełnić cele biznesowe. Jednym z~przykładów aktywności użytkownika zapisywanej przez~serwis \textit{Allegro} są kliknięcia w~linki znajdujące~się na~stronie internetowej. Informacja ta pozwala sporządzić jeszcze jedną miarę jakości dopasowania podobnych do~siebie artykułów. Postać danych, jakie udało mi się~uzyskać z~serwisu to tabela o~polach: adres strony, na~której nastąpiło kliknięcie, adres strony, na~którą prowadzi link, data kliknięcia.
+Gromadzenie informacji o~aktywności użytkownika w~ramach serwisu internetowego jest powszechną praktyką. Proces ten pozwala na~analizę zachowania użytkowników, co może doprowadzić do~wniosków, jakie usprawnienia należy przedsięwziąć, aby spełnić cele biznesowe. Jednym z~przykładów aktywności użytkownika zapisywanej przez~serwis \textit{Allegro} są kliknięcia w~linki znajdujące~się na~stronie internetowej. Informacja ta pozwala sporządzić jeszcze jedną miarę jakości dopasowania podobnych do~siebie artykułów. Postać danych, jakie udało mi się~uzyskać z~serwisu to tabela o~polach: adres strony, na~której nastąpiło kliknięcie, adres strony, na~którą prowadzi link, data kliknięcia.
 
-Jak już zostało opisane powyżej dostępna w~serwisie \textit{Allegro} strona z~artykułem tekstowym zawiera listę ($y_1,\ y_2,\ ...\ ,y_p$) odnośników do~innych artykułów poruszających tematykę podobną do~niego. Skoro zapisywana jest informacja o~przejściach pomiędzy~podstronami serwisu, to można obliczyć ile razy w~pewnym okresie użytkownicy dokonali przejścia z~artykułu $x$ na~rekomendowany do~niego artykuł $y_i$, a ile razy na~rekomendowany artykuł $y_j$ ($i,j \leq p, i\ne j$). Jeżeli liczba takich przejść z~ artykułu $x$ na~artykuł $y_i$ jest większa niż z~artykułu $x$ na~$y_j$, można wnioskować, iż $y_i$ jest być bardziej relewantną rekomendacją dla~artykułu $x$ niż $y_j$. Ostatecznie liczbę przejść z~artykułu $x$ na~rekomendowany do~niego artykuł $y$ przyjmuję jako miarę relewantności między $x$ i $y$ wykorzystywaną w~metodzie \textit{nDCG}.
+Jak już zostało opisane powyżej dostępna w~serwisie \textit{Allegro} strona z~artykułem tekstowym zawiera listę ($y_1,\ y_2,\ ...\ ,y_p$) odnośników do~innych artykułów poruszających tematykę podobną do~niego. Skoro zapisywana jest informacja o~przejściach pomiędzy~podstronami serwisu, to można obliczyć ile razy w~pewnym okresie użytkownicy dokonali przejścia z~artykułu $x$ na~rekomendowany do~niego artykuł $y_i$, a ile razy na~rekomendowany artykuł $y_j$ ($i,j \leq p, i\ne j$). Jeżeli liczba takich przejść z~ artykułu $x$ na~artykuł $y_i$ jest większa niż z~artykułu $x$ na~$y_j$, można wnioskować, iż $y_i$ jest bardziej relewantną rekomendacją dla~artykułu $x$ niż $y_j$. Ostatecznie liczbę przejść z~artykułu $x$ na~rekomendowany do~niego artykuł $y$ przyjmuję jako miarę relewantności między $x$ i $y$ wykorzystywaną w~metodzie \textit{nDCG}.
 
 
-Przyjmijmy, że testowana metoda wyznaczania rekomendacji zwraca pewien ciąg artykułów $(z_1,\ z_2,\ ...,\ z_p)$ podobnych do~danego artykułu $x$ w~kolejności od~najbardziej relewantnego. Zadaniem niniejszej metody ewaluacji jest ocenić jakość tego uszeregowania, przyjmując za~punkt odniesienia relewantność wg. powyższej definicji. Zgodnie z~nią relewantność do~artykułu $x$ jest określona jedynie dla~$p$ artykułów zarekomendowanych do~niego wcześniej przez~serwis \textit{Allegro} (tych, na~które przejść mogli dokonywać użytkownicy). Stąd, definicja nie~określa relewantności artykułu $z_i$, jeżeli ten nie znajduje~się w~ciągu ($y_1,\ y_2,\ ...\ ,y_p$). Dlatego, aby wykorzystać tu metodę \textit{nDCG} należy wziąć pod~uwagę jedynie elementy obu ciągów ($y_i$) i ($z_i$) należące do~przecięcia zbiorów: $\{y_i\} \cap \{z_i\} = W$ --- wszystkie artykuły należące do~takiego zbioru mają określoną relewantność. Następnie przyjmuję uszeregowanie $(w_1,\ w_2,\ ...,\ w_{|W|})$ takie, że $i<j \Rightarrow relevence(x,w_i) > relevance(x,w_j)$ za~idealne uszeregowanie z~definicji $nDCG$. Natomiast za~oceniany ranking przyjmuję ciąg złożony z~elementów ciągu $(z_i)$ takich, że $z_i \in W$ 
+Przyjmijmy, że testowana metoda wyznaczania rekomendacji zwraca pewien ciąg artykułów $(z_1,\ z_2,\ ...,\ z_p)$ podobnych do~danego artykułu $x$ w~kolejności od~najbardziej relewantnego. Zadaniem niniejszej metody ewaluacji jest ocenić jakość tego uszeregowania, przyjmując za~punkt odniesienia relewantność wg. powyższej definicji. Zgodnie z~nią relewantność do~artykułu $x$ jest określona jedynie dla~$p$ artykułów zarekomendowanych do~niego wcześniej przez~serwis \textit{Allegro} (tych, na~które przejść mogli dokonywać użytkownicy). Stąd, definicja nie~określa relewantności artykułu $z_i$, jeżeli ten nie znajduje~się w~ciągu ($y_1,\ y_2,\ ...\ ,y_p$). Dlatego, aby wykorzystać tu metodę \textit{nDCG} należy wziąć pod~uwagę jedynie elementy obu ciągów ($y_i$) i ($z_i$) należące do~przecięcia zbiorów: $\{y_i\} \cap \{z_i\} = W$ --- wszystkie artykuły należące do~takiego zbioru mają określoną relewantność. Następnie przyjmuję uszeregowanie $(w_1,\ w_2,\ ...,\ w_{|W|})$ takie, że $i<j \Rightarrow relevence(x,w_i) > relevance(x,w_j)$ za~idealne uszeregowanie z~definicji $nDCG$. Natomiast za~oceniany ranking przyjmuję ciąg złożony z~elementów ciągu $(z_i)$ takich, że $z_i \in W$.
 
 
 Opis metody uzupełniam przykładem. Dotychczasowa metoda \textit{Allegro} artykułowi $x$ przypisała artykuły podobne $A = (a,\ b,\ c,\ d,\ e)$. Na~podstawie historycznej aktywności użytkowników można określić, że $relevance(x, a)=50$, $relevance(x, b)=10$, $relevance(x, c)=15$, $relevance(x, d)=0$, $relevance(x, e)=30$. Testowana metoda wyznaczyła dla~artykułu $x$ rekomendacje w postaci listy: $B=(c,\ f,\ a,\ b,\ d)$. Przecięciem zbiorów złożonych z elementów ciągów $A$ i $B$ jest $\{a,\ b,\ c,\ d\}$. Stąd, za~idealne uszeregowanie przyjmuję ciąg $(a,\ c,\ b,\ d)$, natomiast za~testowany ranking przyjmuję ciąg $(c,\ a,\ b,\ d)$. Oba te ciągi oraz funkcję $relevance$ traktuję jako wejście dla~metody \textit{nDCG}, której wynikiem w tym przypadku jest wartość ok. $0.63$. Przyjmuję ją jako wynik niniejszej metody ewaluacji dla~metody generującej rekomendacje do~artykułu $x$ postaci $(c,\ f,\ a,\ b,\ d)$.
@@ -571,7 +569,7 @@ Wadą tej metody jest jej powolność i~potrzeba zaangażowania dodatkowych osó
 
 \chapter{Opis testów}
 
-W~przeprowadzanych testach staram~się dokonać porównania pomiędzy różnymi konfiguracjami tej samej metody oraz~pomiędzy najlepszymi wariantami różnych metod. W~tym celu wykorzystuję wprowadzone miary ewaluacji. W~większości przypadków używam miar automatycznych bazujących na~metadanych artykułów oraz~historycznej aktywności użytkowników serwisu. Do~ostatecznego porównania pomiędzy najlepszymi wariantami testowanych metod stosuję również miarę opartą na~ocenie eksperckiej. Miara ta daje najbardziej rzetelne wyniki, jednakże jej użycie jest wyjątkowo kosztowne --- wymaga zaangażowania osób testujących oraz~sporych nakładów czasowych. Stąd zdecydowałem na~użycie jej tylko w~jednym przypadku.
+W~przeprowadzanych testach staram~się dokonać porównania pomiędzy różnymi konfiguracjami tej samej metody oraz~pomiędzy najlepszymi wariantami różnych metod. W~tym celu wykorzystuję wprowadzone miary ewaluacji. W~większości przypadków używam miar automatycznych, bazujących na~metadanych artykułów oraz~na~historycznej aktywności użytkowników serwisu. Do~ostatecznego porównania pomiędzy najlepszymi wariantami testowanych metod stosuję również miarę opartą na~ocenie eksperckiej. Miara ta daje najbardziej rzetelne wyniki, jednakże jej użycie jest wyjątkowo kosztowne --- wymaga zaangażowania osób testujących oraz~sporych nakładów czasowych. Stąd zdecydowałem na~użycie jej tylko w~jednym przypadku.
 
 \section{Testowane metody generowania rekomendacji}
 
@@ -579,33 +577,33 @@ Wykonuję szereg testów adaptacji metod semantycznej analizy języka naturalneg
 
 \subsection{Metody oparte o modelowanie tematu}
 
-Najważniejszym hiperparametrem metod tej grupy: \textit{LSI} oraz \textit{LDA} jest liczba tematów, stąd dokonuję testu jak zmiana tego parametru wpływa na~jakość modelu.
+Najważniejszym hiperparametrem metod tej grupy: \textit{LSI} oraz \textit{LDA} jest liczba tematów, stąd dokonuję testu, jak zmiana tego parametru wpływa na~jakość modelu.
 
 \subsection{Metody oparte o \textit{word embeddings}}
 Wykonuję testy adaptacji metod wektorowej reprezentacji słów~dla wielu konfiguracji. Poniżej obszary, na~których dokonuję zmian konfiguracji.
 
 \subsubsection{Korpus bazowy}
 
-Pierwszy model \textit{Word2vec}, z jakim miałem styczność to model~\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie \textit{Słowosieci} wer. 10~\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia \textit{Word2Vec}: metoda \textit{skip-gram}, wektory długości 100, okno kontekstu wielkości 5.
+Pierwszy model \textit{Word2vec}, z jakim miałem styczność to model~\cite{pias} stworzony m.in. przez dr inż. M. Piaseckiego z Politechniki Wrocławskiej dostępny poprzez stronę internetową. Model ten był uczony na korpusie \textit{Słowosieci} wer. 10~\cite{wordnet}. Zgodnie z opisem autorów dane przed uczeniem  przeszły segmentację, lematyzację i~ujednoznacznianie morfosyntaktyczne. Użyte parametry uczenia \textit{Word2Vec}: metoda \textit{skip-gram}, wektory długości~100, okno kontekstu wielkości~5.
 
-Model ten zawiera 73875 spośród 98174 (75\%) unikalnych słów korpusu artykułów \textit{Allegro} oraz 7313915 z 7409145 (99\%) wszystkich słów korpusu artykułów. Wskazuje to, iż słowa nieobecne w modelu są bardzo mało popularne w korpusie artykułów (stanowią ok 1\% całości). Po samodzielnym sprawdzeniu stwierdzam, że słowa nieobecne w modelu to: ,,literówki'' lub słowa niepoprawnie stokenizowane (np. ,,urządzeia''), symbole marek produktów (np.~,,ux305fa'', ,,i7-4700qm''), żargon branżowy (np.~,,bootsów''), złożenia wyrazów (np.~,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np.~,,thermoprotect''). Uważam, iż mimo niewielkiej liczby tych słów w stosunku do modelu mogą mieć one znaczący wpływ na semantykę artykułów.
+Model ten zawiera 73875 spośród 98174 (75\%) unikalnych słów korpusu artykułów \textit{Allegro} oraz 7313915 z~7409145 (99\%) wszystkich słów korpusu artykułów. Wskazuje to, iż słowa nieobecne w~modelu są bardzo mało popularne w~korpusie artykułów \textit{Allegro} (stanowią ok.~1\% całości). Po~samodzielnym sprawdzeniu stwierdzam, że słowa nieobecne w~modelu to: ,,literówki'' lub~słowa niepoprawnie stokenizowane (np.~,,urządzeia''), symbole marek produktów (np.~,,ux305fa'', ,,i7-4700qm''), żargon branżowy (np.~,,bootsów''), złożenia wyrazów (np.~,,kurzoodporne''), wyrazy obce lub ich spolszczenia (np.~,,thermoprotect''). Uważam, iż mimo niewielkiej liczby tych słów w~stosunku do~wielkości korpusu mogą mieć one znaczący wpływ na semantykę artykułów.
 
-W związku z powyższym stwierdzeniem wykonuję naukę modelu \textit{Word2vec} również na samym korpusie artykułów w celu zawarcia brakujących w poprzednim modelu słów. Najrozsądniejszym postępowaniem byłoby tutaj rozszerzenie modelu opartego na korpusie \textit{Słowosieci} również o brakujące słowa, jednak metoda \textit{Word2vec} nie pozwala na dodanie nowych słów do słownika istniejącego modelu, a jedynie na dalszą naukę w oparciu o słowa już istniejące w słowniku. Siłą rzeczy model zbudowany na zbiorze artykułów zawiera wszystkie słowa występujące w artykułach słowa. Ostatecznie pozostałe modele metod \textit{word embeddings}, których używam w dalszej części pracy są uczone i testowane na tym samym zbiorze artykułów \textit{Allegro}.
+W~związku z~powyższym stwierdzeniem wykonuję naukę modelu \textit{Word2vec} również na~samym korpusie artykułów \textit{Allegro} po to, aby posiadać model zawierający wszystkie słowa występujące w~artykułach. Najrozsądniejszym postępowaniem byłoby tutaj rozszerzenie modelu opartego na~korpusie \textit{Słowosieci} również o~brakujące słowa, jednak metoda \textit{Word2vec} nie pozwala na~dodanie nowych słów do~słownika istniejącego modelu, a jedynie na~dalszą naukę w~oparciu o~słowa już istniejące w słowniku. Siłą rzeczy model zbudowany na~zbiorze artykułów zawiera wszystkie występujące w~artykułach słowa. Ostatecznie pozostałe modele metod \textit{word embeddings}, których używam w dalszej części pracy są uczone i~testowane na~tym samym zbiorze artykułów \textit{Allegro}.
 
-Dokonuję porównania jakości modelu uczonego na korpusie \textit{Słowosieci} z modelem uczonym na korpusie artykułów \textit{Allegro}.
+Dokonuję porównania jakości modelu uczonego na~korpusie \textit{Słowosieci} z~modelem uczonym na~korpusie artykułów \textit{Allegro}.
 
 \subsubsection{Sposób generowania wektorów i długość wektorów}
-Do wygenerowania wektorów reprezentujących słowa używam metod wektorowej reprezentacji tekstu: \textit{Word2vec}, \textit{GloVe} oraz \textit{FastText}. Każdą z nich testuję pod kątem różnej wymiarowości generowanych wektorów.
+Do~wygenerowania wektorów reprezentujących słowa używam metod wektorowej reprezentacji tekstu: \textit{Word2vec}, \textit{GloVe} oraz \textit{FastText}. Każdą z~nich testuję pod~kątem różnej wymiarowości generowanych wektorów.
 
 \subsubsection{Metoda określenia podobieństwa między wektorowymi reprezentacjami dokumentów}
-Zadaniem metod \textit{word embeddings} jest wygenerowanie wektorowej reprezentacji słowa. W celu porównania całych dokumentów i wyznaczenia podobieństw między nimi należy użyć dodatkowych środków. W tym celu korzystam z poniższych metod:
+Zadaniem metod \textit{word embeddings} jest wygenerowanie wektorowej reprezentacji słowa. W~celu porównania całych dokumentów i~wyznaczenia podobieństw między nimi należy użyć dodatkowych środków. W~tym celu korzystam z~poniższych metod:
 \begin{enumerate}
-	\item odległość kosinusowa pomiędzy centroidami wektorowej reprezentacji tekstów (w skrócie metoda centroidu),
+	\item odległość kosinusowa pomiędzy centroidami wektorowej reprezentacji tekstów (w~skrócie metoda centroidu),
 	\item \textit{Word Mover's Distance},
-	\item autorska metoda wykorzystująca odległość kosinusową pomiędzy wektorową reprezentacją słów kluczowych wyznaczonych metodą LDA. Celem metody jest zmniejszenie wymiarowości artykułu oraz użycie tylko znaczących słów przy obliczaniu centroidu artykułu. W tej metodzie za pomocą LDA wyznaczam słowa kluczowe, które z największą wagą przynależą do danego artykułu. Nauczony model \textit{LDA} każdemu dokumentowi $i$ przypisuje zestaw tematów z określonymi wagami przynależności $t_{ij}$ oraz każdemu tematowi $j$ przypisuje zestaw słów wraz z wagami $w_{jk}$. Na tej podstawie dla każdego artykułu $i$ mogę wybrać $p$ słów, które posiadają najwyższą wagę przynależności do artykułu liczoną wg. wzoru $x(i,k)=\sum{j}t{ij}*w{jk}$, gdzie $k$ to dane słowo. Ostatecznie artykuł reprezentuję jako centroid $n$ słów o najwyższym $x$ dla danego słowa. W dalszych testach przyjmuję $n$ jako 10.
+	\item autorska metoda wykorzystująca odległość kosinusową pomiędzy wektorową reprezentacją słów kluczowych wyznaczonych metodą \textit{LDA}. Celem metody jest zmniejszenie wymiarowości artykułu oraz użycie tylko znaczących słów przy obliczaniu centroidu artykułu. W~tej metodzie za pomocą \textit{LDA} wyznaczam słowa kluczowe, które z największą wagą przynależą do danego artykułu. Nauczony model \textit{LDA} każdemu dokumentowi $i$ przypisuje zestaw tematów z określonymi wagami przynależności $t_{ij}$ oraz każdemu tematowi $j$ przypisuje zestaw słów wraz z wagami $w_{jk}$. Na tej podstawie dla każdego artykułu $i$ mogę wybrać $p$ słów, które posiadają najwyższą wagę przynależności do artykułu liczoną wg. wzoru $x(i,k)=\sum_{j}t_{ij}*w_{jk}$, gdzie $k$ to dane słowo. Ostatecznie artykuł reprezentuję jako centroid $n$ słów o najwyższym $x$ dla danego słowa. W dalszych testach przyjmuję $n$ jako 10.
 \end{enumerate}
 
-Powyższe metody stosuję w~celu wyznaczenia dla~danego artykułu $a$ $p$ artykułów najbardziej do~niego podobnych uszeregowanych malejąco pod~względem relewantności do~artykułu bazowego $a$.
+Powyższe metody stosuję w~celu wyznaczenia dla~danego artykułu $a$ $p$ artykułów najbardziej do~niego podobnych uszeregowanych malejąco pod~względem relewantności do~artykułu bazowego~$a$.
 
 \subsection{\textit{Elasticsearch}}
 W~celu porównania z~metodami semantycznymi testuję również dotychczasowe zapytanie do~silnika \textit{Elasticsearch} używane dotychczas w~\textit{Allegro}. Zapytanie to odpowiada listą $p$ artykułów najbardziej zbliżonych do~artykułu wejściowego w~kolejności od~najbardziej podobnego.
@@ -748,7 +746,7 @@ W~niniejszym punkcie dokonuję porównania jakości metod określania podobieńs
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
+	\includegraphics[width=0.66\textwidth]{img/results/w2v100_centroid_w2v100_lda100_w2v100_wmd_.png}
 	\caption{Porównanie znormalizowanych wyników dla~metody \textit{Word2vec} w~zależności od~sposobu wyznaczania podobieństwa między~wektorowymi reprezentacjami dokumentów.}
 	%\label{fig:warstwy}
 \end{figure}
@@ -783,12 +781,12 @@ Z powyższych testów wprost wynika, że rezultaty dla~metody opartej o~tematy \
 
 Dla~obu konfiguracji metody \textit{Word2vec} metoda \textit{Word Mover's Distance} wykazuje~się największą zdolnością do~poprawnego szeregowania dokumentów (wysoki wskaźnik metod \textit{nDCG} w~porównaniu z~metodami wykorzystującymi średnią).
 
-Wadą metody \textit{WMD} wykluczającą ją z~użycia w~tym przypadku jest jej powolność. Dla~pierwszego przypadku  obliczenia trwały 55~minut, co przy czasie <1~sek dla~centroidu jest wartością niedopuszczalną. Proporcjonalnie użycie tej metody dla~całego korpusu trwałoby ok.~183~godzin.
+Wadą metody \textit{WMD} wykluczającą ją z~użycia w~tym przypadku jest jej powolność. Dla~pierwszego przypadku  obliczenia trwały 55~minut, co przy czasie <1~sek dla~centroidu jest wartością niedopuszczalną. Proporcjonalnie użycie tej metody dla~całego korpusu (a nie jedynie dla~20 artykułów wybranych metodą centroidu) trwałoby ok.~183~godzin.
 
 
 \section{Metody \textit{word embeddings} w zależności od wymiarowości wektorów}
 
-W niniejszym punkcie porównuję jakość metod \textit{word embeddings} (\textit{Word2vec}, \textit{GloVe} i \textit{FastText}) w~zależności od~wymiarowości wektorów: 100, 300 i~1000. Użyta metoda wyznaczania podobieństwa dokumentów to metoda centroidu.
+W niniejszym punkcie porównuję jakość metod \textit{word embeddings} (\textit{Word2vec}, \textit{GloVe} i \textit{FastText}) w~zależności od~wymiarowości wektorów wyjściowych: 100, 300 i~1000. Użyta metoda wyznaczania podobieństwa dokumentów to metoda centroidu.
 
 \subsection{\textit{Word2vec}}
 
@@ -931,15 +929,14 @@ Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
+	\includegraphics[width=0.8\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
 	\caption{Porównanie wyników ewaluacji eksperckiej dla~wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
 
-Ewaluacja ekspercka wprost pokazuje, że żadna z~testowanych metod nie~odbiega znacząco od~innych. Żadna z~testowanych adaptacji metod semantycznej analizy tekstu nie~odbiega również od~dotychczasowej metody używanej w~\textit{Allegro}. Różnica pomiędzy najlepszą metodą (\textit{FastText}) i~najgorszą (\textit{LDA}) wynosi ok.~9\%.
+Ewaluacja ekspercka wprost pokazuje, że żadna z~testowanych metod nie~odbiega znacząco od~innych. Żadna z~testowanych adaptacji metod semantycznej analizy tekstu nie~odbiega również od~dotychczasowej metody używanej w~\textit{Allegro}. Różnica pomiędzy najlepszą metodą (\textit{FastText}) i~najgorszą (\textit{LDA}) wynosi ok.~9\%. Każda z~testowanych metod dała również wynika znacząco lepszy od~metody losowej.
 
-Każda z~testowanych metod dała również wynika znacząco lepszy od~metody losowej.
-
+Pożądaną cechą dla~metody jest, aby możliwie rzadko generowała ona wyniki odstające --- w~żaden sposób niezwiązane z~artykułem bazowym. Stąd niska wartość odchylenia standardowego działa na~korzyść metody. Tutaj również najlepszy rezultat --- najbardziej spójne wyniki uzyskała metoda \textit{FastText}, natomiast najgorszy wynik znów uzyskała metoda \textit{LDA}.
 
 \begin{table}[H]
 	\centering
@@ -955,12 +952,10 @@ Każda z~testowanych metod dała również wynika znacząco lepszy od~metody los
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users_std.png}
+	\includegraphics[width=0.8\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users_std.png}
 	\caption{Porównanie odchyleń standardowych ocen eksperckich dla~wybranych metod.}
 	%\label{fig:warstwy}
 \end{figure}
-
-Pożądaną cechą dla~metody jest, aby możliwie rzadko generowała ona wyniki odstające --- w~żaden sposób niezwiązane z~artykułem bazowym. Stąd niska wartość odchylenia standardowego działa na~korzyść metody. Tutaj również najlepszy rezultat --- najbardziej spójne wyniki uzyskała metoda \textit{FastText}, natomiast najgorszy wynik znów uzyskała metoda \textit{LDA}.
 
 W~świetle powyższych wyników najlepsze rezultaty zdaje~się osiągać \textit{FastText}. Zakładam, iż jest to związane z wewnętrzną analizą słów, jaką wykonuje ta metoda. Może~się to sprawdzać szczególnie dobrze w~przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
 
@@ -983,18 +978,15 @@ Porównanie najlepszych konfiguracji testowanych metod wykazało, że nie~ma ist
 
 \chapter{Podsumowanie pracy i kierunki dalszych badań}
 
-W~niniejszej pracy starałem~się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w~celu wyznaczania artykułów najbardziej podobnych do~danego są w~stanie dorównać dotychczas używanej w~serwisie \textit{Allegro} metodzie opartej o~zapytanie do~silnika wyszukiwania \textit{Elasticsearch}. W~tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w~zależności od~konfiguracji poszczególnych metod. Po~analizie wyników testów można udzielić odpowiedzi: tak, każda~ metod semantycznej analizy języka naturalnego w~swojej najlepszej konfiguracji może zostać zaadaptowana w~celu generowania rekomendacji artykułów w~oparciu o~treść artykułu aktualnie wyświetlanego przez~użytkownika serwisu. Rekomendacje te w~ocenie użytkowników nie~ustępują jakością dotychczasowej metodzie. 
+W~niniejszej pracy starałem~się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w~celu wyznaczania artykułów najbardziej podobnych do~danego są w~stanie dorównać dotychczas używanej w~serwisie \textit{Allegro} metodzie opartej o~zapytanie do~silnika wyszukiwania \textit{Elasticsearch}. W~tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w~zależności od~konfiguracji poszczególnych metod. Po~analizie wyników testów można udzielić odpowiedzi: tak, każda z~metod semantycznej analizy języka naturalnego w~swojej najlepszej konfiguracji może zostać zaadaptowana w~celu generowania rekomendacji artykułów w~oparciu o~treść artykułu aktualnie wyświetlanego przez~użytkownika serwisu. Rekomendacje te w~ocenie użytkowników nie~ustępują jakością dotychczasowej metodzie. 
 
 Użycie metod semantycznej analizy tekstu pozwala wychwycić ukryte podobieństwa między dokumentami, gdzie dokumenty łączą nie~te same słowa, czy synonimy, ale pewne złożone abstrakcyjne koncepty powiązane ze~sobą. Użycie metod semantycznej analizy tekstu zwalnia autorów artykułów z~samodzielnego opatrywania ich dodatkowymi słowami kluczowymi, gdyż metody te pozwalają wykazać podobieństwo w~oparciu jedynie o~treść dokumentu.
 
 Istotną zaletą dotychczasowego rozwiązania stosowanego w \textit{Allegro} jest uniwersalność silnika \textit{Elasticsearch}~oraz to, że pozwala edytować indeksowane dane w~locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy~każdej zmianie korpusu, na~którym się opierają --- jest to ich istotna wada.
 
-
-\section{Dalsze badania}
-
 Analiza zawarta w~tej pracy nie~wyczerpuje całkowicie zagadnień związanych z~tematem pracy. Przeprowadzone w~pracy badania dają jedynie ogólny pogląd, ale pokazują, że istnieje pole do~dalszych badań w~tym kierunku.
 
-Nietrywialnym problemem okazało~się zadanie ewaluacji systemu rekomendacyjnego. Warto zaznaczyć tu różnicę pomiędzy tematyką pracy a komercyjnym zagadnieniem najlepszych rekomendacji. Artykuły najbardziej podobne wcale nie~muszą być tymi, które najlepiej nadają~się na~rekomendacje. Otwartym pytaniem pozostaje, czy rekomendowanie użytkownikowi podobnych artykułów wprost przekłada~się na~zwiększenie liczby transakcji zawartych przez niego. Powszechnym zjawiskiem jest wzbogacanie rekomendacji o~przedmioty niepodobne do~danego, a~pozwalające użytkownikowi na~poznanie osobnej kategorii przedmiotów, która może go zainteresować, a~tym samym przyciągnąć do~serwisu. Ostatecznym celem użycia systemu rekomendacji jest w~dłuższej perspektywie maksymalizacja zysku serwisu przez kierowanie użytkowników na~strony ofert, co zwiększa szansę na~dokonanie przez~nich transakcji. Trudność oceny jakości takiego systemu wiąże~się z~mnogością czynników, które kierują zachowaniami użytkowników. Dopiero badania na~,,żywym systemie'' są w~stanie wykazać realną wyższość jednej z~metod nad~innymi. Sporządzenie systemu rekomendacji uwzględniającego te czynniki wydaje~się więc być osobnym tematem godnym szczegółowych badań.
+Nietrywialnym problemem okazało~się zadanie ewaluacji systemu rekomendacyjnego. Warto zaznaczyć tu różnicę pomiędzy tematyką pracy, a komercyjnym zagadnieniem najlepszych rekomendacji. Artykuły najbardziej podobne wcale nie~muszą być tymi, które najlepiej nadają~się na~rekomendacje. Otwartym pytaniem pozostaje, czy rekomendowanie użytkownikowi podobnych artykułów wprost przekłada~się na~zwiększenie liczby transakcji zawartych przez niego za~pośrednictwem serwisu. Powszechnym zjawiskiem jest wzbogacanie rekomendacji o~przedmioty niepodobne do~danego, a~pozwalające użytkownikowi na~poznanie osobnej kategorii przedmiotów, która może go zainteresować, a~tym samym przyciągnąć do~serwisu. Ostatecznym celem użycia systemu rekomendacji jest w~dłuższej perspektywie maksymalizacja zysku serwisu przez kierowanie użytkowników na~strony ofert, co zwiększa szansę na~dokonanie przez~nich transakcji. Trudność oceny jakości takiego systemu wiąże~się z~mnogością czynników, które kierują zachowaniami użytkowników. Dopiero badania na~,,żywym systemie'' są w~stanie wykazać realną wyższość jednej z~metod nad~innymi. Sporządzenie systemu rekomendacji uwzględniającego te czynniki wydaje~się więc być osobnym tematem godnym szczegółowych badań.
 
 Badania przeprowadzone w~niniejszej pracy mogą być podstawą do~zaprojektowania pełnego systemu rekomendacji, który mógłby zostać wykorzystany w~realnej aplikacji.
 \begin{figure}[H]
@@ -1224,9 +1216,7 @@ Można by również zastosować inne metody wyznaczania odległości między~wek
 \pagestyle{empty}
 \appendix
 \chapter{Wykorzystane technologie i narzędzia}
-Analizę danych, ich wstępne przetworzenie, a~następnie przeprowadzenie docelowych eksperymentów wykonałem korzystając głównie z~języka \textit{Python} i szeregu skryptów napisanych w~nim własnoręcznie, wykorzystujących istniejące specjalistyczne biblioteki, posiadające interfejs w~tymże języku.
-
-Wykorzystane narzędzia:
+Analizę danych, ich wstępne przetworzenie, a~następnie przeprowadzenie docelowych eksperymentów wykonałem korzystając głównie z~języka \textit{Python} i szeregu skryptów napisanych w~nim własnoręcznie, wykorzystujących istniejące specjalistyczne biblioteki, posiadające interfejs w~tymże języku. Poniżej przedstawiam wykorzystane narzędzia.
 \begin{itemize}
 	\item \textit{Elasticsearch} --- silnik wyszukiwania tekstowego. Używam go do~przechowywania bazy artykułów oraz~ich przetworzonych wersji.
 	\item \textit{MongoDB} --- nierelacyjna baza danych, której używam do~przechowywania wyników generowanych przez~testowane algorytmy.
@@ -1234,7 +1224,7 @@ Wykorzystane narzędzia:
 	\item \textit{FastText} --- implementacja metody \textit{FastText} wykonana przez zespół \textit{Facebook Research}. Generuje wektory słów, które następnie mogą być wykorzystane np.~przez bibliotekę \textit{gensim}.
 \end{itemize}
 
-Poniższa lista zawiera wykorzystane biblioteki języka \textit{Python}:
+Poniższa lista zawiera wykorzystane biblioteki języka \textit{Python}.
 \begin{itemize}
 	\item \textit{Gensim} --- rozbudowana biblioteka służąca do~przetwarzania języka naturalnego; zawiera implementację metod \textit{Word2Vec}, \textit{LSI}, \textit{LDA}, \textit{TF-IDF} i inne.
 	\item \textit{Morfologik} --- tokenizer języka polskiego.
