@@ -957,11 +957,15 @@ Pożądaną cechą dla~metody jest, aby możliwie rzadko generowała ona wyniki 
 	%\label{fig:warstwy}
 \end{figure}
 
-W~świetle powyższych wyników najlepsze rezultaty zdaje~się osiągać \textit{FastText}. Zakładam, iż jest to związane z wewnętrzną analizą słów, jaką wykonuje ta metoda. Może~się to sprawdzać szczególnie dobrze w~przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
+W~świetle powyższych wyników najlepsze rezultaty zdaje~się osiągać \textit{FastText}. Zakładam, iż jest to związane z~wewnętrzną analizą słów, jaką wykonuje ta metoda. Może~się to sprawdzać szczególnie dobrze w~przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
 
-W~celu bardziej szczegółowego porównania wyników uzyskanych przy~ewaluacji eksperckiej przeprowadzam test Kruskala-Wallisa. Za~dane wejściowe testu przyjmuję próby złożone z~wartości $m(j)$ (ze~wzoru \ref{eq:mj}) uzyskane dla~każdej z~testowanych przez~użytkowników metod bez~metody losowej. Pojedynczy element odpowiada średniej ocen pomiędzy artykułem bazowym, a artykułami podobnymi do niego wygenerowanymi przez daną metodę. Za hipotezę zerową $H_0$ przyjmuję, równość dystrybuant rozkładów w~populacjach, z~których pochodzą próby. Sytuację tę interpretuję, iż nie~ma statystycznie istotnej różnicy w~eksperckiej ocenie testowanych metod.
+Aby odpowiedzieć na~pytanie postawione na~początku niniejszej pracy, tj. czy metody semantycznej analizy języka naturalnego zaadaptowane w~celu wyznaczania rekomendacji są w~stanie dorównać jakością dotychczasowej metodzie stosowanej w~\textit{Allegro}, wykonuję test, który ma na~celu sprawdzenie, czy są podstawy, by sądzić, że wyniki którejkolwiek z~metod poddanych ocenie eksperckiej odstają w~sposób istotny statystycznie od~reszty przetestowanych metod.
 
-Przyjmuję poziom istotności $\alpha=0.05$. Jako wynik testu Kruskala-Wallisa otrzymuję $p=0.28371>\alpha$, na~podstawie czego stwierdzam, że brak jest przesłanek, by odrzucić hipotezę zerową --- różnica między jakością rekomendacji testowanych metod nie~jest istotna statystycznie.
+Test statystyczny, jaki przeprowadzam, to test Kruskala-Wallisa. Za~hipotezę zerową $H_0$ przyjmuje on równość dystrybuant rozkładów w~populacjach, z~których pochodzą próby.
+
+We~wcześniejszych testach użytkownicy oceniali podobieństwo pomiędzy artykułem, a każdym z~artykułów do~niego rekomendowanych, wyznaczonych ewaluowanymi metodami. Za~dane wejściowe testu Kruskala-Wallisa przyjmuję próby odpowiadające wynikom testów dla~każdej z~metod (prócz~metody losowej) złożone ze~średniej oceny użytkowników dla~najbardziej relewantnej rekomendacji do~każdego z~testowanych artykułów bazowych.
+
+W~teście przyjmuję poziom istotności $\alpha=0.05$. Ostatecznie, jako wynik testu Kruskala-Wallisa otrzymuję $p=0.28371>\alpha$, na~podstawie czego stwierdzam, że brak jest przesłanek, by odrzucić hipotezę zerową --- różnica między jakością rekomendacji testowanych metod nie~jest istotna statystycznie. Oznacza to, że ani żadna z~testowanych metod semantycznych nie odstaje od~innych, ani też dotychczasowa metoda \textit{Allegro} nie jest istotnie lepsza/gorsza od~innych testowanych metod.
 
 \section{Podsumowanie testów}
 
@@ -980,9 +984,9 @@ Porównanie najlepszych konfiguracji testowanych metod wykazało, że nie~ma ist
 
 W~niniejszej pracy starałem~się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w~celu wyznaczania artykułów najbardziej podobnych do~danego są w~stanie dorównać dotychczas używanej w~serwisie \textit{Allegro} metodzie opartej o~zapytanie do~silnika wyszukiwania \textit{Elasticsearch}. W~tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w~zależności od~konfiguracji poszczególnych metod. Po~analizie wyników testów można udzielić odpowiedzi: tak, każda z~metod semantycznej analizy języka naturalnego w~swojej najlepszej konfiguracji może zostać zaadaptowana w~celu generowania rekomendacji artykułów w~oparciu o~treść artykułu aktualnie wyświetlanego przez~użytkownika serwisu. Rekomendacje te w~ocenie użytkowników nie~ustępują jakością dotychczasowej metodzie. 
 
-Użycie metod semantycznej analizy tekstu pozwala wychwycić ukryte podobieństwa między dokumentami, gdzie dokumenty łączą nie~te same słowa, czy synonimy, ale pewne złożone abstrakcyjne koncepty powiązane ze~sobą. Użycie metod semantycznej analizy tekstu zwalnia autorów artykułów z~samodzielnego opatrywania ich dodatkowymi słowami kluczowymi, gdyż metody te pozwalają wykazać podobieństwo w~oparciu jedynie o~treść dokumentu.
+Użycie metod semantycznej analizy tekstu pozwala wychwycić ukryte podobieństwa między dokumentami, gdzie dokumenty łączą nie~te same słowa, czy synonimy, ale pewne złożone abstrakcyjne koncepty powiązane ze~sobą. Istotą zaletą metod semantycznych w porównaniu z~dotychczasową metodą wykorzystywaną w~\textit{Allegro} jest fakt, iż opierają~się one wyłącznie na~treści artykułów. Zwalnia to autorów artykułów z~samodzielnego opatrywania ich dodatkowymi metatagami, z~których w~dużym stopniu korzysta dotychczasowa metoda.
 
-Istotną zaletą dotychczasowego rozwiązania stosowanego w \textit{Allegro} jest uniwersalność silnika \textit{Elasticsearch}~oraz to, że pozwala edytować indeksowane dane w~locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu potrzebują przebudowania modelu przy~każdej zmianie korpusu, na~którym się opierają --- jest to ich istotna wada.
+Z~kolei istotną zaletą dotychczasowego rozwiązania stosowanego w \textit{Allegro} jest uniwersalność silnika \textit{Elasticsearch}~oraz to, że pozwala edytować indeksowane dane w~locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu wymagają przebudowania modelu w~celu jego aktualizacji przy zmieniających~się danych.
 
 Analiza zawarta w~tej pracy nie~wyczerpuje całkowicie zagadnień związanych z~tematem pracy. Przeprowadzone w~pracy badania dają jedynie ogólny pogląd, ale pokazują, że istnieje pole do~dalszych badań w~tym kierunku.
 
