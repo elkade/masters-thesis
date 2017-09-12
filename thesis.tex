@@ -117,13 +117,13 @@ Z~racji szybkiego rozwoju szeroko pojętych metod sztucznej inteligencji, w~tym 
 \chapter{Przegląd wiedzy z zakresu tematyki pracy}
 W~swojej pracy dokonuję adaptacji metod przetwarzania języka naturalnego na~potrzeby generowania rekomendacji artykułów tekstowych w~oparciu o~ich treść. W~niniejszym rozdziale dokonuję przeglądu znanych metod z~obszaru tematyki pracy dyplomowej, skupiając~się szczególnie~na nowo powstałych metodach wektorowej reprezentacji słów, które cieszą~się obecnie dużym zainteresowaniem środowisk naukowych oraz firm komercyjnych. 
 
-Dokonuję krótkiego wprowadzenia do~zagadnienia systemów rekomendacji oraz systemów wyszukiwania. Następnie wykonuję chronologiczny przegląd metod liczbowej, ciągłej reprezentacji słów zaczynając od~trywialnych metod zliczania słów (\textit{bag-of-words}, \textit{TF-IDF}), przechodząc przez~metody wykorzystujące koncepcję tematów (\textit{latent semantic analysis}, \textit{latent Dirichlet allocation}) i~kończąc na~głośnych ostatnio metodach osadzania słów w przestrzeni wektorowej (\textit{Word2vec}, \textit{GloVe}, \textit{FastText}). Przy~zarysie historycznym m.in. z~artykułu~\cite{aylien}.
+Dokonuję krótkiego wprowadzenia do~zagadnienia systemów rekomendacji oraz systemów wyszukiwania. Następnie wykonuję chronologiczny przegląd metod liczbowej, ciągłej reprezentacji słów zaczynając od~trywialnych metod zliczania słów (\textit{bag-of-words}, \textit{TF-IDF}), przechodząc przez~metody wykorzystujące koncepcję tematów (\textit{latent semantic analysis}, \textit{latent Dirichlet allocation}) i~kończąc na~głośnych ostatnio metodach osadzania słów w przestrzeni wektorowej (\textit{Word2vec}, \textit{GloVe}, \textit{FastText}). Przy~zarysie historycznym korzystam m.in. z~artykułu~\cite{aylien}.
 
 \section{Systemy rekomendacji}
 
-Systemy rekomendacji to narzędzia i~techniki mające na~celu zasugerowanie użytkownikowi przedmiotów. Sugestie te odnoszą~się do~różnych procesów podejmowania decyzji takich jak np.~które artykuły kupić, jakiej muzyki słuchać, czy też które wiadomości czytać. ,,Przedmiot'' jest tutaj ogólnym pojęciem oznaczającym coś, co system poleca użytkownikowi~\cite{handbook}. 
+Systemy rekomendacji to narzędzia i~techniki mające na~celu zasugerowanie użytkownikowi przedmiotów. Sugestie te odnoszą~się do~różnych procesów podejmowania decyzji takich jak np.:~które artykuły kupić, jakiej muzyki słuchać, czy też które wiadomości czytać. ,,Przedmiot'' jest tutaj ogólnym pojęciem oznaczającym coś, co system poleca użytkownikowi~\cite{handbook}. 
 
-Przy~wciąż wzrastającej ilości danych użytkownicy serwisów internetowych często nie są w~stanie dotrzeć do~informacji, która ich interesuje. Jest to pole do~rozwoju zautomatyzowanych systemów rekomendacyjnych polecających użytkownikom treści, które mogą ich zainteresować. Działalność takiego systemu daje zysk zarówno użytkownikowi, pozwalając mu dotrzeć do~informacji, której mógłby samodzielnie nie odszukać, albo wręcz nie wiedzieć, iż~taka informacja istnieje, jak~i~właścicielowi serwisu internetowego, któremu zależy, by przyciągnąć do~siebie użytkowników, aby ci w~jak~największym stopniu korzystali z~jego usług.
+Przy~wciąż wzrastającej ilości danych użytkownicy serwisów internetowych często nie są w~stanie dotrzeć do~informacji, która ich interesuje. Jest to pole do~rozwoju zautomatyzowanych systemów rekomendacyjnych polecających użytkownikom treści, które mogą ich zainteresować. Działanie takiego systemu daje zysk zarówno użytkownikowi, pozwalając mu dotrzeć do~informacji, której mógłby samodzielnie nie odszukać, albo wręcz nie wiedzieć, iż~taka informacja istnieje, jak~i~właścicielowi serwisu internetowego, któremu zależy, by przyciągnąć do~siebie użytkowników, aby ci w~jak~największym stopniu korzystali z~jego usług.
 
 Sposoby działania systemów rekomendacji można podzielić na~różne warianty, spośród których wyodrębnić można dwa najszerzej używane. Są to: filtrowanie kolaboratywne i~filtrowanie oparte na~treści.
 
@@ -157,7 +157,7 @@ W~celu formalizacji, w~dalszych opisach stosowanych metod stosuję następujące
 	\item korpus $C$: zbiór dokumentów $d_i$,
 	\item dokument $d$: skończony ciąg słów $w_i$,
 	\item słowo $w$: skończony ciąg znaków $c_i$,
-	\item słownik zbudowany na korpusie $C$: $V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
+	\item słownik $V$ zbudowany na korpusie $C$: zbiór wszystkich unikalnych słów korpusu $C$,\\$V = \{w\ |\ \exists_{d \in C}\ w \in d\}$.
 \end{itemize}
 
 \subsection{Techniki podstawowe}
@@ -167,7 +167,7 @@ W~celu formalizacji, w~dalszych opisach stosowanych metod stosuję następujące
 
 Istotną zaletą reprezentacji wektorowej dokumentów jest możliwość zdefiniowania miary odległości pomiędzy dokumentami (np.~miara kosinusowa opisana później) odzwierciedlającej ich podobieństwo.
 
-Technika $BOW$ ta jest stosunkowo prosta, lecz jej wadą jest traktowanie każdego słowa z~jednakową wagą. Pewne słowa (np.~,,i'', ,,lub'', ,,o'') występują bardzo często, lecz ich wkład w~znaczenie całego dokumentu jest marginalny. Kolejną wadą jest wysoka wymiarowość otrzymywanych wektorów równa wielkości słownika.
+Technika $BOW$ jest stosunkowo prosta, lecz jej wadą jest traktowanie każdego słowa z~jednakową wagą. Pewne słowa (np.~,,i'', ,,lub'', ,,o'') występują bardzo często, lecz ich wkład w~znaczenie całego dokumentu jest marginalny. Kolejną wadą jest wysoka wymiarowość otrzymywanych wektorów równa wielkości słownika.
 
 Stąd powstały bardziej zaawansowane techniki uwzględniające istotność słów dla~znaczenia całego dokumentu. Mimo~to metoda \textit{BOW} jest często wykorzystywana w~bardziej zaawansowanych technikach \textit{NLP}, a~także przy~przetwarzaniu wstępnym tekstu przy~okazji zabiegów usunięcia słów stopu oraz lematyzacji stosowanych w~celu zmniejszenia wymiarowości przestrzeni wektorowej słów.
 \subsubsection{\textit{TF-IDF}}
@@ -224,7 +224,7 @@ Zaletą \textit{LDA} jest jego interpretowalność: do~każdego tematu przypisan
 
 
 \subsection{Osadzanie słów w przestrzeni wektorowej}
-Od 2013r., wraz z~wprowadzeniem przez T.~Mikolova metody \textit{Word2vec}~\cite{word2vec} nastąpił gwałtowny rozwój i~niewątpliwy sukces metod typu \textit{word embeddings}. Określenie \textit{word embeddings} oznacza osadzanie słów w przestrzeni wektorowej przy~pomocy uczenia nienadzorowanego i~zostało po~raz~pierwszy użyte 2003r. w~pracy Y.~Bengio~\cite{bengio}, gdzie wektory słów generowane są przez~głęboką sieć neuronową. Ogół technik zaliczanych obecnie do~\textit{word embeddings} cechuje~się usiłowaniem reprezentacji słów wraz z~zależnościami pomiędzy nimi w~postaci wektorów o~stosunkowo niskiej wymiarowości. Dzieje~się to w~opozycji do~wcześniejszych podejść podobnych do~\textit{bag-of-words} --- produkującego ogromne, rzadkie wektory, których wymiary równają~się rozmiarowi słownika, o~który oparty jest model (rzędu setek tysięcy). Ważną własnością metod osadzania słów jest zachowanie przez~wektory semantycznych i~syntaktycznych właściwości słów, co pozwala wykonywać na~nich operacje arytmetyczne odwzorowujące cechy tychże słów, np.~\textit{vector(,,king'')-vector(,,man''+vector(,,woman'')~$\approx$~vector(,,queen'')} 
+Od 2013r., wraz z~wprowadzeniem przez T.~Mikolova metody \textit{Word2vec}~\cite{word2vec} nastąpił gwałtowny rozwój i~niewątpliwy sukces metod typu \textit{word embeddings}. Określenie \textit{word embeddings} oznacza osadzanie słów w przestrzeni wektorowej przy~pomocy uczenia nienadzorowanego i~zostało po~raz~pierwszy użyte 2003r. w~pracy Y.~Bengio~\cite{bengio}, gdzie wektory słów generowane są przez~głęboką sieć neuronową. Ogół technik zaliczanych obecnie do~\textit{word embeddings} cechuje~się dążeniem~do reprezentacji słów wraz z~zależnościami pomiędzy nimi w~postaci wektorów o~stosunkowo niskiej wymiarowości. Dzieje~się to w~opozycji do~wcześniejszych podejść podobnych do~\textit{bag-of-words} --- produkującego ogromne, rzadkie wektory, których wymiary równają~się rozmiarowi słownika, o~który oparty jest model (rzędu setek tysięcy). Ważną własnością metod osadzania słów jest zachowanie przez~wektory semantycznych i~syntaktycznych właściwości słów, co pozwala wykonywać na~nich operacje arytmetyczne odwzorowujące cechy tychże słów, np.~\textit{vector(,,king'')-vector(,,man''+vector(,,woman'')~$\approx$~vector(,,queen'')} 
 
 Stosowane obecnie podejścia generowania wektorowych reprezentacji słów można podzielić na~dwa typy.
 \begin{enumerate}
@@ -283,7 +283,7 @@ Metoda \textit{Word2vec} wprowadzona w 2013r. w~\cite{word2vec} odniosła niewą
 \end{figure}
 Używając tej stosunkowo prostej architektury można przeprowadzić proces nauki używając milionów słów, których powiązania między sobą zostaną zachowane w~systemie wag sieci neuronowej. Zaletą podejścia \textit{skip-gram} są lepsze wyniki w~przypadku rzadkich słów. Nauka w~przypadku tego podejścia jest jednak wolniejsza niż dla~\textit{CBOW}~\cite{google_word2vec}.
 
-W~celu dalszego opisu metody \textit{Word2vec} wprowadzam pojęcie funkcji \textit{softmax} użytej w~warstwie wyjściowej sieci neuronowej. \textit{Softmax} jest generalizacją funkcji logistycznej, zamieniającą $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na~$K$-wymiarowy wektor liczb rzeczywistych z~zakresu $(0,1]$, które sumują~się do~$1$. Funkcja wyraża~się wzorem \ref{eq:softmax}:
+W~celu dalszego opisu metody \textit{Word2vec} wprowadzam pojęcie funkcji \textit{softmax} użytej w~warstwie wyjściowej sieci neuronowej. \textit{Softmax} jest generalizacją funkcji logistycznej, zamieniającą $K$-wymiarowy wektor $z$ dowolnych liczb rzeczywistych na~$K$-wymiarowy wektor liczb rzeczywistych z~zakresu $[0,1]$, które sumują~się do~$1$. Funkcja wyraża~się wzorem \ref{eq:softmax}:
 \begin{equation}
 \label{eq:softmax}
 \sigma (\mathbf {z} )_{j}={\frac {e^{z_{j}}}{\sum _{k=1}^{K}e^{z_{k}}}}\ dla\ j=1,\ ...,K.
@@ -298,7 +298,7 @@ Sieć neuronowa będąca wynikiem nauki przyjmuje na~wejściu wektor binarny dł
 
 Jako efekt należy~się spodziewać, że dla~słowa wejściowego ,,Brytania'' otrzymamy na~wyjściu wysoką wartość prawdopodobieństwa dla~słowa ,,Wielka'', a~niską np.~dla~słowa ,,skoroszyt''.
 
-Jednym z~parametrów metody \textit{Word2vec} jest wymiarowość przestrzeni, w~której znajdują~się otrzymane wektory odpowiadające słowom z korpusu. Liczba ta ma swoje źródło w wielkości warstwy ukrytej sieci neuronowej. Wagi warstwy ukrytej można interpretować jako macierz $M$x$N$, gdzie $M$ to liczba słów słownika $V$ --- wielkość wektora wejściowego, a~$N$ to liczba neuronów w warstwie ukrytej. Po~przeprowadzeniu nauki $i$-ty wiersz tej macierzy odpowiada wektorowi długości $N$, który reprezentuje $i$-te słowo ze~słownika $V$.
+Jednym z~parametrów metody \textit{Word2vec} jest wymiarowość przestrzeni, w~której znajdują~się otrzymane wektory odpowiadające słowom z korpusu. Liczba ta ma swoje źródło w wielkości warstwy ukrytej sieci neuronowej. Wagi warstwy ukrytej można interpretować jako macierz $M$x$N$, gdzie $M$ to liczba słów słownika $V$ (wielkość wektora wejściowego), a~$N$ to liczba neuronów w warstwie ukrytej. Po~przeprowadzeniu nauki $i$-ty wiersz tej macierzy odpowiada wektorowi długości $N$, który reprezentuje $i$-te słowo ze~słownika $V$.
 
 W~sieci nie~jest używana funkcja aktywacji, ale prawdopodobieństwa na~wyjściu są efektem działania funkcji \textit{softmax}. Funkcja ta ma za~zadanie sprowadzić wyjściowe wartości warstwy ukrytej do~postaci rozkładu prawdopodobieństwa. 
 
@@ -307,7 +307,7 @@ W~sieci nie~jest używana funkcja aktywacji, ale prawdopodobieństwa na~wyjściu
 
 \textit{FastText}~\cite{fasttext} to biblioteka stworzona w~2016r. w~celu wydajnego uczenia wektorowej reprezentacji słów oraz~klasyfikacji zdań. Zasada działania metody bazuje na~\textit{Word2vec}. Od~,,klasycznego'' \textit{Word2vec} różni~się jednak stopniem szczegółowości analizy słów. \textit{Word2vec} traktuje słowo jaką najmniejszą, niepodzielną jednostkę, której wektorową reprezentację usiłuje wyznaczyć. \textit{FastText} natomiast dokonuje analizy również wewnętrznej struktury słów. Wykorzystuje w~tym celu rozbicie słowa na podsłowa --- ciągi znaków o~określonej długości $n$, (\textit{character n-grams}). Np.~słowo \textit{pokój} składa~się następujących 3-gramów: \textit{pok}, \textit{okó}, \textit{kój}. Ostatecznie słowu wejściowemu zostaje przypisany wektor składający~się ze~średniej oryginalnej reprezentacji wektorowej słowa oraz wektorowych reprezentacji jego \textit{n-gramów}.
 
-Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i~znaczenie) z~innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w~ogóle nie~ma w~słowniku, jako, że ich podsłowa mogą należeć do~słów w~słowniku się~znajdujących. Zalety te wydają~się być szczególnie obiecujące w~przypadku bogatych morfologicznie języków, np.~języka polskiego, tureckiego, czy fińskiego.  
+Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i~znaczenie) z~innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w~ogóle nie~ma w~słowniku, ponieważ ich podsłowa mogą należeć do~słów w~słowniku się~znajdujących. Zalety te wydają~się być szczególnie obiecujące w~przypadku bogatych morfologicznie języków, np.~języka polskiego, tureckiego, czy fińskiego.  
 
 \subsubsection{\textit{GloVe}}
 
@@ -341,7 +341,7 @@ W~celu wykorzystania omówionych metod osadzania słów, należy wybrać metodę
 Najprostszą i~najbardziej intuicyjną metodą obliczenia odległości pomiędzy wektorowymi reprezentacjami dokumentów jest wykonanie dwóch prostych kroków:
 \begin{enumerate}
 	\item Uśrednienie wektorów wchodzących w~skład każdego z~dokumentów. Powstały w~ten sposób wektor jest centroidem reprezentującym dokument w~przestrzeni wektorowej.
-	\item Obliczenie dystansu między wektorami. Powszechnie przyjętą praktyką jest stosowanie tzw.~odległości kosinusowej --- znormalizowanego iloczynu skalarnego wektorów $A$ i~$B$. Jest to kosinus kąta pomiędzy dwoma wektorami reprezentującymi dokumenty. Zaletą tej metody jest natychmiastowa normalizacja wyniku do~zakresu $(0, 1)$. Odległość wyraża się wzorem \ref{eq:cos}:
+	\item Obliczenie dystansu między wektorami. Powszechnie przyjętą praktyką jest stosowanie tzw.~odległości kosinusowej --- znormalizowanego iloczynu skalarnego wektorów $A$ i~$B$. Jest to kosinus kąta pomiędzy dwoma wektorami reprezentującymi dokumenty. Zaletą tej metody jest natychmiastowa normalizacja wyniku do~zakresu $[0, 1]$. Odległość wyraża się wzorem \ref{eq:cos}:
 	\begin{equation}
 	\label{eq:cos}
 	sim={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|_{2}\|\mathbf {B} \|_{2}}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},
@@ -410,7 +410,7 @@ $REL$ oznacza listę relewantnych przedmiotów z~całego zbioru podlegającego s
 
 \chapter{Dane}
 
-Dane, na~których testowane są opisywane w~niniejszej pracy metody otrzymałem dzięki życzliwości serwisu \textit{Allegro}. Jednak, by dane te otrzymać, zobowiązany zostałem do~podpisania umowy o~poufności. Stąd, w~niniejszej pracy brak jakichkolwiek przykładów danych poza~tymi dostępnymi publicznie za~pośrednictwem strony internetowej \textit{Allegro}. W~niniejszym rozdziale opisuję strukturę i~stan pozyskanych danych oraz~proces ich wstępnego przetwarzania i~analizy w~celu zastosowania na~nich zaadaptowanych metod opisanych w~rozdziale poprzednim. 
+Dane, na~których testowane są opisywane w~niniejszej pracy metody otrzymałem dzięki życzliwości serwisu \textit{Allegro}, podpisując umowę o~poufności. Stąd, w~niniejszej pracy brak jakichkolwiek przykładów danych poza~tymi dostępnymi publicznie za~pośrednictwem strony internetowej \textit{Allegro}. W~niniejszym rozdziale opisuję strukturę i~stan pozyskanych danych oraz~proces ich wstępnego przetwarzania i~analizy w~celu zastosowania na~nich zaadaptowanych metod opisanych w~rozdziale poprzednim. 
 
 \section{Opis danych}
 
@@ -428,7 +428,7 @@ Spójność danych oceniam na~wysoką, tj.~każde pole zawarte w~strukturze doku
 
 \subsection{Kategoria}
 
-Każdy artykuł został przez~autora przydzielony do pewnej kategorii, która odpowiada tematyce artykułu, np.~,,Aparaty cyfrowe'' czy ,,Przyprawy i zioła''. W~skład pola \textit{kategoria} wchodzi również lista kategorii nadrzędnych, a cała hierarcha kategorii ma strukturę drzewiastą. Np.~kategoria nadrzędna dla kategorii ,,Przyprawy i~zioła'' to ,,Delikatesy'', a dla~kategorii ,,Delikatesy'' to ,,Dom i~zdrowie''. Każdy artykuł należy do~tylko jednej kategorii będącej dowolnym węzłem w~drzewie (nie tylko liściem). Drzewo kategorii posiada 8~poziomów, a najwięcej węzłów znajduje~się na~poziomach 5 i 6. Najwięcej artykułów jest przypisanych do~kategorii z~poziomów 4 i~5, średnio artykuł jest przypisany do~kategorii z~poziomu 4,63.
+Każdy artykuł został przez~autora przydzielony do pewnej kategorii, która odpowiada tematyce artykułu, np.~,,Aparaty cyfrowe'' czy ,,Przyprawy i zioła''. W~skład pola \textit{kategoria} wchodzi również lista kategorii nadrzędnych, a cała hierarchia kategorii ma strukturę drzewiastą. Np.~kategoria nadrzędna dla kategorii ,,Przyprawy i~zioła'' to ,,Delikatesy'', a dla~kategorii ,,Delikatesy'' to ,,Dom i~zdrowie''. Każdy artykuł należy do~tylko jednej kategorii będącej dowolnym węzłem w~drzewie (nie tylko liściem). Drzewo kategorii posiada 8~poziomów, a najwięcej węzłów znajduje~się na~poziomach 5 i 6. Najwięcej artykułów jest przypisanych do~kategorii z~poziomów 4 i~5, średnio artykuł jest przypisany do~kategorii z~poziomu 4,63.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/categories_levels.png}
@@ -456,16 +456,16 @@ Użycie wymienionych technik nie jest jedynym standardem, a wynikiem analizy prz
 
 \section{Opis danych po wstępnym przetwarzaniu}
 
-Powyższe kroki doprowadzają dane do~stanu, w~którym można zastosować techniki semantycznej analizy tekstu. Słownik zbudowany na~wstępnie przetworzonym korpusie zawiera 98174~unikalnych słów, oraz~7409145~wszystkich słów (z~powtórzeniami). Poniższy histogram (2.3) pokazuje, że przytłaczającą większość wśród słownika zbudowanego na~korpusie stanowią słowa występujące rzadko. Ciekawym wydaje~się być fakt dużej liczby słów słownikowych występujących często (ok. 8000 razy) w~stosunku do~słów występujących rzadziej (ok. 7000 razy). Przykładem najczęściej występujących słów są: ,,sam'', ,,uwaga'', ,,ważny'', ,,należeć'', ,,wybrać'', ,,sprawdzić'', ,,model'', ,,miejsce'', ,,znaleźć''. Najrzadziej występujące słowa to: ,,naciągactwo'', ,,phone’ów'', ,,v90'', ,,eurobusiness'', ,,namakać'', ,,bale’a'', ,,hmb'', ,,ameksyka'', ,,e-paper'', ,,süskind''. Widać wśród nich słowa bardzo nietypowe, również w języku codziennym, symbole modeli i marek oraz błędy, tzw. ,,literówki''.
+Powyższe kroki doprowadzają dane do~stanu, w~którym można zastosować techniki semantycznej analizy tekstu. Słownik zbudowany na~wstępnie przetworzonym korpusie zawiera 98174~unikalnych słów, oraz~7409145~wszystkich słów (z~powtórzeniami). Poniższy histogram (2.3) pokazuje, że przytłaczającą większość słów słownika zbudowanego na~korpusie stanowią słowa występujące rzadko. Ciekawym wydaje~się być fakt dużej liczby słów słownikowych występujących często (ok. 8000 razy) w~stosunku do~słów występujących rzadziej (ok. 7000 razy) (rysunek \ref{fig:hist2}). Przykładem najczęściej występujących słów są: ,,sam'', ,,uwaga'', ,,ważny'', ,,należeć'', ,,wybrać'', ,,sprawdzić'', ,,model'', ,,miejsce'', ,,znaleźć''. Najrzadziej występujące słowa to: ,,naciągactwo'', ,,phone’ów'', ,,v90'', ,,eurobusiness'', ,,namakać'', ,,bale’a'', ,,hmb'', ,,ameksyka'', ,,e-paper'', ,,süskind''. Widać wśród nich słowa bardzo nietypowe, również w języku codziennym, symbole modeli i marek oraz błędy, tzw. ,,literówki''.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{img/words_hist_log.png}
 	\caption{Histogram liczby wystąpień słów w korpusie w skali logarytmicznej.}
-	%\label{fig:warstwy}
+	\label{fig:hist2}
 \end{figure}
 
-Większość artykułów okazała~się być podobnej długości, średnia długość artykułu to 370~słów, co widać wprost z rysunku	\ref{fig:lenghts}.
+Większość artykułów okazała~się być podobnej długości. Średnia długość artykułu to 370~słów, co potwierdza rysunek	\ref{fig:lenghts}.
 
 \begin{figure}[H]
 	\centering
@@ -476,7 +476,7 @@ Większość artykułów okazała~się być podobnej długości, średnia długo
 
 \chapter{Metody ewaluacji}
 
-W~celu porównania stosowanych metod wyznaczania podobieństwa między~artykułami konieczna jest formalizacja pewnych miar tego podobieństwa. W~opisie znanych ogólnych miar posłużyłem~się pojęciem ,,relewantności'' --- formalną wartością wyrażoną za~pomocą liczb rzeczywistych. Jednakże w~praktyce rzadko dysponuje~się wartością, na~ile dany element rankingu jest adekwatny do~zapytania, generującego ów ranking.  
+W~celu porównania stosowanych metod wyznaczania podobieństwa między~artykułami konieczna jest formalizacja pewnych miar tego podobieństwa. W~opisie znanych ogólnych miar posłużyłem~się pojęciem ,,relewantności'' --- formalną wartością wyrażoną za~pomocą liczb rzeczywistych. W~praktyce rzadko jednak dysponuje~się wartością, na~ile dany element rankingu jest adekwatny do~zapytania generującego ów ranking.  
 
 Ewaluacja rankingu, w~którym trafność wyników zależy od~zachowania realnych użytkowników jest zadaniem nietrywialnym. Podobieństwo artykułów napisanych w~języku naturalnym jest rzeczą subiektywną. W~sytuacji idealnej dysponowałbym obiektywną miarą podobieństwa pomiędzy parami $N$ artykułów (np.~wyznaczoną wcześniej przez~miarodajną grupę użytkowników), które to $N$ artykułów stanowiłoby zbiór testowy. Uzyskanie takich danych wiąże~się jednak z dużymi kosztami i~leży poza~moimi możliwościami.
 
@@ -501,7 +501,7 @@ Jak wspomniałem wcześniej, dane prócz treści artykułów zawierają równie�
 
 \subsection{Kategorie} 
 
-Pierwszą zastosowaną miarą, pozwalającą ocenić jakość dopasowania podobnych artykułów jest ich odległość we~wcześniej wspomnianym drzewie kategorii. Formalnie wartość miary to długość części wspólnej ścieżek od~korzenia drzewa kategorii do~węzłów reprezentujących artykuły. Im więcej wspólnych przodków w~drzewie, tym bardziej podobne do~siebie są artykuły reprezentowane przez~węzły drzewa. Zaletą miary jest fakt, iż przypisanie artykułu do~kategorii zostało wykonane przez autora, którego można określić ekspertem w~dziedzinie tematyki artykułu. Stąd przynależność artykułu do~danej kategorii jest mocno uzasadniona. Kolejną zaletą tej miary jest fakt, iż można ją zastosować automatycznie --- wiedza ekspercka jest już zapisana w~metadanych artykułów. Należy zaznaczyć tu jednak, że miara nie~jest idealna --- każdy artykuł należy do~tylko jednego liścia drzewa kategorii. Stąd artykuł poruszający zagadnienia z~różnych obszarów, który można by przypisać dwóm stosunkowo odległym kategoriom $A$ i~$B$, zostanie przypisany tylko do~jednej kategorii, np.~$A$. Miara pokaże wtedy dużą odległość od~artykułów z~kategorii $B$, co nie~jest prawdą. Wartości miary normalizuję, dzieląc je przez~głębokość drzewa kategorii: $8$.
+Pierwszą zastosowaną miarą, pozwalającą ocenić jakość dopasowania podobnych artykułów jest ich odległość we~wcześniej wspomnianym drzewie kategorii. Formalnie wartość miary to długość części wspólnej ścieżek od~korzenia drzewa kategorii do~węzłów reprezentujących artykuły. Im więcej wspólnych przodków w~drzewie, tym bardziej podobne do~siebie są artykuły reprezentowane przez~węzły drzewa. Zaletą miary jest fakt, iż przypisanie artykułu do~kategorii zostało wykonane przez autora, którego można określić ekspertem w~dziedzinie tematyki artykułu. Stąd przynależność artykułu do~danej kategorii jest mocno uzasadniona. Kolejną zaletą tej miary jest fakt, iż można ją zastosować automatycznie --- wiedza ekspercka jest już zapisana w~metadanych artykułów. Należy zaznaczyć tu jednak, że miara nie~jest idealna --- każdy artykuł należy do~tylko jednego liścia drzewa kategorii. Stąd artykuł poruszający zagadnienia z~różnych obszarów, który można by przypisać dwóm stosunkowo odległym kategoriom $A$ i~$B$, zostanie przypisany tylko do~jednej kategorii, np.~$A$. Miara pokaże wtedy dużą odległość od~artykułów z~kategorii $B$, co nie~jest prawdą. Wartości miary normalizuję, dzieląc je przez~głębokość drzewa kategorii: $8$ --- wartość tę uzyskałem przy~wcześniejszej analizie metadanych artykułów.
 
 Za~przykład mogą posłużyć drzewa na~poniższych rysunkach. W~drzewie \ref{fig:tree1}. artykuły $X$ i~$Y$ mają dwie wspólne kategorie, stąd $relevance(X, Y) = \frac{2}{8} = 0.25$. Natomiast artykuły $Y$ i~$Z$ z~drugiego drzewa (\ref{fig:tree2}) mają trzech wspólnych przodków, stąd $relevance(Y, Z)=\frac{3}{8} = 0.375$. Miara wskazuje, że artykuły $X$ i~$Y$ są do~siebie mniej podobne, niż artykuły $Y$ i~$Z$.
 
@@ -523,7 +523,7 @@ Za~przykład mogą posłużyć drzewa na~poniższych rysunkach. W~drzewie \ref{f
 
 Kolejna miara oparta na~metadanych artykułów korzysta ze~słów kluczowych. Wśród ogółu słów kluczowych występują niespójności, których większość zlikwidowałem poprzez~sprowadzenie słów od~małych liter oraz~usunięciu słów stopu. Po~tej unifikacji liczba unikalnych słów kluczowych to 58565.
 
-Niniejsza miara działa podobnie do~poprzedniej opartej o~kategorie. Para artykułów otrzymuje 1~punkt za~każdą wspólną parę posiadanych słów kluczowych. Następnie wartość jest normalizowana poprzez podzielenie przez~maksymalną liczbę wspólnych słów kluczowych, tj. 6. Np. dla~artykułu $X$ o~słowach kluczowych \{,,kosmetyki'', ,,kremy'', ,,zmarszczki''\} oraz~$Y$ o~słowach kluczowych \{,,kosmetyki'', ,,żele do włosów'', ,,kremy'', ,,szampony''\} $relevance(X,Y)=\frac{2}{6}=0.(3)$, ponieważ oba artykuły mają dwa wspólne słowa kluczowe (,,kosmetyki'' i ,,kremy'').
+Niniejsza miara działa podobnie do~poprzedniej opartej o~kategorie. Para artykułów otrzymuje 1~punkt za~każdą wspólną parę posiadanych słów kluczowych. Następnie wartość jest normalizowana poprzez podzielenie przez~maksymalną liczbę wspólnych słów kluczowych wywnioskowaną przy~analizie metadanych artykułów, tj. 6. Np. dla~artykułu $X$ o~słowach kluczowych \{,,kosmetyki'', ,,kremy'', ,,zmarszczki''\} oraz~$Y$ o~słowach kluczowych \{,,kosmetyki'', ,,żele do włosów'', ,,kremy'', ,,szampony''\} $relevance(X,Y)=\frac{2}{6}=0.(3)$, ponieważ oba artykuły mają dwa wspólne słowa kluczowe (,,kosmetyki'' i ,,kremy'').
 
 \section{Miara 2: Historyczna aktywność użytkowników serwisu}
 
@@ -600,7 +600,7 @@ Zadaniem metod \textit{word embeddings} jest wygenerowanie wektorowej reprezenta
 \begin{enumerate}
 	\item odległość kosinusowa pomiędzy centroidami wektorowej reprezentacji tekstów (w~skrócie metoda centroidu),
 	\item \textit{Word Mover's Distance},
-	\item autorska metoda wykorzystująca odległość kosinusową pomiędzy wektorową reprezentacją słów kluczowych wyznaczonych metodą \textit{LDA}. Celem metody jest zmniejszenie wymiarowości artykułu oraz użycie tylko znaczących słów przy obliczaniu centroidu artykułu. W~tej metodzie za pomocą \textit{LDA} wyznaczam słowa kluczowe, które z największą wagą przynależą do danego artykułu. Nauczony model \textit{LDA} każdemu dokumentowi $i$ przypisuje zestaw tematów z określonymi wagami przynależności $t_{ij}$ oraz każdemu tematowi $j$ przypisuje zestaw słów wraz z wagami $w_{jk}$. Na tej podstawie dla każdego artykułu $i$ mogę wybrać $p$ słów, które posiadają najwyższą wagę przynależności do artykułu liczoną wg. wzoru $x(i,k)=\sum_{j}t_{ij}*w_{jk}$, gdzie $k$ to dane słowo. Ostatecznie artykuł reprezentuję jako centroid $n$ słów o najwyższym $x$ dla danego słowa. W dalszych testach przyjmuję $n$ jako 10.
+	\item autorska metoda wykorzystująca odległość kosinusową pomiędzy wektorową reprezentacją słów kluczowych wyznaczonych metodą \textit{LDA}. Celem metody jest zmniejszenie wymiarowości artykułu oraz użycie tylko znaczących słów przy obliczaniu centroidu artykułu. W~tej metodzie za pomocą \textit{LDA} wyznaczam słowa kluczowe, które z największą wagą przynależą do danego artykułu. Nauczony model \textit{LDA} każdemu dokumentowi $i$ przypisuje zestaw tematów z określonymi wagami przynależności $t_{ij}$ oraz każdemu tematowi $j$ przypisuje zestaw słów wraz z wagami $w_{jk}$. Na tej podstawie dla każdego artykułu $i$ mogę wybrać $p$ słów, które posiadają najwyższą wagę przynależności do artykułu liczoną wg. wzoru $x(i,k)=\sum_{j}t_{ij}*w_{jk}$, gdzie $k$ to dane słowo. Ostatecznie artykuł reprezentuję jako centroid $n$ słów o najwyższym $x$ dla danego słowa. W dalszych testach przyjmuję $n=10$.
 \end{enumerate}
 
 Powyższe metody stosuję w~celu wyznaczenia dla~danego artykułu $a$ $p$ artykułów najbardziej do~niego podobnych uszeregowanych malejąco pod~względem relewantności do~artykułu bazowego~$a$.
@@ -613,7 +613,7 @@ W~celu uzyskania punktu odniesienia dokonuję testów dla~metody losowo wybieraj
 
 \section{Metody ewaluacji}
 
-W~celu wykonania oceny testowanych metod wykorzystuję wszystkie metody ewaluacji opisane w~rozdziale 4, które opatruję skróconymi sygnaturami. Wszystkie miary przyjmują wartości $(0,1]$.
+W~celu wykonania oceny testowanych metod wykorzystuję wszystkie metody ewaluacji opisane w~rozdziale 4, które opatruję skróconymi sygnaturami. Wszystkie miary przyjmują wartości $[0,1]$.
 \begin{enumerate}
 	\item \textit{clicks} --- ocena na~podstawie historycznej aktywności użytkowników mierzona na~podstawie liczby kliknięć w~odnośniki.
 	\item \textit{mut\_cat[\_ndcg]} --- relewantność wyszukanych artykułów liczona na~podstawie liczby wspólnych kategorii z~artykułem bazowym. Stosuję dwa warianty: średnia relewantność wyszukanych artykułów oraz~miara \textit{nDCG}.
@@ -815,7 +815,9 @@ W niniejszym punkcie porównuję jakość metod \textit{word embeddings} (\texti
 
 Dla~różnej wymiarowości wektorów wyjściowych metoda \textit{Word2vec} daje bardzo podobne rezultaty. Różnica między~najlepszym i~najgorszym wynikiem wynosi jedynie ok.~1,5\%. Mimo to najlepszą wartością hiperparametru wydaje~się być 300 --- wskazują na to miary \textit{mut\_cat...} oraz~\textit{mut\_kw...}.
 
-W~oczy rzucają~się natomiast odstające wyniki metody \textit{clicks}. Można to tłumaczyć niedoskonałością tej miary opartej o~preferencje realnych użytkowników serwisu. Szerszej interpretacji zjawiska dokonuję w~podsumowaniu rozdziału.
+Wyraźnie widoczne są natomiast odstające wyniki metody \textit{clicks}. Można \begin{center}
+	
+\end{center}to tłumaczyć niedoskonałością tej miary opartej o~preferencje realnych użytkowników serwisu. Szerszej interpretacji zjawiska dokonuję w~podsumowaniu rozdziału.
 
 \subsection{\textit{GloVe}}
 
@@ -869,7 +871,7 @@ Ewidentnie najlepsze wyniki metoda osiąga dla wektorów wyjściowych długości
 	%\label{fig:warstwy}
 \end{figure}
 
-Również jak w przypadku metody \textit{GloVe} metoda \textit{FastText} osiąga najlepsze rezultaty dla wektorów długości 1000. Również wyniki poszczególnych miar wyglądają bardzo podobnie do~wyników przy~poprzednio testowanej metodzie \textit{GloVe}
+Podobnie jak w~przypadku metody \textit{GloVe} metoda \textit{FastText} osiąga najlepsze rezultaty dla wektorów długości 1000. Również wyniki poszczególnych miar wyglądają bardzo podobnie do~wyników przy~poprzednio testowanej metodzie \textit{GloVe}
 
 \section{Ocena jakości wybranych metod przez użytkowników}
 
@@ -911,7 +913,7 @@ Poniżej zestawienie wyników miar automatycznych dla~najlepszych wariantów tes
 
 Wszystkie testowane metody dają dużo lepsze rezultaty od~metody losowej. Stosunkowo wysokie wskaźniki \textit{mut\_cat} dla~metody losowej wynikają z~dużo większej szansy, że dwa artykuły mają wspólnych przodków w~drzewie kategorii niż, że mają wspólne słowa kluczowe.
 
-Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie wskaźniki dla~metody \textit{mut\_kw} wynikają wprost ze~struktury zapytania do~silnika \textit{Elasticsearch}, które to jest oparte właśnie o~słowa kluczowe dołączone do~artykułu. Poza~tym metoda ta ma bezpośredni wpływ na~wyniki miary \textit{clicks}, ponieważ generuje ona dotychczasowe rekomendacje serwisie, a miara ta została opracowana na~podstawie aktywności użytkowników właśnie w~działającym dotychczas serwisie.
+Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie wskaźniki dla~metody \textit{mut\_kw} wynikają wprost ze~struktury zapytania do~silnika \textit{Elasticsearch}, które to jest oparte właśnie o~słowa kluczowe dołączone do~artykułu. Poza~tym metoda ta ma bezpośredni wpływ na~wyniki miary \textit{clicks}, ponieważ generuje ona dotychczasowe rekomendacje w~serwisie, a miara ta została opracowana na~podstawie aktywności użytkowników właśnie w~działającym dotychczas serwisie.
 
 \subsection{Wyniki oceny eksperckiej}
 
@@ -934,7 +936,7 @@ Najwyższe wyniki wszystkich miar uzyskała metoda \textit{allegro}. Jej wysokie
 	%\label{fig:warstwy}
 \end{figure}
 
-Ewaluacja ekspercka wprost pokazuje, że żadna z~testowanych metod nie~odbiega znacząco od~innych. Żadna z~testowanych adaptacji metod semantycznej analizy tekstu nie~odbiega również od~dotychczasowej metody używanej w~\textit{Allegro}. Różnica pomiędzy najlepszą metodą (\textit{FastText}) i~najgorszą (\textit{LDA}) wynosi ok.~9\%. Każda z~testowanych metod dała również wynika znacząco lepszy od~metody losowej.
+Ewaluacja ekspercka wprost pokazuje, że żadna z~testowanych metod nie~odbiega znacząco od~innych. Żadna z~testowanych adaptacji metod semantycznej analizy tekstu nie~odbiega również od~dotychczasowej metody używanej w~\textit{Allegro}. Różnica pomiędzy najlepszą metodą (\textit{FastText}) i~najgorszą (\textit{LDA}) wynosi ok.~9\%. Każda z~testowanych metod dała również wynik znacząco lepszy od~metody losowej.
 
 Pożądaną cechą dla~metody jest, aby możliwie rzadko generowała ona wyniki odstające --- w~żaden sposób niezwiązane z~artykułem bazowym. Stąd niska wartość odchylenia standardowego działa na~korzyść metody. Tutaj również najlepszy rezultat --- najbardziej spójne wyniki uzyskała metoda \textit{FastText}, natomiast najgorszy wynik znów uzyskała metoda \textit{LDA}.
 
@@ -957,7 +959,7 @@ Pożądaną cechą dla~metody jest, aby możliwie rzadko generowała ona wyniki 
 	%\label{fig:warstwy}
 \end{figure}
 
-W~świetle powyższych wyników najlepsze rezultaty zdaje~się osiągać \textit{FastText}. Zakładam, iż jest to związane z~wewnętrzną analizą słów, jaką wykonuje ta metoda. Może~się to sprawdzać szczególnie dobrze w~przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
+W~świetle powyższych wyników najlepsze rezultaty osiąga \textit{FastText}. Zakładam, iż jest to związane z~wewnętrzną analizą słów, jaką wykonuje ta metoda. Może~się to sprawdzać szczególnie dobrze w~przypadku języka polskiego, który jest językiem bogatym morfosyntaktycznie.
 
 Aby odpowiedzieć na~pytanie postawione na~początku niniejszej pracy, tj. czy metody semantycznej analizy języka naturalnego zaadaptowane w~celu wyznaczania rekomendacji są w~stanie dorównać jakością dotychczasowej metodzie stosowanej w~\textit{Allegro}, wykonuję test, który ma na~celu sprawdzenie, czy są podstawy, by sądzić, że wyniki którejkolwiek z~metod poddanych ocenie eksperckiej odstają w~sposób istotny statystycznie od~reszty przetestowanych metod.
 
@@ -965,7 +967,7 @@ Test statystyczny, jaki przeprowadzam, to test Kruskala-Wallisa. Za~hipotezę ze
 
 We~wcześniejszych testach użytkownicy oceniali podobieństwo pomiędzy artykułem, a każdym z~artykułów do~niego rekomendowanych, wyznaczonych ewaluowanymi metodami. Za~dane wejściowe testu Kruskala-Wallisa przyjmuję próby odpowiadające wynikom testów dla~każdej z~metod (prócz~metody losowej) złożone ze~średniej oceny użytkowników dla~najbardziej relewantnej rekomendacji do~każdego z~testowanych artykułów bazowych.
 
-W~teście przyjmuję poziom istotności $\alpha=0.05$. Ostatecznie, jako wynik testu Kruskala-Wallisa otrzymuję $p=0.28371>\alpha$, na~podstawie czego stwierdzam, że brak jest przesłanek, by odrzucić hipotezę zerową --- różnica między jakością rekomendacji testowanych metod nie~jest istotna statystycznie. Oznacza to, że ani żadna z~testowanych metod semantycznych nie odstaje od~innych, ani też dotychczasowa metoda \textit{Allegro} nie jest istotnie lepsza/gorsza od~innych testowanych metod.
+W~teście przyjmuję poziom istotności $\alpha=0.05$. Ostatecznie, jako wynik testu Kruskala-Wallisa otrzymuję $p=0.0571>\alpha$, na~podstawie czego stwierdzam, że brak jest przesłanek, by odrzucić hipotezę zerową --- różnica między jakością rekomendacji testowanych metod nie~jest istotna statystycznie. Oznacza to, że ani żadna z~testowanych metod semantycznych nie odstaje od~innych, ani też dotychczasowa metoda \textit{Allegro} nie jest istotnie lepsza/gorsza od~innych testowanych metod.
 
 \section{Podsumowanie testów}
 
@@ -984,7 +986,7 @@ Porównanie najlepszych konfiguracji testowanych metod wykazało, że nie~ma ist
 
 W~niniejszej pracy starałem~się sprawdzić, czy metody semantycznej analizy tekstu zaadaptowane w~celu wyznaczania artykułów najbardziej podobnych do~danego są w~stanie dorównać dotychczas używanej w~serwisie \textit{Allegro} metodzie opartej o~zapytanie do~silnika wyszukiwania \textit{Elasticsearch}. W~tym celu wykonałem szereg testów sprawdzających jakość wygenerowanych rekomendacji w~zależności od~konfiguracji poszczególnych metod. Po~analizie wyników testów można udzielić odpowiedzi: tak, każda z~metod semantycznej analizy języka naturalnego w~swojej najlepszej konfiguracji może zostać zaadaptowana w~celu generowania rekomendacji artykułów w~oparciu o~treść artykułu aktualnie wyświetlanego przez~użytkownika serwisu. Rekomendacje te w~ocenie użytkowników nie~ustępują jakością dotychczasowej metodzie. 
 
-Użycie metod semantycznej analizy tekstu pozwala wychwycić ukryte podobieństwa między dokumentami, gdzie dokumenty łączą nie~te same słowa, czy synonimy, ale pewne złożone abstrakcyjne koncepty powiązane ze~sobą. Istotą zaletą metod semantycznych w porównaniu z~dotychczasową metodą wykorzystywaną w~\textit{Allegro} jest fakt, iż opierają~się one wyłącznie na~treści artykułów. Zwalnia to autorów artykułów z~samodzielnego opatrywania ich dodatkowymi metatagami, z~których w~dużym stopniu korzysta dotychczasowa metoda.
+Użycie metod semantycznej analizy tekstu pozwala wychwycić ukryte podobieństwa między dokumentami, gdzie dokumenty łączą nie~te same słowa, czy synonimy, ale pewne złożone abstrakcyjne koncepty powiązane ze~sobą. Istotną zaletą metod semantycznych w porównaniu z~dotychczasową metodą wykorzystywaną w~\textit{Allegro} jest fakt, iż opierają~się one wyłącznie na~treści artykułów. Zwalnia to autorów artykułów z~samodzielnego opatrywania ich dodatkowymi metatagami, z~których w~dużym stopniu korzysta dotychczasowa metoda.
 
 Z~kolei istotną zaletą dotychczasowego rozwiązania stosowanego w \textit{Allegro} jest uniwersalność silnika \textit{Elasticsearch}~oraz to, że pozwala edytować indeksowane dane w~locie, bez konieczności przebudowy systemu. Metody semantycznej analizy tekstu wymagają przebudowania modelu w~celu jego aktualizacji przy zmieniających~się danych.
 
