@@ -1,0 +1,23 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {polish}
+\beamer@sectionintoc {1}{Cel pracy}{3}{0}{1}
+\beamer@sectionintoc {2}{Opis problemu}{4}{0}{2}
+\beamer@sectionintoc {3}{Systemy rekomendacji}{8}{0}{3}
+\beamer@sectionintoc {4}{Techniki przetwarzania j\IeC {\k e}zyka naturalnego}{11}{0}{4}
+\beamer@subsectionintoc {4}{1}{Bag-of-words}{13}{0}{4}
+\beamer@subsectionintoc {4}{2}{TF-IDF}{17}{0}{4}
+\beamer@subsectionintoc {4}{3}{Latent semantic analysis}{20}{0}{4}
+\beamer@subsectionintoc {4}{4}{Latent Dirichlet allocation}{20}{0}{4}
+\beamer@subsectionintoc {4}{5}{Word2vec}{20}{0}{4}
+\beamer@subsectionintoc {4}{6}{FastText}{21}{0}{4}
+\beamer@subsectionintoc {4}{7}{GloVe}{21}{0}{4}
+\beamer@sectionintoc {5}{Opis danych}{21}{0}{5}
+\beamer@subsectionintoc {5}{1}{Zawarto\IeC {\'s}\IeC {\'c} artyku\IeC {\l }u}{21}{0}{5}
+\beamer@subsectionintoc {5}{2}{Wst\IeC {\k e}pne przetwarzanie danych}{23}{0}{5}
+\beamer@subsectionintoc {5}{3}{Wst\IeC {\k e}pne przetwarzanie danych}{26}{0}{5}
+\beamer@sectionintoc {6}{Metody ewaluacji}{30}{0}{6}
+\beamer@sectionintoc {7}{Testy}{30}{0}{7}
+\beamer@sectionintoc {8}{Podsumowanie}{30}{0}{8}
+\beamer@subsectionintoc {8}{1}{Wnioski}{30}{0}{8}
+\beamer@subsectionintoc {8}{2}{Kiernki dalszych bada\IeC {\'n}}{30}{0}{8}
+\beamer@sectionintoc {9}{\IeC {\'Z}r\IeC {\'o}d\IeC {\l }a}{30}{0}{9}
