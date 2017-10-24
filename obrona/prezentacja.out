@@ -2,20 +2,14 @@
 \BOOKMARK [2][]{Outline0.2}{Opis problemu}{}% 2
 \BOOKMARK [2][]{Outline0.3}{Systemy rekomendacji}{}% 3
 \BOOKMARK [2][]{Outline0.4}{Techniki przetwarzania jezyka naturalnego}{}% 4
-\BOOKMARK [3][]{Outline0.4.1.13}{Bag-of-words}{Outline0.4}% 5
-\BOOKMARK [3][]{Outline0.4.2.17}{TF-IDF}{Outline0.4}% 6
-\BOOKMARK [3][]{Outline0.4.3.20}{Latent semantic analysis}{Outline0.4}% 7
-\BOOKMARK [3][]{Outline0.4.4.20}{Latent Dirichlet allocation}{Outline0.4}% 8
-\BOOKMARK [3][]{Outline0.4.5.20}{Word2vec}{Outline0.4}% 9
-\BOOKMARK [3][]{Outline0.4.6.21}{FastText}{Outline0.4}% 10
-\BOOKMARK [3][]{Outline0.4.7.21}{GloVe}{Outline0.4}% 11
-\BOOKMARK [2][]{Outline0.5}{Opis danych}{}% 12
-\BOOKMARK [3][]{Outline0.5.1.21}{Zawartosc artyku\233u}{Outline0.5}% 13
-\BOOKMARK [3][]{Outline0.5.2.23}{Wstepne przetwarzanie danych}{Outline0.5}% 14
-\BOOKMARK [3][]{Outline0.5.3.26}{Wstepne przetwarzanie danych}{Outline0.5}% 15
-\BOOKMARK [2][]{Outline0.6}{Metody ewaluacji}{}% 16
-\BOOKMARK [2][]{Outline0.7}{Testy}{}% 17
-\BOOKMARK [2][]{Outline0.8}{Podsumowanie}{}% 18
-\BOOKMARK [3][]{Outline0.8.1.30}{Wnioski}{Outline0.8}% 19
-\BOOKMARK [3][]{Outline0.8.2.30}{Kiernki dalszych badan}{Outline0.8}% 20
-\BOOKMARK [2][]{Outline0.9}{Zr\363d\233a}{}% 21
+\BOOKMARK [3][]{Outline0.4.1.14}{Bag-of-words}{Outline0.4}% 5
+\BOOKMARK [3][]{Outline0.4.2.20}{TF-IDF}{Outline0.4}% 6
+\BOOKMARK [3][]{Outline0.4.3.26}{Modelowanie temat\363w}{Outline0.4}% 7
+\BOOKMARK [3][]{Outline0.4.4.27}{Latent semantic analysis}{Outline0.4}% 8
+\BOOKMARK [3][]{Outline0.4.5.27}{Latent Dirichlet allocation}{Outline0.4}% 9
+\BOOKMARK [3][]{Outline0.4.6.27}{Osadzanie s\233\363w w przestrzeni wektorowej}{Outline0.4}% 10
+\BOOKMARK [3][]{Outline0.4.7.36}{Wstepne przetwarzanie danych}{Outline0.4}% 11
+\BOOKMARK [2][]{Outline0.5}{Metody ewaluacji}{}% 12
+\BOOKMARK [2][]{Outline0.6}{Testy}{}% 13
+\BOOKMARK [2][]{Outline0.7}{Podsumowanie}{}% 14
+\BOOKMARK [2][]{Outline0.8}{Wybrane zr\363d\233a}{}% 15

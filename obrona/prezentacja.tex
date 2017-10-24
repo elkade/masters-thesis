@@ -38,6 +38,9 @@
 		\begin{frame}{Cel pracy}
 			Czy metody semantycznej analizy tekstu mogą być alternatywą dla~dotychczas uzywanej przez~\emph{Allegro} metody generowania rekomendacji artykułów tekstowych?
 		\end{frame}
+		\begin{frame}{Dlaczego?}
+			wypisać swoją motywację
+		\end{frame}
 	\section{Opis problemu}
 	
 	\begin{frame}{pracuj.pl}
@@ -118,7 +121,15 @@
 		\end{figure}
 	\end{frame}
 	\begin{frame}{Bag-of-words}
-		Wady i zalety
+		Zalety:
+		\begin{itemize}
+			\item prostota \pause
+		\end{itemize}
+		Wady:
+		\begin{itemize}
+			\item duża wymiarowość wektorów \pause
+			\item traktowanie każdego słowa z~jednakową wagą
+		\end{itemize}
 	\end{frame}
 	\subsection{TF-IDF}
 	\begin{frame}{TF – term frequency, IDF – inverse document frequency}
@@ -136,26 +147,70 @@
 		Przykład analogiczny do bow
 	\end{frame}
 	\begin{frame}{TF-IDF}
-		Wady i zalety
+		Zalety:
+		\begin{itemize}
+			\item nadal prostota \pause
+			\item ważenie słów w~zależności od~częstości występowania \pause
+		\end{itemize}
+		Wady:
+		\begin{itemize}
+			\item nadal duża wymiarowość wektorów
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Semantyka dystrybucyjna}
+		Distributional hypothesis --- ,,słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie.''
+		%Kolejne, bardziej zaawansowane, omawiane tu metody opierają się na~tzw. distributional hypothesis --- hipotezie zakładającej, że słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie. Sprzyja to zastosowaniu metod algebry liniowej jako narzędzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejście polega na~zgromadzeniu informacji o~rozkładzie słów w~dokumentach w~postaci wielowymiarowych wektorów, a~następnie wyodrębnieniu podobieństw pomiędzy~tymi wektorami, które świadczyłyby o~pewnych powiązaniach między reprezentowanymi słowami.
+	\end{frame}
+	\subsection{Modelowanie tematów}
+	\begin{frame}{Modelowanie tematów}
+		%Że jest to rodzaj redukcji wymiarowości
 	\end{frame}
 	\subsection{Latent semantic analysis}
 	\subsection{Latent Dirichlet allocation}
-	\subsection{Word2vec}
-	\begin{frame}
-		rysunek z wektorami
+	\subsection{Osadzanie słów w przestrzeni wektorowej}
+	\begin{frame}{Word embeddings}
+		\begin{itemize}
+			\item Osadzanie słów w przestrzeni wektorowej
+			\item Uczenie nienadzorowane
+			\item Niska wymiarowość wektorów
+			\item Reprezentacja słów wraz z~zależnościami pomiędzy nimi
+		\end{itemize}
+		\pause
+		\begin{figure}
+			\centering
+			\includegraphics[width=1\textwidth]{img/linear-relationships.png}
+		\end{figure}
+		%https://www.tensorflow.org/images/linear-relationships.png
 	\end{frame}
-	\subsection{FastText}
-	\subsection{GloVe}
-	
-	
-	\section{Opis danych}
-	brak oryginalnych przykładów, bo podpisałem NDA
-	\subsection{Zawartość artykułu}
-	\begin{frame}
-		jeszcze raz screen
+	% live demo z word2vec jeżeli starczy czasu
+	\begin{frame}{Wektorowa postać dokumentu}
+		
 	\end{frame}
-	\subsection{Wstępne przetwarzanie danych}
-	\begin{frame}
+	
+	\begin{frame}{Odległość między dokumentami}
+		centroid, autorskie lda i wmd
+		wmd dać przykładowy rysunek obama
+	\end{frame}
+
+	\begin{frame}{{Miary oceny wyszukiwania}}
+		precision, recall, f-measure, ndcg
+	\end{frame}	
+
+	\begin{frame}{Analiza danych}
+		\begin{itemize}
+			\item 20000~artykułów tekstowych w~formacie \textit{JSON}
+			\item język polski
+			\item słowa specyficzne dla różnych branż
+			% ,,hipertoniczny'', ,,autofocus''
+			\item struktura artykułu:
+			\begin{itemize}
+				\item treść: tytuł, nagłówek, tekst
+				\item metadane: id, kategoria, słowa kluczowe
+			\end{itemize}
+			% w pracy opisuję dokładne statystyki
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Wstępne przetwarzanie danych}
 		\begin{enumerate}
 			\item Oczyszczanie tekstu ze znaczników \pause
 			\item Usunięcie słów stopu
@@ -181,38 +236,84 @@
 		\end{figure}
 	\end{frame}
 	\section{Metody ewaluacji}
-	
+	\begin{frame}{Metody ewaluacji}
+		\begin{enumerate}
+			\item \textit{clicks} --- ocena na~podstawie historycznej aktywności użytkowników mierzona na~podstawie liczby kliknięć w~odnośniki.
+			\item \textit{mut\_cat[\_ndcg]} --- relewantność wyszukanych artykułów liczona na~podstawie liczby wspólnych kategorii z~artykułem bazowym. Stosuję dwa warianty: średnia relewantność wyszukanych artykułów oraz~miara \textit{nDCG}.
+			\item \textit{mut\_kw[\_ndcg]} --- relewantność wyszukanych artykułów liczona na~podstawie liczby wspólnych słów kluczowych z~artykułem bazowym. Również stosuję dwa warianty: średnia relewantność wyszukanych artykułów oraz~miara \textit{nDCG}.
+			\item \textit{users} --- ocena na~podstawie eksperckiej oceny użytkowników. W~badaniu wykorzystałem 5~użytkowników operujących każdy na~tym samym zbiorze par testowych. Pary zostały wygenerowane (zgodnie z~wcześniejszym opisem metody) na~podstawie 50 artykułów bazowych wylosowanych spośród wszystkich artykułów udostępnionych mi przez~\textit{Allegro}.
+		\end{enumerate}
+	\end{frame}
 	\section{Testy}
-	
-	\section{Podsumowanie}
-	\subsection{Wnioski}
-	\subsection{Kiernki dalszych badań}
-	\section{Źródła}
-	\begin{frame}{Tables and Figures}
-		
-		\begin{itemize}
-			\item Use \texttt{tabular} for basic tables --- see Table~\ref{tab:widgets}, for example.
-			\item You can upload a figure (JPEG, PNG or PDF) using the files menu. 
-			\item To include it in your document, use the \texttt{includegraphics} command (see the comment below in the source code).
-		\end{itemize}
-		
-		% Commands to include a figure:
-		%\begin{figure}
-		%\includegraphics[width=\textwidth]{your-figure's-file-name}
-		%\caption{\label{fig:your-figure}Caption goes here.}
-		%\end{figure}
-		
-		\begin{table}
+	\begin{frame}{LSI w zależności od liczby tematów}
+		\begin{figure}[H]
 			\centering
-			\begin{tabular}{l|r}
-				Item & Quantity \\\hline
-				Widgets & 42 \\
-				Gadgets & 13
-			\end{tabular}
-			\caption{\label{tab:widgets}An example table.}
-		\end{table}
+			\includegraphics[width=1\textwidth]{img/results/lsi_.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{LDA w zależności od liczby tematów}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{img/results/lda_.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Word2vec w zależności od korpusu}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Word2vec w zależności od długości wektorów}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{img/results/w2v_ctr.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{GloVe w zależności od długości wektorów}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{img/results/gv_ctr.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{FastText w zależności od długości wektorów}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Wyniki ewaluacji eksperckiej dla~wybranych metod}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Porównanie odchyleń standardowych ocen eksperckich dla~wybranych metod}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users_std.png}
+		\end{figure}
+	\end{frame}
+	\section{Podsumowanie}
+	\begin{frame}{Podsumowanie testów}
+		\begin{itemize}
+			\item Brak istotnych statystycznie różnic między wynikami wszystkich metod \pause
+			\item Im dłuższe wektory \emph{word embeddings} tym lepsze rezultaty \pause
+			\item Większa liczba tematów nie implikuje lepszych rezultatów \pause
+			\item ...
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Kiernki dalszych badań}
 		
 	\end{frame}
-
-	
+	\begin{frame}{Wnioski}
+		testowane metody nie odbiegają jakością od dotychczasowej.
+		python
+		elasticsearch
+		nlp
+		trudno jest zmierzyc efekty
+	\end{frame}
+	\section{Wybrane źródła}
+	\begin{frame}{Wybrane źródła}
+		content...
+	\end{frame}
 \end{document}
