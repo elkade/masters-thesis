@@ -4,12 +4,7 @@
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[polish]{babel}
-%
-% Choose how your presentation looks.
-%
-% For more themes, color themes and font themes, see:
-% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
-%
+\usepackage{caption}
 \mode<presentation>
 {
 	\usetheme{Warsaw}      % or try Darmstadt, Madrid, Warsaw, ...
@@ -23,6 +18,17 @@
 \author{Łukasz Dragan}
 \institute{Informatyka spec. Metody sztucznej inteligencji, MiNI PW}
 \date{31.10.2017}
+
+\AtBeginSection[]{
+	\begin{frame}
+		\vfill
+		\centering
+		\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\insertsectionhead\par%
+		\end{beamercolorbox}
+		\vfill
+	\end{frame}
+}
 
 \begin{document}
 	
@@ -95,7 +101,6 @@
 			\centering
 			\includegraphics[width=0.85\textwidth]{img/approach_outline.png}
 		\end{figure}
-		\pause
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.45\textwidth]{img/scatter3d_demo.png}
@@ -105,8 +110,7 @@
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.6\textwidth]{img/cos.png}
-		\end{figure}
-		\pause % dyatans kosinusowy zwraca od razu znormalizowany wynik
+		\end{figure}% dyatans kosinusowy zwraca od razu znormalizowany wynik
 		\begin{equation}
 		\label{eq:cos}
 		sim=\cos(\theta )={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},
@@ -118,12 +122,10 @@
 			\centering
 			\includegraphics[width=0.75\textwidth]{img/bow_sents.png}
 		\end{figure}
-		\pause
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.25\textwidth]{img/bow_dict.png}
 		\end{figure}
-		\pause
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.5\textwidth]{img/bow_repr.png}
@@ -140,22 +142,22 @@
 			\item $tf_{ij}$: liczba wystąpień słowa $w_i$ w~dokumencie $d_j$ podzielona przez~liczbę słów dokumentu $d_j$,
 			\item $idf_i$: liczba dokumentów w~korpusie podzielona przez~liczbę dokumentów zawierających przynajmniej jedno wystąpienie słowa $w_i$.
 		\end{itemize}
+		% które słówa są premiowane, a które penalizowane
 	\end{frame}
 	\begin{frame}{TF-IDF}
 		Zalety:
 		\begin{itemize}
-			\item prostota \pause
+			\item prostota
 		\end{itemize}
 		Wady:
 		\begin{itemize}
-			\item duża wymiarowość wektorów \pause
+			\item duża wymiarowość wektorów
 			\item wektory niemalże ortogonalne
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Semantyka dystrybucyjna}
-		Distributional hypothesis --- ,,słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie.''
+		%Distributional hypothesis --- ,,słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie.''
+		
 		%Kolejne, bardziej zaawansowane, omawiane tu metody opierają się na~tzw. distributional hypothesis --- hipotezie zakładającej, że słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie. Sprzyja to zastosowaniu metod algebry liniowej jako narzędzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejście polega na~zgromadzeniu informacji o~rozkładzie słów w~dokumentach w~postaci wielowymiarowych wektorów, a~następnie wyodrębnieniu podobieństw pomiędzy~tymi wektorami, które świadczyłyby o~pewnych powiązaniach między reprezentowanymi słowami.
-	\end{frame}
 	\begin{frame}{Latent semantic indexing (1988)}
 		\begin{itemize}
 			\item Redukcja wymiarowości macierzy wystąpień słów w~dokumentach
@@ -183,7 +185,7 @@
 				A = U \Sigma V^T,\!
 				\end{equation}
 				$U$ i $V$ to macierze ortogonalne\\
-				$\Sigma$ to macierz diagonalna, taka, że $\Sigma = diag(\sigma_i)$, gdzie $\sigma_{i}$, to~nieujemne wartości szczególne macierzy $A$.\pause
+				$\Sigma$ to macierz diagonalna, taka, że $\Sigma = diag(\sigma_i)$, gdzie $\sigma_{i}$, to~nieujemne wartości szczególne macierzy $A$.
 				% Wartości osobliwe σi macierzy A sa definiowane jako σi = √λ_i, gdzie λ_i oznacza wartości własne macierzy A∗A.
 				%macierz ortogonalna: U^-1 = U^T 
 			\item 
@@ -203,6 +205,7 @@
 		\begin{enumerate}
 			\setlength\itemsep{2em}
 			\item Przejdź przez każdy dokument i~losowo (zgodnie z~rozkładem Dirichleta) przypisz każde słowo dokumentu do~jednego z $T$ tematów.
+			
 			% Warto zauważyć, iż etap ten daje pierwsze	przybliżenie docelowej reprezentacji. W kolejnych krokach należy poprawiać to przybliżenie.
 			
 			% Cechy rozkładu sprawiają, że tak dobrane początkowe wartości parametrów modelu są zgodne z intuicją, że dokument pokrywa jedynie mały zestaw tematów, a temat zawiera najczęściej tylko mały zestaw słów.
@@ -215,6 +218,14 @@
 		% After repeating the previous step a large number of times, you’ll eventually reach a roughly steady state where your assignments are pretty good. So use these assignments to estimate the topic mixtures of each document (by counting the proportion of words assigned to each topic within that document) and the words associated to each topic (by counting the proportion of words assigned to each topic overall).
 		
 	\end{frame}
+	
+	\begin{frame}{Rozkład Dirichleta}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.5\textwidth]{img/dirichlet.png}
+		\end{figure}
+	\end{frame}
+	
 	\begin{frame}{Word embeddings}
 		\begin{itemize}
 			\item Osadzanie słów w przestrzeni wektorowej
@@ -222,7 +233,7 @@
 			\item Niska wymiarowość wektorów
 			\item Reprezentacja słów wraz z~zależnościami pomiędzy nimi
 		\end{itemize}
-		\pause
+
 		% Dzieje się to w opozycji do wcześniejszych podejść podobnych do bag-of-words — produkującego ogromne, rzadkie wektory, których wymiary równają się rozmiarowi		słownika, o który oparty jest model (rzędu setek tysięcy)
 		\begin{figure}
 			\centering
@@ -231,45 +242,89 @@
 		%https://www.tensorflow.org/images/linear-relationships.png
 	\end{frame}
 	\begin{frame}{Word2vec (2013)}
-		płytkiej sieci neuronowej typu feed-forward
+		% 	Model predykcyjny, który na podstawie kontekstu przewiduje słowo
+		\begin{itemize}
+		\item Płytka sieć neuronowa typu feed-forward
+		\item Dwa podejścia:
+		\begin{itemize}
+			\item \textit{Continuous bag of words}: na~postawie okna $N$ sąsiednich słów sieć przewiduje słowo,
+			\item \textit{skip-gram}: na~podstawie słowa sieć dokonuje predykcji $N$ sąsiednich słów.
+		\end{itemize}
+		
+		\end{itemize}
+		
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{img/w2v_training_data.png}
+		\captionsetup{labelformat=empty}
+		\caption{http://mccormickml.com}
+		%\label{fig:warstwy}
+	\end{figure}
+\end{frame}
+
+\begin{frame}	
+	
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.9\textwidth]{img/skipgram_cbow.png}
+			\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
 			%\label{fig:warstwy}
 		\end{figure}
 	\end{frame}
-	\begin{frame}{FastText (2017)}
+		%	\item WEktory kodowane są jako one-hot-vector: dla i-tego słowa 1 na i-tym miejscu
+%			\item hiperparametry: gługość wektorów word embeddings = wielkość warstwy ukrytej; wielkość okna skanującego
+	
+
+	%	zaletą jest, że szybko się uczy, w przeciwieństwie do wcześniejszych podejść.
 		
-	\end{frame}
-	\begin{frame}{GloVe (2014)}
+
+
+		
+		
+	%	x to kontekst słowa - szerokość ustalana hiperparametrem
+%		y to słowo
+		
+%		Zamiast funkcji aktywacji Softmax
+%		Softmax przekształca wyjście sieci w rozkład prawdopodobieństwa
+%		Rozkład ten wskazuje, które słowo jest najbardziej prawdopodobne dla wejściowego kontekstu
+%		wektory słów są efektem ubocznym nauki sieci
+%		są to wagi połączeń między neuronami
+	\begin{frame}{FastText (2017)}
 		\begin{itemize}
-			\item Globalna macierz współwystąpień słów.
-			% w przeciwieństwie do word2vec wykorzystuje informację o globalnym rozkładzie słów
-			Ile razy słowo $w_i$ występuje w kontekście słowa $w_j$
-			
+			\item Rozwinięcie metody word2vec
+			\item Rozbija słowa na n-gramy, np.
+			\emph{pokój}$to$\emph{pok, okó, kój}
+			\item Wektor wynikowy = wektor dla słowa + wektory jego n-gramów 
+			\item Dobre wyniki dla języków bogatych morfosyntaktycznie, np. polskiego, tureckiego, czy fińskiego.
 		\end{itemize}
+%Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i znaczenie) z innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w ogóle nie ma w słowniku, ponieważ ich podsłowa mogą należeć do słów w słowniku się znajdujących. Zalety te wydają się być szczególnie obiecujące w przypadku bogatych morfologicznie języków, np. języka polskiego, tureckiego, czy fińskiego.
+	\end{frame}
+	\begin{frame}{GloVe --- Global Vectors (2014)}
 
-
+		% w funkcji celu najniższą wartość osiągniemy, gdy w1 * w2 będzie równe log(Xij) - jeżeli wektory są blisko siebie to iloczyn jest duży. jeżeli włowa są częstow w swoim kontekście to Xij jest duże.
 
 \begin{enumerate}
-	\item Zgromadź współwystąpienia słów w formie macierzy $X$. Każdy element $X_{ij}$ takiej macierzy reprezentuje jak często słowo $i$ występuje w pobliżu słowa $j$. Zazwyczaj macierz buduje się poprzez skanowanie bazowego korpusu oknem o ustalonej szerokości, w obrębie którego centralne słowo leży w kontekście słów je otaczających. Dodatkowo można tu wprowadzić wagi dla słów malejące wraz ze wzrostem dystansu od słowa centralnego.
-	\item Zdefiniuj ograniczenie dla każdej pary słów: $w_i^Tw_j + b_i + b_j = log(X_{ij})$, gdzie $w_i$ oznacza wektor głównego słowa, $w_j$ słowa leżącego w pobliżu $i$, $b_i$ i $b_j$ to skalary.
-	\item Zdefiniuj funkcję kosztu \ref{eq:glove_loss}:
+	\item Zgromadź współwystąpienia słów w formie globalnej macierzy $X$ takiej, że
+	$X_{ij}$: ile razy słowo $w_i$ występuje w kontekście słowa $w_j$
+	% Każdy element $X_{ij}$ takiej macierzy reprezentuje jak często słowo $i$ występuje w pobliżu słowa $j$. Zazwyczaj macierz buduje się poprzez skanowanie bazowego korpusu oknem o ustalonej szerokości, w obrębie którego centralne słowo leży w kontekście słów je otaczających. Dodatkowo można tu wprowadzić wagi dla słów malejące wraz ze wzrostem dystansu od słowa centralnego.
+
+	\item Zdefiniuj ograniczenie dla każdej pary słów: 
+	\begin{equation}
+	w_i^Tw_j + b_i + b_j = log(X_{ij}),
+	\end{equation}
+	gdzie $w_i$ i $w_j$ to wektory odpowiadające słowom oraz $b_i$ i $b_j$ to skalary.
+
+	\item Dokonaj minimalizacji funkcji kosztu:
 	\begin{equation}
 	\label{eq:glove_loss}
 	J = \sum_{i=1}^V \sum_{j=1}^V \; f(X_{ij}) ( w_i^T w_j + b_i + b_j - \log X_{ij})^2,
 	\end{equation}
-	gdzie f jest funkcją ważącą, która pomaga zapobiec uczeniu tylko na~podstawie najbardziej popularnych par słów. Autorzy proponują funkcję postaci \ref{eq:glove_loss_impl}:
-	\begin{equation}
-	\label{eq:glove_loss_impl}
-	f(X_{ij}) = 
-	\begin{cases}
-	(\frac{X_{ij}}{x_{max}})^\alpha & \text{if } X_{ij} < XMAX \\
-	1 & \text{w p.p.}
-	\end{cases}
-	\end{equation}
-	Celem funkcji optymalizacji funkcji	 kosztu jest minimalizacja różnicy pomiędzy iloczynami skalarnymi wektorów współwystępujących słów.
-	\item Dokonaj minimalizacji funkcji kosztu poprzez stopniową aktualizację wektorów $w_i$ i $w_j$.
+	gdzie $f$ jest funkcją ważącą, $V$ to słownik.
+	%która pomaga zapobiec uczeniu tylko na~podstawie najbardziej popularnych par słów.
+
+	% Celem funkcji optymalizacji funkcji	 kosztu jest minimalizacja różnicy pomiędzy iloczynami skalarnymi wektorów współwystępujących słów.
 \end{enumerate}
 	\end{frame}
 
@@ -280,7 +335,7 @@
 		\end{figure}
 	\end{frame}
 	\begin{frame}{Word Mover's Distance}
-		Dystans pomiędzy dokumentami $A$ i $B$ to minimalny skumulowany dystans jaki słowa dokumentu $A$ muszą ,,przebyć'', aby osiągnąć słowa dokumnetu $B$
+		% Dystans pomiędzy dokumentami $A$ i $B$ to minimalny skumulowany dystans jaki słowa dokumentu $A$ muszą ,,przebyć'', aby osiągnąć słowa dokumnetu $B$
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/wmd.png}
@@ -300,9 +355,10 @@
 			% w pracy opisuję dokładne statystyki
 		\end{itemize}
 	\end{frame}
+	\section{Analiza danych}
 	\begin{frame}{Wstępne przetwarzanie danych}
 		\begin{enumerate}
-			\item Oczyszczanie tekstu ze znaczników \pause
+			\item Oczyszczanie tekstu ze znaczników
 			\item Usunięcie słów stopu
 		\end{enumerate}
 	\end{frame}
@@ -312,13 +368,13 @@
 	\begin{frame}
 		\begin{enumerate}
 			\item Oczyszczanie tekstu ze znaczników
-			\item Usunięcie słów stopu \pause
-			\item Zamiana na małe litery \pause
+			\item Usunięcie słów stopu
+			\item Zamiana na małe litery
 			% większości duże litery na początku zdania przeszkadzają, ale czasem wyraz z dużej litery i z małej znaczą co innego - Włochy
 			\item Tokenizacja i lematyzacja % morfologik.blogspot.com
 		\end{enumerate}
 	\end{frame}
-	\begin{frame}{Preprocessing - przykład}
+	\begin{frame}{Preprocessing --- przykład}
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/lemmatisation.png}
@@ -326,6 +382,10 @@
 	\end{frame}
 	% jaka byłaby sytuacja idealna? zaaplikować rozwiązania w żywym systemie i porównać kpi
 	\section{Metody ewaluacji}
+	% W celu porównania stosowanych metod wyznaczania podobieństwa między artykułami konieczna jest formalizacja pewnych miar tego podobieństwa. W opisie znanych ogólnych miar posłużyłem się pojęciem „relewantności” — formalną wartością wyrażoną za pomocą liczb rzeczywistych. W praktyce rzadko jednak dysponuje się wartością, na ile dany element rankingu jest adekwatny do zapytania generującego ów ranking.
+	
+	
+	%!!!! WAŻNE opisane wcześniej metody przetwarzania języka naturalnego adaptuję do zadania generowania rekomendacji, tj. dla danego artykułu X mają one zwrócić sekwencję artykułów najbardziej do niego podobnych.
 	\begin{frame}{Miara jakości wyszukiwania: Normalized Discounted Cumulative Gain}
 		\begin{itemize}
 			\item Discounted Cumulative Gain:
@@ -337,7 +397,7 @@
 			%% DCG premiuje relewantne przedmioty, które są wysoko w~rankingu oraz~karze za~relewantne przedmioty w~dole rankingu. W~wariancie nDCG następuje jeszcze normalizacja przez~podzielenie wartości DCG rzeczywistego rankingu przez DCG idealnego rankingu ($IDCG$, \ref{eq:idcg}) zbudowanego na~elementach korpusu ułożonych malejąco pod~kątem relewantności.
 			
 			% im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy
-			\pause
+
 			\item Normalized Discounted Cumulative Gain:
 			\begin{equation}
 			\label{eq:ndcg}
@@ -345,21 +405,30 @@
 			\end{equation}
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Liczba wspólnych kategorii}
-	\end{frame}
-	\begin{frame}{Liczba wspólnych słów kluczowych}
+	\begin{frame}{Miary oparte na metadanych artykułów}
+		\begin{itemize}
+			\item Liczba wspólnych kategorii
+					% Zaletą miary jest fakt, iż przypisanie artykułu do kategorii zostało wykonane przez autora, którego można określić ekspertem w dziedzinie tematyki artykułu
+					
+					% można ją zastosować automatycznie
+			\item Liczba wspólnych słów kluczowych
+			% relewantność wyszukanych artykułów liczona na podstawie liczby wspólnych słów kluczowych z artykułem bazowym.
+		\end{itemize}
 	\end{frame}
 	\begin{frame}{Kliknięcia użytkowników serwisu}
-		\textit{clicks} --- ocena na~podstawie historycznej aktywności użytkowników mierzona na~podstawie liczby kliknięć w~odnośniki.
+		\begin{itemize}
+			\item dodatkowe dane o kliknięciach z Allegro
+			\item ocena na podstawie historycznej aktywności użytkowników
+		\end{itemize}
 	\end{frame}
-	\
 	\begin{frame}{Ocena użytkowników offline}
-		\begin{enumerate}
-			\item \textit{mut\_kw[\_ndcg]} --- relewantność wyszukanych artykułów liczona na~podstawie liczby wspólnych słów kluczowych z~artykułem bazowym. Również stosuję dwa warianty: średnia relewantność wyszukanych artykułów oraz~miara \textit{nDCG}.
-			\item \textit{users} --- ocena na~podstawie eksperckiej oceny użytkowników. W~badaniu wykorzystałem 5~użytkowników operujących każdy na~tym samym zbiorze par testowych. Pary zostały wygenerowane (zgodnie z~wcześniejszym opisem metody) na~podstawie 50 artykułów bazowych wylosowanych spośród wszystkich artykułów udostępnionych mi przez~\textit{Allegro}.
-		\end{enumerate}
+		\begin{itemize}
+			\item ekspercka ocena użytkowników
+			\item 5 użytkowników oceniło po 300 par artykułów
+		\end{itemize}
+		%ocena na~podstawie eksperckiej oceny użytkowników. W~badaniu wykorzystałem 5~użytkowników operujących każdy na~tym samym zbiorze par testowych. Pary zostały wygenerowane (zgodnie z~wcześniejszym opisem metody) na~podstawie 50 artykułów bazowych wylosowanych spośród wszystkich artykułów udostępnionych mi przez~\textit{Allegro}.
 	\end{frame}
-	\section{Testy}
+	\section{Wyniki testów}
 	\begin{frame}{LSI w zależności od liczby tematów}
 		\begin{figure}[H]
 			\centering
@@ -411,21 +480,19 @@
 	\section{Podsumowanie}
 	\begin{frame}{Podsumowanie testów}
 		\begin{itemize}
-			\item Brak istotnych statystycznie różnic między wynikami wszystkich metod \pause
-			\item Im dłuższe wektory \emph{word embeddings} tym lepsze rezultaty \pause
-			\item Większa liczba tematów nie implikuje lepszych rezultatów \pause
-			\item ...
+			\item Brak istotnych statystycznie różnic między wynikami wszystkich metod
+			\item Im dłuższe wektory \emph{word embeddings}, tym lepsze rezultaty
+			\item Większa liczba tematów nie implikuje lepszych rezultatów
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Kiernki dalszych badań}
-		
-	\end{frame}
 	\begin{frame}{Wnioski}
-		testowane metody nie odbiegają jakością od dotychczasowej.
-		python
-		elasticsearch
-		nlp
-		trudno jest zmierzyc efekty
+		\begin{itemize}
+			\item Ewaluacja jest zadaniem nietrywialnym
+			\item Nie każda biblioteka się nadaje
+			\item Szybki rozwój dziedziny
+			\item Wiele kierunków dalszych badań
+			% inne sposoby preprocesingu, inne hiperparametry, inne metody porównywania dokumentów...
+		\end{itemize}
 	\end{frame}
 	\section{Wybrane źródła}
 	\begin{frame}{Wybrane źródła}
