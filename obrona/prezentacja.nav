@@ -3,117 +3,121 @@
 \headcommand {\beamer@framepages {1}{1}}
 \headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
 \headcommand {\beamer@framepages {2}{2}}
-\headcommand {\sectionentry {1}{Cel pracy}{3}{Cel pracy}{0}}
+\headcommand {\sectionentry {1}{Opis problemu}{3}{Opis problemu}{0}}
 \headcommand {\beamer@sectionpages {1}{2}}
 \headcommand {\beamer@subsectionpages {1}{2}}
 \headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
 \headcommand {\beamer@framepages {3}{3}}
 \headcommand {\slideentry {1}{0}{2}{4/4}{}{0}}
 \headcommand {\beamer@framepages {4}{4}}
-\headcommand {\sectionentry {2}{Opis problemu}{5}{Opis problemu}{0}}
-\headcommand {\beamer@sectionpages {3}{4}}
-\headcommand {\beamer@subsectionpages {3}{4}}
-\headcommand {\slideentry {2}{0}{1}{5/5}{}{0}}
+\headcommand {\slideentry {1}{0}{3}{5/5}{}{0}}
 \headcommand {\beamer@framepages {5}{5}}
-\headcommand {\slideentry {2}{0}{2}{6/6}{}{0}}
+\headcommand {\slideentry {1}{0}{4}{6/6}{}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\slideentry {2}{0}{3}{7/7}{}{0}}
+\headcommand {\slideentry {1}{0}{5}{7/7}{}{0}}
 \headcommand {\beamer@framepages {7}{7}}
-\headcommand {\slideentry {2}{0}{4}{8/8}{}{0}}
+\headcommand {\sectionentry {2}{Systemy rekomendacji}{8}{Systemy rekomendacji}{0}}
+\headcommand {\beamer@sectionpages {3}{7}}
+\headcommand {\beamer@subsectionpages {3}{7}}
+\headcommand {\slideentry {2}{0}{1}{8/8}{}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\sectionentry {3}{Systemy rekomendacji}{9}{Systemy rekomendacji}{0}}
-\headcommand {\beamer@sectionpages {5}{8}}
-\headcommand {\beamer@subsectionpages {5}{8}}
-\headcommand {\slideentry {3}{0}{1}{9/9}{}{0}}
+\headcommand {\slideentry {2}{0}{2}{9/9}{}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\slideentry {3}{0}{2}{10/10}{}{0}}
+\headcommand {\slideentry {2}{0}{3}{10/10}{}{0}}
 \headcommand {\beamer@framepages {10}{10}}
-\headcommand {\slideentry {3}{0}{3}{11/11}{}{0}}
-\headcommand {\beamer@framepages {11}{11}}
-\headcommand {\sectionentry {4}{Techniki przetwarzania j\IeC {\k e}zyka naturalnego}{12}{Techniki przetwarzania j\IeC {\k e}zyka naturalnego}{0}}
-\headcommand {\beamer@sectionpages {9}{11}}
-\headcommand {\beamer@subsectionpages {9}{11}}
-\headcommand {\slideentry {4}{0}{1}{12/13}{}{0}}
-\headcommand {\beamer@framepages {12}{13}}
-\headcommand {\beamer@subsectionentry {0}{4}{1}{14}{Bag-of-words}}\headcommand {\beamer@subsectionpages {12}{13}}
-\headcommand {\slideentry {4}{1}{1}{14/16}{Bag-of-words}{0}}
-\headcommand {\beamer@framepages {14}{16}}
-\headcommand {\slideentry {4}{1}{2}{17/19}{Bag-of-words}{0}}
-\headcommand {\beamer@framepages {17}{19}}
-\headcommand {\beamer@subsectionentry {0}{4}{2}{20}{TF-IDF}}\headcommand {\beamer@subsectionpages {14}{19}}
-\headcommand {\slideentry {4}{2}{1}{20/20}{TF-IDF}{0}}
-\headcommand {\beamer@framepages {20}{20}}
-\headcommand {\slideentry {4}{2}{2}{21/21}{TF-IDF}{0}}
-\headcommand {\beamer@framepages {21}{21}}
-\headcommand {\slideentry {4}{2}{3}{22/24}{TF-IDF}{0}}
-\headcommand {\beamer@framepages {22}{24}}
-\headcommand {\slideentry {4}{2}{4}{25/25}{TF-IDF}{0}}
-\headcommand {\beamer@framepages {25}{25}}
-\headcommand {\beamer@subsectionentry {0}{4}{3}{26}{Modelowanie temat\IeC {\'o}w}}\headcommand {\beamer@subsectionpages {20}{25}}
-\headcommand {\slideentry {4}{3}{1}{26/26}{Modelowanie temat\IeC {\'o}w}{0}}
+\headcommand {\sectionentry {3}{Techniki przetwarzania j\IeC {\k e}zyka naturalnego}{11}{Techniki przetwarzania j\IeC {\k e}zyka naturalnego}{0}}
+\headcommand {\beamer@sectionpages {8}{10}}
+\headcommand {\beamer@subsectionpages {8}{10}}
+\headcommand {\slideentry {3}{0}{1}{11/12}{}{0}}
+\headcommand {\beamer@framepages {11}{12}}
+\headcommand {\slideentry {3}{0}{2}{13/14}{}{0}}
+\headcommand {\beamer@framepages {13}{14}}
+\headcommand {\slideentry {3}{0}{3}{15/17}{}{0}}
+\headcommand {\beamer@framepages {15}{17}}
+\headcommand {\slideentry {3}{0}{4}{18/18}{}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\slideentry {3}{0}{5}{19/21}{}{0}}
+\headcommand {\beamer@framepages {19}{21}}
+\headcommand {\slideentry {3}{0}{6}{22/22}{}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {3}{0}{7}{23/23}{}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\slideentry {3}{0}{8}{24/25}{}{0}}
+\headcommand {\beamer@framepages {24}{25}}
+\headcommand {\slideentry {3}{0}{9}{26/26}{}{0}}
 \headcommand {\beamer@framepages {26}{26}}
-\headcommand {\beamer@subsectionentry {0}{4}{4}{27}{Latent semantic analysis}}\headcommand {\beamer@subsectionpages {26}{26}}
-\headcommand {\beamer@subsectionentry {0}{4}{5}{27}{Latent Dirichlet allocation}}\headcommand {\beamer@subsectionpages {27}{26}}
-\headcommand {\beamer@subsectionentry {0}{4}{6}{27}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}}\headcommand {\beamer@subsectionpages {27}{26}}
-\headcommand {\slideentry {4}{6}{1}{27/28}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}{0}}
-\headcommand {\beamer@framepages {27}{28}}
-\headcommand {\slideentry {4}{6}{2}{29/29}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}{0}}
-\headcommand {\beamer@framepages {29}{29}}
-\headcommand {\slideentry {4}{6}{3}{30/30}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}{0}}
+\headcommand {\slideentry {3}{0}{10}{27/27}{}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {3}{0}{11}{28/29}{}{0}}
+\headcommand {\beamer@framepages {28}{29}}
+\headcommand {\slideentry {3}{0}{12}{30/30}{}{0}}
 \headcommand {\beamer@framepages {30}{30}}
-\headcommand {\slideentry {4}{6}{4}{31/31}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}{0}}
+\headcommand {\slideentry {3}{0}{13}{31/31}{}{0}}
 \headcommand {\beamer@framepages {31}{31}}
-\headcommand {\slideentry {4}{6}{5}{32/32}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}{0}}
+\headcommand {\slideentry {3}{0}{14}{32/32}{}{0}}
 \headcommand {\beamer@framepages {32}{32}}
-\headcommand {\slideentry {4}{6}{6}{33/34}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}{0}}
-\headcommand {\beamer@framepages {33}{34}}
-\headcommand {\slideentry {4}{6}{7}{35/35}{Osadzanie s\IeC {\l }\IeC {\'o}w w przestrzeni wektorowej}{0}}
+\headcommand {\slideentry {3}{0}{15}{33/33}{}{0}}
+\headcommand {\beamer@framepages {33}{33}}
+\headcommand {\slideentry {3}{0}{16}{34/34}{}{0}}
+\headcommand {\beamer@framepages {34}{34}}
+\headcommand {\slideentry {3}{0}{17}{35/35}{}{0}}
 \headcommand {\beamer@framepages {35}{35}}
-\headcommand {\beamer@subsectionentry {0}{4}{7}{36}{Wst\IeC {\k e}pne przetwarzanie danych}}\headcommand {\beamer@subsectionpages {27}{35}}
-\headcommand {\slideentry {4}{7}{1}{36/38}{Wst\IeC {\k e}pne przetwarzanie danych}{0}}
-\headcommand {\beamer@framepages {36}{38}}
-\headcommand {\slideentry {4}{7}{2}{39/39}{Wst\IeC {\k e}pne przetwarzanie danych}{0}}
-\headcommand {\beamer@framepages {39}{39}}
-\headcommand {\sectionentry {5}{Metody ewaluacji}{40}{Metody ewaluacji}{0}}
-\headcommand {\beamer@sectionpages {12}{39}}
-\headcommand {\beamer@subsectionpages {36}{39}}
-\headcommand {\slideentry {5}{0}{1}{40/40}{}{0}}
-\headcommand {\beamer@framepages {40}{40}}
-\headcommand {\sectionentry {6}{Testy}{41}{Testy}{0}}
-\headcommand {\beamer@sectionpages {40}{40}}
-\headcommand {\beamer@subsectionpages {40}{40}}
-\headcommand {\slideentry {6}{0}{1}{41/41}{}{0}}
-\headcommand {\beamer@framepages {41}{41}}
-\headcommand {\slideentry {6}{0}{2}{42/42}{}{0}}
+\headcommand {\slideentry {3}{0}{18}{36/37}{}{0}}
+\headcommand {\beamer@framepages {36}{37}}
+\headcommand {\slideentry {3}{0}{19}{38/38}{}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\slideentry {3}{0}{20}{39/41}{}{0}}
+\headcommand {\beamer@framepages {39}{41}}
+\headcommand {\slideentry {3}{0}{21}{42/42}{}{0}}
 \headcommand {\beamer@framepages {42}{42}}
-\headcommand {\slideentry {6}{0}{3}{43/43}{}{0}}
+\headcommand {\sectionentry {4}{Metody ewaluacji}{43}{Metody ewaluacji}{0}}
+\headcommand {\beamer@sectionpages {11}{42}}
+\headcommand {\beamer@subsectionpages {11}{42}}
+\headcommand {\slideentry {4}{0}{1}{43/43}{}{0}}
 \headcommand {\beamer@framepages {43}{43}}
-\headcommand {\slideentry {6}{0}{4}{44/44}{}{0}}
-\headcommand {\beamer@framepages {44}{44}}
-\headcommand {\slideentry {6}{0}{5}{45/45}{}{0}}
-\headcommand {\beamer@framepages {45}{45}}
-\headcommand {\slideentry {6}{0}{6}{46/46}{}{0}}
+\headcommand {\slideentry {4}{0}{2}{44/45}{}{0}}
+\headcommand {\beamer@framepages {44}{45}}
+\headcommand {\slideentry {4}{0}{3}{46/46}{}{0}}
 \headcommand {\beamer@framepages {46}{46}}
-\headcommand {\slideentry {6}{0}{7}{47/47}{}{0}}
+\headcommand {\slideentry {4}{0}{4}{47/47}{}{0}}
 \headcommand {\beamer@framepages {47}{47}}
-\headcommand {\slideentry {6}{0}{8}{48/48}{}{0}}
+\headcommand {\slideentry {4}{0}{5}{48/48}{}{0}}
 \headcommand {\beamer@framepages {48}{48}}
-\headcommand {\sectionentry {7}{Podsumowanie}{49}{Podsumowanie}{0}}
-\headcommand {\beamer@sectionpages {41}{48}}
-\headcommand {\beamer@subsectionpages {41}{48}}
-\headcommand {\slideentry {7}{0}{1}{49/52}{}{0}}
-\headcommand {\beamer@framepages {49}{52}}
-\headcommand {\slideentry {7}{0}{2}{53/53}{}{0}}
+\headcommand {\sectionentry {5}{Testy}{50}{Testy}{0}}
+\headcommand {\beamer@sectionpages {43}{49}}
+\headcommand {\beamer@subsectionpages {43}{49}}
+\headcommand {\slideentry {5}{0}{1}{50/50}{}{0}}
+\headcommand {\beamer@framepages {50}{50}}
+\headcommand {\slideentry {5}{0}{2}{51/51}{}{0}}
+\headcommand {\beamer@framepages {51}{51}}
+\headcommand {\slideentry {5}{0}{3}{52/52}{}{0}}
+\headcommand {\beamer@framepages {52}{52}}
+\headcommand {\slideentry {5}{0}{4}{53/53}{}{0}}
 \headcommand {\beamer@framepages {53}{53}}
-\headcommand {\slideentry {7}{0}{3}{54/54}{}{0}}
+\headcommand {\slideentry {5}{0}{5}{54/54}{}{0}}
 \headcommand {\beamer@framepages {54}{54}}
-\headcommand {\sectionentry {8}{Wybrane \IeC {\'z}r\IeC {\'o}d\IeC {\l }a}{55}{Wybrane \IeC {\'z}r\IeC {\'o}d\IeC {\l }a}{0}}
-\headcommand {\beamer@sectionpages {49}{54}}
-\headcommand {\beamer@subsectionpages {49}{54}}
-\headcommand {\slideentry {8}{0}{1}{55/55}{}{0}}
+\headcommand {\slideentry {5}{0}{6}{55/55}{}{0}}
 \headcommand {\beamer@framepages {55}{55}}
-\headcommand {\beamer@partpages {1}{55}}
-\headcommand {\beamer@subsectionpages {55}{55}}
-\headcommand {\beamer@sectionpages {55}{55}}
-\headcommand {\beamer@documentpages {55}}
-\headcommand {\def \inserttotalframenumber {41}}
+\headcommand {\slideentry {5}{0}{7}{56/56}{}{0}}
+\headcommand {\beamer@framepages {56}{56}}
+\headcommand {\slideentry {5}{0}{8}{57/57}{}{0}}
+\headcommand {\beamer@framepages {57}{57}}
+\headcommand {\sectionentry {6}{Podsumowanie}{58}{Podsumowanie}{0}}
+\headcommand {\beamer@sectionpages {50}{57}}
+\headcommand {\beamer@subsectionpages {50}{57}}
+\headcommand {\slideentry {6}{0}{1}{58/61}{}{0}}
+\headcommand {\beamer@framepages {58}{61}}
+\headcommand {\slideentry {6}{0}{2}{62/62}{}{0}}
+\headcommand {\beamer@framepages {62}{62}}
+\headcommand {\slideentry {6}{0}{3}{63/63}{}{0}}
+\headcommand {\beamer@framepages {63}{63}}
+\headcommand {\sectionentry {7}{Wybrane \IeC {\'z}r\IeC {\'o}d\IeC {\l }a}{64}{Wybrane \IeC {\'z}r\IeC {\'o}d\IeC {\l }a}{0}}
+\headcommand {\beamer@sectionpages {58}{63}}
+\headcommand {\beamer@subsectionpages {58}{63}}
+\headcommand {\slideentry {7}{0}{1}{64/64}{}{0}}
+\headcommand {\beamer@framepages {64}{64}}
+\headcommand {\beamer@partpages {1}{64}}
+\headcommand {\beamer@subsectionpages {64}{64}}
+\headcommand {\beamer@sectionpages {64}{64}}
+\headcommand {\beamer@documentpages {64}}
+\headcommand {\def \inserttotalframenumber {48}}
