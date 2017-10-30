@@ -1,6 +1,6 @@
-\beamer@slide {eq:cos}{15}
-\beamer@slide {eq:tf-idf}{17}
-\beamer@slide {eq:svd}{20}
-\beamer@slide {eq:glove_loss}{29}
-\beamer@slide {eq:dcg}{39}
-\beamer@slide {eq:ndcg}{39}
+\beamer@slide {eq:cos}{14}
+\beamer@slide {eq:tf-idf}{16}
+\beamer@slide {eq:svd}{19}
+\beamer@slide {eq:glove_loss}{27}
+\beamer@slide {eq:dcg}{37}
+\beamer@slide {eq:ndcg}{37}

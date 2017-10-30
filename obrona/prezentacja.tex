@@ -5,6 +5,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[polish]{babel}
 \usepackage{caption}
+\usepackage{pgfpages}
+\setbeameroption{show notes}
+\setbeameroption{show notes on second screen=right}
 \mode<presentation>
 {
 	\usetheme{Warsaw}      % or try Darmstadt, Madrid, Warsaw, ...
@@ -18,7 +21,6 @@
 \author{Łukasz Dragan}
 \institute{Informatyka spec. Metody sztucznej inteligencji, MiNI PW}
 \date{31.10.2017}
-
 \AtBeginSection[]{
 	\begin{frame}
 		\vfill
@@ -35,25 +37,42 @@
 	\begin{frame}
 		\titlepage
 	\end{frame}
-	
+	\note{
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		}
 	\begin{frame}{Plan prezentacji}
 	  \tableofcontents
 	\end{frame}
-	
+	\note{
+		\begin{itemize}
+			\item po kolei co zamierzam powiedzieć
+		\end{itemize}
+	}
 	\section{Opis problemu}
 	
 	\begin{frame}{Cel pracy}
 		Czy metody semantycznej analizy tekstu mogą być alternatywą dla~dotychczas używanej przez~\emph{Allegro} metody generowania rekomendacji artykułów tekstowych?
-		%powiedzeić o swojej motywacji: nie znałem wcześniej tej tematyki, nie znałem Pani Promotor, temat wydał mi się ciekawy, bo było to realne biznesowe zastosowanie informatyki. Ostatecznie otworzyło to przede mną szerokie pole do dalszego zainteresowania tematem. A i współpraca okazała się owocna
+
 	\end{frame}
-	
+		\note{
+			\begin{itemize}
+				\item nie znałem wcześniej tej tematyki
+				\item nie znałem Pani Promotor
+				\item realne biznesowe zastosowanie informatyki
+				\item zaznajomiłem się z dziedziną, której wcześniej nie znałem
+			\end{itemize}
+		}
 	\begin{frame}{pracuj.pl}
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/pracuj.png}
 		\end{figure}
 	\end{frame}
-	
+		\note{
+			Każdy szanujący się serwis zawiera rekomendacje
+		}
 	\begin{frame}{filmweb.pl}
 		\begin{figure}
 			\centering
@@ -67,34 +86,53 @@
 			\includegraphics[width=1\textwidth]{img/screen_allegro.png}
 		\end{figure}
 	\end{frame}
-	
+			\note{
+				\begin{itemize}
+					\item w Allegro prócz głóœnej funkcjonalności
+					\item artykuły opisujące produkty
+					\item zawiera listę artykułów podobnych, którą można uznać za rekomendacje
+				\end{itemize}
+			}
 	\begin{frame}{allegro.pl cd}
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/screen_allegro_2.png}
 		\end{figure}
 	\end{frame}
-	
+		\begin{frame}{Elasticsearch --- dotychczas używana metoda}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.5\textwidth]{img/elastic-logo.png}
+			\end{figure}
+			,,Elasticsearch is a distributed, JSON-based search and analytics engine designed for horizontal scalability, maximum reliability, and easy management.''
+		\end{frame}
+			\note{
+				\begin{itemize}
+					\item system rekomendacyjny zbudowany jest na elacticu
+					\item elastic to silnik wyszukiwania
+					\item zapytania opierają się o słówa kluczowe dołączone do artykułów jako metadane
+					\item elstic jest szeroko wykorzystywany, ale nie dokonuje semantycznej analizy tekstu
+				\end{itemize}
+			}
 	\section{Systemy rekomendacji}
-	\begin{frame}{Elasticsearch}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.5\textwidth]{img/elastic-logo.png}
-		\end{figure}
-		,,Elasticsearch is a distributed, JSON-based search and analytics engine designed for horizontal scalability, maximum reliability, and easy management.''
-	\end{frame}
-
-	\begin{frame}{Systemy rekomenadacji}
-		%TODO
-		W ujęciu ogólnym systemy wyszukiwania mają na~celu sugerowanie tego, co użytkownik chciałby otrzymać. Natomiast systemy rekomendacji mają sugerować przedmioty potrzebne użytkownikowi nawet, jeżeli potrzeby te nie~zostały bezpośrednio wyrażone.
-	\end{frame}
-	
+	\note{
+		Systemy wyszukiwania mają na~celu sugerowanie tego, co może się wydać użytkownikowi interesujące.
+	}
 	\begin{frame}{Systemy rekomenadacji}
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/recommender.png}
 		\end{figure}
 	\end{frame}
+	\note{
+		\begin{itemize}
+			\item kolaboratywne generuje rekomendacje na podstawie aktywności użytkowników o podobnym profilu
+			\item jest niezależne od dziedziny
+			\item .
+			\item oparte na treści generuje rekomendacje oparte na tym, co w przeszłości podobało się użytkownikowi
+			\item w tym przypadku na tym, co użytkownik właśnie przegląda
+		\end{itemize}
+	}
 	\section{Techniki przetwarzania języka naturalnego}
 	\begin{frame}{Zarys podejścia}
 		\begin{figure}
@@ -106,6 +144,13 @@
 			\includegraphics[width=0.45\textwidth]{img/scatter3d_demo.png}
 		\end{figure}
 	\end{frame}
+	\note{
+		\begin{itemize}
+			\item Staramy się dokonać reprezentacji dokumentu w postaci wektora
+			\item Po to, aby wykorzystać zależności między wektorami, np. odległość
+			\item różne reprezentacje mają różną jakość
+		\end{itemize}
+	}
 	\begin{frame}{Dystans między wektorami}
 		\begin{figure}
 			\centering
@@ -117,6 +162,10 @@
 		\end{equation}
 		gdzie $A_i$ i $B_i$ są składowymi wektorów $A$ i $B$
 	\end{frame}
+		\note{\begin{itemize}
+				\item odległości można mierzyć albo jako odległość euklidesową
+				\item albo bardziej popularny sposób to kosinus kąta pomiędzy wektorami
+			\end{itemize}}
 	\begin{frame}{Bag-of-words}
 		\begin{figure}
 			\centering
@@ -130,8 +179,17 @@
 			\centering
 			\includegraphics[width=0.5\textwidth]{img/bow_repr.png}
 		\end{figure}
-		% Wadą jest traktowanie każdego słowa z~jednakową wagą
 	\end{frame}
+	\note{\begin{itemize}
+			\item korpus to zbiór dokumentów, na których operujemy
+			\item słownik to lista unikalnych słów
+			\item najprostsze podejście --- worek słów
+			\item dokument jako wektor z liczbą wystąpień i-tego słowa na itym miejscu
+			\item .
+			\item Wadą jest traktowanie każdego słowa z~jednakową wagą
+			\item bardzo długie wektory
+			\item wektory niemalże ortogonalne
+		\end{itemize}}
 	\begin{frame}{TF – term frequency, IDF – inverse document frequency}
 		Wartość \textit{TF-IDF} słowa $w_i$ w dokumencie $d_j$:
 		\begin{equation}
@@ -142,8 +200,10 @@
 			\item $tf_{ij}$: liczba wystąpień słowa $w_i$ w~dokumencie $d_j$ podzielona przez~liczbę słów dokumentu $d_j$,
 			\item $idf_i$: liczba dokumentów w~korpusie podzielona przez~liczbę dokumentów zawierających przynajmniej jedno wystąpienie słowa $w_i$.
 		\end{itemize}
-		% które słówa są premiowane, a które penalizowane
 	\end{frame}
+	\note{\begin{itemize}
+			\item premiuje rzedkie słowa
+		\end{itemize}}
 	\begin{frame}{TF-IDF}
 		Zalety:
 		\begin{itemize}
@@ -155,9 +215,16 @@
 			\item wektory niemalże ortogonalne
 		\end{itemize}
 	\end{frame}
-		%Distributional hypothesis --- ,,słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie.''
-		
-		%Kolejne, bardziej zaawansowane, omawiane tu metody opierają się na~tzw. distributional hypothesis --- hipotezie zakładającej, że słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie. Sprzyja to zastosowaniu metod algebry liniowej jako narzędzia obliczeniowego oraz sposobu reprezentacji tekstu. Podstawowe podejście polega na~zgromadzeniu informacji o~rozkładzie słów w~dokumentach w~postaci wielowymiarowych wektorów, a~następnie wyodrębnieniu podobieństw pomiędzy~tymi wektorami, które świadczyłyby o~pewnych powiązaniach między reprezentowanymi słowami.
+	\note{\begin{itemize}
+			\item prostota
+			
+			\item duża wymiarowość wektorów
+			\item wektory niemalże ortogonalne
+			
+			\item zachowuje inne wady BOW
+			\item bywa skłądową innych metod
+		\end{itemize}}
+
 	\begin{frame}{Latent semantic indexing (1988)}
 		\begin{itemize}
 			\item Redukcja wymiarowości macierzy wystąpień słów w~dokumentach
@@ -176,6 +243,12 @@
 			\item Hiperparametr: docelowa wymiarowość
 		\end{itemize}
 	\end{frame}
+	\note{\begin{itemize}
+			\item kolejne metody opierają się na hipotezie, że słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie
+			\item w LSI budujemy macierz wystąpień słów w dokumentach
+			\item następnie wykonujemy redukcję liczby wierszy do liczby podanej jako hiperparametr
+			\item macierz zachowuje powiązania między słowami 
+		\end{itemize}}
 	\begin{frame}{Latent semantic indexing (1988)}
 		\begin{itemize}
 			\setlength\itemsep{3em}
@@ -192,7 +265,18 @@
 			\{(statek), (łódź), (ocean)\} $\to$ \\\{(1.3452 $*$ statek $+$ 0.2828 $*$ łódź), (ocean)\}
 		\end{itemize}
 	\end{frame}
+	\note{\begin{itemize}
+			\item redukcja liczby wierszy za pomocą rozkładu wg. wartości osobliwych
+			\item można potraktować jako grupowanie słów z odpowiednimi wagami
+			\item ostatecznie zależnośic między dokumentami-wektorami są lepiej oddane
+			\item wektory są krótkie
+			\item jednak metoda ma nistą interpretowalność
+		\end{itemize}}
 	\begin{frame}{Latent Dirichlet allocation (2003)}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{img/lda.jpg}
+		\end{figure}
 		\begin{itemize}
 			\item Automatyczne wykrywanie tematów zawartych w dokumentach
 			\item Dokumenty jako mieszanki tematów
@@ -200,32 +284,53 @@
 			\item Hiperparametr: docelowa liczba tematów
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Latent Dirichlet allocation (2003)}
-		Algorytm --- próbkowanie Gibbsa:\\
-		\begin{enumerate}
-			\setlength\itemsep{2em}
-			\item Przejdź przez każdy dokument i~losowo (zgodnie z~rozkładem Dirichleta) przypisz każde słowo dokumentu do~jednego z $T$ tematów.
-			
-			% Warto zauważyć, iż etap ten daje pierwsze	przybliżenie docelowej reprezentacji. W kolejnych krokach należy poprawiać to przybliżenie.
-			
-			% Cechy rozkładu sprawiają, że tak dobrane początkowe wartości parametrów modelu są zgodne z intuicją, że dokument pokrywa jedynie mały zestaw tematów, a temat zawiera najczęściej tylko mały zestaw słów.
-			\item Dla każdego dokumentu $d$, dla~każdego słowa $w$ należącego do~$d$, dla każdego tematu $t$ oblicz: $p(t | d)$
-			%czyli odsetek liczby słów w $d$, które są aktualnie przypisane do tematu $t$
-			oraz oblicz $p(w | t)$
-			% czyli odsetek liczby wystąpień słowa $w$, które są przypisane do~tematu $t$ w~skali całego korpusu.
-			Przypisz słowu $w$ nowy temat poprzez losowanie z~prawdopodobieństwem $p(t_i|d)*p(w|t)$ dla~każdego tematu $t_i$.
-		\end{enumerate}
-		% After repeating the previous step a large number of times, you’ll eventually reach a roughly steady state where your assignments are pretty good. So use these assignments to estimate the topic mixtures of each document (by counting the proportion of words assigned to each topic within that document) and the words associated to each topic (by counting the proportion of words assigned to each topic overall).
-		
-	\end{frame}
-	
+	\note{\begin{itemize}
+			\item Zadaniem metody jest reprezentacja dokumentów jako mieszanki tematów
+			\item gdzie temat to mieszanka jawnych słów wybieranych z odpowiednimi wagami
+			\item można to traktować jako redukcję wymiarowości
+			\item liczba tematów określana hiperparametrem
+		\end{itemize}}
 	\begin{frame}{Rozkład Dirichleta}
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.5\textwidth]{img/dirichlet.png}
 		\end{figure}
 	\end{frame}
-	
+	\note{\begin{itemize}
+			\item Początkowe przypisanie tematów do dokumentów i słów do tematów odbywa się zgodnie z roskładem Dirichleta
+			\item zaóżmy że mamy 3 tematy, którym odpowiadają wierznhołki trójkąta
+			\item liczba dokumentów składających się z tylko jednego tematu jest niska
+			\item liczba dokumentów składających się z mieszanki tematów jest wysoka
+			\item .
+			\item te cechy rozkładu Dirichleta przyspieszają optymalizację
+		\end{itemize}}
+	\begin{frame}{Latent Dirichlet allocation (2003)}
+		Algorytm --- próbkowanie Gibbsa:\\
+		\begin{enumerate}
+			\setlength\itemsep{2em}
+			\item Przejdź przez każdy dokument i~losowo (zgodnie z~rozkładem Dirichleta) przypisz każde słowo dokumentu do~jednego z $T$ tematów.
+
+			\item Dla każdego dokumentu $d$, dla~każdego słowa $w$ należącego do~$d$, dla każdego tematu $t$ oblicz: $p(t | d)$
+			%czyli odsetek liczby słów w $d$, które są aktualnie przypisane do tematu $t$
+			oraz oblicz $p(w | t)$
+			% czyli odsetek liczby wystąpień słowa $w$, które są przypisane do~tematu $t$ w~skali całego korpusu.
+			Przypisz słowu $w$ nowy temat poprzez losowanie z~prawdopodobieństwem $p(t_i|d)*p(w|t)$ dla~każdego tematu $t_i$.
+		\end{enumerate}
+		
+\note{\begin{itemize}
+		\item Rozkład daje pierwsze przybliżenie
+		
+		\item następnie iterujemy i przypisanie słów do tematów jest poprawiane
+		
+		\item dla każdego słowa w każdym dokumencie wyznaczany przypisywane jest temat, który jest najbardziej prawdopodobny na podstawie rozkładu w całości korpusu
+		
+		\item ostatecznie uzyskujemy w miarę stabilną sytuację, w której nie następują już zmiany przypisań słów do tematów
+		
+		\item podobne są dokumenty o podobnej proporcji przypisanych tematów
+		
+		\item metoda jest interpretowalne, gdyż wiemy, jakie słowa wchodzą w skłąd tematów
+	\end{itemize}}
+	\end{frame}
 	\begin{frame}{Word embeddings}
 		\begin{itemize}
 			\item Osadzanie słów w przestrzeni wektorowej
@@ -233,29 +338,32 @@
 			\item Niska wymiarowość wektorów
 			\item Reprezentacja słów wraz z~zależnościami pomiędzy nimi
 		\end{itemize}
-
-		% Dzieje się to w opozycji do wcześniejszych podejść podobnych do bag-of-words — produkującego ogromne, rzadkie wektory, których wymiary równają się rozmiarowi		słownika, o który oparty jest model (rzędu setek tysięcy)
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/linear-relationships.png}
 		\end{figure}
 		%https://www.tensorflow.org/images/linear-relationships.png
 	\end{frame}
-	\begin{frame}{Word2vec (2013)}
-		% 	Model predykcyjny, który na podstawie kontekstu przewiduje słowo
-		\begin{itemize}
-		\item Płytka sieć neuronowa typu feed-forward
-		\item Dwa podejścia:
-		\begin{itemize}
-			\item \textit{Continuous bag of words}: na~postawie okna $N$ sąsiednich słów sieć przewiduje słowo,
-			\item \textit{skip-gram}: na~podstawie słowa sieć dokonuje predykcji $N$ sąsiednich słów.
-		\end{itemize}
+\note{\begin{itemize}
+		\item Kolejnym podejściem jest osadzanie słów w przestrzeni wektorowej, a następnie porównywanie dokumentów jako list takich wektorów
 		
-		\end{itemize}
+		\item celem metod tej grupy jest przypisanie słowom takich wektorów, żeby zachowywały one zależności zachodzące między słowami
+	\end{itemize}}
+%	\begin{frame}{Word2vec (2013)}
+%		% 	Model predykcyjny, który na podstawie kontekstu przewiduje słowo
+%		\begin{itemize}
+%		\item Płytka sieć neuronowa typu feed-forward
+%		\item Dwa podejścia:
+%		\begin{itemize}
+%			\item \textit{Continuous bag of words}: na~postawie okna $N$ sąsiednich słów sieć przewiduje słowo,
+%			\item \textit{skip-gram}: na~podstawie słowa sieć dokonuje predykcji $N$ sąsiednich słów.
+%		\end{itemize}
+%		
+%		\end{itemize}
 		
-\end{frame}
+%	\end{frame}
 
-\begin{frame}
+\begin{frame}{Word2vec (2013)}
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=1\textwidth]{img/w2v_training_data.png}
@@ -264,7 +372,15 @@
 		%\label{fig:warstwy}
 	\end{figure}
 \end{frame}
-
+\note{\begin{itemize}
+		\item Kluczowym reprezentantem podejścia jest word2vec
+		\item używa płytkiej sieci neuronowej feed-forward do predykcji słów
+		\item .
+		\item zbiór uczący jest skaowany oknem o zadanej wielkości
+		słowa z każdego okna są wejćiem i wyjściem sieci wektorowej
+		\item kodujemy je jeko one-hot-wektor czyli dla i-tego słowa wektor zer z jedynką n i-tym miejscu
+		
+	\end{itemize}}
 \begin{frame}	
 	
 		\begin{figure}[H]
@@ -273,42 +389,41 @@
 			%\label{fig:warstwy}
 		\end{figure}
 	\end{frame}
-		%	\item WEktory kodowane są jako one-hot-vector: dla i-tego słowa 1 na i-tym miejscu
-%			\item hiperparametry: gługość wektorów word embeddings = wielkość warstwy ukrytej; wielkość okna skanującego
 	
-
-	%	zaletą jest, że szybko się uczy, w przeciwieństwie do wcześniejszych podejść.
+\note{\begin{itemize}
+		\item wyróżniamy dwa podejścia CBOW: predykcja słowa na podstawie konekstu
+		\item skip-gram: predykcja kontekstu na podstawie słowa
 		
-
-
+		\item sieć zamiast funkcji aktywacji ma funkcję softmax, która zamienia wyjście na rozkłąd prawdopodobieństwa
 		
+		\item ALE GDZIE TE WEKTORY? 
+		\item wektory reprezentujące słowa są efektem ubocznym nauczonej sieci
+		\item zawarte są w wagach warstwy ukrytej i mają długość równą rozmiarowi tej warstwy
 		
-	%	x to kontekst słowa - szerokość ustalana hiperparametrem
-%		y to słowo
-		
-%		Zamiast funkcji aktywacji Softmax
-%		Softmax przekształca wyjście sieci w rozkład prawdopodobieństwa
-%		Rozkład ten wskazuje, które słowo jest najbardziej prawdopodobne dla wejściowego kontekstu
-%		wektory słów są efektem ubocznym nauki sieci
-%		są to wagi połączeń między neuronami
+		\item wcześniejsze podejścia opierały się na głębszych sieciach, które działały mało wydajnie
+	\end{itemize}}
 	\begin{frame}{FastText (2017)}
 		\begin{itemize}
 			\item Rozwinięcie metody word2vec
 			\item Rozbija słowa na n-gramy, np.
-			\emph{pokój}$to$\emph{pok, okó, kój}
+			\emph{pokój} $\to$ \emph{pok, okó, kój}
 			\item Wektor wynikowy = wektor dla słowa + wektory jego n-gramów 
 			\item Dobre wyniki dla języków bogatych morfosyntaktycznie, np. polskiego, tureckiego, czy fińskiego.
 		\end{itemize}
-%Podejście takie daje szereg nowych możliwości. Pomaga wyznaczyć reprezentację wektorową rzadkich słów, które być może mają wspólny rdzeń (i znaczenie) z innymi, częściej występującymi słowami. Metoda pozwala również nadać wektorową reprezentację słowom, których w ogóle nie ma w słowniku, ponieważ ich podsłowa mogą należeć do słów w słowniku się znajdujących. Zalety te wydają się być szczególnie obiecujące w przypadku bogatych morfologicznie języków, np. języka polskiego, tureckiego, czy fińskiego.
+\note{\begin{itemize}
+		\item Jest modyfikacją word2vec
+		\item powstało niedawno
+		\item metoda rozbija słowo na n-gramy : podsłowa o określonej długości
+		\item ostatecznie wektor słowa to suma wektoru słowa i wektorów podsłów
+		\item sprawdza się dla języków bogatych morfosyntaktycznie
+	\end{itemize}}
 	\end{frame}
 	\begin{frame}{GloVe --- Global Vectors (2014)}
 
-		% w funkcji celu najniższą wartość osiągniemy, gdy w1 * w2 będzie równe log(Xij) - jeżeli wektory są blisko siebie to iloczyn jest duży. jeżeli włowa są częstow w swoim kontekście to Xij jest duże.
 
 \begin{enumerate}
 	\item Zgromadź współwystąpienia słów w formie globalnej macierzy $X$ takiej, że
 	$X_{ij}$: ile razy słowo $w_i$ występuje w kontekście słowa $w_j$
-	% Każdy element $X_{ij}$ takiej macierzy reprezentuje jak często słowo $i$ występuje w pobliżu słowa $j$. Zazwyczaj macierz buduje się poprzez skanowanie bazowego korpusu oknem o ustalonej szerokości, w obrębie którego centralne słowo leży w kontekście słów je otaczających. Dodatkowo można tu wprowadzić wagi dla słów malejące wraz ze wzrostem dystansu od słowa centralnego.
 
 	\item Zdefiniuj ograniczenie dla każdej pary słów: 
 	\begin{equation}
@@ -324,23 +439,39 @@
 	gdzie $f$ jest funkcją ważącą, $V$ to słownik.
 	%która pomaga zapobiec uczeniu tylko na~podstawie najbardziej popularnych par słów.
 
-	% Celem funkcji optymalizacji funkcji	 kosztu jest minimalizacja różnicy pomiędzy iloczynami skalarnymi wektorów współwystępujących słów.
 \end{enumerate}
 	\end{frame}
-
+\note{\begin{itemize}
+		\item podejście alternatywne dla word2vec
+		\item operuje na globalnej macierzy współwystąpień słow
+		\item w funkcji celu najniższą wartość osiągniemy, gdy w1 * w2 będzie równe log(Xij) - jeżeli wektory są blisko siebie to iloczyn jest duży. jeżeli włowa są częstow w swoim kontekście to Xij jest duże.
+		
+		\item Celem funkcji optymalizacji funkcji kosztu jest minimalizacja różnicy pomiędzy iloczynami skalarnymi wektorów współwystępujących słów.
+		
+		\item wyniki podobne do word2vec
+	\end{itemize}}
 	\begin{frame}{Centroid}
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/centroid.png}
 		\end{figure}
 	\end{frame}
+\note{\begin{itemize}
+		\item Mamy już wektorowe reprezentacje słów wchodzących w skład dokumentu - CO DALEJ
+		\item można obliczyć średnią tych wektorów - centroid, ale przy tym traci się część informacji
+	\end{itemize}}
 	\begin{frame}{Word Mover's Distance}
-		% Dystans pomiędzy dokumentami $A$ i $B$ to minimalny skumulowany dystans jaki słowa dokumentu $A$ muszą ,,przebyć'', aby osiągnąć słowa dokumnetu $B$
 		\begin{figure}
 			\centering
 			\includegraphics[width=1\textwidth]{img/wmd.png}
 		\end{figure}
 	\end{frame}
+\note{\begin{itemize}
+		\item Alternatywą jest Word Mover's Distance
+		\item Dystans pomiędzy dokumentami $A$ i $B$ to minimalny skumulowany dystans jaki słowa dokumentu $A$ muszą ,,przebyć'', aby osiągnąć słowa dokumnetu $B$
+		\item Metoda jest kosztowna obliczeniowo
+	\end{itemize}}
+	\section{Analiza danych}
 	\begin{frame}{Analiza danych}
 		\begin{itemize}
 			\item 20000~artykułów tekstowych w~formacie \textit{JSON}
@@ -355,13 +486,23 @@
 			% w pracy opisuję dokładne statystyki
 		\end{itemize}
 	\end{frame}
-	\section{Analiza danych}
 	\begin{frame}{Wstępne przetwarzanie danych}
 		\begin{enumerate}
 			\item Oczyszczanie tekstu ze znaczników
 			\item Usunięcie słów stopu
 		\end{enumerate}
 	\end{frame}
+\note{\begin{itemize}
+		\item 20000~artykułów tekstowych w~formacie \textit{JSON}
+		\item język polski
+		\item słowa specyficzne dla różnych branż
+		% ,,hipertoniczny'', ,,autofocus''
+		\item struktura artykułu:
+		\begin{itemize}
+			\item treść: tytuł, nagłówek, tekst
+			\item metadane: id, kategoria, słowa kluczowe
+		\end{itemize}
+	\end{itemize}}
 	\begin{frame}{Słowa stopu}
 		a, aby, ach, acz, aczkolwiek, aj, albo, ale, ależ, ani, aż, bardziej, bardzo, bo, bowiem, by, byli, bynajmniej, być, był, była, było, były, będzie, będą, cali, cała, cały, ci, cię, ciebie, co, cokolwiek, coś, czasami, czasem, czemu, czy, czyli, daleko, dla, dlaczego, dlatego, do, dobrze, dokąd, dość, dużo, dwa, dwaj, dwie, dwoje, dziś, dzisiaj, gdy, gdyby, gdyż, gdzie, gdziekolwiek, gdzieś, go, i...
 	\end{frame}
@@ -373,6 +514,11 @@
 			% większości duże litery na początku zdania przeszkadzają, ale czasem wyraz z dużej litery i z małej znaczą co innego - Włochy
 			\item Tokenizacja i lematyzacja % morfologik.blogspot.com
 		\end{enumerate}
+\note{\begin{itemize}
+		\item lematyzacja to najistotniejszy element --- sprowadza słowa do postaci podstawowej
+		\item np jest, była, będzie do ,,być''
+		\item używam polskiego narzędzi Morfologik
+	\end{itemize}}
 	\end{frame}
 	\begin{frame}{Preprocessing --- przykład}
 		\begin{figure}
@@ -439,12 +585,6 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=1\textwidth]{img/results/lda_.png}
-		\end{figure}
-	\end{frame}
-	\begin{frame}{Word2vec w zależności od korpusu}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/results/w2v100_art_w2v100_wn_.png}
 		\end{figure}
 	\end{frame}
 	\begin{frame}{Word2vec w zależności od długości wektorów}
