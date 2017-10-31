@@ -486,12 +486,6 @@
 			% w pracy opisuję dokładne statystyki
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Wstępne przetwarzanie danych}
-		\begin{enumerate}
-			\item Oczyszczanie tekstu ze znaczników
-			\item Usunięcie słów stopu
-		\end{enumerate}
-	\end{frame}
 \note{\begin{itemize}
 		\item 20000~artykułów tekstowych w~formacie \textit{JSON}
 		\item język polski
@@ -503,6 +497,13 @@
 			\item metadane: id, kategoria, słowa kluczowe
 		\end{itemize}
 	\end{itemize}}
+	\begin{frame}{Wstępne przetwarzanie danych}
+		\begin{enumerate}
+			\item Oczyszczanie tekstu ze znaczników
+			\item Usunięcie słów stopu
+		\end{enumerate}
+	\end{frame}
+
 	\begin{frame}{Słowa stopu}
 		a, aby, ach, acz, aczkolwiek, aj, albo, ale, ależ, ani, aż, bardziej, bardzo, bo, bowiem, by, byli, bynajmniej, być, był, była, było, były, będzie, będą, cali, cała, cały, ci, cię, ciebie, co, cokolwiek, coś, czasami, czasem, czemu, czy, czyli, daleko, dla, dlaczego, dlatego, do, dobrze, dokąd, dość, dużo, dwa, dwaj, dwie, dwoje, dziś, dzisiaj, gdy, gdyby, gdyż, gdzie, gdziekolwiek, gdzieś, go, i...
 	\end{frame}
@@ -511,10 +512,10 @@
 			\item Oczyszczanie tekstu ze znaczników
 			\item Usunięcie słów stopu
 			\item Zamiana na małe litery
-			% większości duże litery na początku zdania przeszkadzają, ale czasem wyraz z dużej litery i z małej znaczą co innego - Włochy
 			\item Tokenizacja i lematyzacja % morfologik.blogspot.com
 		\end{enumerate}
 \note{\begin{itemize}
+		\item w większości duże litery na początku zdania przeszkadzają, ale czasem wyraz z dużej litery i z małej znaczą co innego - Włochy
 		\item lematyzacja to najistotniejszy element --- sprowadza słowa do postaci podstawowej
 		\item np jest, była, będzie do ,,być''
 		\item używam polskiego narzędzi Morfologik
@@ -528,81 +529,133 @@
 	\end{frame}
 	% jaka byłaby sytuacja idealna? zaaplikować rozwiązania w żywym systemie i porównać kpi
 	\section{Metody ewaluacji}
-	% W celu porównania stosowanych metod wyznaczania podobieństwa między artykułami konieczna jest formalizacja pewnych miar tego podobieństwa. W opisie znanych ogólnych miar posłużyłem się pojęciem „relewantności” — formalną wartością wyrażoną za pomocą liczb rzeczywistych. W praktyce rzadko jednak dysponuje się wartością, na ile dany element rankingu jest adekwatny do zapytania generującego ów ranking.
+	\begin{frame}{Miary jakości wyszukiwania}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{img/ranking.png}
+		\end{figure}
+	\end{frame}
 	
+\note{\begin{itemize}
+		\item W swojej pracy chcę sprawdzić, czy da się zastosować metody semantycznej analizy tekstu do generowania rekomendacji w allegro
+		\item w tym celu dokonuję adaptacji opisanych wcześniej metod
+		\item na wejściu daję artykuł i oczekuję listy rekomendacji
+		\item .
+		\item Pojęcie relewantności --- jak bardzo artykuł zarekomandowany jest związany z tym bazowym
+		\item przykład: przepis na szarlotkę i oleje silnikowe są mało relewantne
+	\end{itemize}}
 	
-	%!!!! WAŻNE opisane wcześniej metody przetwarzania języka naturalnego adaptuję do zadania generowania rekomendacji, tj. dla danego artykułu X mają one zwrócić sekwencję artykułów najbardziej do niego podobnych.
-	\begin{frame}{Miara jakości wyszukiwania: Normalized Discounted Cumulative Gain}
+	\begin{frame}{Miary jakości wyszukiwania}
 		\begin{itemize}
+			\item Średnia relewantność
 			\item Discounted Cumulative Gain:
 			\begin{equation}
 			\label{eq:dcg}
 			{\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {rel_{i}}{\log _{{2}}(i+1)}},
 			\end{equation}
 			gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w~rankingu, a $rel$ to poziom relewantności elementu.
-			%% DCG premiuje relewantne przedmioty, które są wysoko w~rankingu oraz~karze za~relewantne przedmioty w~dole rankingu. W~wariancie nDCG następuje jeszcze normalizacja przez~podzielenie wartości DCG rzeczywistego rankingu przez DCG idealnego rankingu ($IDCG$, \ref{eq:idcg}) zbudowanego na~elementach korpusu ułożonych malejąco pod~kątem relewantności.
-			
-			% im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy
-
-			\item Normalized Discounted Cumulative Gain:
-			\begin{equation}
-			\label{eq:ndcg}
-			{\mathrm  {nDCG_{{p}}}}={\frac  {DCG_{{p}}}{IDCG_{{p}}}}.
-			\end{equation}
 		\end{itemize}
 	\end{frame}
+	\note{\begin{itemize}
+			\item W celu oceny jakości rankingu można obliczyć jego średnią relewantność
+			\item Albo można użyć miary DCG, która bierze pod uwagę kolejność wyników
+			\item im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy
+			\item JEDNAKŻE!!
+			\item Relewantność: W praktyce rzadko jednak dysponuje się wartością, na ile dany element rankingu jest adekwatny do zapytania generującego ów ranking.
+		\end{itemize}}
+	
 	\begin{frame}{Miary oparte na metadanych artykułów}
 		\begin{itemize}
 			\item Liczba wspólnych kategorii
-					% Zaletą miary jest fakt, iż przypisanie artykułu do kategorii zostało wykonane przez autora, którego można określić ekspertem w dziedzinie tematyki artykułu
-					
-					% można ją zastosować automatycznie
 			\item Liczba wspólnych słów kluczowych
-			% relewantność wyszukanych artykułów liczona na podstawie liczby wspólnych słów kluczowych z artykułem bazowym.
 		\end{itemize}
 	\end{frame}
+	\note{\begin{itemize}
+			\item relewantność wyszukanych artykułów liczona na podstawie liczby wspólnych słów kluczowych z artykułem bazowym.
+			\item Zaletą miar jest fakt, iż przypisanie artykułu do kategorii zostało wykonane przez autora, którego można określić ekspertem w dziedzinie tematyki artykułu
+			\item można ją zastosować automatycznie
+		\end{itemize}}
 	\begin{frame}{Kliknięcia użytkowników serwisu}
 		\begin{itemize}
 			\item dodatkowe dane o kliknięciach z Allegro
 			\item ocena na podstawie historycznej aktywności użytkowników
 		\end{itemize}
 	\end{frame}
+\note{\begin{itemize}
+		\item Allegro zbiera w logach informację o kliknięciach użytkowników w linki
+		\item skoro każdy artykuł posiada rekomendacje wygenerowane dotychczasową metodą to na podstawie liczby przejść na poszczególne rekomendacje można określić, która z nich jest najbardziej popularna
+		\item tę popularność --- relewantność można zestawić z wynikami moich adaptacji metod 
+	\end{itemize}}
 	\begin{frame}{Ocena użytkowników offline}
 		\begin{itemize}
 			\item ekspercka ocena użytkowników
 			\item 5 użytkowników oceniło po 300 par artykułów
 		\end{itemize}
-		%ocena na~podstawie eksperckiej oceny użytkowników. W~badaniu wykorzystałem 5~użytkowników operujących każdy na~tym samym zbiorze par testowych. Pary zostały wygenerowane (zgodnie z~wcześniejszym opisem metody) na~podstawie 50 artykułów bazowych wylosowanych spośród wszystkich artykułów udostępnionych mi przez~\textit{Allegro}.
 	\end{frame}
+	\note{\begin{itemize}
+			\item Do badania wygenerowałem każdą z wybranych metod rekomendacje do wylosowanych 50 artykułów
+			\item podzieliłem je na pary artykuł bazowy --- artykuł rekomendowany
+			\item zbudowałem lokalny interfejs webowy do ocenty tych par
+			\item zaangażowałem 5 użytkowników, aby dokonali oceny, jak bardzo podobne są artykuły w poszczególnych parach
+		\end{itemize}}
+	
 	\section{Wyniki testów}
+\note{\begin{itemize}
+		\item Ostatecznie testuję wybrane metody w zależności od ich hiperparametrów
+		\item do ewaluacji stosuję opisane miary
+		\item wszystkie wyniki są znormalizowane względem najlepszego wyniku w danym teście
+	\end{itemize}}
 	\begin{frame}{LSI w zależności od liczby tematów}
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=1\textwidth]{img/results/lsi_.png}
 		\end{figure}
 	\end{frame}
+\note{\begin{itemize}
+		\item Co oznaczają skróty
+		\item wyniki rosną a potem przestają
+		\item związek między ndcg i średnią
+	\end{itemize}}
 	\begin{frame}{LDA w zależności od liczby tematów}
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=1\textwidth]{img/results/lda_.png}
 		\end{figure}
 	\end{frame}
+\note{\begin{itemize}
+		\item podobna sytuacja
+		\item metoda oparta o klikięcia dziwnie się zachowuje - nie widać tendencji
+	\end{itemize}}
 	\begin{frame}{Word2vec w zależności od długości wektorów}
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=1\textwidth]{img/results/w2v_ctr.png}
 		\end{figure}
 	\end{frame}
+\note{\begin{itemize}
+		\item testowałem WMD, ale działał zbyt wolno. Używam centroidu
+		\item wyniki bardzo do siebie zbliżone
+	\end{itemize}}
 	\begin{frame}{GloVe w zależności od długości wektorów}
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=1\textwidth]{img/results/gv_ctr.png}
 		\end{figure}
 	\end{frame}
+\note{\begin{itemize}
+		\item duże różnice
+		\item im dłuższe wektory tym lepiej
+	\end{itemize}}
 	\begin{frame}{FastText w zależności od długości wektorów}
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Zestawienie wyników}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_.png}
 		\end{figure}
 	\end{frame}
 	\begin{frame}{Wyniki ewaluacji eksperckiej dla~wybranych metod}
@@ -625,15 +678,22 @@
 			\item Większa liczba tematów nie implikuje lepszych rezultatów
 		\end{itemize}
 	\end{frame}
+\note{\begin{itemize}
+		\item metoda oparta o kliknięcia okazała się słaba
+	\end{itemize}}
 	\begin{frame}{Wnioski}
 		\begin{itemize}
 			\item Ewaluacja jest zadaniem nietrywialnym
 			\item Nie każda biblioteka się nadaje
 			\item Szybki rozwój dziedziny
 			\item Wiele kierunków dalszych badań
-			% inne sposoby preprocesingu, inne hiperparametry, inne metody porównywania dokumentów...
 		\end{itemize}
 	\end{frame}
+\note{\begin{itemize}
+		\item inne sposoby preprocesingu
+		\item inne hiperparametry
+		\item inne metody porównywania dokumentów - np testy A/B
+	\end{itemize}}
 	\section{Wybrane źródła}
 	\begin{frame}{Wybrane źródła}
 		\begin{thebibliography}{30}
@@ -663,5 +723,8 @@
 				Computer Science Department, Stanford University, Stanford, CA 94305,
 				2014
 		\end{thebibliography}
+	\end{frame}
+	\begin{frame}{}
+		Dziękuję za uwagę
 	\end{frame}
 \end{document}

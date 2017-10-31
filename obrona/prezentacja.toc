@@ -5,6 +5,6 @@
 \beamer@sectionintoc {3}{Techniki przetwarzania j\IeC {\k e}zyka naturalnego}{12}{0}{3}
 \beamer@sectionintoc {4}{Analiza danych}{30}{0}{4}
 \beamer@sectionintoc {5}{Metody ewaluacji}{36}{0}{5}
-\beamer@sectionintoc {6}{Wyniki test\IeC {\'o}w}{41}{0}{6}
-\beamer@sectionintoc {7}{Podsumowanie}{49}{0}{7}
-\beamer@sectionintoc {8}{Wybrane \IeC {\'z}r\IeC {\'o}d\IeC {\l }a}{52}{0}{8}
+\beamer@sectionintoc {6}{Wyniki test\IeC {\'o}w}{42}{0}{6}
+\beamer@sectionintoc {7}{Podsumowanie}{51}{0}{7}
+\beamer@sectionintoc {8}{Wybrane \IeC {\'z}r\IeC {\'o}d\IeC {\l }a}{54}{0}{8}
