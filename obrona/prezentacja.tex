@@ -6,12 +6,12 @@
 \usepackage[polish]{babel}
 \usepackage{caption}
 \usepackage{pgfpages}
-\setbeameroption{show notes}
-\setbeameroption{show notes on second screen=right}
+%\setbeameroption{show notes}
+%\setbeameroption{show notes on second screen=right}
 \mode<presentation>
 {
 	\usetheme{Warsaw}      % or try Darmstadt, Madrid, Warsaw, ...
-	\usecolortheme{crane} % or try albatross, beaver, crane, ...
+	\usecolortheme{whale} % or try albatross, beaver, crane, ...
 	\usefonttheme{default}  % or try serif, structurebold, ...
 	\setbeamertemplate{headline}{}
 	\setbeamertemplate{caption}[numbered]
@@ -64,21 +64,7 @@
 				\item zaznajomiłem się z dziedziną, której wcześniej nie znałem
 			\end{itemize}
 		}
-	\begin{frame}{pracuj.pl}
-		\begin{figure}
-			\centering
-			\includegraphics[width=1\textwidth]{img/pracuj.png}
-		\end{figure}
-	\end{frame}
-		\note{
-			Każdy szanujący się serwis zawiera rekomendacje
-		}
-	\begin{frame}{filmweb.pl}
-		\begin{figure}
-			\centering
-			\includegraphics[width=1\textwidth]{img/filmweb.png}
-		\end{figure}
-	\end{frame}
+
 	
 	\begin{frame}{allegro.pl}
 		\begin{figure}
@@ -99,21 +85,7 @@
 			\includegraphics[width=1\textwidth]{img/screen_allegro_2.png}
 		\end{figure}
 	\end{frame}
-		\begin{frame}{Elasticsearch --- dotychczas używana metoda}
-			\begin{figure}
-				\centering
-				\includegraphics[width=0.5\textwidth]{img/elastic-logo.png}
-			\end{figure}
-			,,Elasticsearch is a distributed, JSON-based search and analytics engine designed for horizontal scalability, maximum reliability, and easy management.''
-		\end{frame}
-			\note{
-				\begin{itemize}
-					\item system rekomendacyjny zbudowany jest na elacticu
-					\item elastic to silnik wyszukiwania
-					\item zapytania opierają się o słówa kluczowe dołączone do artykułów jako metadane
-					\item elstic jest szeroko wykorzystywany, ale nie dokonuje semantycznej analizy tekstu
-				\end{itemize}
-			}
+
 	\section{Systemy rekomendacji}
 	\note{
 		Systemy wyszukiwania mają na~celu sugerowanie tego, co może się wydać użytkownikowi interesujące.
@@ -149,36 +121,19 @@
 			\item Staramy się dokonać reprezentacji dokumentu w postaci wektora
 			\item Po to, aby wykorzystać zależności między wektorami, np. odległość
 			\item różne reprezentacje mają różną jakość
-		\end{itemize}
-	}
-	\begin{frame}{Dystans między wektorami}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.6\textwidth]{img/cos.png}
-		\end{figure}% dyatans kosinusowy zwraca od razu znormalizowany wynik
-		\begin{equation}
-		\label{eq:cos}
-		sim=\cos(\theta )={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},
-		\end{equation}
-		gdzie $A_i$ i $B_i$ są składowymi wektorów $A$ i $B$
-	\end{frame}
-		\note{\begin{itemize}
 				\item odległości można mierzyć albo jako odległość euklidesową
 				\item albo bardziej popularny sposób to kosinus kąta pomiędzy wektorami
 			\end{itemize}}
-	\begin{frame}{Bag-of-words}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.75\textwidth]{img/bow_sents.png}
-		\end{figure}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.25\textwidth]{img/bow_dict.png}
-		\end{figure}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.5\textwidth]{img/bow_repr.png}
-		\end{figure}
+			
+			
+	\begin{frame}{Bag-of-words i TF-IDF}
+		\begin{itemize}
+			\item Dokumenty jako wektory
+			\item Prostota implementacji
+			\item Duża wymiarowość wektorów
+			\item Wektory niemalże ortogonalne
+			\item Brak informacji o kolejności słów
+		\end{itemize}
 	\end{frame}
 	\note{\begin{itemize}
 			\item korpus to zbiór dokumentów, na których operujemy
@@ -189,33 +144,6 @@
 			\item Wadą jest traktowanie każdego słowa z~jednakową wagą
 			\item bardzo długie wektory
 			\item wektory niemalże ortogonalne
-		\end{itemize}}
-	\begin{frame}{TF – term frequency, IDF – inverse document frequency}
-		Wartość \textit{TF-IDF} słowa $w_i$ w dokumencie $d_j$:
-		\begin{equation}
-		\label{eq:tf-idf}
-		tfidf_{ij} = tf_{ij} * idf_i,\ tf_{ij} = \frac{n_{ij}}{\sum\limits_{k}n_{kj}},\ idf_i = log\frac{|D|}{|{d:w_i \in d}|}
-		\end{equation}
-		\begin{itemize}
-			\item $tf_{ij}$: liczba wystąpień słowa $w_i$ w~dokumencie $d_j$ podzielona przez~liczbę słów dokumentu $d_j$,
-			\item $idf_i$: liczba dokumentów w~korpusie podzielona przez~liczbę dokumentów zawierających przynajmniej jedno wystąpienie słowa $w_i$.
-		\end{itemize}
-	\end{frame}
-	\note{\begin{itemize}
-			\item premiuje rzedkie słowa
-		\end{itemize}}
-	\begin{frame}{TF-IDF}
-		Zalety:
-		\begin{itemize}
-			\item prostota
-		\end{itemize}
-		Wady:
-		\begin{itemize}
-			\item duża wymiarowość wektorów
-			\item wektory niemalże ortogonalne
-		\end{itemize}
-	\end{frame}
-	\note{\begin{itemize}
 			\item prostota
 			
 			\item duża wymiarowość wektorów
@@ -227,20 +155,12 @@
 
 	\begin{frame}{Latent semantic indexing (1988)}
 		\begin{itemize}
-			\item Redukcja wymiarowości macierzy wystąpień słów w~dokumentach
-			\begin{center}
-				\begin{tabular}{ | l | l | l | l | l | l | l |}
-					\hline
-					 & $d_1$ & $d_2$ & $d_3$ & $d_4$  & $d_5$  & $d_6$ \\ \hline
-					statek & 1 & 0 & 1 & 0 & 0 & 0 \\ \hline
-					łódź & 0 & 1 & 0 & 0 & 0 & 0 \\ \hline
-					ocean & 1 & 1 & 0 & 0 & 0 & 0 \\ \hline
-					podróż & 1 & 0 & 0 & 1 & 1 & 0 \\ \hline
-					wycieczka & 0 & 0 & 0 & 1 & 0 & 1 \\
-					\hline
-				\end{tabular}
-			\end{center}
-			\item Hiperparametr: docelowa wymiarowość
+			\item ,,Słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie''
+			\item Przyjmuje macierz wystąpień słów w~dokumentach
+			\item Redukcja wymiarowości przez rozkład według wartości osobliwych
+			\item Słowa grupowane w abstrakcyjne tematy
+			\item Dokumenty jako wektory niskiej wymiarowości
+			\item Trudności w interpretacji tematów
 		\end{itemize}
 	\end{frame}
 	\note{\begin{itemize}
@@ -248,24 +168,7 @@
 			\item w LSI budujemy macierz wystąpień słów w dokumentach
 			\item następnie wykonujemy redukcję liczby wierszy do liczby podanej jako hiperparametr
 			\item macierz zachowuje powiązania między słowami 
-		\end{itemize}}
-	\begin{frame}{Latent semantic indexing (1988)}
-		\begin{itemize}
-			\setlength\itemsep{3em}
-			\item Rozkład według wartości osobliwych:
-				\begin{equation}
-				\label{eq:svd}
-				A = U \Sigma V^T,\!
-				\end{equation}
-				$U$ i $V$ to macierze ortogonalne\\
-				$\Sigma$ to macierz diagonalna, taka, że $\Sigma = diag(\sigma_i)$, gdzie $\sigma_{i}$, to~nieujemne wartości szczególne macierzy $A$.
-				% Wartości osobliwe σi macierzy A sa definiowane jako σi = √λ_i, gdzie λ_i oznacza wartości własne macierzy A∗A.
-				%macierz ortogonalna: U^-1 = U^T 
-			\item 
-			\{(statek), (łódź), (ocean)\} $\to$ \\\{(1.3452 $*$ statek $+$ 0.2828 $*$ łódź), (ocean)\}
-		\end{itemize}
-	\end{frame}
-	\note{\begin{itemize}
+			
 			\item redukcja liczby wierszy za pomocą rozkładu wg. wartości osobliwych
 			\item można potraktować jako grupowanie słów z odpowiednimi wagami
 			\item ostatecznie zależnośic między dokumentami-wektorami są lepiej oddane
@@ -273,15 +176,13 @@
 			\item jednak metoda ma nistą interpretowalność
 		\end{itemize}}
 	\begin{frame}{Latent Dirichlet allocation (2003)}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.7\textwidth]{img/lda.jpg}
-		\end{figure}
 		\begin{itemize}
 			\item Automatyczne wykrywanie tematów zawartych w dokumentach
 			\item Dokumenty jako mieszanki tematów
 			\item Tematy jako rozkłady prawdopodobieństwa na zbiorze słów
-			\item Hiperparametr: docelowa liczba tematów
+			\item Początkowe przypisanie wg. rozkładu Dirichleta
+			\item Iteracyjne poprawianie przypisań aż do stanu stabilnego
+			\item Tematy łatwo interpretowalne
 		\end{itemize}
 	\end{frame}
 	\note{\begin{itemize}
@@ -289,35 +190,13 @@
 			\item gdzie temat to mieszanka jawnych słów wybieranych z odpowiednimi wagami
 			\item można to traktować jako redukcję wymiarowości
 			\item liczba tematów określana hiperparametrem
-		\end{itemize}}
-	\begin{frame}{Rozkład Dirichleta}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.5\textwidth]{img/dirichlet.png}
-		\end{figure}
-	\end{frame}
-	\note{\begin{itemize}
-			\item Początkowe przypisanie tematów do dokumentów i słów do tematów odbywa się zgodnie z roskładem Dirichleta
+			
+			\item Początkowe przypisanie tematów do dokumentów i słów do tematów odbywa się zgodnie z rozkładem Dirichleta
 			\item zaóżmy że mamy 3 tematy, którym odpowiadają wierznhołki trójkąta
 			\item liczba dokumentów składających się z tylko jednego tematu jest niska
 			\item liczba dokumentów składających się z mieszanki tematów jest wysoka
 			\item .
 			\item te cechy rozkładu Dirichleta przyspieszają optymalizację
-		\end{itemize}}
-	\begin{frame}{Latent Dirichlet allocation (2003)}
-		Algorytm --- próbkowanie Gibbsa:\\
-		\begin{enumerate}
-			\setlength\itemsep{2em}
-			\item Przejdź przez każdy dokument i~losowo (zgodnie z~rozkładem Dirichleta) przypisz każde słowo dokumentu do~jednego z $T$ tematów.
-
-			\item Dla każdego dokumentu $d$, dla~każdego słowa $w$ należącego do~$d$, dla każdego tematu $t$ oblicz: $p(t | d)$
-			%czyli odsetek liczby słów w $d$, które są aktualnie przypisane do tematu $t$
-			oraz oblicz $p(w | t)$
-			% czyli odsetek liczby wystąpień słowa $w$, które są przypisane do~tematu $t$ w~skali całego korpusu.
-			Przypisz słowu $w$ nowy temat poprzez losowanie z~prawdopodobieństwem $p(t_i|d)*p(w|t)$ dla~każdego tematu $t_i$.
-		\end{enumerate}
-		
-\note{\begin{itemize}
 		\item Rozkład daje pierwsze przybliżenie
 		
 		\item następnie iterujemy i przypisanie słów do tematów jest poprawiane
@@ -330,7 +209,6 @@
 		
 		\item metoda jest interpretowalne, gdyż wiemy, jakie słowa wchodzą w skłąd tematów
 	\end{itemize}}
-	\end{frame}
 	\begin{frame}{Word embeddings}
 		\begin{itemize}
 			\item Osadzanie słów w przestrzeni wektorowej
@@ -364,13 +242,12 @@
 %	\end{frame}
 
 \begin{frame}{Word2vec (2013)}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=1\textwidth]{img/w2v_training_data.png}
-		\captionsetup{labelformat=empty}
-		\caption{http://mccormickml.com}
-		%\label{fig:warstwy}
-	\end{figure}
+	\begin{itemize}
+		\item Płytka sieć neuronowa feed-forward do predykcji słów
+		\item Okno kontekstu skanujące korpus
+		\item Predykcja słowa na podstawie jego kontekstu (bądź odwrotnie)
+		\item Wyjściowe wektory zapisane w wagach warstwy ukrytej nauczonej sieci
+	\end{itemize}
 \end{frame}
 \note{\begin{itemize}
 		\item Kluczowym reprezentantem podejścia jest word2vec
@@ -379,18 +256,6 @@
 		\item zbiór uczący jest skaowany oknem o zadanej wielkości
 		słowa z każdego okna są wejćiem i wyjściem sieci wektorowej
 		\item kodujemy je jeko one-hot-wektor czyli dla i-tego słowa wektor zer z jedynką n i-tym miejscu
-		
-	\end{itemize}}
-\begin{frame}	
-	
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/skipgram_cbow.png}
-			%\label{fig:warstwy}
-		\end{figure}
-	\end{frame}
-	
-\note{\begin{itemize}
 		\item wyróżniamy dwa podejścia CBOW: predykcja słowa na podstawie konekstu
 		\item skip-gram: predykcja kontekstu na podstawie słowa
 		
@@ -402,7 +267,7 @@
 		
 		\item wcześniejsze podejścia opierały się na głębszych sieciach, które działały mało wydajnie
 	\end{itemize}}
-	\begin{frame}{FastText (2017)}
+	\begin{frame}{FastText (2016)}
 		\begin{itemize}
 			\item Rozwinięcie metody word2vec
 			\item Rozbija słowa na n-gramy, np.
@@ -423,22 +288,13 @@
 
 \begin{enumerate}
 	\item Zgromadź współwystąpienia słów w formie globalnej macierzy $X$ takiej, że
-	$X_{ij}$: ile razy słowo $w_i$ występuje w kontekście słowa $w_j$
+	$X_{ij}$: ile razy słowo $i$ występuje w kontekście słowa $j$
 
-	\item Zdefiniuj ograniczenie dla każdej pary słów: 
+	\item Zminimalizuj funkcję kosztu opartą na założeniu:
 	\begin{equation}
-	w_i^Tw_j + b_i + b_j = log(X_{ij}),
+	w_i^Tw_j \propto X_{ij},
 	\end{equation}
-	gdzie $w_i$ i $w_j$ to wektory odpowiadające słowom oraz $b_i$ i $b_j$ to skalary.
-
-	\item Dokonaj minimalizacji funkcji kosztu:
-	\begin{equation}
-	\label{eq:glove_loss}
-	J = \sum_{i=1}^V \sum_{j=1}^V \; f(X_{ij}) ( w_i^T w_j + b_i + b_j - \log X_{ij})^2,
-	\end{equation}
-	gdzie $f$ jest funkcją ważącą, $V$ to słownik.
-	%która pomaga zapobiec uczeniu tylko na~podstawie najbardziej popularnych par słów.
-
+	gdzie $w_i,\ w_j$ to wektorowe reprezentacje słów.
 \end{enumerate}
 	\end{frame}
 \note{\begin{itemize}
@@ -450,23 +306,24 @@
 		
 		\item wyniki podobne do word2vec
 	\end{itemize}}
-	\begin{frame}{Centroid}
-		\begin{figure}
-			\centering
-			\includegraphics[width=1\textwidth]{img/centroid.png}
-		\end{figure}
+	\begin{frame}{Odległości między dokumentami word embeddings}
+				\begin{itemize}
+					\item centroid
+							\begin{figure}
+								\centering
+								\includegraphics[width=0.5\textwidth]{img/centroid.png}
+							\end{figure}
+					\item Word Mover's Distance
+							\begin{figure}
+								\centering
+								\includegraphics[width=0.5\textwidth]{img/wmd.png}
+							\end{figure}
+				\end{itemize}
+
 	\end{frame}
 \note{\begin{itemize}
 		\item Mamy już wektorowe reprezentacje słów wchodzących w skład dokumentu - CO DALEJ
 		\item można obliczyć średnią tych wektorów - centroid, ale przy tym traci się część informacji
-	\end{itemize}}
-	\begin{frame}{Word Mover's Distance}
-		\begin{figure}
-			\centering
-			\includegraphics[width=1\textwidth]{img/wmd.png}
-		\end{figure}
-	\end{frame}
-\note{\begin{itemize}
 		\item Alternatywą jest Word Mover's Distance
 		\item Dystans pomiędzy dokumentami $A$ i $B$ to minimalny skumulowany dystans jaki słowa dokumentu $A$ muszą ,,przebyć'', aby osiągnąć słowa dokumnetu $B$
 		\item Metoda jest kosztowna obliczeniowo
@@ -474,6 +331,7 @@
 	\section{Analiza danych}
 	\begin{frame}{Analiza danych}
 		\begin{itemize}
+			\setlength\itemsep{2em}
 			\item 20000~artykułów tekstowych w~formacie \textit{JSON}
 			\item język polski
 			\item słowa specyficzne dla różnych branż
@@ -497,21 +355,14 @@
 			\item metadane: id, kategoria, słowa kluczowe
 		\end{itemize}
 	\end{itemize}}
-	\begin{frame}{Wstępne przetwarzanie danych}
-		\begin{enumerate}
-			\item Oczyszczanie tekstu ze znaczników
-			\item Usunięcie słów stopu
-		\end{enumerate}
-	\end{frame}
 
-	\begin{frame}{Słowa stopu}
-		a, aby, ach, acz, aczkolwiek, aj, albo, ale, ależ, ani, aż, bardziej, bardzo, bo, bowiem, by, byli, bynajmniej, być, był, była, było, były, będzie, będą, cali, cała, cały, ci, cię, ciebie, co, cokolwiek, coś, czasami, czasem, czemu, czy, czyli, daleko, dla, dlaczego, dlatego, do, dobrze, dokąd, dość, dużo, dwa, dwaj, dwie, dwoje, dziś, dzisiaj, gdy, gdyby, gdyż, gdzie, gdziekolwiek, gdzieś, go, i...
-	\end{frame}
-	\begin{frame}
+	\begin{frame}{Wstępne przetwarzanie}
 		\begin{enumerate}
+			\setlength\itemsep{2em}
 			\item Oczyszczanie tekstu ze znaczników
 			\item Usunięcie słów stopu
 			\item Zamiana na małe litery
+			\item Rozbicie słów połączonych myślnikiem
 			\item Tokenizacja i lematyzacja % morfologik.blogspot.com
 		\end{enumerate}
 \note{\begin{itemize}
@@ -527,14 +378,20 @@
 			\includegraphics[width=1\textwidth]{img/lemmatisation.png}
 		\end{figure}
 	\end{frame}
+	
+\begin{frame}{Dane po przetworzeniu}
+	\begin{itemize}
+		\setlength\itemsep{2em}
+		\item 7409145 tokenów, 98174 unikalnych
+		\item Najczęstsze: ,,sam'', ,,uwaga'', ,,ważny'', ,,należeć'', ,,wybrać'', ,,sprawdzić'',
+		,,model'', ,,miejsce'', ,,znaleźć''
+		\item Najrzadsze: ,,naciągactwo'', ,,phone’ów'', ,,v90'',
+		,,eurobusiness'', ,,namakać'', ,,bale’a'', ,,hmb'', ,,ameksyka'', ,,e-paper'', ,,süskind''
+		\item Średnia długość artykułu: 370 słów
+	\end{itemize}
+\end{frame}
 	% jaka byłaby sytuacja idealna? zaaplikować rozwiązania w żywym systemie i porównać kpi
 	\section{Metody ewaluacji}
-	\begin{frame}{Miary jakości wyszukiwania}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/ranking.png}
-		\end{figure}
-	\end{frame}
 	
 \note{\begin{itemize}
 		\item W swojej pracy chcę sprawdzić, czy da się zastosować metody semantycznej analizy tekstu do generowania rekomendacji w allegro
@@ -546,14 +403,15 @@
 	\end{itemize}}
 	
 	\begin{frame}{Miary jakości wyszukiwania}
+		Zapytanie : ,,5 modeli frytownic na każdą kieszeń''
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{img/elastic_result.png}
+		\end{figure}
+		
 		\begin{itemize}
 			\item Średnia relewantność
-			\item Discounted Cumulative Gain:
-			\begin{equation}
-			\label{eq:dcg}
-			{\mathrm  {DCG_{{p}}}}=\sum _{{i=1}}^{{p}}{\frac  {rel_{i}}{\log _{{2}}(i+1)}},
-			\end{equation}
-			gdzie $p$ to liczba elementów rankingu, $i$ to miejsce przedmiotu w~rankingu, a $rel$ to poziom relewantności elementu.
+			\item NDCG: Normalized Discounted Cumulative Gain
 		\end{itemize}
 	\end{frame}
 	\note{\begin{itemize}
@@ -564,94 +422,48 @@
 			\item Relewantność: W praktyce rzadko jednak dysponuje się wartością, na ile dany element rankingu jest adekwatny do zapytania generującego ów ranking.
 		\end{itemize}}
 	
-	\begin{frame}{Miary oparte na metadanych artykułów}
+	\begin{frame}{Miary relewantności}
 		\begin{itemize}
-			\item Liczba wspólnych kategorii
-			\item Liczba wspólnych słów kluczowych
+			\setlength\itemsep{2em}
+			\item Oparte na metadanych
+			\begin{itemize}
+				\item Liczba wspólnych kategorii
+				\item Liczba wspólnych słów kluczowych
+			\end{itemize}
+			\item Oparte o historyczną aktywność użytkowników serwisu
+			\item Ocena ekspercka użytkowników offline
 		\end{itemize}
+
 	\end{frame}
 	\note{\begin{itemize}
 			\item relewantność wyszukanych artykułów liczona na podstawie liczby wspólnych słów kluczowych z artykułem bazowym.
 			\item Zaletą miar jest fakt, iż przypisanie artykułu do kategorii zostało wykonane przez autora, którego można określić ekspertem w dziedzinie tematyki artykułu
 			\item można ją zastosować automatycznie
-		\end{itemize}}
-	\begin{frame}{Kliknięcia użytkowników serwisu}
-		\begin{itemize}
-			\item dodatkowe dane o kliknięciach z Allegro
-			\item ocena na podstawie historycznej aktywności użytkowników
-		\end{itemize}
-	\end{frame}
-\note{\begin{itemize}
 		\item Allegro zbiera w logach informację o kliknięciach użytkowników w linki
 		\item skoro każdy artykuł posiada rekomendacje wygenerowane dotychczasową metodą to na podstawie liczby przejść na poszczególne rekomendacje można określić, która z nich jest najbardziej popularna
 		\item tę popularność --- relewantność można zestawić z wynikami moich adaptacji metod 
-	\end{itemize}}
-	\begin{frame}{Ocena użytkowników offline}
-		\begin{itemize}
-			\item ekspercka ocena użytkowników
-			\item 5 użytkowników oceniło po 300 par artykułów
-		\end{itemize}
-	\end{frame}
-	\note{\begin{itemize}
 			\item Do badania wygenerowałem każdą z wybranych metod rekomendacje do wylosowanych 50 artykułów
 			\item podzieliłem je na pary artykuł bazowy --- artykuł rekomendowany
 			\item zbudowałem lokalny interfejs webowy do ocenty tych par
 			\item zaangażowałem 5 użytkowników, aby dokonali oceny, jak bardzo podobne są artykuły w poszczególnych parach
 		\end{itemize}}
-	
+	\begin{frame}{Metodyka oceny eksperckiej}
+		\begin{itemize}
+			\setlength\itemsep{2em}
+			\item Prosty interfejs webowy
+			\item 5 użytkowników
+			\item 50 artykułów bazowych, po 6 artykułów rekomendowanych
+			\item Zbiór par testowych: artykuł bazowy --- artykuł rekomendowany
+			\item Ocena testowanej metody: średnia ważona relewantność
+		\end{itemize}
+		
+	\end{frame}
 	\section{Wyniki testów}
 \note{\begin{itemize}
 		\item Ostatecznie testuję wybrane metody w zależności od ich hiperparametrów
 		\item do ewaluacji stosuję opisane miary
 		\item wszystkie wyniki są znormalizowane względem najlepszego wyniku w danym teście
 	\end{itemize}}
-	\begin{frame}{LSI w zależności od liczby tematów}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/results/lsi_.png}
-		\end{figure}
-	\end{frame}
-\note{\begin{itemize}
-		\item Co oznaczają skróty
-		\item wyniki rosną a potem przestają
-		\item związek między ndcg i średnią
-	\end{itemize}}
-	\begin{frame}{LDA w zależności od liczby tematów}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/results/lda_.png}
-		\end{figure}
-	\end{frame}
-\note{\begin{itemize}
-		\item podobna sytuacja
-		\item metoda oparta o klikięcia dziwnie się zachowuje - nie widać tendencji
-	\end{itemize}}
-	\begin{frame}{Word2vec w zależności od długości wektorów}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/results/w2v_ctr.png}
-		\end{figure}
-	\end{frame}
-\note{\begin{itemize}
-		\item testowałem WMD, ale działał zbyt wolno. Używam centroidu
-		\item wyniki bardzo do siebie zbliżone
-	\end{itemize}}
-	\begin{frame}{GloVe w zależności od długości wektorów}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/results/gv_ctr.png}
-		\end{figure}
-	\end{frame}
-\note{\begin{itemize}
-		\item duże różnice
-		\item im dłuższe wektory tym lepiej
-	\end{itemize}}
-	\begin{frame}{FastText w zależności od długości wektorów}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\textwidth]{img/results/ft_ctr.png}
-		\end{figure}
-	\end{frame}
 	\begin{frame}{Zestawienie wyników}
 		\begin{figure}[H]
 			\centering
@@ -664,32 +476,30 @@
 			\includegraphics[width=0.8\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users.png}
 		\end{figure}
 	\end{frame}
-	\begin{frame}{Porównanie odchyleń standardowych ocen eksperckich dla~wybranych metod}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.8\textwidth]{img/results/lsi500_lda900_w2v300_gv1000_ft1000_allegro_rnd_users_std.png}
-		\end{figure}
+	\begin{frame}{Porównanie wyników ewaluacji eksperckiej metod}
+		\begin{itemize}
+			\setlength\itemsep{2em}
+			\item Test Kruskala-Wallisa
+			\item Średnia ocena użytkowników dla pierwszej rekomendacji do każdego z testowanych artykułów bazowych
+			\item Nie ma podstaw, by sądzić, że wyniki metod różnią się w sposób statystycznie istotny
+		\end{itemize}
 	\end{frame}
 	\section{Podsumowanie}
-	\begin{frame}{Podsumowanie testów}
+	\begin{frame}{Podsumowanie}
 		\begin{itemize}
 			\item Brak istotnych statystycznie różnic między wynikami wszystkich metod
 			\item Im dłuższe wektory \emph{word embeddings}, tym lepsze rezultaty
 			\item Większa liczba tematów nie implikuje lepszych rezultatów
 		\end{itemize}
-	\end{frame}
-\note{\begin{itemize}
-		\item metoda oparta o kliknięcia okazała się słaba
-	\end{itemize}}
-	\begin{frame}{Wnioski}
 		\begin{itemize}
 			\item Ewaluacja jest zadaniem nietrywialnym
-			\item Nie każda biblioteka się nadaje
 			\item Szybki rozwój dziedziny
 			\item Wiele kierunków dalszych badań
 		\end{itemize}
 	\end{frame}
 \note{\begin{itemize}
+		\item metoda oparta o kliknięcia okazała się słaba
+
 		\item inne sposoby preprocesingu
 		\item inne hiperparametry
 		\item inne metody porównywania dokumentów - np testy A/B
