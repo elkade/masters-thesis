@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage[T1]{fontenc}
-
+\usepackage{sansmathaccent}
+\pdfmapfile{+sansmathaccent.map}
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[polish]{babel}
@@ -20,7 +21,7 @@
 \title[Praca magisterska]{Rekomendacje artykułów opisujących produkty w serwisach e-commerce}
 \author{Łukasz Dragan}
 \institute{Informatyka spec. Metody sztucznej inteligencji, MiNI PW}
-\date{31.10.2017}
+\date{07.12.2017}
 \AtBeginSection[]{
 	\begin{frame}
 		\vfill
@@ -59,7 +60,6 @@
 		\note{
 			\begin{itemize}
 				\item nie znałem wcześniej tej tematyki
-				\item nie znałem Pani Promotor
 				\item realne biznesowe zastosowanie informatyki
 				\item zaznajomiłem się z dziedziną, której wcześniej nie znałem
 			\end{itemize}
@@ -128,10 +128,10 @@
 			
 	\begin{frame}{Bag-of-words i TF-IDF}
 		\begin{itemize}
+			\setlength\itemsep{2em}
 			\item Dokumenty jako wektory
 			\item Prostota implementacji
-			\item Duża wymiarowość wektorów
-			\item Wektory niemalże ortogonalne
+			\item Długie, niemalże ortogonalne wektory
 			\item Brak informacji o kolejności słów
 		\end{itemize}
 	\end{frame}
@@ -155,13 +155,15 @@
 
 	\begin{frame}{Latent semantic indexing (1988)}
 		\begin{itemize}
+			\setlength\itemsep{2em}
 			\item ,,Słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie''
 			\item Przyjmuje macierz wystąpień słów w~dokumentach
+			\item Grupuje słowa w abstrakcyjne tematy
 			\item Redukcja wymiarowości przez rozkład według wartości osobliwych
-			\item Słowa grupowane w abstrakcyjne tematy
-			\item Dokumenty jako wektory niskiej wymiarowości
-			\item Trudności w interpretacji tematów
 		\end{itemize}
+			\begin{equation}
+				A = U \Sigma V^T
+			\end{equation}
 	\end{frame}
 	\note{\begin{itemize}
 			\item kolejne metody opierają się na hipotezie, że słowa występujące w~tym samym kontekście niosą ze~sobą podobne znaczenie
@@ -177,6 +179,7 @@
 		\end{itemize}}
 	\begin{frame}{Latent Dirichlet allocation (2003)}
 		\begin{itemize}
+			\setlength\itemsep{2em}
 			\item Automatyczne wykrywanie tematów zawartych w dokumentach
 			\item Dokumenty jako mieszanki tematów
 			\item Tematy jako rozkłady prawdopodobieństwa na zbiorze słów
@@ -227,26 +230,15 @@
 		
 		\item celem metod tej grupy jest przypisanie słowom takich wektorów, żeby zachowywały one zależności zachodzące między słowami
 	\end{itemize}}
-%	\begin{frame}{Word2vec (2013)}
-%		% 	Model predykcyjny, który na podstawie kontekstu przewiduje słowo
-%		\begin{itemize}
-%		\item Płytka sieć neuronowa typu feed-forward
-%		\item Dwa podejścia:
-%		\begin{itemize}
-%			\item \textit{Continuous bag of words}: na~postawie okna $N$ sąsiednich słów sieć przewiduje słowo,
-%			\item \textit{skip-gram}: na~podstawie słowa sieć dokonuje predykcji $N$ sąsiednich słów.
-%		\end{itemize}
-%		
-%		\end{itemize}
-		
-%	\end{frame}
 
 \begin{frame}{Word2vec (2013)}
 	\begin{itemize}
+		\setlength\itemsep{2em}
 		\item Płytka sieć neuronowa feed-forward do predykcji słów
 		\item Okno kontekstu skanujące korpus
 		\item Predykcja słowa na podstawie jego kontekstu (bądź odwrotnie)
 		\item Wyjściowe wektory zapisane w wagach warstwy ukrytej nauczonej sieci
+		\item FastText (2016) --- rozwinięcie metody o analizę podsłów
 	\end{itemize}
 \end{frame}
 \note{\begin{itemize}
@@ -261,32 +253,23 @@
 		
 		\item sieć zamiast funkcji aktywacji ma funkcję softmax, która zamienia wyjście na rozkłąd prawdopodobieństwa
 		
-		\item ALE GDZIE TE WEKTORY? 
 		\item wektory reprezentujące słowa są efektem ubocznym nauczonej sieci
 		\item zawarte są w wagach warstwy ukrytej i mają długość równą rozmiarowi tej warstwy
 		
 		\item wcześniejsze podejścia opierały się na głębszych sieciach, które działały mało wydajnie
-	\end{itemize}}
-	\begin{frame}{FastText (2016)}
-		\begin{itemize}
-			\item Rozwinięcie metody word2vec
-			\item Rozbija słowa na n-gramy, np.
-			\emph{pokój} $\to$ \emph{pok, okó, kój}
-			\item Wektor wynikowy = wektor dla słowa + wektory jego n-gramów 
-			\item Dobre wyniki dla języków bogatych morfosyntaktycznie, np. polskiego, tureckiego, czy fińskiego.
-		\end{itemize}
-\note{\begin{itemize}
+
+
 		\item Jest modyfikacją word2vec
 		\item powstało niedawno
 		\item metoda rozbija słowo na n-gramy : podsłowa o określonej długości
 		\item ostatecznie wektor słowa to suma wektoru słowa i wektorów podsłów
 		\item sprawdza się dla języków bogatych morfosyntaktycznie
 	\end{itemize}}
-	\end{frame}
 	\begin{frame}{GloVe --- Global Vectors (2014)}
 
 
 \begin{enumerate}
+	\setlength\itemsep{2em}
 	\item Zgromadź współwystąpienia słów w formie globalnej macierzy $X$ takiej, że
 	$X_{ij}$: ile razy słowo $i$ występuje w kontekście słowa $j$
 
@@ -418,7 +401,7 @@
 			\item W celu oceny jakości rankingu można obliczyć jego średnią relewantność
 			\item Albo można użyć miary DCG, która bierze pod uwagę kolejność wyników
 			\item im bardziej relewantne wyniki, tym wyżej powinny być w~rankingu, aby ranking był najbardziej wartościowy
-			\item JEDNAKŻE!!
+
 			\item Relewantność: W praktyce rzadko jednak dysponuje się wartością, na ile dany element rankingu jest adekwatny do zapytania generującego ów ranking.
 		\end{itemize}}
 	
@@ -487,11 +470,13 @@
 	\section{Podsumowanie}
 	\begin{frame}{Podsumowanie}
 		\begin{itemize}
+			\setlength\itemsep{1.1em}
 			\item Brak istotnych statystycznie różnic między wynikami wszystkich metod
 			\item Im dłuższe wektory \emph{word embeddings}, tym lepsze rezultaty
 			\item Większa liczba tematów nie implikuje lepszych rezultatów
 		\end{itemize}
 		\begin{itemize}
+			\setlength\itemsep{1.1em}
 			\item Ewaluacja jest zadaniem nietrywialnym
 			\item Szybki rozwój dziedziny
 			\item Wiele kierunków dalszych badań
